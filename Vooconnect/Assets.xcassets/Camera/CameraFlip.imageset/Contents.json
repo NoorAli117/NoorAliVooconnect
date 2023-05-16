@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "FLIP CAMERA BUTTON.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "FLIP CAMERA BUTTON@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "FLIP CAMERA BUTTON@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

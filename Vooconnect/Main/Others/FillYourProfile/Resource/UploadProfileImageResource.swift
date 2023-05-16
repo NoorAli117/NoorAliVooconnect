@@ -1,0 +1,210 @@
+//
+//  UploadProfileImageResource.swift
+//  Vooconnect
+//
+//  Created by Vooconnect on 23/11/22.
+//
+
+import Foundation
+import UIKit
+
+class UploadProfileImageResource {
+    
+    func uploadImage(imageUploadRequest: Data,paramName : String, fileName : String, complitionHandler : @escaping(Bool, String?) -> Void) {
+        let session = URLSession.shared
+        let boundary = UUID().uuidString
+        var data = Data()
+        
+        let parameters : [String:Any]?
+        parameters = ["upload_path" : "profile"]
+        
+        if parameters != nil {
+            for (key, value) in parameters! {
+                data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+                data.append("\(value)\r\n".data(using: .utf8)!)
+//                data.append("\(value)".data(using: .utf8)!)
+            }
+        }
+
+        var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
+        urlRequest.httpMethod = "post"
+
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(imageUploadRequest)
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        
+        
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+            
+            print("ACCESS TOKEN=========", tokenData)
+            
+        }
+        
+        session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
+            
+            if let data = httpData {
+                
+                do {
+                    let data : [String:Any] = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String : Any]
+                    
+                    debugPrint("The Profile Response", data)
+//                    complitionHandler(true, "")
+                    
+//                    if data["status"] as! Int == 1 {
+//                        print("Susses===========")
+//
+//                        do {
+//                            let data = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+//                            do {
+//                                let model = try JSONDecoder().decode(uploadImageSuccess.self, from: data)
+//                                print("The success Image Name==========", model.data?[0].name ?? "")
+////                                complitionHandler(false, model.errors.)
+//
+//                                let name = model.data?[0].name ?? ""
+//                                UserDefaults.standard.set(name, forKey: "imageName")
+//                                let uuid = UserDefaults.standard.string(forKey: "imageName") ?? ""
+//                                print("THE UUID is======", uuid )
+//                                complitionHandler(true, "")
+//
+//
+//
+////                                complitionHandler(false, model.data?[0].name ?? "")
+//
+//
+//
+//                            } catch {
+//                                print("the decoded error", error.localizedDescription)
+//                            }
+//                        } catch {
+//                            print("the data decoded error", error.localizedDescription)
+//                        }
+//
+//                    } else {
+//                        print("Failed===========")
+//                    }
+
+                } catch {
+                    debugPrint("Error in decoding the model")
+                    complitionHandler(false, "Please login first")
+                }
+                
+            } else if let resposne = httpResponse {
+                
+            } else {
+                print("ther error")
+            }
+            
+        }.resume()
+        
+        
+    }
+    
+}
+
+
+
+//class UploadProfileImageResource {
+//
+//    func uploadImage(imageUploadRequest: UIImage,paramName : String, fileName : String, complitionHandler : @escaping(Bool, String?) -> Void) {
+//        let session = URLSession.shared
+//        let boundary = UUID().uuidString
+//        var data = Data()
+//
+//        let parameters : [String:Any]?
+//        parameters = ["upload_path" : "profile"]
+//
+//        if parameters != nil {
+//            for (key, value) in parameters! {
+//                data.append("--\(boundary)\r\n".data(using: .utf8)!)
+//                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+//                data.append("\(value)\r\n".data(using: .utf8)!)
+//            }
+//        }
+//
+//        var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
+//        urlRequest.httpMethod = "post"
+//
+//        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+//        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+//        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+//        data.append(imageUploadRequest.pngData()!)
+//        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+//
+//
+//
+//        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+//
+//            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+//            urlRequest.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+//
+//            print("ACCESS TOKEN=========", tokenData)
+//
+//        }
+//
+//        session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
+//
+//            if let data = httpData {
+//
+//                do {
+//                    let data : [String:Any] = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String : Any]
+//
+//                    debugPrint("The Profile Response", data)
+////                    complitionHandler(true, "")
+//
+//                    if data["status"] as! Int == 1 {
+//                        print("Susses===========")
+//
+//                        do {
+//                            let data = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+//                            do {
+//                                let model = try JSONDecoder().decode(uploadImageSuccess.self, from: data)
+//                                print("The success Image Name==========", model.data?[0].name ?? "")
+////                                complitionHandler(false, model.errors.)
+//
+//                                let name = model.data?[0].name ?? ""
+//                                UserDefaults.standard.set(name, forKey: "imageName")
+//                                let uuid = UserDefaults.standard.string(forKey: "imageName") ?? ""
+//                                print("THE UUID is======", uuid )
+//                                complitionHandler(true, "")
+//
+//
+//
+////                                complitionHandler(false, model.data?[0].name ?? "")
+//
+//
+//
+//                            } catch {
+//                                print("the decoded error", error.localizedDescription)
+//                            }
+//                        } catch {
+//                            print("the data decoded error", error.localizedDescription)
+//                        }
+//
+//                    } else {
+//                        print("Failed===========")
+//                    }
+//
+//                } catch {
+//                    debugPrint("Error in decoding the model")
+//                    complitionHandler(false, "Please login first")
+//                }
+//
+//            } else if let resposne = httpResponse {
+//
+//            } else {
+//                print("ther error")
+//            }
+//
+//        }.resume()
+//
+//
+//    }
+//
+//}
