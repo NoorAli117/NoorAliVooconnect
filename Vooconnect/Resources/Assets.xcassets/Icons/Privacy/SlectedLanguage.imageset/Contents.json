@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Style=None, Theme=Default, State=Selected, Component=Radio.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

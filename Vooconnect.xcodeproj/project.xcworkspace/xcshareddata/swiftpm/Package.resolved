@@ -1,0 +1,225 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "abseil",
+        "repositoryURL": "https://github.com/firebase/abseil-cpp-SwiftPM.git",
+        "state": {
+          "branch": null,
+          "revision": "583de9bd60f66b40e78d08599cc92036c2e7e4e1",
+          "version": "0.20220203.2"
+        }
+      },
+      {
+        "package": "AgoraRtcKit",
+        "repositoryURL": "https://github.com/AgoraIO/AgoraRtcEngine_iOS",
+        "state": {
+          "branch": null,
+          "revision": "13f007dff53e2c670ad645fae43e3fcea8f4df6c",
+          "version": "4.1.1"
+        }
+      },
+      {
+        "package": "AgoraRtmKit",
+        "repositoryURL": "https://github.com/AgoraIO/AgoraRtm_iOS",
+        "state": {
+          "branch": null,
+          "revision": "2e87ada22df8110cf85b9f18c2ac08083f4f63f4",
+          "version": "1.5.1"
+        }
+      },
+      {
+        "package": "AgoraVideoSwiftUI",
+        "repositoryURL": "https://github.com/AgoraIO-Community/AgoraVideoSwiftUI",
+        "state": {
+          "branch": "main",
+          "revision": "e92a2ac2bb743612e9acf981d38584b1d222669a",
+          "version": null
+        }
+      },
+      {
+        "package": "AVPlayerViewController-Subtitles",
+        "repositoryURL": "https://github.com/mhergon/AVPlayerViewController-Subtitles.git",
+        "state": {
+          "branch": "master",
+          "revision": "373feafc6553c0b779a0cb3fd08902100918af98",
+          "version": null
+        }
+      },
+      {
+        "package": "BoringSSL-GRPC",
+        "repositoryURL": "https://github.com/firebase/boringssl-SwiftPM.git",
+        "state": {
+          "branch": null,
+          "revision": "dd3eda2b05a3f459fc3073695ad1b28659066eab",
+          "version": "0.9.1"
+        }
+      },
+      {
+        "package": "Firebase",
+        "repositoryURL": "https://github.com/firebase/firebase-ios-sdk",
+        "state": {
+          "branch": null,
+          "revision": "76de51f0e2be35ecb6ce05ed1ad0a73669b05a11",
+          "version": "10.7.0"
+        }
+      },
+      {
+        "package": "GoogleAppMeasurement",
+        "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
+        "state": {
+          "branch": null,
+          "revision": "04351180d4c757c6c16127cb57b685fff9ef260b",
+          "version": "10.6.0"
+        }
+      },
+      {
+        "package": "GoogleDataTransport",
+        "repositoryURL": "https://github.com/google/GoogleDataTransport.git",
+        "state": {
+          "branch": null,
+          "revision": "cc7265b8e3906304e6e81f32c1662a94bbae2357",
+          "version": "9.2.2"
+        }
+      },
+      {
+        "package": "GoogleUtilities",
+        "repositoryURL": "https://github.com/google/GoogleUtilities.git",
+        "state": {
+          "branch": null,
+          "revision": "871d43135925cde39ef7421d8723ce47edfdcc39",
+          "version": "7.11.1"
+        }
+      },
+      {
+        "package": "gRPC",
+        "repositoryURL": "https://github.com/grpc/grpc-ios.git",
+        "state": {
+          "branch": null,
+          "revision": "8440b914756e0d26d4f4d054a1c1581daedfc5b6",
+          "version": "1.44.3-grpc"
+        }
+      },
+      {
+        "package": "GTMSessionFetcher",
+        "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
+        "state": {
+          "branch": null,
+          "revision": "96d7cc73a71ce950723aa3c50ce4fb275ae180b8",
+          "version": "3.1.0"
+        }
+      },
+      {
+        "package": "AgoraUIKit_iOS",
+        "repositoryURL": "https://github.com/AgoraIO-Community/iOS-UIKit.git",
+        "state": {
+          "branch": "main",
+          "revision": "d142fdc1006a17a2a9486a8d12cd3ebcb4e28d36",
+          "version": null
+        }
+      },
+      {
+        "package": "leveldb",
+        "repositoryURL": "https://github.com/firebase/leveldb.git",
+        "state": {
+          "branch": null,
+          "revision": "0706abcc6b0bd9cedfbb015ba840e4a780b5159b",
+          "version": "1.22.2"
+        }
+      },
+      {
+        "package": "nanopb",
+        "repositoryURL": "https://github.com/firebase/nanopb.git",
+        "state": {
+          "branch": null,
+          "revision": "819d0a2173aff699fb8c364b6fb906f7cdb1a692",
+          "version": "2.30909.0"
+        }
+      },
+      {
+        "package": "Promises",
+        "repositoryURL": "https://github.com/google/promises.git",
+        "state": {
+          "branch": null,
+          "revision": "ec957ccddbcc710ccc64c9dcbd4c7006fcf8b73a",
+          "version": "2.2.0"
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "0af9125c4eae12a4973fb66574c53a54962a9e1e",
+          "version": "1.21.0"
+        }
+      },
+      {
+        "package": "swift-video-generator",
+        "repositoryURL": "https://github.com/dev-labs-bg/swift-video-generator.git",
+        "state": {
+          "branch": "master",
+          "revision": "9acf12aa321b37e0a1753e8c3982a6c7a95ed970",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftUIBloc",
+        "repositoryURL": "https://github.com/mehdok/SwiftUIBloc.git",
+        "state": {
+          "branch": null,
+          "revision": "dd4254da8fae05a535601ff744c48997f1882e4d",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  {
+          "package": "Facebook",
+          "repositoryURL": "https://github.com/facebook/facebook-ios-sdk",
+          "state": {
+            "branch": "main",
+            "revision": "f3c65f6e38a45632c7fd51005fa16175f7d1a125",
+            "version": null
+          }
+        },
+        {
+          "package": "KeychainAccess",
+          "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess",
+          "state": {
+            "branch": "master",
+            "revision": "ecb18d8ce4d88277cc4fb103973352d91e18c535",
+            "version": null
+          }
+        },
+        {
+          "package": "SDWebImage",
+          "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+          "state": {
+            "branch": null,
+            "revision": "fb50c1d20f24db5322b2f8f379de3618f75fe08e",
+            "version": "5.15.5"
+          }
+        },
+        {
+          "package": "SDWebImageSwiftUI",
+          "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI",
+          "state": {
+            "branch": "master",
+            "revision": "61fefe9c284fd41ddef77d02749e88f00c305196",
+            "version": null
+          }
+        },
+        {
+          "package": "Swinject",
+          "repositoryURL": "https://github.com/Swinject/Swinject",
+          "state": {
+            "branch": "master",
+            "revision": "dfb78563c581eea560ea90c19dbe8d1d93d11260",
+            "version": null
+          }
+        }
+      ]
+    },
+    "version": 1
+}

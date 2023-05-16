@@ -1,0 +1,43 @@
+PODS:
+  - FBAEMKit (16.0.1):
+    - FBSDKCoreKit_Basics (= 16.0.1)
+  - FBSDKCoreKit (16.0.1):
+    - FBAEMKit (= 16.0.1)
+    - FBSDKCoreKit_Basics (= 16.0.1)
+  - FBSDKCoreKit_Basics (16.0.1)
+  - FBSDKLoginKit (16.0.1):
+    - FBSDKCoreKit (= 16.0.1)
+  - FBSDKShareKit (16.0.1):
+    - FBSDKCoreKit (= 16.0.1)
+  - TwitterCore (3.2.0)
+  - TwitterKit5 (5.2.0):
+    - TwitterCore (>= 3.1.0)
+
+DEPENDENCIES:
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
+  - TwitterKit5
+
+SPEC REPOS:
+  trunk:
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - FBSDKShareKit
+    - TwitterCore
+    - TwitterKit5
+
+SPEC CHECKSUMS:
+  FBAEMKit: daac7466b918752f020345be5c7d9787f98cfc07
+  FBSDKCoreKit: 2cb033464b2134af0138f87d20b859eb3f9be359
+  FBSDKCoreKit_Basics: d37280da2e65872f0e931d15f45d97ea324fec37
+  FBSDKLoginKit: c47a3b90920702487b10b647c63520dc2676dad9
+  FBSDKShareKit: dbc6adab8c837275fa6e7f5f0992dbde4fea87eb
+  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
+  TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
+
+PODFILE CHECKSUM: 521986dfa02bd5f67b63ae0825d403c7580200c3
+
+COCOAPODS: 1.11.3
