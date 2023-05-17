@@ -2212,6 +2212,8 @@ struct ReelsView: View {
     @Binding var commentReplySheet: Bool
     @Binding var postedBy: String
     @Binding var selectedReelId: Int
+    @State private var offset: CGFloat = 0
+
     
     var body: some View {
         
@@ -2236,23 +2238,33 @@ struct ReelsView: View {
                             .rotationEffect(.init(degrees: -90))
                             .ignoresSafeArea(.all, edges: .top)
                             .tag(index)
+//                            .onAppear{
+//                                topBar = true
+//                            }
+//                            .onDisappear{
+//                                topBar = false
+//                            }
                         
                     }
                     
                 }
-                .onChange(of: reelTagIndex) { index in
-                    if index != 0 {
-                        topBar = false
-                    }else{
-                        topBar = true
-                    }
-                }
+//                .onChange(of: reelTagIndex) { index in
+//                    print("Current Index \(index)")
+//                    print("Previous Index \(reelTagIndex)")
+//                    if index != 0 {
+//                        topBar = false
+//                    }else{
+//                        topBar = true
+//                    }
+//                }
                 .rotationEffect(.init(degrees: 90))
                 // Since view is rotated setting height as width...
                 .frame(width: size.height)
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 // setting max width...
                 .frame(width: size.width)
+
+            
             }else{
                 VStack {
                         Image(systemName: "folder.badge.questionmark")
@@ -3100,6 +3112,7 @@ struct ReelsPlyer: View {
         
         //        .environmentObject(status)
         .onAppear {
+            
             DispatchQueue.main.async {
                 likeCount = reelsDetail.likeCount ?? 0
             }
@@ -3107,6 +3120,7 @@ struct ReelsPlyer: View {
         }
         
         .onDisappear {
+            
             DispatchQueue.main.async {
                 player.pause()
             }

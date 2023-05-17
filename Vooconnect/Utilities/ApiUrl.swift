@@ -8,12 +8,6 @@ import Foundation
 
 //getBaseURL + EndPoints.reels)
 
-//var baseURL = "https://api.vooconnect.com:9450/api/v1"
-//var assatEndPoint = "https://api.vooconnect.com:9452/api/v1"
-//var userApiEndPoint = "https://api.vooconnect.com:9452/api/v1"
-//var getBaseURL = "https://api.vooconnect.com:9451/api/v1"
-//var getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads/"
-
 var baseURL = "https://api.vooconnect.com:9450/api/v1"
 var assatEndPoint = "https://api.vooconnect.com:9452/api/v1"
 var userApiEndPoint = "https://api.vooconnect.com:9452/api/v1"
