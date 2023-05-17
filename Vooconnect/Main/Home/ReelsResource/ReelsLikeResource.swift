@@ -302,7 +302,7 @@ class ReelsLikeResource {
     
     func hittingFollowApi(followRequest: FollowRequest, complitionHandler : @escaping(Bool, String?) -> Void) {
            
-           var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.follow)!)
+           var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.follow)!)
            
            urlRequest.httpMethod = "post"
            //        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
