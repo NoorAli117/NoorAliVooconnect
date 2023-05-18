@@ -55,6 +55,18 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         }
     }
     
+    
+    func getFilterData(){
+           NetworkManager.makeEndpointCall(fromEndpoint: .getFilterData, withDataType: FilterData.self) {  result in
+               switch result {
+               case .success(let filterRes):
+                   print(filterRes.apiKey)
+                   logger.error("Successfully fetched user stats!!!", category: .profile)
+               case .failure(let error):
+                   logger.error("Error Fetching User Stats: \(error.localizedDescription)", category: .profile)
+               }
+           }
+       }
     // Video
     func setUp(isFront : Bool){
         
