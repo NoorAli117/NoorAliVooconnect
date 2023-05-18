@@ -34,6 +34,7 @@ enum NetworkConstants {
             case postsAPIsUrl = "https://api.vooconnect.com:9451/api/v1"
             case assetsAPIsUrl = "https://api.vooconnect.com:9452/api/v1"
             case getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads/"
+            case getFilterBaseURL = "https://apis.argear.io/api/v3"
         }
         static let deviceType = "ios"
     }
@@ -115,6 +116,8 @@ enum NetworkConstants {
         /// Get Profile Viewers
         case getProfileViewers
         
+        case getFilterData
+        
         /// Returns string values of the endpoint cases
         var value: String {
             switch self {
@@ -160,6 +163,8 @@ enum NetworkConstants {
                 return "/profile-viewed"
             case .getProfileViewers:
                 return "/get-profile-viewers"
+            case .getFilterData:
+                return "/32b9a480a21fb7f45ccf5275?dev=true"
             }
         }
         
@@ -207,6 +212,8 @@ enum NetworkConstants {
                 return "Profile Viewed by Current User"
             case .getProfileViewers:
                 return "Get Profile Viewers"
+            case .getFilterData:
+                return "Get Filter Data"
             }
         }
         
@@ -234,6 +241,8 @@ enum NetworkConstants {
                 return ProductDefinition.BaseAPI.postsAPIsUrl.rawValue
             case .uploadFile:
                 return ProductDefinition.BaseAPI.assetsAPIsUrl.rawValue
+            case .getFilterData:
+                return ProductDefinition.BaseAPI.getFilterBaseURL.rawValue
             default:
                 return ProductDefinition.BaseAPI.userAPIsUrl.rawValue
             }

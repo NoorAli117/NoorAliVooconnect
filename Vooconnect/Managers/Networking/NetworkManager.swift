@@ -201,6 +201,8 @@ class NetworkManager {
                 .profileViewed,
                 .getProfileViewers:
             return .post
+        case .getFilterData:
+            return .get
         case .updateUserLocation,
             .updateProfile:
             return .put
