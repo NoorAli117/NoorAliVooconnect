@@ -663,8 +663,11 @@ struct CustomeCameraHome: View {
 
                 } content: {
                     if #available(iOS 16.0, *) {
-                        FiltersSheet()
+                        FiltersSheet(cameraModel: cameraModel)
                             .presentationDetents([.large,.medium,.height(300)])
+                            .onAppear {
+                                cameraModel.getFilterData()
+                            }
                     } else {
                         // Fallback on earlier versions
                     }

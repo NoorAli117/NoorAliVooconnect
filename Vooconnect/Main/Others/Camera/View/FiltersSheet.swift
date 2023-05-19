@@ -13,6 +13,7 @@ struct FiltersSheet: View {
     @State private var landscape: Bool = false
     @State private var food: Bool = false
     @State private var vibe: Bool = false
+    @ObservedObject var cameraModel: CameraViewModel
     
     var body: some View {
         VStack {
@@ -249,6 +250,6 @@ struct FiltersSheet: View {
 
 struct FiltersSheet_Previews: PreviewProvider {
     static var previews: some View {
-        FiltersSheet()
+        FiltersSheet(cameraModel: CameraViewModel())
     }
 }

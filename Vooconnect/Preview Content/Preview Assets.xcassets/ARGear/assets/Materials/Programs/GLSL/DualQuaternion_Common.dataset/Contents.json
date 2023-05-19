@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "DualQuaternion_Common.glsl",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

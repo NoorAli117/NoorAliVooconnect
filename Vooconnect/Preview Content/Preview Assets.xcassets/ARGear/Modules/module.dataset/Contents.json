@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "module.modulemap",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

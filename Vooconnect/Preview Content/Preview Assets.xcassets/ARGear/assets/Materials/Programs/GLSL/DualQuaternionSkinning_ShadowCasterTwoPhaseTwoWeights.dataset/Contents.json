@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "DualQuaternionSkinning_ShadowCasterTwoPhaseTwoWeights.glsl",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
