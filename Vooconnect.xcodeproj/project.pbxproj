@@ -111,6 +111,10 @@
 		107DCDA12A165FA900A95F17 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9E2A165FA900A95F17 /* Categories.swift */; };
 		107DCDA22A165FA900A95F17 /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9F2A165FA900A95F17 /* FilterData.swift */; };
 		107DCDA32A165FA900A95F17 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCDA02A165FA900A95F17 /* ItemData.swift */; };
+		29625F072A178A97008E00FB /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F062A178A97008E00FB /* FilterView.swift */; };
+		29625F0A2A178CB6008E00FB /* ARGear.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29625F092A178CB6008E00FB /* ARGear.framework */; };
+		29625F0B2A178CB6008E00FB /* ARGear.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29625F092A178CB6008E00FB /* ARGear.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		29625F0D2A17913D008E00FB /* protocole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F0C2A17913D008E00FB /* protocole.swift */; };
 		5016A78E29DBE200009B0332 /* ChooseYourTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5016A78D29DBE200009B0332 /* ChooseYourTopicView.swift */; };
 		502C133029D57BE300FB0577 /* AgoraAppGroupDataHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 502C132F29D57BE300FB0577 /* AgoraAppGroupDataHelper */; };
 		502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 502C133129D57BE300FB0577 /* AgoraBroadcastExtensionHelper */; };
@@ -387,6 +391,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				29625F0B2A178CB6008E00FB /* ARGear.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,6 +500,10 @@
 		107DCD9E2A165FA900A95F17 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		107DCD9F2A165FA900A95F17 /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
 		107DCDA02A165FA900A95F17 /* ItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
+		29625F062A178A97008E00FB /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		29625F082A178C95008E00FB /* ARGear.framework 2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "ARGear.framework 2"; path = "../../../../../../Downloads/ARGear.framework 2"; sourceTree = "<group>"; };
+		29625F092A178CB6008E00FB /* ARGear.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARGear.framework; path = ../../../../../../Downloads/ARGear.framework; sourceTree = "<group>"; };
+		29625F0C2A17913D008E00FB /* protocole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocole.swift; sourceTree = "<group>"; };
 		5016A78829DBE149009B0332 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		5016A78D29DBE200009B0332 /* ChooseYourTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseYourTopicView.swift; sourceTree = "<group>"; };
 		503A8F4829E593080035135D /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -784,6 +793,7 @@
 				A958B65E2923B82100FE16EA /* CountryPicker in Frameworks */,
 				503A8F4B29E59C880035135D /* AgoraVideoSwiftUI in Frameworks */,
 				502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */,
+				29625F0A2A178CB6008E00FB /* ARGear.framework in Frameworks */,
 				502C133429D57BE300FB0577 /* AgoraUIKit in Frameworks */,
 				049F4BBF29BBB55B00113EA0 /* Swinject in Frameworks */,
 				EB6E83A90E90103B729D7725 /* Pods_Vooconnect.framework in Frameworks */,
@@ -1840,6 +1850,8 @@
 		A958B6542923B1AD00FE16EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29625F092A178CB6008E00FB /* ARGear.framework */,
+				29625F082A178C95008E00FB /* ARGear.framework 2 */,
 				04DD22EC29DC6BE300DE7103 /* Twitter.framework */,
 				561AFB325F3E4E57C58CAA68 /* Pods_Vooconnect.framework */,
 			);
@@ -2101,6 +2113,7 @@
 				A943809E2940734D007D9DF4 /* Model */,
 				A9B2478C293DC06800B5A233 /* View */,
 				A9B2478B293DC05600B5A233 /* ViewModel */,
+				29625F0C2A17913D008E00FB /* protocole.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -2125,6 +2138,7 @@
 				A9566DFB29447F6000FCBA75 /* AllMediaView.swift */,
 				A933C9C4294728AC0009F8A5 /* PreviewFromGallery.swift */,
 				A954C302294B281D000176FF /* FiltersSheet.swift */,
+				29625F062A178A97008E00FB /* FilterView.swift */,
 				A932F8F7295FF2720098B14E /* FiltersList.swift */,
 				A932F8F9295FF6320098B14E /* EffectsSheets.swift */,
 				A932F8FB295FF9280098B14E /* EffectsList.swift */,
@@ -2915,6 +2929,7 @@
 				85DAB8EB29EA3A63008E7F40 /* VideoEngine.swift in Sources */,
 				AB37594129CE0262000D0A2D /* ClosedCaptioning.swift in Sources */,
 				040B707129F90D0700BCCACD /* ProfileViewersViewModel.swift in Sources */,
+				29625F0D2A17913D008E00FB /* protocole.swift in Sources */,
 				A932F900296008470098B14E /* CommentList.swift in Sources */,
 				85DAB8ED29EA3A63008E7F40 /* VideoCanvas.swift in Sources */,
 				A99AE82E291E209300E613F1 /* HttpUtility.swift in Sources */,
@@ -2951,6 +2966,7 @@
 				A932F8F8295FF2720098B14E /* FiltersList.swift in Sources */,
 				A99AE830291E20EF00E613F1 /* ApiUrl.swift in Sources */,
 				ABC55C5F29AFC99800C3E320 /* LocationModel.swift in Sources */,
+				29625F072A178A97008E00FB /* FilterView.swift in Sources */,
 				A9262ED12935E44C007779B3 /* InterestListResource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
