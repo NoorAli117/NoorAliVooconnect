@@ -111,8 +111,6 @@
 		107DCDA12A165FA900A95F17 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9E2A165FA900A95F17 /* Categories.swift */; };
 		107DCDA22A165FA900A95F17 /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9F2A165FA900A95F17 /* FilterData.swift */; };
 		107DCDA32A165FA900A95F17 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCDA02A165FA900A95F17 /* ItemData.swift */; };
-		107DCDA52A166E6700A95F17 /* ARGear.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 107DCD972A164F4400A95F17 /* ARGear.framework */; };
-		107DCDA62A166E6800A95F17 /* ARGear.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 107DCD972A164F4400A95F17 /* ARGear.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5016A78E29DBE200009B0332 /* ChooseYourTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5016A78D29DBE200009B0332 /* ChooseYourTopicView.swift */; };
 		502C133029D57BE300FB0577 /* AgoraAppGroupDataHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 502C132F29D57BE300FB0577 /* AgoraAppGroupDataHelper */; };
 		502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 502C133129D57BE300FB0577 /* AgoraBroadcastExtensionHelper */; };
@@ -389,7 +387,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				107DCDA62A166E6800A95F17 /* ARGear.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,7 +492,6 @@
 		04DD22EE29DCC07700DE7103 /* InstagramLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramLoginManager.swift; sourceTree = "<group>"; };
 		04E05D9529CF221F004F5406 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
 		04E05D9729CF2320004F5406 /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
-		107DCD972A164F4400A95F17 /* ARGear.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARGear.framework; path = ../../../../Downloads/ARGear.framework; sourceTree = "<group>"; };
 		107DCD9E2A165FA900A95F17 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		107DCD9F2A165FA900A95F17 /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
 		107DCDA02A165FA900A95F17 /* ItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
@@ -788,7 +784,6 @@
 				A958B65E2923B82100FE16EA /* CountryPicker in Frameworks */,
 				503A8F4B29E59C880035135D /* AgoraVideoSwiftUI in Frameworks */,
 				502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */,
-				107DCDA52A166E6700A95F17 /* ARGear.framework in Frameworks */,
 				502C133429D57BE300FB0577 /* AgoraUIKit in Frameworks */,
 				049F4BBF29BBB55B00113EA0 /* Swinject in Frameworks */,
 				EB6E83A90E90103B729D7725 /* Pods_Vooconnect.framework in Frameworks */,
@@ -1925,7 +1920,6 @@
 		A9785FA02911102D00F19ADD /* Vooconnect */ = {
 			isa = PBXGroup;
 			children = (
-				107DCD972A164F4400A95F17 /* ARGear.framework */,
 				85A4676D29F59DDC005A5D4C /* ContentView.swift */,
 				ABAEA64129B4552A00B5277E /* AR View */,
 				ABC9F82E29AAD228006436A1 /* API Managers */,

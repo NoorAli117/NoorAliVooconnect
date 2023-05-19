@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "SGXLib_IntegratedPSSM.glsl",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

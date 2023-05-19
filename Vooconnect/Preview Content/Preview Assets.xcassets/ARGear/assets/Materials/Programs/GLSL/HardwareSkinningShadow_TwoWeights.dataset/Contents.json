@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "HardwareSkinningShadow_TwoWeights.glsl",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

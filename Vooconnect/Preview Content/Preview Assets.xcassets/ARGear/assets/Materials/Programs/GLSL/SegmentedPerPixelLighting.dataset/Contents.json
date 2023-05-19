@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "SegmentedPerPixelLighting.glsl",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

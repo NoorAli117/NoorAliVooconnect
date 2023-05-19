@@ -32,6 +32,6 @@ struct FiltersList: View {
 struct FiltersList_Previews: PreviewProvider {
     static var previews: some View {
 //        FiltersList()
-        FiltersSheet()
+        FiltersList()
     }
 }

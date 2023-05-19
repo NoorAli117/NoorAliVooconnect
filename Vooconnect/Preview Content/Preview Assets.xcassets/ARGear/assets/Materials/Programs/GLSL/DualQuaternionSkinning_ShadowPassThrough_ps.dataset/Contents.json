@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "DualQuaternionSkinning_ShadowPassThrough_ps.glsl",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

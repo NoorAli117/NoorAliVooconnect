@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "DualQuaternionSkinning_ShadowThreeWeights.glsl",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

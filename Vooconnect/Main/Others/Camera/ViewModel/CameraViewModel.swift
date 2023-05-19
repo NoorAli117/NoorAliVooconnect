@@ -31,6 +31,7 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     @Published var isBackCamera : Bool = true
     @Published var isBackCameraPhoto : Bool = true
     @Published var songModel : DeezerSongModel? = nil
+    @Published var filterData: FilterData? = nil
     @Published var speed : Float = 1
     
     // Video
@@ -57,10 +58,10 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     
     
     func getFilterData(){
-           NetworkManager.makeEndpointCall(fromEndpoint: .getFilterData, withDataType: FilterData.self) {  result in
+           NetworkManager.makeEndpointCall(fromEndpoint: .getFilterData, withDataType: FilterData.self) { [weak self]  result in
                switch result {
                case .success(let filterRes):
-                   print(filterRes.apiKey)
+                   self?.filterData = filterRes
                    logger.error("Successfully fetched user stats!!!", category: .profile)
                case .failure(let error):
                    logger.error("Error Fetching User Stats: \(error.localizedDescription)", category: .profile)

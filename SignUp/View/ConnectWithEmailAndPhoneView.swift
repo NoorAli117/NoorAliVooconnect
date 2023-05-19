@@ -16,7 +16,6 @@ struct ConnectWithEmailAndPhoneView: View {
     @State var emailOrPhone: String = ""
     
     @Binding var isFromSwitchProfile: Bool
-    @StateObject var cameraModel = CameraViewModel()
     
     var body: some View {
         
@@ -149,9 +148,6 @@ struct ConnectWithEmailAndPhoneView: View {
                 }
             }
             .navigationBarHidden(true)
-        }
-        .onAppear {
-            cameraModel.getFilterData()
         }
         .navigationBarHidden(true)
     }
