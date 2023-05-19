@@ -14,15 +14,17 @@ var gridLayoutCF: [GridItem] {
 }
 
 struct FiltersList: View {
+    var filterimage : String = "FilterImageF"
+    var filterName : String = "Filter_1"
     var body: some View {
         VStack {
-            Image("FilterImageF")
+            Image(filterimage)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 80, height: 80)
 //                .clipped()
                 .cornerRadius(24)
-            Text("B1")
+            Text(filterName)
                 .font(.custom("Urbanist-SemiBold", size: 18))
                 .padding(.top, -3)
         }

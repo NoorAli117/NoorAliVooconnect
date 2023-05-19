@@ -237,6 +237,7 @@ struct FiltersSheet: View {
                     {
                         ForEach(0..<8) { people in
                             FiltersList()
+                            FiltersList.init(filterimage: <#T##String#>)
                         }
                     }
                 }

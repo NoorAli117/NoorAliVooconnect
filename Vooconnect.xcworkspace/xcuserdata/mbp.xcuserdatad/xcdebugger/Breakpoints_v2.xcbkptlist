@@ -34,38 +34,22 @@
             endingLineNumber = "60"
             landmarkName = "getFilterData()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1BA0ADB5-C587-45E1-A2F1-4B0133315D83 - d82a2153ec22f45c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.CameraViewModel.getFilterData() -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "30">
-               </Location>
-               <Location
-                  uuid = "1BA0ADB5-C587-45E1-A2F1-4B0133315D83 - 4c366e267a08989a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Vooconnect.FilterData, Swift.Error&gt;) -&gt; () in Vooconnect.CameraViewModel.getFilterData() -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "415">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB7349A3-455B-4A32-991A-BFB84570F9B4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Camera/View/FiltersSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "previews"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
