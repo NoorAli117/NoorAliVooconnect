@@ -662,15 +662,15 @@ struct CustomeCameraHome: View {
                 .blurredSheet(.init(.white), show: $filersSheet) {
 
                 } content: {
-                    if #available(iOS 16.0, *) {
+//                    if #available(iOS 16.0, *) {
                         FiltersSheet(cameraModel: cameraModel)
-                            .presentationDetents([.large,.medium,.height(300)])
+//                            .presentationDetents([.large,.medium,.height(300)])
                             .onAppear {
                                 cameraModel.getFilterData()
                             }
-                    } else {
+//                    } else {
                         // Fallback on earlier versions
-                    }
+//                    }
                 }
                 
                 

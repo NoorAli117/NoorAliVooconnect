@@ -13,16 +13,39 @@ var gridLayoutCF: [GridItem] {
     return Array(repeating: GridItem(.flexible(), spacing: rowSpacingCF), count: 4)
 }
 
+
+//func setFilter(_ filter: Item) {
+//    guard
+//        let title = filter.title,
+//        let thumbnailUrl = filter.thumbnail
+//        else {
+//            return
+//    }
+//
+//    self.filterNameLabel.text = title
+//    self.filterImage.sd_setImage(with: URL(string: thumbnailUrl), placeholderImage: nil, options: [.refreshCached], completed: nil)
+//}
+
 struct FiltersList: View {
+    var filter: ItemData?
     var body: some View {
         VStack {
-            Image("FilterImageF")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 80, height: 80)
-//                .clipped()
-                .cornerRadius(24)
-            Text("B1")
+            AsyncImage(url: URL(string: filter?.thumbnail ?? "")) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                     .frame(width: 80, height: 80)
+    //                .clipped()
+                    .cornerRadius(24)
+            } placeholder: {
+                Image("FilterImageF")
+                    .resizable()
+                    .scaledToFill()
+                     .frame(width: 80, height: 80)
+    //                .clipped()
+                    .cornerRadius(24)
+            }
+            Text(filter?.title ?? "B1")
                 .font(.custom("Urbanist-SemiBold", size: 18))
                 .padding(.top, -3)
         }

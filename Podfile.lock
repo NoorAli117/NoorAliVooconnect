@@ -9,6 +9,11 @@ PODS:
     - FBSDKCoreKit (= 16.0.1)
   - FBSDKShareKit (16.0.1):
     - FBSDKCoreKit (= 16.0.1)
+  - Realm (10.38.3):
+    - Realm/Headers (= 10.38.3)
+  - Realm/Headers (10.38.3)
+  - RealmSwift (10.38.3):
+    - Realm (= 10.38.3)
   - TwitterCore (3.2.0)
   - TwitterKit5 (5.2.0):
     - TwitterCore (>= 3.1.0)
@@ -17,6 +22,7 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - RealmSwift
   - TwitterKit5
 
 SPEC REPOS:
@@ -26,6 +32,8 @@ SPEC REPOS:
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
     - FBSDKShareKit
+    - Realm
+    - RealmSwift
     - TwitterCore
     - TwitterKit5
 
@@ -35,9 +43,11 @@ SPEC CHECKSUMS:
   FBSDKCoreKit_Basics: d37280da2e65872f0e931d15f45d97ea324fec37
   FBSDKLoginKit: c47a3b90920702487b10b647c63520dc2676dad9
   FBSDKShareKit: dbc6adab8c837275fa6e7f5f0992dbde4fea87eb
+  Realm: 0bdb75abc37a5b80e814bf28268ecdd7c6a92d41
+  RealmSwift: 9340d46aa1e711bce2cf70bd370ac3c48a9c6795
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
 
-PODFILE CHECKSUM: 521986dfa02bd5f67b63ae0825d403c7580200c3
+PODFILE CHECKSUM: a50f990f3e58acade50978e1bcd20e8ac88fe90e
 
 COCOAPODS: 1.12.1

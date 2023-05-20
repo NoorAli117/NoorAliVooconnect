@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ItemData: Codable {
+struct ItemData: Codable, Hashable {
+    
 
   enum CodingKeys: String, CodingKey {
     case thumbnail
