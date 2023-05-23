@@ -300,7 +300,7 @@ struct MyProfileView: View {
             }
             .sheet(isPresented: $presentSwitchAccountSheet){
                 SwitchAccountView()
-                    .presentationDetents([.medium, .large])
+//                    .presentationDetents([.medium, .large])
             }
             .navigate(to: FindFriendsView(), when: $navigateToFindFriends)
         

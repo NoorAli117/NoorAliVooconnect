@@ -676,7 +676,7 @@ struct FinalVideoToPostView: View {
     func testCover() -> some View{
         let data = try? Data(contentsOf: self.renderUrl!)
         let image = UIImage(data: data!)
-        return Image(uiImage: image ?? UIImage(imageLiteralResourceName: "SelectCover"))
+        return Image(uiImage: image ?? UIImage(imageLiteralResourceName: "MessagePurpal"))
             .resizable()
             .scaledToFill()
             .frame(width: 100, height: 132)

@@ -8,12 +8,17 @@ import Foundation
 
 //getBaseURL + EndPoints.reels)
 
-var baseURL = "https://api.vooconnect.com:9450/api/v1"
-var assatEndPoint = "https://api.vooconnect.com:9452/api/v1"
-var userApiEndPoint = "https://api.vooconnect.com:9452/api/v1"
-var getBaseURL = "https://api.vooconnect.com:9451/api/v1"
-var getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads/"
+//var baseURL = "https://api.vooconnect.com:9450/api/v1"
+//var assatEndPoint = "https://api.vooconnect.com:9452/api/v1"
+//var userApiEndPoint = "https://api.vooconnect.com:9452/api/v1"
+//var getBaseURL = "https://api.vooconnect.com:9451/api/v1"
+//var getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads/"
+var baseURL = "https://vooconnectuser.devssh.xyz/api/v1"//3000
 
+var assatEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
+var userApiEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
+var getBaseURL = "https://vooconnectpost.devssh.xyz/api/v1"//3001
+var getImageVideoBaseURL = "https://vooconnectasset.devssh.xyz/uploads/"//3002
 
 struct EndPoints {
     

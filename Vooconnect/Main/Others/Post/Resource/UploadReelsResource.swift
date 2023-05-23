@@ -25,7 +25,7 @@ class UploadReelsResource {
                 data.append("\(value)\r\n".data(using: .utf8)!)
             }
         }
-
+    
         var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
         urlRequest.httpMethod = "post"
 
@@ -90,7 +90,7 @@ class UploadReelsResource {
                         }
                         
                     } else {
-                        print("Failed===========")
+                        print("Upload file Failed===========")
                     }
 
                 } catch {

@@ -235,9 +235,10 @@ struct FiltersSheet: View {
                 LazyVGrid(columns: gridLayoutCF, alignment: .center, spacing: columnSpacingCF, pinnedViews: []) {
                     Section()
                     {
-                        ForEach(0..<8) { people in
-                            FiltersList()
-                            FiltersList.init(filterimage: <#T##String#>)
+                        ForEach(cameraModel.filterData?.categories ?? [] ,id: \.self) { category in
+                            ForEach(category.items ?? [] ,id: \.self) { item in
+                                FiltersList(filter: item)
+                            }
                         }
                     }
                 }
