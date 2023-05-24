@@ -18,23 +18,35 @@ class UploadReelsResource {
         let parameters : [String:Any]?
         parameters = ["upload_path" : "reels"]
         
-        if parameters != nil {
-            for (key, value) in parameters! {
-                data.append("--\(boundary)\r\n".data(using: .utf8)!)
-                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-                data.append("\(value)\r\n".data(using: .utf8)!)
-            }
-        }
-    
+//        if parameters != nil {
+//            for (key, value) in parameters! {
+//                data.append("--\(boundary)\r\n".data(using: .utf8)!)
+//                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+//                data.append("\(value)\r\n".data(using: .utf8)!)
+//            }
+//        }
+
         var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
         urlRequest.httpMethod = "post"
 
-        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
-//        data.append(imageUploadRequest.mp4)
-        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+//            let contentType = "multipart/form-data; boundary=\(boundary)"
+//            urlRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
         
+//            let body = NSMutableData()
+            if let fileData = try? Data(contentsOf: imageUploadRequest) {
+                data.append("--\(boundary)\r\n".data(using: .utf8)!)
+                data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+                data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+                data.append(fileData)
+                data.append("\r\n".data(using: .utf8)!)
+            }
+//        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+//        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+//        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+////        data.append(imageUploadRequest)
+//        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        data.append("--\(boundary)--\r\n".data(using: .utf8)!)
+//        urlRequest.httpBody = body as Data
         
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
@@ -90,7 +102,7 @@ class UploadReelsResource {
                         }
                         
                     } else {
-                        print("Upload file Failed===========")
+                        print("Failed===========")
                     }
 
                 } catch {
@@ -125,25 +137,44 @@ class UploadReelsResource {
             }
         }
         
-        var urlRequest = URLRequest(url: URL(string: userApiEndPoint + EndPoints.createNewPost)!)
+        var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.createNewPost)!)
         urlRequest.httpMethod = "post"
 //        urlRequest.httpBody =
-        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+//        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
 //        data.append("Content-Disposition: form-data; name=paramName"; filename=\"fileName")\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+//        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
 //        data.append(imageUploadRequest.mp4)
-        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+//        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        let userUuid = UserDefaults.standard.string(forKey: "uuid")
+        let filename = UserDefaults.standard.string(forKey: "imageName")
+        let filesize = UserDefaults.standard.string(forKey: "reelSize")
+        let jsonD: [String: Any] = [
+            "user_uuid": userUuid ?? "",
+            "title": "title",
+            "description": post.description,
+            "content_type": post.isImageContent() ? "Image" : "Video",
+            "category": "",
+            "music_track": "",
+            "location": post.location,
+            "visibility": post.visibility,
+            "music_url": "",
+            "content": [
+                [ "name": filename ?? "", "size": filesize ?? "" ]
+            ],
+            "allow_comment": post.allowComments,
+            "allow_duet": post.allowDuet,
+            "allow_stitch": post.allowStitch
+        ]
         
-        let json: [String: Any] = ["title": "ABC",
-                                   "content": post.asDictionary]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let jsonData = try? JSONSerialization.data(withJSONObject: jsonD)
+//        print(j)
         urlRequest.httpBody = jsonData
         
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
-            urlRequest.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+            urlRequest.addValue("application/json; boundary=\(boundary)", forHTTPHeaderField: "content-type")
             
             print("ACCESS TOKEN=========", tokenData)
             

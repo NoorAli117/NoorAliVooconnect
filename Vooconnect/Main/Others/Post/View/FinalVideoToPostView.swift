@@ -709,7 +709,8 @@ struct FinalVideoToPostView: View {
     
     private func uploadReelss(complitionHandler : @escaping(Bool) -> Void) {
         self.postModel.contentUrl = self.renderUrl
-        uploadReels.uploadReels(imageUploadRequest: self.postModel.contentUrl!, paramName: "asset", fileName: "fs.mp4") { responsee, errorMessage in
+        let theFileName = self.postModel.contentUrl?.lastPathComponent ?? ""
+        uploadReels.uploadReels(imageUploadRequest: self.postModel.contentUrl!, paramName: "asset", fileName: theFileName) { responsee, errorMessage in
             if(!responsee || errorMessage == nil)
             {
                 print("error uploading video")
