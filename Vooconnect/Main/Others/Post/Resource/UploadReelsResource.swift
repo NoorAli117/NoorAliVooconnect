@@ -124,19 +124,19 @@ class UploadReelsResource {
     func uploadPost(post: PostModel, complitionHandler : @escaping(Bool, String?) -> Void) {
         let session = URLSession.shared
         let boundary = UUID().uuidString
-        var data = Data()
+//        var data = Data()
         
-        let parameters : [String:Any]?
-        parameters = ["upload_path" : "reels"]
+//        let parameters : [String:Any]?
+//        parameters = ["upload_path" : "reels"]
         
-        if parameters != nil {
-            for (key, value) in parameters! {
-                data.append("--\(boundary)\r\n".data(using: .utf8)!)
-                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-                data.append("\(value)\r\n".data(using: .utf8)!)
-            }
-        }
-        
+//        if parameters != nil {
+//            for (key, value) in parameters! {
+//                data.append("--\(boundary)\r\n".data(using: .utf8)!)
+//                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+//                data.append("\(value)\r\n".data(using: .utf8)!)
+//            }
+//        }
+//
         var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.createNewPost)!)
         urlRequest.httpMethod = "post"
 //        urlRequest.httpBody =
@@ -155,19 +155,20 @@ class UploadReelsResource {
             "content_type": post.isImageContent() ? "Image" : "Video",
             "category": "",
             "music_track": "",
-            "location": post.location,
-            "visibility": post.visibility,
+            "location": "Karachi sindh pakistan",
+            "visibility": "everyone",
             "music_url": "",
             "content": [
                 [ "name": filename ?? "", "size": filesize ?? "" ]
             ],
             "allow_comment": post.allowComments,
             "allow_duet": post.allowDuet,
-            "allow_stitch": post.allowStitch
+            "allow_stitch": post.allowStitch,
+            "tags": []
         ]
-        
+//        print(jsonD)
         let jsonData = try? JSONSerialization.data(withJSONObject: jsonD)
-//        print(j)
+//        print(jsonData!)
         urlRequest.httpBody = jsonData
         
         
@@ -180,7 +181,7 @@ class UploadReelsResource {
             
         }
         
-        session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
+        session.uploadTask(with: urlRequest, from: jsonData) { httpData, httpResponse, httpError in
             
             if let data = httpData {
                 

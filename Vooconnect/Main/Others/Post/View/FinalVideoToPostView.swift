@@ -81,17 +81,26 @@ struct FinalVideoToPostView: View {
 //                            Text("Hi everyone, in this video I will sing a song #song #music #love #beauty Thanks to @Vooconnect Video credit to ")
                             
 //                            TextView(text: $text2).frame(numLines: 5)
-                            TextViewTwo(text: $description, didStartEditing: $didStartEditing, placeholder: $placeholder
-                            )
+                            TextField(placeholder, text: $description)
                                 .focused($focusedField, equals: .captionn)
+                                .onChange(of: description) { newValue in
+                                    print("ON CHANGE DESCRIPTION: " + self.postModel.description)
+                                    self.postModel.description = newValue
+                                }
+                                .onTapGesture {
+                                    didStartEditing = true
+                                }
+//                            TextViewTwo(text: $description, didStartEditing: $didStartEditing, placeholder: $placeholder
+//                            )
+//                                .focused($focusedField, equals: .captionn)
 //                                .onChange(of: description){val in
 //                                    print("ON CHANGE DESCRIPTION: " + self.postModel.description)
 //                                    self.postModel.description = val
 //                                }
-                                .onTapGesture {
-                                    didStartEditing = true
-                                }
-                                    
+//                                .onTapGesture {
+//                                    didStartEditing = true
+//                                }
+//                                    
                             
                                 .padding(.horizontal)
                                 .padding(.top, 5)
@@ -409,7 +418,7 @@ struct FinalVideoToPostView: View {
                                 }
                                 .onTapGesture {
                                     self.toggleOnTwo.toggle()
-                                    self.postModel.allowComments = self.toggleOnTwo
+                                    self.postModel.allowDuet = self.toggleOnTwo
                                 }
                                 
                             }
@@ -456,7 +465,7 @@ struct FinalVideoToPostView: View {
                                 }
                                 .onTapGesture {
                                     self.toggleOnThree.toggle()
-                                    self.postModel.allowComments = self.toggleOnThree
+                                    self.postModel.allowStitch = self.toggleOnThree
                                 }
                                 
                             }
@@ -570,7 +579,7 @@ struct FinalVideoToPostView: View {
                                     if isSuccess {
                                         print("success=========")
                                         
-                                        reelsPostVM.uploadReelsDetails()
+                                        reelsPostVM.uploadReelsDetails(post: self.postModel)
                                         
                                     } else {
                                         print("failed==========")

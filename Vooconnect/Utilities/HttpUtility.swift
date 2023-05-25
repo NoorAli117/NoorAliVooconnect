@@ -14,7 +14,6 @@ final class HttpUtility {
 
     func postApiData(request: URLRequest, complitionHandler: @escaping(Result<Data, Error>) -> Void) {
         URLSession.shared.dataTask(with: request) { httpData, httpResponse, httpError in
-
             if let responseData = httpData {
 
                 complitionHandler(.success(responseData))
