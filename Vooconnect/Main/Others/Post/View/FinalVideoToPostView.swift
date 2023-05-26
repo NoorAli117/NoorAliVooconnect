@@ -81,13 +81,14 @@ struct FinalVideoToPostView: View {
 //                            Text("Hi everyone, in this video I will sing a song #song #music #love #beauty Thanks to @Vooconnect Video credit to ")
                             
 //                            TextView(text: $text2).frame(numLines: 5)
-                            TextViewTwo(text: $description, didStartEditing: $didStartEditing, placeholder: $placeholder
-                            )
+//                            TextViewTwo(text: $description, didStartEditing: $didStartEditing, placeholder: $placeholder
+//                            )
+                            TextField(placeholder, text: $description)
                                 .focused($focusedField, equals: .captionn)
-//                                .onChange(of: description){val in
-//                                    print("ON CHANGE DESCRIPTION: " + self.postModel.description)
-//                                    self.postModel.description = val
-//                                }
+                                .onChange(of: description){val in
+                                    print("ON CHANGE DESCRIPTION: " + self.postModel.description)
+                                    self.postModel.description = val
+                                }
                                 .onTapGesture {
                                     didStartEditing = true
                                 }
@@ -570,7 +571,7 @@ struct FinalVideoToPostView: View {
                                     if isSuccess {
                                         print("success=========")
                                         
-                                        reelsPostVM.uploadReelsDetails()
+//                                        reelsPostVM.uploadReelsDetails()
                                         
                                     } else {
                                         print("failed==========")
@@ -676,7 +677,7 @@ struct FinalVideoToPostView: View {
     func testCover() -> some View{
         let data = try? Data(contentsOf: self.renderUrl!)
         let image = UIImage(data: data!)
-        return Image(uiImage: image ?? UIImage(imageLiteralResourceName: "MessagePurpal"))
+        return Image(uiImage: image ?? UIImage(imageLiteralResourceName: "SelectCover"))
             .resizable()
             .scaledToFill()
             .frame(width: 100, height: 132)
@@ -709,15 +710,24 @@ struct FinalVideoToPostView: View {
     
     private func uploadReelss(complitionHandler : @escaping(Bool) -> Void) {
         self.postModel.contentUrl = self.renderUrl
-        let theFileName = self.postModel.contentUrl?.lastPathComponent ?? ""
-        uploadReels.uploadReels(imageUploadRequest: self.postModel.contentUrl!, paramName: "asset", fileName: theFileName) { responsee, errorMessage in
+        uploadReels.uploadReels(imageUploadRequest: self.postModel.contentUrl!, paramName: "asset", fileName: renderUrl?.lastPathComponent ?? "default.\(postModel.isImageContent() ? "png" : "mp4")") { responsee, errorMessage in
             if(!responsee || errorMessage == nil)
             {
+                
                 print("error uploading video")
                 complitionHandler(false)
                 return
             }
-            uploadReels.uploadPost(post: self.postModel, complitionHandler: {response, error in
+            let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+            let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
+            let fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
+            var tag: [String] = []
+            self.postModel.tagPeople.forEach { peopleId in
+                tag.append(peopleId.uid)
+            }
+            let content = ContentDetail(name: fileName, size: reelsSize)
+            let postRes = ReelsPostRequest(userUUID: uuid, title: "The Post to Share", description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: 2, musicTrack:"this is Audio file", location: "karachi sindh", visibility: "public", musicURL: "music track", content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, tags: tag )
+            uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                 DispatchQueue.main.async {
                     if(responsee == true) {
                         print("Sucessss......")
