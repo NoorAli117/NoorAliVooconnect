@@ -33,36 +33,36 @@ class ReelsPostViewModel: ObservableObject {
 //    var post = PostModel()
     
     // call The API to post Reels
-    func uploadReelsDetails(post: PostModel) {
-        
-        let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-        
-        let reelsName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-        print("THE reelsName is======", reelsName )
-        
-        let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
-        print("THE reelsSize is=======", reelsSize)
-        
-        let contentRequest = ContentDetail(name: reelsName, size: reelsSize)
-        
-        let request = ReelsPostRequest(content: [contentRequest], title: "The Title of Post", category: 2, tags: [], musicTrack: "this is Audio file", allowDuet: post.allowDuet, visibility: post.visibility.rawValue, allowStitch: post.allowStitch, location: "karachi sindh", allowComment: post.allowComments, userUuid: uuid, contentType: "video", descriptionValue: " this is DesCription mention @irfhnh.1 @irfhnh.2 and Hash Tag #irfhnh.1 #irfhnh.2 ", musicUrl: "music track")
-        
-        print("RQUEST======================",request)
-        
-        uploadReelsDetailResource.uploadReelsDeatils(reelsPostRequest: request) { isSuccess, sussesMessage in
-            if isSuccess {
-                DispatchQueue.main.async {
-                    print("Success=============")
-                }
-            } else {
-                DispatchQueue.main.async {
-                    print("Failure=============")
-                }
-            }
-        }
-        
-    }
-    
+//    func uploadReelsDetails() {
+//        
+//        let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+//        
+//        let reelsName = UserDefaults.standard.string(forKey: "imageName") ?? ""
+//        print("THE reelsName is======", reelsName )
+//        
+//        let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
+//        print("THE reelsSize is=======", reelsSize)
+//        
+//        let contentRequest = ContentDetail(name: reelsName, size: reelsSize)
+//        
+//        let request = ReelsPostRequest(userUUID: uuid, title: "test", welcomeDescription: "test", location: "India", visibility: "public", contentType: "video", musicTrack: "Test Stream", musicURL: "https://cdns-preview-4.dzcdn.net/stream/c-4de93405ed0774e43f6e3fb15ab47e04-2.mp3", allowComment: "yes", allowDuet: "yes", allowStitch: "yes", forPlanID: 1, content: [contentRequest])
+//        
+//        print("RQUEST======================",request)
+//        
+//        uploadReelsDetailResource.uploadReelsDeatils(reelsPostRequest: request) { isSuccess, sussesMessage in
+//            if isSuccess {
+//                DispatchQueue.main.async {
+//                    print("Success=============")
+//                }
+//            } else {
+//                DispatchQueue.main.async {
+//                    print("Failure=============")
+//                }
+//            }
+//        }
+//        
+//    }
+//    
     
     
 }
