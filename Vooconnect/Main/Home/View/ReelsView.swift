@@ -2388,6 +2388,23 @@ struct ReelsPlyer: View {
         
         ZStack {
             
+//            if (self.reelsDetail.contentType == "video") {
+//                CustomVideoPlayer(player: player)
+//                    .edgesIgnoringSafeArea(.all)
+//                
+//                    .onAppear {
+//                        player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
+//                        player.play()
+//                    }
+//                    .onDisappear {
+//                        DispatchQueue.main.async {
+//                            player.pause()
+//                        }
+//                        
+//                    }
+//            }else {
+//                
+//            }
             CustomVideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
             
@@ -2740,10 +2757,10 @@ struct ReelsPlyer: View {
                             .font(.custom("Urbanist-Medium", size: 14))
                             .foregroundColor(.white)  // change
                         //                                .foregroundColor(.black)
-                        Text("#song #music #love #Beauty")
-                            .font(.custom("Urbanist-Medium", size: 12))
-                            .foregroundColor(.white)
-                            .padding(.top, -10)
+//                        Text(reelsDetail.postDescription)
+//                            .font(.custom("Urbanist-Medium", size: 12))
+//                            .foregroundColor(.white)
+//                            .padding(.top, -10)
                         
                     }
                     
@@ -2860,7 +2877,7 @@ struct ReelsPlyer: View {
                         
                         Image("MusicIcon")
                         
-                        Text("Favorite Girl by Justin Bieber")
+                        Text(reelsDetail.musicTrack ?? "Favorite Girl by Justin Bieber")
                             .font(.caption)
                             .fontWeight(.semibold)
                         
