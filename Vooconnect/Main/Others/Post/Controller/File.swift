@@ -3,91 +3,56 @@ import SwiftUI
 import Photos
 import AVKit
 
-//func downloadVideo() {
-//    let videoURLString = "https://vooconnectasset.devssh.xyz/uploads/marked/1685455994937-2023-05-301411220000.mp4"
-//        guard let videoURL = URL(string: videoURLString) else {
-//            print("Invalid video URL")
-//            return
-//        }
-//
-//        let session = URLSession(configuration: .default)
-//        let downloadTask = session.downloadTask(with: videoURL) { localURL, _, error in
-//            if let error = error {
-//                print("Video download failed: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            guard let localURL = localURL else {
-//                print("Unable to retrieve local URL for downloaded video")
-//                return
-//            }
-//
-//            saveVideoToGallery(videoURL: localURL)
-//        }
-//
-//        downloadTask.resume()
-//    }
-//
-//    func saveVideoToGallery(videoURL: URL) {
-//        PHPhotoLibrary.requestAuthorization { status in
-//            if status == .authorized {
-//                PHPhotoLibrary.shared().performChanges({
-//                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoURL)
-//                }) { saved, error in
-//                    if saved {
-//                        print("Video saved successfully")
-//                    } else {
-//                        print("Error saving video: \(error?.localizedDescription ?? "")")
-//                    }
-//                }
-//            } else {
-//                print("Access to photo library denied")
-//            }
-//        }
-//    }
-
-
-func downloadVideo() {
-    var fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-//    let fileName1 = fileName.removeFirst()
-//    let url = NSURL(string: getImageVideoBaseURL + "/marked" + fileName)!
-    let url = URL(string: getImageVideoBaseURL + "/marked" + fileName)!
-    print(url)
-    let asset = AVAsset(url: url)
-    let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality)!
-    exporter.outputFileType = AVFileType.mov
+func downloadAncdSaveVideo(){
+    let fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
+    let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + fileName)
+    let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    let destinationUrl = docsUrl?.appendingPathComponent(markedVideoURL?.lastPathComponent ?? "")
     
-    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
-    let outputPath = documentsPath.appendingPathComponent(fileName)
-    exporter.outputURL = URL(fileURLWithPath: outputPath)
-    
-    
-    guard let renderUrl = exporter.outputURL else{
-        print("incorrect url, can't save to gallery")
-        return
-    }
-    print("saving to device, url: " + renderUrl.absoluteString)
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: renderUrl)
-        }) { complete, error in
-            if complete {
-                print("Saved to gallery")
+    if let destinationUrl = destinationUrl {
+        if FileManager().fileExists(atPath: destinationUrl.path) {
+            print("File already exists")
+            try! FileManager().removeItem(atPath: destinationUrl.path)
+        } else {
+            let urlRequest = URLRequest(url: markedVideoURL!)
+            
+            let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                if let error = error {
+                    print("Request error: ", error)
+                    
+                    //                                                          self.isDownloading = false
+                    return
+                }
+                
+                guard let response = response as? HTTPURLResponse else { return }
+                
+                if response.statusCode == 200 {
+                    guard let data = data else {
+                        //                                                              self.isDownloading = false
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        do {
+                            PHPhotoLibrary.shared().performChanges({
+                                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destinationUrl)
+                            }) { saved, error in
+                                if saved {
+                                    print("saved")
+                                    //
+                                }
+                            }
+                            try data.write(to: destinationUrl, options: Data.WritingOptions.atomic)
+                            DispatchQueue.main.async {
+                                //                                                                      self.isDownloading = false
+                            }
+                        } catch let error {
+                            print("Error decoding: ", error)
+                            //                                                                  self.isDownloading = false
+                        }
+                    }
+                }
             }
+            dataTask.resume()
         }
+    }
 }
-//exporter.exportAsynchronously(completionHandler: {
-//    let activityViewController = UIActivityViewController(activityItems: [exporter.outputURL!], applicationActivities: nil)
-//    activityViewController.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
-//        if activityType == .saveToCameraRoll {
-//            print("Video saved!")
-//        }else {
-//            print("saving error \(String(describing: error))" )
-//        }
-//    }
-//    DispatchQueue.main.async {
-//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//           let window = windowScene.windows.first {
-//            window.rootViewController?.present(activityViewController, animated: true, completion: nil)
-//        }
-//    }
-//})
