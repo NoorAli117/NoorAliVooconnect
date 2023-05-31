@@ -17,9 +17,9 @@ struct ReelPostDataModel {
     var contentType: String = String()
     var musicTrack: String = String()
     var musicURL: String = String()
-    var allowComments: String = String()
-    var allowDuet: String = String()
-    var allowStitch: String = String()
+    var allowComments: Bool = Bool()
+    var allowDuet: Bool = Bool()
+    var allowStitch: Bool = Bool()
     var forPlanID: Int = Int()
     var reelsName: String = String()
     var reelsSize: String = String()
@@ -30,6 +30,7 @@ class ReelsPostViewModel: ObservableObject {
     
     @Published var reelPostDataModel: ReelPostDataModel = ReelPostDataModel()
     private let uploadReelsDetailResource = UploadReelsDetailResource()
+//    var post = PostModel()
     
     // call The API to post Reels
 //    func uploadReelsDetails() {

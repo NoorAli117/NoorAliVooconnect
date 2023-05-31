@@ -413,7 +413,7 @@ struct FinalVideoToPostView: View {
                                 }
                                 .onTapGesture {
                                     self.toggleOnTwo.toggle()
-                                    self.postModel.allowComments = self.toggleOnTwo
+                                    self.postModel.allowDuet = self.toggleOnTwo
                                 }
                                 
                             }
@@ -460,7 +460,7 @@ struct FinalVideoToPostView: View {
                                 }
                                 .onTapGesture {
                                     self.toggleOnThree.toggle()
-                                    self.postModel.allowComments = self.toggleOnThree
+                                    self.postModel.allowStitch = self.toggleOnThree
                                 }
                                 
                             }
