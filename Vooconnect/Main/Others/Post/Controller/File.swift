@@ -12,12 +12,14 @@ func downloadAncdSaveVideo(){
     if let destinationUrl = destinationUrl {
         if FileManager().fileExists(atPath: destinationUrl.path) {
             print("File already exists")
+            try! FileManager().removeItem(atPath: destinationUrl.path)
         } else {
             let urlRequest = URLRequest(url: markedVideoURL!)
             
             let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
                 if let error = error {
                     print("Request error: ", error)
+                    
                     //                                                          self.isDownloading = false
                     return
                 }
