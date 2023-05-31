@@ -18,7 +18,7 @@ var baseURL = "https://vooconnectuser.devssh.xyz/api/v1"//3000
 var assatEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
 var userApiEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
 var getBaseURL = "https://vooconnectpost.devssh.xyz/api/v1"//3001
-var getImageVideoBaseURL = "https://vooconnectasset.devssh.xyz/ /"//3002
+var getImageVideoBaseURL = "https://vooconnectasset.devssh.xyz/uploads"//3002
 
 struct EndPoints {
     

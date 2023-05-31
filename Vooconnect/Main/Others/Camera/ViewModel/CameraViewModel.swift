@@ -8,7 +8,6 @@
 import Foundation
 
 import AVFoundation
-
 // MARK: Camera View Model
 class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDelegate {
     
@@ -154,12 +153,12 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         let tempURL = NSTemporaryDirectory() + "\(Date()).mp4"
         output.startRecording(to: URL(fileURLWithPath: tempURL), recordingDelegate: self)
         print("Start recording")
-        isRecording = true
         if(songModel != nil)
         {
             let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: songModel!.preview)
         }
         recordingStopWatch()
+        isRecording = true
     }
     
     func recordingStopWatch(){
