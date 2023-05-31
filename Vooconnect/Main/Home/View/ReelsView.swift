@@ -2188,6 +2188,7 @@
 
 import SwiftUI
 import AVKit
+import Photos
 
 struct ReelsView: View {
     
@@ -2376,6 +2377,7 @@ struct ReelsPlyer: View {
     
     @Binding var topBar: Bool
     
+    @State private var alert: Bool = false
     @State private var playAndPause: Bool = false
     @State private var playAndPauseOpacity: Double = 0.001
     
@@ -2579,6 +2581,7 @@ struct ReelsPlyer: View {
                             .frame(width: 100, height: 100)
                             .opacity(playAndPauseOpacity)
                 }
+                
                                
             }
             
@@ -2792,6 +2795,66 @@ struct ReelsPlyer: View {
                     
                     // All Traling Button
                     VStack(spacing: 10) {
+                        
+                        Button {
+                            let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + urll.lastPathComponent)
+                            let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+                            let destinationUrl = docsUrl?.appendingPathComponent(urll.lastPathComponent)
+                            
+                            if let destinationUrl = destinationUrl {
+                                           if FileManager().fileExists(atPath: destinationUrl.path) {
+                                       print("File already exists")
+                                   } else {
+                                       let urlRequest = URLRequest(url: markedVideoURL!)
+
+                                                  let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                                                      if let error = error {
+                                                          print("Request error: ", error)
+//                                                          self.isDownloading = false
+                                                          return
+                                                      }
+
+                                                      guard let response = response as? HTTPURLResponse else { return }
+
+                                                      if response.statusCode == 200 {
+                                                          guard let data = data else {
+//                                                              self.isDownloading = false
+                                                              return
+                                                          }
+                                                          DispatchQueue.main.async {
+                                                              do {
+                                                                  PHPhotoLibrary.shared().performChanges({
+                                                                      PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destinationUrl)
+                                                                           }) { saved, error in
+                                                                               if saved {
+                                                                                   print("saved")
+//                                                                                   let alertController = UIAlertController(title: "Your video was successfully saved", message: nil, preferredStyle: .Alert)
+//                                                                                       .al
+//                                                                                   let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+//                                                                                   alertController.addAction(defaultAction)
+//                                                                                   self.presentViewController(alertController, animated: true, completion: nil)
+                                                                               }
+                                                                           }
+                                                                  try data.write(to: destinationUrl, options: Data.WritingOptions.atomic)
+                                                                  DispatchQueue.main.async {
+//                                                                      self.isDownloading = false
+                                                                  }
+                                                              } catch let error {
+                                                                  print("Error decoding: ", error)
+//                                                                  self.isDownloading = false
+                                                              }
+                                                          }
+                                                      }
+                                                  }
+                                                  dataTask.resume()
+                                              }
+                                          }
+                                        
+                              
+                        } label: {
+                            Image("DownloadLogo")  // PlusPurple
+                               
+                        }
                         
                         Button {
                             plusIcon.toggle()
@@ -3174,6 +3237,13 @@ struct AcctionButtions: View {
     var body: some View {
         
         VStack(spacing: 10) {
+            
+//            Button {
+//
+//            } label: {
+//                Image("PlusIcon")
+//
+//            }
             
             Button {
                 

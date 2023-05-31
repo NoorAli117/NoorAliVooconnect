@@ -48,7 +48,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "18"
                   endingLineNumber = "18"
-                  offsetFromSymbolStart = "948">
+                  offsetFromSymbolStart = "1062">
                </Location>
                <Location
                   uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9 - 8c3d5cf24774d9ca"
@@ -63,7 +63,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "18"
                   endingLineNumber = "18"
-                  offsetFromSymbolStart = "1116">
+                  offsetFromSymbolStart = "1271">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -144,7 +144,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34"
-                  offsetFromSymbolStart = "664">
+                  offsetFromSymbolStart = "917">
                </Location>
                <Location
                   uuid = "037726EC-C4EF-43BE-850F-2766A92B5926 - bcec39f16d88996"
@@ -159,7 +159,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34"
-                  offsetFromSymbolStart = "1680">
+                  offsetFromSymbolStart = "1957">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -178,6 +178,22 @@
             endingLineNumber = "30"
             landmarkName = "uploadReelsDeatils(reelsPostRequest:complitionHandler:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3E863A84-83B6-4999-8A87-07ECB0C605C0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2801"
+            endingLineNumber = "2801"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
