@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Photos
+import SDWebImageSwiftUI
 
 struct FinalVideoToPostView: View {
     
@@ -41,6 +42,7 @@ struct FinalVideoToPostView: View {
     @State var postModel : PostModel
     @State var renderUrl : URL?
     @State private var saveToDevice = false
+    @State private var loader = false
     @State private var videoData: Data?
     
     init(postModel : PostModel, renderUrl : URL?){
@@ -531,57 +533,23 @@ struct FinalVideoToPostView: View {
                             Spacer()
                             
                             Button {
-                                //                                print("Should save to device: "+self.saveToDevice.description)
-                                //                                if(self.saveToDevice){
-//                                                                    guard let renderUrl = self.renderUrl else{
-//                                                                        print("incorrect url, can't save to gallery")
-//                                                                        return
-//                                                                    }
-//                                                                    print("saving to device, url: " + renderUrl.absoluteString)
-//                                                                    if(self.postModel.isImageContent())
-//                                                                    {
-//                                                                        let data = try? Data(contentsOf: renderUrl)
-//                                                                        let image = UIImage(data: data!)
-//                                                                        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-//                                                                    }
-//                                                                    else{
-//                                                                        PHPhotoLibrary.shared().performChanges({
-//                                                                            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: renderUrl)
-//                                                                        }) { complete, error in
-//                                                                            if complete {
-//                                                                                print("Saved to gallery")
-//                                                                            }
-//                                                                        }
-//                                                                    }
-                                //                                }
+                                loader = true
                                 uploadReelss { isSuccess in
                                     if isSuccess {
                                         print("success=========")
                                         navigateToNextView = true
-                                        //                                        if (self.saveToDevice){
-                                        //                                            let fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-                                        //                                            let videoURL = URL(string: getImageVideoBaseURL + "/marked" + fileName)!
-                                        //                                            print(videoURL)
-                                        //                                            //                            downloadAndSaveVideo(videoURL: videoURL)
-//                                                                                    downloadVideoFromURL(url: videoURL) { videoURL, error in
-                                        //                                                if let videoURL = videoURL {
-                                        //                                                    DispatchQueue.main.async{
-                                        //                                                        saveVideoToPhotosLibrary(videoURL: videoURL)
-                                        //                                                    }
-                                        //                                                } else if let error = error {
-                                        //                                                    print("Error downloading video: \(error.localizedDescription)")
-                                        //                                                }
-                                        //                                            }
-                                        //                                        }
-                                        
-                                        print("Should save to device: "+self.saveToDevice.description)
-                                            
-//                                        reelsPostVM.uploadReelsDetails()
-                                            
+                                        if (self.saveToDevice){
+                                            print("Should save to device: "+self.saveToDevice.description)
+                                            Task{
+                                                await downloadAncdSaveVideo()
+                                                loader = false
+                                            }
+                                        }
                                         } else {
                                             print("failed==========")
                                         }
                                     }
+                                
                                 } label: {
                                     Spacer()
                                     HStack {
@@ -636,6 +604,15 @@ struct FinalVideoToPostView: View {
                                 bottomSheetShown.toggle()
                             }
                     }
+                if loader{
+                    Color.black.opacity(0.3)
+                        .edgesIgnoringSafeArea(.all)
+                        .overlay(
+                            ActivityIndicator()
+                                .frame(width: 50, height: 50)
+                                .padding()
+                        )
+                }
                     
                     GeometryReader { geometry in
                         BottomSheetView(
@@ -741,9 +718,6 @@ struct FinalVideoToPostView: View {
                         if(responsee == true) {
                             print("Sucessss......")
                             complitionHandler(true)
-                            if(self.saveToDevice){
-                                downloadAncdSaveVideo()
-                            }
                         } else {
                             print("Errror.....")
                             complitionHandler(false)
