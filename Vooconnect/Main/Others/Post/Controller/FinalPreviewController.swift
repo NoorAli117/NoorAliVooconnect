@@ -36,10 +36,10 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
             {
                 self.videoPlayer = VideoMediaInput(url: url,speed: speed)
                 videoPlayer.delegate = self
-                setupRecognition()
+//                setupRecognition()
                 videoPlayer.onEndVideo = {
                     self.captioning = ""
-                    self.setupRecognition()
+//                    self.setupRecognition()
                 }
                 
             }else{
@@ -75,7 +75,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         DispatchQueue.global(qos: .background).async{ [self] in
             self.videoPlayer = VideoMediaInput(url: url, speed: self.speed)
             self.videoPlayer.delegate = self
-            self.setupRecognition()
+//            self.setupRecognition()
         }
         
         
@@ -85,28 +85,28 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         recognitionRequest?.appendAudioSampleBuffer(sampleBuffer)
     }
     
-    private func setupRecognition() {
-        let recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        // we want to get continuous recognition and not everything at once at the end of the video
-        recognitionRequest.shouldReportPartialResults = true
-        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
-            if let result = result {
-                self?.captioning = result.bestTranscription.formattedString
-            }else{
-                print("captioning is nil")
-            }
-
-            // if connected to internet, then once in about every minute recognition task finishes
-            // so we need to set up a new one to continue recognition
-            if result?.isFinal == true {
-                self?.recognitionRequest = nil
-                self?.recognitionTask = nil
-
-                self?.setupRecognition()
-            }
-        }
-        self.recognitionRequest = recognitionRequest
-    }
+//    private func setupRecognition() {
+//        let recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+//        // we want to get continuous recognition and not everything at once at the end of the video
+//        recognitionRequest.shouldReportPartialResults = true
+//        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
+//            if let result = result {
+//                self?.captioning = result.bestTranscription.formattedString
+//            }else{
+//                print("captioning is nil")
+//            }
+//
+//            // if connected to internet, then once in about every minute recognition task finishes
+//            // so we need to set up a new one to continue recognition
+//            if result?.isFinal == true {
+//                self?.recognitionRequest = nil
+//                self?.recognitionTask = nil
+//
+//                self?.setupRecognition()
+//            }
+//        }
+//        self.recognitionRequest = recognitionRequest
+//    }
     
     
     ///Add microphone audio to the video

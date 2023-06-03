@@ -45,9 +45,11 @@ struct FinalVideoToPostView: View {
     @State private var autoCaption = false
     @State private var loader = false
     @State private var showTopicView = false
-    @State private var captionLang = "en-Us"
+    @State private var captionLang = ""
     @State private var selectedTopic = ""
+    @State private var selectedCat: Int?
     @State private var videoData: Data?
+    var catSelected: (Int) -> () = {val in}
     
     init(postModel : PostModel, renderUrl : URL?){
         _postModel = State(initialValue: postModel)
@@ -270,15 +272,13 @@ struct FinalVideoToPostView: View {
                             
                         }
                         .padding(.top, 8)
-                        .sheet(isPresented: $showTopicView, onDismiss: {
-                            
-                            if let sT = UserDefaults.standard.value(forKey: UserdefaultsKey.selectedTopics) as? [String] {
-                                selectedTopic = sT.joined(separator: ", ")
-                            }
-                            
-                        }, content: {
-                            ChooseYourTopicView(presentedAsModal: self.$showTopicView)
-                        })
+                        .sheet(isPresented: $showTopicView) {
+                            CatBotSheetView(selectedCat: selectedCat ?? 0, onItemSelected: { category in
+                                selectedCat = category
+                                self.catSelected(category)
+                                showTopicView.toggle()
+                            })
+                        }
                         
                         
                         
@@ -738,7 +738,7 @@ struct FinalVideoToPostView: View {
                 }
                 let content = ContentDetail(name: fileName, size: reelsSize)
                 print("caption and lan:  ", self.captionLang, self.autoCaption)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: self.postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: 2, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitle_apply: self.autoCaption, subtitleLang: self.captionLang, tags: tag )
+                let postRes = ReelsPostRequest(userUUID: uuid, title: self.postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitle_apply: self.autoCaption, subtitleLang: self.captionLang, tags: tag )
                 uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                     DispatchQueue.main.async {
                         if(responsee == true) {
