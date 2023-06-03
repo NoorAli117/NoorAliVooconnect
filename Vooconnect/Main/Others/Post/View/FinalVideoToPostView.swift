@@ -42,7 +42,11 @@ struct FinalVideoToPostView: View {
     @State var postModel : PostModel
     @State var renderUrl : URL?
     @State private var saveToDevice = false
+    @State private var autoCaption = false
     @State private var loader = false
+    @State private var showTopicView = false
+    @State private var captionLang = "en-Us"
+    @State private var selectedTopic = ""
     @State private var videoData: Data?
     
     init(postModel : PostModel, renderUrl : URL?){
@@ -130,7 +134,7 @@ struct FinalVideoToPostView: View {
                                 Image("HastagLogo")
                                 
                                 Button {
-                                    self.description = self.postModel.description + "/n" + " #"
+                                    self.description = self.postModel.description + " #"
                                 } label: {
                                     Text("Hashtag")
                                         .lineLimit(1)
@@ -233,6 +237,8 @@ struct FinalVideoToPostView: View {
                                 
                                 Button {
                                     
+                                    
+                                    showTopicView.toggle()
                                 } label: {
                                     Text("Category")
                                         .lineLimit(1)
@@ -264,6 +270,15 @@ struct FinalVideoToPostView: View {
                             
                         }
                         .padding(.top, 8)
+                        .sheet(isPresented: $showTopicView, onDismiss: {
+                            
+                            if let sT = UserDefaults.standard.value(forKey: UserdefaultsKey.selectedTopics) as? [String] {
+                                selectedTopic = sT.joined(separator: ", ")
+                            }
+                            
+                        }, content: {
+                            ChooseYourTopicView(presentedAsModal: self.$showTopicView)
+                        })
                         
                         
                         
@@ -540,9 +555,16 @@ struct FinalVideoToPostView: View {
                                         navigateToNextView = true
                                         if (self.saveToDevice){
                                             print("Should save to device: "+self.saveToDevice.description)
-                                            Task{
-                                                await downloadAncdSaveVideo()
-                                                loader = false
+                                            if (self.autoCaption) {
+                                                Task {
+                                                    downloadAndSaveWithCaptionVideo()
+                                                    loader = false
+                                                }
+                                            } else {
+                                                Task{
+                                                    downloadAncdSaveVideo()
+                                                    loader = false
+                                                }
                                             }
                                         }
                                         } else {
@@ -645,9 +667,12 @@ struct FinalVideoToPostView: View {
                         ) {
                             CustomeSheetMoreOtptions(
                                 saveToDevice: {val in
-                                    self.saveToDevice = val
-                                }
-                            )
+                                self.saveToDevice = val
+                            }, autoCation: {val in
+                                self.autoCaption = val
+                            }, captionLang: {val in
+                                self.captionLang = val
+                            })
                             
                         }
                     }.edgesIgnoringSafeArea(.all)
@@ -712,7 +737,8 @@ struct FinalVideoToPostView: View {
                     tag.append(peopleId.uid)
                 }
                 let content = ContentDetail(name: fileName, size: reelsSize)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: "My video", description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: 2, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, tags: tag )
+                print("caption and lan:  ", self.captionLang, self.autoCaption)
+                let postRes = ReelsPostRequest(userUUID: uuid, title: self.postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: 2, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitle_apply: self.autoCaption, subtitleLang: self.captionLang, tags: tag )
                 uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                     DispatchQueue.main.async {
                         if(responsee == true) {

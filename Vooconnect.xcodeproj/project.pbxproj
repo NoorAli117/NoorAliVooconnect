@@ -123,6 +123,9 @@
 		29625FAE2A181E40008E00FB /* NetworkManagerAR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */; };
 		29625FB02A181F5E008E00FB /* ARGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FAF2A181F5E008E00FB /* ARGScene.swift */; };
 		29625FB32A182017008E00FB /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FB22A182017008E00FB /* RealmManager.swift */; };
+		297754B92A2A036A0006DB3F /* LanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754B82A2A036A0006DB3F /* LanguageModel.swift */; };
+		297754BB2A2A039B0006DB3F /* LangViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754BA2A2A039B0006DB3F /* LangViewModel.swift */; };
+		297754BD2A2A05340006DB3F /* BotSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754BC2A2A05340006DB3F /* BotSheetView.swift */; };
 		29E4B4602A25183800C79AA8 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E4B45F2A25183800C79AA8 /* File.swift */; };
 		29E922D02A289CD80008F39C /* progressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E922CF2A289CD80008F39C /* progressView.swift */; };
 		5016A78E29DBE200009B0332 /* ChooseYourTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5016A78D29DBE200009B0332 /* ChooseYourTopicView.swift */; };
@@ -510,6 +513,9 @@
 		29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerAR.swift; sourceTree = "<group>"; };
 		29625FAF2A181F5E008E00FB /* ARGScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGScene.swift; sourceTree = "<group>"; };
 		29625FB22A182017008E00FB /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		297754B82A2A036A0006DB3F /* LanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModel.swift; sourceTree = "<group>"; };
+		297754BA2A2A039B0006DB3F /* LangViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangViewModel.swift; sourceTree = "<group>"; };
+		297754BC2A2A05340006DB3F /* BotSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotSheetView.swift; sourceTree = "<group>"; };
 		29E4B45F2A25183800C79AA8 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		29E922CF2A289CD80008F39C /* progressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = progressView.swift; sourceTree = "<group>"; };
 		5016A78829DBE149009B0332 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -1630,6 +1636,7 @@
 			isa = PBXGroup;
 			children = (
 				A943809F29407373007D9DF4 /* CameraModel.swift */,
+				297754B82A2A036A0006DB3F /* LanguageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2188,6 +2195,7 @@
 				B2E19C4E29459148005FE914 /* ImageViewModel.swift */,
 				A9B2478F293DC4EB00B5A233 /* CameraViewModel.swift */,
 				A90F6C3629432F1100A8C8B3 /* CameraPhotoModel.swift */,
+				297754BA2A2A039B0006DB3F /* LangViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2205,6 +2213,7 @@
 				A932F8F7295FF2720098B14E /* FiltersList.swift */,
 				A932F8F9295FF6320098B14E /* EffectsSheets.swift */,
 				A932F8FB295FF9280098B14E /* EffectsList.swift */,
+				297754BC2A2A05340006DB3F /* BotSheetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2741,6 +2750,7 @@
 				ABC55C3A29AE8A8100C3E320 /* ViewExtension.swift in Sources */,
 				A9C460052949E8DD00A06896 /* SoundsView.swift in Sources */,
 				A971F3A4291D02990045602C /* TestView.swift in Sources */,
+				297754B92A2A036A0006DB3F /* LanguageModel.swift in Sources */,
 				A95462412955A72C00C4D233 /* WeeklyRankingSheet.swift in Sources */,
 				049F4C2A29BBBD5400113EA0 /* FollowButton.swift in Sources */,
 				04C1D5F629BBC42000284F72 /* LogInModel.swift in Sources */,
@@ -2836,6 +2846,7 @@
 				A95A93652924B23A00CABC93 /* OTPTwoView.swift in Sources */,
 				ABC9F82329AAC9F2006436A1 /* TextExtension.swift in Sources */,
 				AB37594329CE638D000D0A2D /* AddStickerView.swift in Sources */,
+				297754BB2A2A039B0006DB3F /* LangViewModel.swift in Sources */,
 				049F4C2C29BBBD6000113EA0 /* ShareSheet.swift in Sources */,
 				A9F24080296818B30063D430 /* TrendingView.swift in Sources */,
 				ABAEA67629BC447F00B5277E /* TypeContent.swift in Sources */,
@@ -2897,6 +2908,7 @@
 				049F4BF629BBB67100113EA0 /* SubscribeView.swift in Sources */,
 				A94040E12913880600E0DDD6 /* SignUpViewModel.swift in Sources */,
 				A98B97BC29505A330084B4F4 /* MyProfileView.swift in Sources */,
+				297754BD2A2A05340006DB3F /* BotSheetView.swift in Sources */,
 				ABC9F82A29AACEF3006436A1 /* SoundsManagerHelper.swift in Sources */,
 				A932F8FA295FF6320098B14E /* EffectsSheets.swift in Sources */,
 				04C7526929D1C8F400A0337A /* CreatorSearchViewModel.swift in Sources */,

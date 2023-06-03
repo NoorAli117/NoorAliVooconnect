@@ -10,8 +10,12 @@ import SwiftUI
 struct CustomeSheetMoreOtptions: View {
     
     @State private var saveToDeviceOn = false
+    @State private var showLanguages = false
     @State private var autoCationOn = false
+    @State private var selectedLanguage = "en-US"
     var saveToDevice : (Bool) -> () = {val in}
+    var autoCation : (Bool) -> () = {val in}
+    var captionLang: (String) -> () = {val in}
     
     var body: some View {
         VStack {
@@ -69,7 +73,7 @@ struct CustomeSheetMoreOtptions: View {
                 
                 HStack {
                     
-                    Image("DownloadLogo")
+                    Image("captionsPurple")
                     
                     Text("Allow auto-generated captions")
                         .font(.custom("Urbanist-SemiBold", size: 14))
@@ -106,6 +110,7 @@ struct CustomeSheetMoreOtptions: View {
                     }
                     .onTapGesture {
                         self.autoCationOn.toggle()
+                        self.autoCation(self.autoCationOn)
                     }
 
                     
@@ -117,7 +122,7 @@ struct CustomeSheetMoreOtptions: View {
                     Image("DownloadLogo")
                     
                     Button {
-                        
+                        showLanguages.toggle()
                     } label: {
                         Text("select caption language")
                             .font(.custom("Urbanist-SemiBold", size: 14))
@@ -127,7 +132,7 @@ struct CustomeSheetMoreOtptions: View {
                     
                     Spacer()
                     
-                    Text("English")
+                    Text(selectedLanguage)
                     
                     Image("ArrowLogo")
                     
@@ -138,6 +143,16 @@ struct CustomeSheetMoreOtptions: View {
             Spacer()
         }
         .padding(.horizontal)
+        .sheet(isPresented: $showLanguages) {
+            BotSheetView(selectedLang: selectedLanguage, onItemSelected: { lang in
+                selectedLanguage = lang
+                self.captionLang(lang)
+                showLanguages.toggle()
+                // Perform actions with the selected language, such as updating the model
+                // For example: model.updateSelectedLanguage(lang)
+            })
+        }
+//        Text("Selected Language: \(selectedLanguage)")
     }
 }
 
