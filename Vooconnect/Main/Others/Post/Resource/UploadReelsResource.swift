@@ -294,3 +294,72 @@ struct PostRes: Codable {
     let status: Bool?
     let message: String?
 }
+
+func uploadCaption(imageUploadRequest: URL,paramName : String, fileName : String, complitionHandler : @escaping(Bool, String?) -> Void) {
+    let session = URLSession.shared
+    let boundary = UUID().uuidString
+    var data = Data()
+    
+    let parameters : [String:Any]?
+    parameters = ["upload_path" : "reels"]
+    
+    var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
+    urlRequest.httpMethod = "post"
+
+    if let fileData = try? Data(contentsOf: imageUploadRequest) {
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
+        data.append(fileData)
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+    }
+    
+    
+    if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+        
+        urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+        urlRequest.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+        
+        print("ACCESS TOKEN=========", tokenData)
+        
+    }
+    
+    session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
+        
+        if let data = httpData {
+            
+            do {
+                        let data = try? JSONDecoder().decode(UploadRes.self, from: data)
+                if let data {
+                    if data.status == true {
+                        let name = data.data.first?.name ?? ""
+                        UserDefaults.standard.set(name, forKey: "imageName")
+
+                        let size = data.data.first?.size ?? ""
+                        UserDefaults.standard.set(size, forKey: "reelSize")
+
+                        let reelsName = UserDefaults.standard.string(forKey: "imageName") ?? ""
+                        print("THE reelsName is======", reelsName )
+
+                        let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
+                        print("THE reelsSize is=======", reelsSize)
+                        complitionHandler(true, "")
+                    }
+                }else{
+                    complitionHandler(false, httpError?.localizedDescription)
+                }
+            } catch {
+                debugPrint("Error in decoding the model")
+                complitionHandler(false, "Please login first")
+            }
+            
+        } else if let resposne = httpResponse {
+            
+        } else {
+            print("ther error")
+        }
+        
+    }.resume()
+    
+    
+}

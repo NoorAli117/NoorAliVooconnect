@@ -3,6 +3,25 @@ import SwiftUI
 import Photos
 import AVKit
 
+func downloadAndSaveWithCaptionVideo(){
+    var fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
+    let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + "/captioned" + fileName)
+    print(markedVideoURL!)
+    let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    let destinationUrl = docsUrl?.appendingPathComponent(markedVideoURL?.lastPathComponent ?? "")
+    
+    if let destinationUrl = destinationUrl {
+        if FileManager().fileExists(atPath: destinationUrl.path) {
+            print("File already exists")
+            try! FileManager().removeItem(atPath: destinationUrl.path)
+            saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
+        } else {
+            saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
+//            try! FileManager().removeItem(atPath: destinationUrl.path)
+        }
+    }
+}
+
 func downloadAncdSaveVideo(){
     var fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
     let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + fileName)

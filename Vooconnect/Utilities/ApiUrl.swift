@@ -42,6 +42,7 @@ struct EndPoints {
     static var uploadProfileData = "/update-profile"
     
     static var uploadFile = "/upload-file"
+    static var subtitles = "/lang-for-subtitles"
     static var updateInterestList = "/update-interest-list"
     
     static var reels = "/post-stream?page=1&post_type=recommended"

@@ -8,13 +8,15 @@
 import Foundation
 
 // MARK: - Welcome
-struct ReelsPostRequest: Codable {
+ struct ReelsPostRequest: Codable {
     let userUUID, title, description, contentType: String?
     let category: Int?
     let musicTrack, location, visibility, musicURL: String?
     let content: [ContentDetail]?
-    let allowComment, allowDuet, allowStitch: Bool?
+    let allowComment, allowDuet, allowStitch, subtitle_apply: Bool?
+    let subtitleLang: String?
     let tags: [String]?
+    
 
     enum CodingKeys: String, CodingKey {
         case userUUID = "user_uuid"
@@ -29,6 +31,8 @@ struct ReelsPostRequest: Codable {
         case allowDuet = "allow_duet"
         case allowStitch = "allow_stitch"
         case tags
+        case subtitle_apply = "subtitle_apply"
+        case subtitleLang
     }
 
 //    var content: [ContentDetail]?
