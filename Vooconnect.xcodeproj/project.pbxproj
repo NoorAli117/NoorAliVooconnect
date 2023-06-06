@@ -108,6 +108,8 @@
 		04DD22EF29DCC07700DE7103 /* InstagramLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD22EE29DCC07700DE7103 /* InstagramLoginManager.swift */; };
 		04E05D9629CF221F004F5406 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E05D9529CF221F004F5406 /* PostsModel.swift */; };
 		04E05D9829CF2320004F5406 /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E05D9729CF2320004F5406 /* StatsModel.swift */; };
+		1064AC6E2A2F6CCD00DFF2BB /* ARGear.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */; };
+		1064AC6F2A2F6CCD00DFF2BB /* ARGear.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		107DCDA12A165FA900A95F17 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9E2A165FA900A95F17 /* Categories.swift */; };
 		107DCDA22A165FA900A95F17 /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9F2A165FA900A95F17 /* FilterData.swift */; };
 		107DCDA32A165FA900A95F17 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCDA02A165FA900A95F17 /* ItemData.swift */; };
@@ -398,6 +400,20 @@
 		B2E19C4F29459149005FE914 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E19C4E29459148005FE914 /* ImageViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1064AC702A2F6CCE00DFF2BB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1064AC6F2A2F6CCD00DFF2BB /* ARGear.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		040B706E29F90CE400BCCACD /* ProfileViewersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersView.swift; sourceTree = "<group>"; };
 		040B707029F90D0700BCCACD /* ProfileViewersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersViewModel.swift; sourceTree = "<group>"; };
@@ -498,6 +514,7 @@
 		04E05D9529CF221F004F5406 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
 		04E05D9729CF2320004F5406 /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
 		0DE5759621D06BEFA8AF4238 /* Pods_Vooconnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vooconnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ARGear.framework; sourceTree = "<group>"; };
 		107DCD9E2A165FA900A95F17 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		107DCD9F2A165FA900A95F17 /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
 		107DCDA02A165FA900A95F17 /* ItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
@@ -809,6 +826,7 @@
 				A958B65E2923B82100FE16EA /* CountryPicker in Frameworks */,
 				503A8F4B29E59C880035135D /* AgoraVideoSwiftUI in Frameworks */,
 				502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */,
+				1064AC6E2A2F6CCD00DFF2BB /* ARGear.framework in Frameworks */,
 				502C133429D57BE300FB0577 /* AgoraUIKit in Frameworks */,
 				049F4BBF29BBB55B00113EA0 /* Swinject in Frameworks */,
 				9DB61B7F668C5A90B13AF9D4 /* Pods_Vooconnect.framework in Frameworks */,
@@ -1982,6 +2000,7 @@
 		A9785F952911102D00F19ADD = {
 			isa = PBXGroup;
 			children = (
+				1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */,
 				ABAEA65E29BA71DC00B5277E /* ARScenes */,
 				ABAEA64C29B8308000B5277E /* 3DModels */,
 				A958B65C2923B7DA00FE16EA /* CountryPicker-master */,
@@ -2526,6 +2545,7 @@
 				A9785F9C2911102D00F19ADD /* Resources */,
 				EDD493318EE58516C25C7339 /* [CP] Embed Pods Frameworks */,
 				91FBE2DEDED1A502F2E40F33 /* [CP] Copy Pods Resources */,
+				1064AC702A2F6CCE00DFF2BB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3192,8 +3212,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Vooconnect/Preview Content\"";
-				DEVELOPMENT_TEAM = 783L2F856D;
+				DEVELOPMENT_TEAM = 5FQV9R5NVC;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Vooconnect/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vooconnect Live";
@@ -3242,6 +3266,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Vooconnect/Preview Content\"";
 				DEVELOPMENT_TEAM = 5FQV9R5NVC;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Vooconnect/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vooconnect Live";

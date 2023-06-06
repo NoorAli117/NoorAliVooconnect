@@ -2189,6 +2189,7 @@
 import SwiftUI
 import AVKit
 import Photos
+import ARGear
 
 struct ReelsView: View {
     
