@@ -2220,6 +2220,7 @@ struct ReelsView: View {
     var body: some View {
         
         // Setting Width and height for rotated view...
+        
     
         
         GeometryReader { proxy in
@@ -2246,6 +2247,7 @@ struct ReelsView: View {
 //                            .onDisappear{
 //                                topBar = false
 //                            }
+                        
                         
                     }
                     

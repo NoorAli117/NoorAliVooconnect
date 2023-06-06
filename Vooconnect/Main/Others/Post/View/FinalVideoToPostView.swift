@@ -45,6 +45,8 @@ struct FinalVideoToPostView: View {
     @State private var autoCaption = false
     @State private var loader = false
     @State private var showTopicView = false
+    @State private var isShowPopup = false
+    @State private var message = ""
     @State private var captionLang = ""
     @State private var selectedTopic = ""
     @State private var selectedCat: Int?
@@ -549,6 +551,19 @@ struct FinalVideoToPostView: View {
                             
                             Button {
                                 loader = true
+                                if (postModel.description == ""){
+                                    print("Description should not be nil")
+                                    loader = false
+                                    showMessagePopup(messages: "Description Needed")
+                                    return
+                                }
+
+                                guard let selectedCat = selectedCat, selectedCat != 0 else {
+                                    print("Category should be selected")
+                                    loader = false
+                                    showMessagePopup(messages: "Category Needed")
+                                    return
+                                }
                                 uploadReelss { isSuccess in
                                     if isSuccess {
                                         print("success=========")
@@ -569,6 +584,7 @@ struct FinalVideoToPostView: View {
                                         }
                                         } else {
                                             print("failed==========")
+                                            loader = false
                                         }
                                     }
                                 
@@ -648,17 +664,41 @@ struct FinalVideoToPostView: View {
                             })
                         }
                     }.edgesIgnoringSafeArea(.all)
-                    
-                    // More Option
-                    if bottomSheetMoreOption {
-                        Rectangle()
-                            .fill(Color.black)
-                            .opacity(0.7)
-                            .edgesIgnoringSafeArea(.all)
-                            .onTapGesture {
-                                bottomSheetMoreOption.toggle()
-                            }
+                if self.isShowPopup {
+                    GeometryReader { geometry in
+                        VStack {
+                            Spacer()
+                            Spacer()
+                            Text(message)
+                                .frame(maxWidth: geometry.size.width * 0.8, maxHeight: 40.0)
+                                .padding(.bottom, 20)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.black.opacity(0.50))
+                                )
+                                .foregroundColor(Color.white)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        withAnimation {
+                                            self.isShowPopup = false
+                                        }
+                                    }
+                                }
+                        }
+                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .bottom)
                     }
+                }
+                
+                // More Option
+                if bottomSheetMoreOption {
+                    Rectangle()
+                        .fill(Color.black)
+                        .opacity(0.7)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            bottomSheetMoreOption.toggle()
+                        }
+                }
                     
                     GeometryReader { geometry in
                         BottomSheetView(
@@ -684,6 +724,10 @@ struct FinalVideoToPostView: View {
                 .navigationBarHidden(true)
             }
         }
+    func showMessagePopup(messages: String) {
+        self.message = messages
+        self.isShowPopup = true
+    }
         
         func testCover() -> some View{
             let data = try? Data(contentsOf: self.renderUrl!)
@@ -738,13 +782,17 @@ struct FinalVideoToPostView: View {
                 }
                 let content = ContentDetail(name: fileName, size: reelsSize)
                 print("caption and lan:  ", self.captionLang, self.autoCaption)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: self.postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitle_apply: self.autoCaption, subtitleLang: self.captionLang, tags: tag )
+                let postRes = ReelsPostRequest(userUUID: uuid, title: "This is title", description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitle_apply: self.autoCaption, subtitleLang: self.captionLang, tags: tag )
                 uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                     DispatchQueue.main.async {
                         if(responsee == true) {
                             print("Sucessss......")
                             complitionHandler(true)
                         } else {
+                            if (error == "502 Bad Gateway"){
+                                print("Fill the mandatory fields")
+                                loader = false
+                            }
                             print("Errror.....")
                             complitionHandler(false)
                         }
