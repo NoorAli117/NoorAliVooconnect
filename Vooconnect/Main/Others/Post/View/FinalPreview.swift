@@ -296,17 +296,15 @@ struct FinalPreview: View{
 //                                        }
 //                                    })
                                 } label: {
-                                    if(!self.postModel.enableCaptions)
-                                    {
-                                        VStack{
+                                    VStack{
+                                        if(!self.postModel.enableCaptions)
+                                        {
                                             Image("PreviewCaption")
                                             Text("Captions")
                                                 .font(.custom("Urbanist-Medium", size: 12))
                                                 .foregroundColor(.white)
                                                 .padding(.top, -5)
-                                        }
-                                    }else{
-                                        VStack{
+                                        }else{
                                             Image("captionsPurple")
                                             Text("Captions")
                                                 .font(.custom("Urbanist-Medium", size: 12))
