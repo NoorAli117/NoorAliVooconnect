@@ -2188,6 +2188,8 @@
 
 import SwiftUI
 import AVKit
+import Photos
+import ARGear
 
 struct ReelsView: View {
     
@@ -2218,6 +2220,7 @@ struct ReelsView: View {
     var body: some View {
         
         // Setting Width and height for rotated view...
+        
     
         
         GeometryReader { proxy in
@@ -2244,6 +2247,7 @@ struct ReelsView: View {
 //                            .onDisappear{
 //                                topBar = false
 //                            }
+                        
                         
                     }
                     
@@ -2376,6 +2380,7 @@ struct ReelsPlyer: View {
     
     @Binding var topBar: Bool
     
+    @State private var alert: Bool = false
     @State private var playAndPause: Bool = false
     @State private var playAndPauseOpacity: Double = 0.001
     
@@ -2388,6 +2393,23 @@ struct ReelsPlyer: View {
         
         ZStack {
             
+//            if (self.reelsDetail.contentType == "video") {
+//                CustomVideoPlayer(player: player)
+//                    .edgesIgnoringSafeArea(.all)
+//                
+//                    .onAppear {
+//                        player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
+//                        player.play()
+//                    }
+//                    .onDisappear {
+//                        DispatchQueue.main.async {
+//                            player.pause()
+//                        }
+//                        
+//                    }
+//            }else {
+//                
+//            }
             CustomVideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
             
@@ -2562,6 +2584,7 @@ struct ReelsPlyer: View {
                             .frame(width: 100, height: 100)
                             .opacity(playAndPauseOpacity)
                 }
+                
                                
             }
             
@@ -2740,10 +2763,10 @@ struct ReelsPlyer: View {
                             .font(.custom("Urbanist-Medium", size: 14))
                             .foregroundColor(.white)  // change
                         //                                .foregroundColor(.black)
-                        Text("#song #music #love #Beauty")
-                            .font(.custom("Urbanist-Medium", size: 12))
-                            .foregroundColor(.white)
-                            .padding(.top, -10)
+//                        Text(reelsDetail.postDescription)
+//                            .font(.custom("Urbanist-Medium", size: 12))
+//                            .foregroundColor(.white)
+//                            .padding(.top, -10)
                         
                     }
                     
@@ -2776,6 +2799,70 @@ struct ReelsPlyer: View {
                     // All Traling Button
                     VStack(spacing: 10) {
                         
+//                        Button {
+//                            print("downloading")
+//                            let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + "/" + urll.lastPathComponent)
+//                            print(markedVideoURL as Any)
+//                            let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+//                            let destinationUrl = docsUrl?.appendingPathComponent(urll.lastPathComponent)
+//
+//                            if let destinationUrl = destinationUrl {
+//                                if FileManager().fileExists(atPath: destinationUrl.path) {
+//                                    print("File already exists")
+//                                    try! FileManager().removeItem(atPath: destinationUrl.path)
+//                                    saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
+//                                } else {
+//                                    saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
+//                                }
+//                            }
+//
+//                            func saveVideo(url: URL, destiURL: URL) {
+//                                let urlRequest = URLRequest(url: url)
+//
+//                                let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+//                                    if let error = error {
+//                                        print("Request error: ", error)
+//
+//                                        //                                                          self.isDownloading = false
+//                                        return
+//                                    }
+//
+//                                    guard let response = response as? HTTPURLResponse else { return }
+//
+//                                    if response.statusCode == 200 {
+//                                        guard let data = data else {
+//                                            //                                                              self.isDownloading = false
+//                                            return
+//                                        }
+//                                        DispatchQueue.main.async {
+//                                            do {
+//                                                PHPhotoLibrary.shared().performChanges({
+//                                                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destiURL)
+//                                                }) { saved, error in
+//                                                    if saved {
+//                                                        print("saved")
+//                                                        //
+//                                                    }
+//                                                }
+//                                                try data.write(to: destiURL, options: Data.WritingOptions.atomic)
+//                                                DispatchQueue.main.async {
+//                                                    //                                                                      self.isDownloading = false
+//                                                }
+//                                            } catch let error {
+//                                                print("Error decoding: ", error)
+//                                                //                                                                  self.isDownloading = false
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                                dataTask.resume()
+//
+//                            }
+//                        } label: {
+//                            Image("DownloadLogo")  // PlusPurple
+//
+//                        }
+                        
                         Button {
                             plusIcon.toggle()
                             show.toggle()
@@ -2796,7 +2883,7 @@ struct ReelsPlyer: View {
                             if playAndPause == true {
                                 player.pause()
                             } else {
-                                player.play()
+//                                player.play()
                             }
                             
                         } label: {
@@ -2860,7 +2947,7 @@ struct ReelsPlyer: View {
                         
                         Image("MusicIcon")
                         
-                        Text("Favorite Girl by Justin Bieber")
+                        Text(reelsDetail.musicTrack ?? "Favorite Girl by Justin Bieber")
                             .font(.caption)
                             .fontWeight(.semibold)
                         
@@ -3157,6 +3244,13 @@ struct AcctionButtions: View {
     var body: some View {
         
         VStack(spacing: 10) {
+            
+//            Button {
+//
+//            } label: {
+//                Image("PlusIcon")
+//
+//            }
             
             Button {
                 

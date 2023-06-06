@@ -1,71 +1,199 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "675175C4-1ABC-4864-BB4C-28198537D8A0"
+   uuid = "BE8F313F-9823-4426-9840-DD637008A0F0"
    type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1904C475-43C4-46D9-9E04-227C40C28437"
+            uuid = "351EEC8F-FBEA-4ED6-838C-4E1510B1A215"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
+            filePath = "Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "getFilterData()"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "hittingUpdateProfile(profileDetailsRequest:complitionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1BA0ADB5-C587-45E1-A2F1-4B0133315D83"
+            uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
+            filePath = "Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "getFilterData()"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "hittingUpdateProfile(profileDetailsRequest:complitionHandler:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "1BA0ADB5-C587-45E1-A2F1-4B0133315D83 - d82a2153ec22f45c"
+                  uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9 - 8c3d5cf24774d9ca"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.CameraViewModel.getFilterData() -&gt; ()"
+                  symbolName = "Vooconnect.FillYourProfileResource.hittingUpdateProfile(profileDetailsRequest: Vooconnect.ProfileDetailsRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
+                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "30">
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "1062">
                </Location>
                <Location
-                  uuid = "1BA0ADB5-C587-45E1-A2F1-4B0133315D83 - 4c366e267a08989a"
+                  uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9 - 8c3d5cf24774d9ca"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Vooconnect.FilterData, Swift.Error&gt;) -&gt; () in Vooconnect.CameraViewModel.getFilterData() -&gt; ()"
+                  symbolName = "Vooconnect.FillYourProfileResource.hittingUpdateProfile(profileDetailsRequest: Vooconnect.ProfileDetailsRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
+                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "415">
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "1271">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A89B15D-7CA7-40AD-AB2B-324541CF0798"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/FillYourProfile/View/FillYourProfileView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
+            landmarkName = "uploadImageee(complitionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0A89B15D-7CA7-40AD-AB2B-324541CF0798 - d91163c1c65e3fa5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Vooconnect.FillYourProfileView.uploadImageee(complitionHandler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/FillYourProfile/View/FillYourProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "391"
+                  endingLineNumber = "391"
+                  offsetFromSymbolStart = "272">
+               </Location>
+               <Location
+                  uuid = "0A89B15D-7CA7-40AD-AB2B-324541CF0798 - 84e50794bc599354"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Vooconnect.FillYourProfileView.uploadImageee(complitionHandler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/FillYourProfile/View/FillYourProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "392"
+                  endingLineNumber = "392"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "037726EC-C4EF-43BE-850F-2766A92B5926"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "uploadReelsDeatils(reelsPostRequest:complitionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "037726EC-C4EF-43BE-850F-2766A92B5926 - bcec39f16d88996"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsDetailResource.uploadReelsDeatils(reelsPostRequest: Vooconnect.ReelsPostRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "917">
+               </Location>
+               <Location
+                  uuid = "037726EC-C4EF-43BE-850F-2766A92B5926 - bcec39f16d88996"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsDetailResource.uploadReelsDeatils(reelsPostRequest: Vooconnect.ReelsPostRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1957">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C7FA6EE1-61C4-4893-BD0E-CFAAB0936991"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "uploadReelsDeatils(reelsPostRequest:complitionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3E863A84-83B6-4999-8A87-07ECB0C605C0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2802"
+            endingLineNumber = "2802"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

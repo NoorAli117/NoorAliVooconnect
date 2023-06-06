@@ -39,7 +39,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                 setupRecognition()
                 videoPlayer.onEndVideo = {
                     self.captioning = ""
-                    self.setupRecognition()
+//                    self.setupRecognition()
                 }
                 
             }else{
@@ -90,8 +90,8 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         // we want to get continuous recognition and not everything at once at the end of the video
         recognitionRequest.shouldReportPartialResults = true
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
-            if(result != nil){
-                self?.captioning = result!.bestTranscription.formattedString
+            if let result = result {
+                self?.captioning = result.bestTranscription.formattedString
             }else{
                 print("captioning is nil")
             }

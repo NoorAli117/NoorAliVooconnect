@@ -755,7 +755,7 @@ struct ChooseYourTopicView: View {
                             
                             HStack {
                                 Button {
-                                    genderView.toggle()
+//                                    genderView.toggle()
                                 } label: {
                                     Spacer()
                                     Text("Cancel")

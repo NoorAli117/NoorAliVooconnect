@@ -108,13 +108,30 @@
 		04DD22EF29DCC07700DE7103 /* InstagramLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DD22EE29DCC07700DE7103 /* InstagramLoginManager.swift */; };
 		04E05D9629CF221F004F5406 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E05D9529CF221F004F5406 /* PostsModel.swift */; };
 		04E05D9829CF2320004F5406 /* StatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E05D9729CF2320004F5406 /* StatsModel.swift */; };
+		1064AC6E2A2F6CCD00DFF2BB /* ARGear.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */; };
+		1064AC6F2A2F6CCD00DFF2BB /* ARGear.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		107DCDA12A165FA900A95F17 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9E2A165FA900A95F17 /* Categories.swift */; };
 		107DCDA22A165FA900A95F17 /* FilterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCD9F2A165FA900A95F17 /* FilterData.swift */; };
 		107DCDA32A165FA900A95F17 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107DCDA02A165FA900A95F17 /* ItemData.swift */; };
-		29625F072A178A97008E00FB /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F062A178A97008E00FB /* FilterView.swift */; };
-		29625F0A2A178CB6008E00FB /* ARGear.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29625F092A178CB6008E00FB /* ARGear.framework */; };
-		29625F0B2A178CB6008E00FB /* ARGear.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 29625F092A178CB6008E00FB /* ARGear.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		29625F0D2A17913D008E00FB /* protocole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F0C2A17913D008E00FB /* protocole.swift */; };
+		2959044D2A18BAF600FE3499 /* Urbanist-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280BA2919067D008FE970 /* Urbanist-Thin.ttf */; };
+		29625F9D2A181DB3008E00FB /* ARGCameraProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F9A2A181DAE008E00FB /* ARGCameraProtocol.swift */; };
+		29625F9E2A181DB3008E00FB /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F9B2A181DB0008E00FB /* Permission.swift */; };
+		29625F9F2A181DB3008E00FB /* ARGCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F9C2A181DB2008E00FB /* ARGCamera.swift */; };
+		29625FA22A181DD9008E00FB /* ARGPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA12A181DD9008E00FB /* ARGPreferences.swift */; };
+		29625FA82A181E05008E00FB /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA42A181E01008E00FB /* FilterManager.swift */; };
+		29625FA92A181E05008E00FB /* BulgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA52A181E02008E00FB /* BulgeManager.swift */; };
+		29625FAA2A181E05008E00FB /* BeautyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA62A181E04008E00FB /* BeautyManager.swift */; };
+		29625FAB2A181E05008E00FB /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA72A181E05008E00FB /* ContentManager.swift */; };
+		29625FAE2A181E40008E00FB /* NetworkManagerAR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */; };
+		29625FB02A181F5E008E00FB /* ARGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FAF2A181F5E008E00FB /* ARGScene.swift */; };
+		29625FB32A182017008E00FB /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FB22A182017008E00FB /* RealmManager.swift */; };
+		297754B92A2A036A0006DB3F /* LanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754B82A2A036A0006DB3F /* LanguageModel.swift */; };
+		297754BB2A2A039B0006DB3F /* LangViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754BA2A2A039B0006DB3F /* LangViewModel.swift */; };
+		297754BD2A2A05340006DB3F /* BotSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754BC2A2A05340006DB3F /* BotSheetView.swift */; };
+		29E4B4602A25183800C79AA8 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E4B45F2A25183800C79AA8 /* Functions.swift */; };
+		29E5A2AB2A2B4CBB00E4C093 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E5A2AA2A2B4CBB00E4C093 /* CategoryViewModel.swift */; };
+		29E5A2AD2A2B4D3100E4C093 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E5A2AC2A2B4D3100E4C093 /* CategoryView.swift */; };
+		29E922D02A289CD80008F39C /* progressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E922CF2A289CD80008F39C /* progressView.swift */; };
 		5016A78E29DBE200009B0332 /* ChooseYourTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5016A78D29DBE200009B0332 /* ChooseYourTopicView.swift */; };
 		502C133029D57BE300FB0577 /* AgoraAppGroupDataHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 502C132F29D57BE300FB0577 /* AgoraAppGroupDataHelper */; };
 		502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 502C133129D57BE300FB0577 /* AgoraBroadcastExtensionHelper */; };
@@ -127,6 +144,7 @@
 		85DAB8EC29EA3A63008E7F40 /* AppID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DAB8E829EA3A62008E7F40 /* AppID.swift */; };
 		85DAB8ED29EA3A63008E7F40 /* VideoCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DAB8E929EA3A62008E7F40 /* VideoCanvas.swift */; };
 		85DAB8EE29EA3A63008E7F40 /* VideoSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DAB8EA29EA3A62008E7F40 /* VideoSessionView.swift */; };
+		9DB61B7F668C5A90B13AF9D4 /* Pods_Vooconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE5759621D06BEFA8AF4238 /* Pods_Vooconnect.framework */; };
 		A90169962941B84B0089AA45 /* CustomeCameraHomeTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90169952941B84B0089AA45 /* CustomeCameraHomeTwo.swift */; };
 		A90169982941DBD30089AA45 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90169972941DBD30089AA45 /* BottomSheetView.swift */; };
 		A901699A2941E3560089AA45 /* CustomeSheetMoreOtptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90169992941E3560089AA45 /* CustomeSheetMoreOtptions.swift */; };
@@ -139,7 +157,6 @@
 		A91280CC2919067E008FE970 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280B62919067D008FE970 /* Urbanist-Regular.ttf */; };
 		A91280CD2919067E008FE970 /* Urbanist-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280B72919067D008FE970 /* Urbanist-LightItalic.ttf */; };
 		A91280CE2919067E008FE970 /* Urbanist-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280B82919067D008FE970 /* Urbanist-ExtraLightItalic.ttf */; };
-		A91280D02919067E008FE970 /* Urbanist-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280BA2919067D008FE970 /* Urbanist-Thin.ttf */; };
 		A91280D12919067E008FE970 /* Urbanist-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280BB2919067D008FE970 /* Urbanist-MediumItalic.ttf */; };
 		A91280D22919067E008FE970 /* Urbanist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280BC2919067D008FE970 /* Urbanist-SemiBold.ttf */; };
 		A91280D32919067E008FE970 /* Urbanist-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280BD2919067D008FE970 /* Urbanist-Italic.ttf */; };
@@ -381,17 +398,16 @@
 		B222AEF92919753A0052CA49 /* ChooseYourInterestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B222AEF82919753A0052CA49 /* ChooseYourInterestView.swift */; };
 		B24881402923F69B0024B72F /* CustomeTextFieldFour.swift in Sources */ = {isa = PBXBuildFile; fileRef = B248813F2923F69B0024B72F /* CustomeTextFieldFour.swift */; };
 		B2E19C4F29459149005FE914 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E19C4E29459148005FE914 /* ImageViewModel.swift */; };
-		EB6E83A90E90103B729D7725 /* Pods_Vooconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 561AFB325F3E4E57C58CAA68 /* Pods_Vooconnect.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		107DCDA72A166E6800A95F17 /* Embed Frameworks */ = {
+		1064AC702A2F6CCE00DFF2BB /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				29625F0B2A178CB6008E00FB /* ARGear.framework in Embed Frameworks */,
+				1064AC6F2A2F6CCD00DFF2BB /* ARGear.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,23 +513,41 @@
 		04DD22EE29DCC07700DE7103 /* InstagramLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramLoginManager.swift; sourceTree = "<group>"; };
 		04E05D9529CF221F004F5406 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
 		04E05D9729CF2320004F5406 /* StatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsModel.swift; sourceTree = "<group>"; };
+		0DE5759621D06BEFA8AF4238 /* Pods_Vooconnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vooconnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ARGear.framework; sourceTree = "<group>"; };
 		107DCD9E2A165FA900A95F17 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		107DCD9F2A165FA900A95F17 /* FilterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterData.swift; sourceTree = "<group>"; };
 		107DCDA02A165FA900A95F17 /* ItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
-		29625F062A178A97008E00FB /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		23BAA11E8767BE34AB95E0B2 /* Pods-Vooconnect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vooconnect.debug.xcconfig"; path = "Target Support Files/Pods-Vooconnect/Pods-Vooconnect.debug.xcconfig"; sourceTree = "<group>"; };
 		29625F082A178C95008E00FB /* ARGear.framework 2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "ARGear.framework 2"; path = "../../../../../../Downloads/ARGear.framework 2"; sourceTree = "<group>"; };
 		29625F092A178CB6008E00FB /* ARGear.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARGear.framework; path = ../../../../../../Downloads/ARGear.framework; sourceTree = "<group>"; };
-		29625F0C2A17913D008E00FB /* protocole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocole.swift; sourceTree = "<group>"; };
+		29625F9A2A181DAE008E00FB /* ARGCameraProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGCameraProtocol.swift; sourceTree = "<group>"; };
+		29625F9B2A181DB0008E00FB /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
+		29625F9C2A181DB2008E00FB /* ARGCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGCamera.swift; sourceTree = "<group>"; };
+		29625FA12A181DD9008E00FB /* ARGPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGPreferences.swift; sourceTree = "<group>"; };
+		29625FA42A181E01008E00FB /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
+		29625FA52A181E02008E00FB /* BulgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulgeManager.swift; sourceTree = "<group>"; };
+		29625FA62A181E04008E00FB /* BeautyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautyManager.swift; sourceTree = "<group>"; };
+		29625FA72A181E05008E00FB /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
+		29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerAR.swift; sourceTree = "<group>"; };
+		29625FAF2A181F5E008E00FB /* ARGScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGScene.swift; sourceTree = "<group>"; };
+		29625FB22A182017008E00FB /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		297754B82A2A036A0006DB3F /* LanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModel.swift; sourceTree = "<group>"; };
+		297754BA2A2A039B0006DB3F /* LangViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangViewModel.swift; sourceTree = "<group>"; };
+		297754BC2A2A05340006DB3F /* BotSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotSheetView.swift; sourceTree = "<group>"; };
+		29E4B45F2A25183800C79AA8 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		29E5A2AA2A2B4CBB00E4C093 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		29E5A2AC2A2B4D3100E4C093 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		29E922CF2A289CD80008F39C /* progressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = progressView.swift; sourceTree = "<group>"; };
 		5016A78829DBE149009B0332 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		5016A78D29DBE200009B0332 /* ChooseYourTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseYourTopicView.swift; sourceTree = "<group>"; };
 		503A8F4829E593080035135D /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
-		561AFB325F3E4E57C58CAA68 /* Pods_Vooconnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vooconnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F346EEE9CE3C9955CA2C343 /* Pods-Vooconnect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vooconnect.debug.xcconfig"; path = "Target Support Files/Pods-Vooconnect/Pods-Vooconnect.debug.xcconfig"; sourceTree = "<group>"; };
 		85A4676D29F59DDC005A5D4C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		85DAB8E729EA3A62008E7F40 /* VideoEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoEngine.swift; sourceTree = "<group>"; };
 		85DAB8E829EA3A62008E7F40 /* AppID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppID.swift; sourceTree = "<group>"; };
 		85DAB8E929EA3A62008E7F40 /* VideoCanvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCanvas.swift; sourceTree = "<group>"; };
 		85DAB8EA29EA3A62008E7F40 /* VideoSessionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSessionView.swift; sourceTree = "<group>"; };
+		926F3E6AABCD644D36035106 /* Pods-Vooconnect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vooconnect.release.xcconfig"; path = "Target Support Files/Pods-Vooconnect/Pods-Vooconnect.release.xcconfig"; sourceTree = "<group>"; };
 		A90169952941B84B0089AA45 /* CustomeCameraHomeTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeCameraHomeTwo.swift; sourceTree = "<group>"; };
 		A90169972941DBD30089AA45 /* BottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		A90169992941E3560089AA45 /* CustomeSheetMoreOtptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeSheetMoreOtptions.swift; sourceTree = "<group>"; };
@@ -769,7 +803,6 @@
 		ABC9F82C29AAD201006436A1 /* SoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewController.swift; sourceTree = "<group>"; };
 		ABC9F83029AAD24A006436A1 /* DeezerApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerApiManager.swift; sourceTree = "<group>"; };
 		ABC9F83329AAD437006436A1 /* DeezerSongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeezerSongModel.swift; sourceTree = "<group>"; };
-		AD9D875A138BFB1682519139 /* Pods-Vooconnect.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vooconnect.release.xcconfig"; path = "Target Support Files/Pods-Vooconnect/Pods-Vooconnect.release.xcconfig"; sourceTree = "<group>"; };
 		B222AEF82919753A0052CA49 /* ChooseYourInterestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseYourInterestView.swift; sourceTree = "<group>"; };
 		B248813F2923F69B0024B72F /* CustomeTextFieldFour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeTextFieldFour.swift; sourceTree = "<group>"; };
 		B2E19C4E29459148005FE914 /* ImageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
@@ -793,10 +826,10 @@
 				A958B65E2923B82100FE16EA /* CountryPicker in Frameworks */,
 				503A8F4B29E59C880035135D /* AgoraVideoSwiftUI in Frameworks */,
 				502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */,
-				29625F0A2A178CB6008E00FB /* ARGear.framework in Frameworks */,
+				1064AC6E2A2F6CCD00DFF2BB /* ARGear.framework in Frameworks */,
 				502C133429D57BE300FB0577 /* AgoraUIKit in Frameworks */,
 				049F4BBF29BBB55B00113EA0 /* Swinject in Frameworks */,
-				EB6E83A90E90103B729D7725 /* Pods_Vooconnect.framework in Frameworks */,
+				9DB61B7F668C5A90B13AF9D4 /* Pods_Vooconnect.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1269,6 +1302,63 @@
 			path = SocialLoginManagers;
 			sourceTree = "<group>";
 		};
+		29625F982A181D7E008E00FB /* ARGearHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				29625FA62A181E04008E00FB /* BeautyManager.swift */,
+				29625FA52A181E02008E00FB /* BulgeManager.swift */,
+				29625FA72A181E05008E00FB /* ContentManager.swift */,
+				29625FA42A181E01008E00FB /* FilterManager.swift */,
+				29625FAC2A181E33008E00FB /* Network */,
+				29625FA32A181DF1008E00FB /* ARGScene */,
+				29625FA02A181DCB008E00FB /* ARGPreferences */,
+				29625F992A181D96008E00FB /* ARGCamera */,
+			);
+			path = ARGearHelpers;
+			sourceTree = "<group>";
+		};
+		29625F992A181D96008E00FB /* ARGCamera */ = {
+			isa = PBXGroup;
+			children = (
+				29625F9C2A181DB2008E00FB /* ARGCamera.swift */,
+				29625F9A2A181DAE008E00FB /* ARGCameraProtocol.swift */,
+				29625F9B2A181DB0008E00FB /* Permission.swift */,
+			);
+			path = ARGCamera;
+			sourceTree = "<group>";
+		};
+		29625FA02A181DCB008E00FB /* ARGPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				29625FA12A181DD9008E00FB /* ARGPreferences.swift */,
+			);
+			path = ARGPreferences;
+			sourceTree = "<group>";
+		};
+		29625FA32A181DF1008E00FB /* ARGScene */ = {
+			isa = PBXGroup;
+			children = (
+				29625FAF2A181F5E008E00FB /* ARGScene.swift */,
+			);
+			path = ARGScene;
+			sourceTree = "<group>";
+		};
+		29625FAC2A181E33008E00FB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		29625FB12A181FEF008E00FB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				29625FB22A182017008E00FB /* RealmManager.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		8520A59C29FD446300921C29 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1568,6 +1658,7 @@
 			isa = PBXGroup;
 			children = (
 				A943809F29407373007D9DF4 /* CameraModel.swift */,
+				297754B82A2A036A0006DB3F /* LanguageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1843,6 +1934,7 @@
 				ABC55C6029B050EA00C3E320 /* EditTextView.swift */,
 				AB37594229CE638D000D0A2D /* AddStickerView.swift */,
 				AB37595629CFCD2F000D0A2D /* PostVisibilityView.swift */,
+				29E922CF2A289CD80008F39C /* progressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1853,7 +1945,7 @@
 				29625F092A178CB6008E00FB /* ARGear.framework */,
 				29625F082A178C95008E00FB /* ARGear.framework 2 */,
 				04DD22EC29DC6BE300DE7103 /* Twitter.framework */,
-				561AFB325F3E4E57C58CAA68 /* Pods_Vooconnect.framework */,
+				0DE5759621D06BEFA8AF4238 /* Pods_Vooconnect.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1908,6 +2000,7 @@
 		A9785F952911102D00F19ADD = {
 			isa = PBXGroup;
 			children = (
+				1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */,
 				ABAEA65E29BA71DC00B5277E /* ARScenes */,
 				ABAEA64C29B8308000B5277E /* 3DModels */,
 				A958B65C2923B7DA00FE16EA /* CountryPicker-master */,
@@ -1932,6 +2025,8 @@
 		A9785FA02911102D00F19ADD /* Vooconnect */ = {
 			isa = PBXGroup;
 			children = (
+				29625FB12A181FEF008E00FB /* Data */,
+				29625F982A181D7E008E00FB /* ARGearHelpers */,
 				85A4676D29F59DDC005A5D4C /* ContentView.swift */,
 				ABAEA64129B4552A00B5277E /* AR View */,
 				ABC9F82E29AAD228006436A1 /* API Managers */,
@@ -2124,6 +2219,8 @@
 				B2E19C4E29459148005FE914 /* ImageViewModel.swift */,
 				A9B2478F293DC4EB00B5A233 /* CameraViewModel.swift */,
 				A90F6C3629432F1100A8C8B3 /* CameraPhotoModel.swift */,
+				297754BA2A2A039B0006DB3F /* LangViewModel.swift */,
+				29E5A2AA2A2B4CBB00E4C093 /* CategoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2142,6 +2239,8 @@
 				A932F8F7295FF2720098B14E /* FiltersList.swift */,
 				A932F8F9295FF6320098B14E /* EffectsSheets.swift */,
 				A932F8FB295FF9280098B14E /* EffectsList.swift */,
+				297754BC2A2A05340006DB3F /* BotSheetView.swift */,
+				29E5A2AC2A2B4D3100E4C093 /* CategoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2252,6 +2351,7 @@
 			isa = PBXGroup;
 			children = (
 				AB752EB929AC53370065E1C8 /* FinalPreviewController.swift */,
+				29E4B45F2A25183800C79AA8 /* Functions.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2428,8 +2528,8 @@
 		D7524B4FD11970EFF47C4392 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5F346EEE9CE3C9955CA2C343 /* Pods-Vooconnect.debug.xcconfig */,
-				AD9D875A138BFB1682519139 /* Pods-Vooconnect.release.xcconfig */,
+				23BAA11E8767BE34AB95E0B2 /* Pods-Vooconnect.debug.xcconfig */,
+				926F3E6AABCD644D36035106 /* Pods-Vooconnect.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2441,13 +2541,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A9785FAC2911103000F19ADD /* Build configuration list for PBXNativeTarget "Vooconnect" */;
 			buildPhases = (
-				3300183479F57ABAAF06746C /* [CP] Check Pods Manifest.lock */,
+				339FF26C19743CDA30BB2EB3 /* [CP] Check Pods Manifest.lock */,
 				A9785F9A2911102D00F19ADD /* Sources */,
 				A9785F9B2911102D00F19ADD /* Frameworks */,
 				A9785F9C2911102D00F19ADD /* Resources */,
-				E01FF1AD70D13007C23003FD /* [CP] Embed Pods Frameworks */,
-				F0839945D382F0298891610D /* [CP] Copy Pods Resources */,
-				107DCDA72A166E6800A95F17 /* Embed Frameworks */,
+				EDD493318EE58516C25C7339 /* [CP] Embed Pods Frameworks */,
+				91FBE2DEDED1A502F2E40F33 /* [CP] Copy Pods Resources */,
+				1064AC702A2F6CCE00DFF2BB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2526,6 +2626,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2959044D2A18BAF600FE3499 /* Urbanist-Thin.ttf in Resources */,
 				A91280D52919067E008FE970 /* Urbanist-BlackItalic.ttf in Resources */,
 				A93DBA1729127ADD00420B83 /* market.gif in Resources */,
 				A91280DE2919067E008FE970 /* README.txt in Resources */,
@@ -2551,12 +2652,10 @@
 				A91280CC2919067E008FE970 /* Urbanist-Regular.ttf in Resources */,
 				A91280CB2919067E008FE970 /* Urbanist-Bold.ttf in Resources */,
 				A91280DB2919067E008FE970 /* Urbanist-ExtraLight.ttf in Resources */,
-				A91280D02919067E008FE970 /* Urbanist-Thin.ttf in Resources */,
 				A91280D92919067E008FE970 /* Urbanist-ExtraBold.ttf in Resources */,
 				A91280CD2919067E008FE970 /* Urbanist-LightItalic.ttf in Resources */,
 				A91280CE2919067E008FE970 /* Urbanist-ExtraLightItalic.ttf in Resources */,
 				A91280DA2919067E008FE970 /* Urbanist-Medium.ttf in Resources */,
-				A91280D02919067E008FE970 /* Urbanist-Thin.ttf in Resources */,
 				A91280D42919067E008FE970 /* Urbanist-Black.ttf in Resources */,
 				A91280D32919067E008FE970 /* Urbanist-Italic.ttf in Resources */,
 				A93DBA1429127ADD00420B83 /* notificationW.gif in Resources */,
@@ -2573,7 +2672,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3300183479F57ABAAF06746C /* [CP] Check Pods Manifest.lock */ = {
+		339FF26C19743CDA30BB2EB3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2595,24 +2694,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E01FF1AD70D13007C23003FD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Vooconnect/Pods-Vooconnect-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Vooconnect/Pods-Vooconnect-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vooconnect/Pods-Vooconnect-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F0839945D382F0298891610D /* [CP] Copy Pods Resources */ = {
+		91FBE2DEDED1A502F2E40F33 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2629,6 +2711,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vooconnect/Pods-Vooconnect-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EDD493318EE58516C25C7339 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Vooconnect/Pods-Vooconnect-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Vooconnect/Pods-Vooconnect-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vooconnect/Pods-Vooconnect-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2643,6 +2742,7 @@
 				A99AE83C291E5D6E00E613F1 /* OTPValidation.swift in Sources */,
 				049F4BF029BBB67100113EA0 /* FindFriendsView.swift in Sources */,
 				049F4C1B29BBB6E400113EA0 /* UserDefaultsKeys.swift in Sources */,
+				29625FA92A181E05008E00FB /* BulgeManager.swift in Sources */,
 				042FDD1529D52CF1008B81C7 /* UIScreen + Extensions.swift in Sources */,
 				A932F902296014D00098B14E /* ReelsCommentTextField.swift in Sources */,
 				AB37593629CAB32A000D0A2D /* curlyHairScene.rcproject in Sources */,
@@ -2655,6 +2755,7 @@
 				049F4BF429BBB67100113EA0 /* CreatorProfileView.swift in Sources */,
 				A933C9C5294728AC0009F8A5 /* PreviewFromGallery.swift in Sources */,
 				AB37595929D3AF04000D0A2D /* TypeFont.swift in Sources */,
+				29E922D02A289CD80008F39C /* progressView.swift in Sources */,
 				A914832E291BACE200FB0FED /* GenderView.swift in Sources */,
 				AB752EB329AB1DFC0065E1C8 /* SoundsViewBloc.swift in Sources */,
 				A9C460072949F6AF00A06896 /* SoundListView.swift in Sources */,
@@ -2669,6 +2770,7 @@
 				A901699A2941E3560089AA45 /* CustomeSheetMoreOtptions.swift in Sources */,
 				049F4C0E29BBB6BC00113EA0 /* HelpCenterView.swift in Sources */,
 				049F4C1C29BBB6E400113EA0 /* Logger.swift in Sources */,
+				29625FAA2A181E05008E00FB /* BeautyManager.swift in Sources */,
 				ABC55C5229AFBF4300C3E320 /* ContentOverlayModel.swift in Sources */,
 				A955F24229532FB200498540 /* LiveSettingsSheet.swift in Sources */,
 				ABAEA64729B456D300B5277E /* ARModel.swift in Sources */,
@@ -2676,6 +2778,7 @@
 				ABC55C3A29AE8A8100C3E320 /* ViewExtension.swift in Sources */,
 				A9C460052949E8DD00A06896 /* SoundsView.swift in Sources */,
 				A971F3A4291D02990045602C /* TestView.swift in Sources */,
+				297754B92A2A036A0006DB3F /* LanguageModel.swift in Sources */,
 				A95462412955A72C00C4D233 /* WeeklyRankingSheet.swift in Sources */,
 				049F4C2A29BBBD5400113EA0 /* FollowButton.swift in Sources */,
 				04C1D5F629BBC42000284F72 /* LogInModel.swift in Sources */,
@@ -2703,6 +2806,7 @@
 				A953A2DE2938573B00CE493F /* BirthDayResource.swift in Sources */,
 				049F4C2929BBBD5400113EA0 /* FollowingButton.swift in Sources */,
 				049F4BCA29BBB5E100113EA0 /* View + Extensions.swift in Sources */,
+				29625F9F2A181DB3008E00FB /* ARGCamera.swift in Sources */,
 				04DBC98229BD933C00DEBAF5 /* EditProfileView.swift in Sources */,
 				049F4BF729BBB67100113EA0 /* SubscribeComponents.swift in Sources */,
 				049F4C2529BBBCE700113EA0 /* NilModel.swift in Sources */,
@@ -2744,6 +2848,7 @@
 				049F4BD729BBB61F00113EA0 /* NetworkAuthenticationModel.swift in Sources */,
 				049F4BF129BBB67100113EA0 /* FindFriendsComponents.swift in Sources */,
 				ABC55C5729AFC65700C3E320 /* PostModel.swift in Sources */,
+				29625F9E2A181DB3008E00FB /* Permission.swift in Sources */,
 				ABC9F82529AAC9F2006436A1 /* ShapeExtension.swift in Sources */,
 				049F4BD729BBB61F00113EA0 /* NetworkAuthenticationModel.swift in Sources */,
 				049F4BF129BBB67100113EA0 /* FindFriendsComponents.swift in Sources */,
@@ -2769,6 +2874,7 @@
 				A95A93652924B23A00CABC93 /* OTPTwoView.swift in Sources */,
 				ABC9F82329AAC9F2006436A1 /* TextExtension.swift in Sources */,
 				AB37594329CE638D000D0A2D /* AddStickerView.swift in Sources */,
+				297754BB2A2A039B0006DB3F /* LangViewModel.swift in Sources */,
 				049F4C2C29BBBD6000113EA0 /* ShareSheet.swift in Sources */,
 				A9F24080296818B30063D430 /* TrendingView.swift in Sources */,
 				ABAEA67629BC447F00B5277E /* TypeContent.swift in Sources */,
@@ -2791,13 +2897,17 @@
 				049F4C1229BBB6BD00113EA0 /* PrivacyPolicyView.swift in Sources */,
 				A9D09CB4292DE3B400B8B0B9 /* UploadProfileImageResource.swift in Sources */,
 				041572AC2A13E459002CEE1E /* MusicView.swift in Sources */,
+				29625FA22A181DD9008E00FB /* ARGPreferences.swift in Sources */,
 				A940CEF029277A1500BE4533 /* ForgotPasswordPhoneEmail.swift in Sources */,
 				A9F2408829683F2E0063D430 /* TrendingHashtagView.swift in Sources */,
 				0496379429BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift in Sources */,
 				A958B5502923437500FE16EA /* CreateNewPasswordView.swift in Sources */,
 				AB37595729CFCD2F000D0A2D /* PostVisibilityView.swift in Sources */,
+				29625FB02A181F5E008E00FB /* ARGScene.swift in Sources */,
 				A955F2382953001B00498540 /* CustomeSheet.swift in Sources */,
 				A955F23C2953036B00498540 /* CustomeTextFieldSix.swift in Sources */,
+				29625FA82A181E05008E00FB /* FilterManager.swift in Sources */,
+				29E4B4602A25183800C79AA8 /* Functions.swift in Sources */,
 				049F4BDB29BBB61F00113EA0 /* NetworkConstants.swift in Sources */,
 				04C7526729D1AE1F00A0337A /* LocationManager.swift in Sources */,
 				042FDD2029D791E1008B81C7 /* BottomSheetViews.swift in Sources */,
@@ -2826,6 +2936,7 @@
 				049F4BF629BBB67100113EA0 /* SubscribeView.swift in Sources */,
 				A94040E12913880600E0DDD6 /* SignUpViewModel.swift in Sources */,
 				A98B97BC29505A330084B4F4 /* MyProfileView.swift in Sources */,
+				297754BD2A2A05340006DB3F /* BotSheetView.swift in Sources */,
 				ABC9F82A29AACEF3006436A1 /* SoundsManagerHelper.swift in Sources */,
 				A932F8FA295FF6320098B14E /* EffectsSheets.swift in Sources */,
 				04C7526929D1C8F400A0337A /* CreatorSearchViewModel.swift in Sources */,
@@ -2840,6 +2951,7 @@
 				049F4BF829BBB67100113EA0 /* SubscriberViewModel.swift in Sources */,
 				A9975A58295428E300E6C71C /* AddModeratorsList.swift in Sources */,
 				A9975A562954255C00E6C71C /* AddModeratorsListView.swift in Sources */,
+				29625FB32A182017008E00FB /* RealmManager.swift in Sources */,
 				85DAB8EE29EA3A63008E7F40 /* VideoSessionView.swift in Sources */,
 				ABAEA66829BA7B5C00B5277E /* girlHairScene.rcproject in Sources */,
 				A91280E229190BD0008FE970 /* ConnectWithEmailAndPhoneView.swift in Sources */,
@@ -2877,12 +2989,15 @@
 				049F4C1429BBB6BD00113EA0 /* SettingView.swift in Sources */,
 				049F4C0F29BBB6BD00113EA0 /* ManageAccountsView.swift in Sources */,
 				041572B02A13E4FB002CEE1E /* CommentReplySheet.swift in Sources */,
+				29E5A2AD2A2B4D3100E4C093 /* CategoryView.swift in Sources */,
 				ABC9F82729AACACA006436A1 /* ColorsHelper.swift in Sources */,
 				A9AD88DA2932162D009B16F8 /* PasswordTextFieldTwo.swift in Sources */,
+				29625FAE2A181E40008E00FB /* NetworkManagerAR.swift in Sources */,
 				A9B24790293DC4EB00B5A233 /* CameraViewModel.swift in Sources */,
 				A99AE836291E22A400E613F1 /* SignUpModel.swift in Sources */,
 				A9785FA22911102D00F19ADD /* VooconnectApp.swift in Sources */,
 				ABC9F81129AA9F37006436A1 /* ApiEnpointsHelper.swift in Sources */,
+				29625F9D2A181DB3008E00FB /* ARGCameraProtocol.swift in Sources */,
 				A9EF3BDD2951BF1C003B06F4 /* PopUpDismiss.swift in Sources */,
 				ABC55C5529AFC29200C3E320 /* TypeOfOverlay.swift in Sources */,
 				A953A2DC2938571D00CE493F /* BirthDayViewModel.swift in Sources */,
@@ -2890,6 +3005,7 @@
 				04D6392829F44A8200718FE0 /* QRCodeView.swift in Sources */,
 				047A625E29D23E28006D2635 /* MessageComposeView.swift in Sources */,
 				A954C2FE294ADFD6000176FF /* UploadReelsDetailResource.swift in Sources */,
+				29625FAB2A181E05008E00FB /* ContentManager.swift in Sources */,
 				04DD22EF29DCC07700DE7103 /* InstagramLoginManager.swift in Sources */,
 				042FDD2229D79236008B81C7 /* RoundedCornors.swift in Sources */,
 				AB37593829CD0603000D0A2D /* SpeechRecognizerHelper.swift in Sources */,
@@ -2950,6 +3066,7 @@
 				A99CEF5229288FC800B3BB94 /* FillYourProfileModel.swift in Sources */,
 				5016A78E29DBE200009B0332 /* ChooseYourTopicView.swift in Sources */,
 				A940CEEE2927778800BE4533 /* ForgotPasswordViewModel.swift in Sources */,
+				29E5A2AB2A2B4CBB00E4C093 /* CategoryViewModel.swift in Sources */,
 				A90169982941DBD30089AA45 /* BottomSheetView.swift in Sources */,
 				A91280E429191A7E008FE970 /* CreateYourAccountView.swift in Sources */,
 				ABAEA65B29BA5A0C00B5277E /* TypeOfARView.swift in Sources */,
@@ -3090,7 +3207,7 @@
 		};
 		A9785FAD2911103000F19ADD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F346EEE9CE3C9955CA2C343 /* Pods-Vooconnect.debug.xcconfig */;
+			baseConfigurationReference = 23BAA11E8767BE34AB95E0B2 /* Pods-Vooconnect.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -3101,15 +3218,20 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Vooconnect/Preview Content\"";
 				DEVELOPMENT_TEAM = 5FQV9R5NVC;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Vooconnect/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vooconnect Live";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera at the user's request to take a photo.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This application will use the camera for Augmented Reality.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Getting user contacts for inviting ";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Getting user location to suggest users on location base";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "app need to access microphone for voice";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows the app to access the photo library to import or save a photo at the user's request.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = Microphone;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photo Library Additions";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photo Library";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "To add text as video";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Getting user location to suggest users on location base";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -3123,7 +3245,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.live.Vooconnects;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnectsss;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -3137,7 +3259,7 @@
 		};
 		A9785FAE2911103000F19ADD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD9D875A138BFB1682519139 /* Pods-Vooconnect.release.xcconfig */;
+			baseConfigurationReference = 926F3E6AABCD644D36035106 /* Pods-Vooconnect.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -3148,15 +3270,20 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Vooconnect/Preview Content\"";
 				DEVELOPMENT_TEAM = 5FQV9R5NVC;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Vooconnect/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vooconnect Live";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera at the user's request to take a photo.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This application will use the camera for Augmented Reality.";
 				INFOPLIST_KEY_NSContactsUsageDescription = "Getting user contacts for inviting ";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Getting user location to suggest users on location base";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "app need to access microphone for voice";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows the app to access the photo library to import or save a photo at the user's request.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = Microphone;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photo Library Additions";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photo Library";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "To add text as video";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Getting user location to suggest users on location base";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -3170,7 +3297,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.live.Vooconnects;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vooconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

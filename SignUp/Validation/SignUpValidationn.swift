@@ -55,7 +55,7 @@ struct SignUpValidationn {
 //    "^(?=.*[A-Za-z0-9])(?=.*[$@$!%*#_?&,/-])[A-Za-z\\d$@$!%*#_?&,/-]{8,32}$"
     
     private func isValidPassword(value: String) -> Bool {
-        let  regex = try! NSRegularExpression(pattern: "^(?=.*[A-Za-z0-9])(?=.*[$@$!%*#_?&,/-])[A-Za-z\\d$@$!%*#_?&,/-]{8,32}$", options: .caseInsensitive)
+        let  regex = try! NSRegularExpression(pattern: "^(?=.*[A-Za-z0-9])(?=.*[$@$!%*#_?&,/-])[A-Za-z\\d$@$!%*#_?&,-]{8,32}$", options: .caseInsensitive)
         return regex.firstMatch(in: value, options: [], range: NSRange(location: 0, length: value.count)) != nil
     }
     

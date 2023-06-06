@@ -535,7 +535,6 @@ struct HomePageView: View {
 //                            TimeLineView().tag(2)
                             
                         }
-                    
                         
                         //                        .onChange(of: currentTab, perform: { newValue in
                         ////                            if newValue == 1 {

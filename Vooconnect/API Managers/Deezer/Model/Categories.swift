@@ -7,7 +7,33 @@
 
 import Foundation
 
-struct Categories: Codable {
+struct Categories: Codable, Hashable {
+    static func == (lhs: Categories, rhs: Categories) -> Bool {
+           return lhs.isBundle == rhs.isBundle &&
+               lhs.updatedAt == rhs.updatedAt &&
+               lhs.slotNo == rhs.slotNo &&
+               lhs.title == rhs.title &&
+               lhs.division == rhs.division &&
+               lhs.level == rhs.level &&
+               lhs.descriptionValue == rhs.descriptionValue &&
+               lhs.uuid == rhs.uuid &&
+               lhs.status == rhs.status &&
+               lhs.items == rhs.items
+       }
+       
+       func hash(into hasher: inout Hasher) {
+           hasher.combine(isBundle)
+           hasher.combine(updatedAt)
+           hasher.combine(slotNo)
+           hasher.combine(title)
+           hasher.combine(division)
+           hasher.combine(level)
+           hasher.combine(descriptionValue)
+           hasher.combine(uuid)
+           hasher.combine(status)
+           hasher.combine(items)
+       }
+    
 
   enum CodingKeys: String, CodingKey {
     case isBundle = "is_bundle"

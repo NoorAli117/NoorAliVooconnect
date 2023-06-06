@@ -28,12 +28,12 @@ class UploadReelsDetailResource {
                 
                 do {
                     let data : [String:Any] = try JSONSerialization.jsonObject(with: response, options: .mutableContainers) as! [String : Any]
-                    debugPrint("The Reel Post Response", data)
-                    
-                    
-                } catch {
+                     debugPrint("The Reel Post Response", data)
+//                    let res = try JSONDecoder().decode(PostRes.self, from: response)
+//                    print(res)
+                } catch (let error){
                         complitionHandler(false, nil)
-                        print("sakdjfhiuldasfhiuearf")
+                        print("sakdjfhiuldasfhiuearf", error)
                     }
                     
                 case .failure(let error) :
@@ -43,3 +43,16 @@ class UploadReelsDetailResource {
     }
     
 }
+//struct PostRes: Codable {
+//    var status: Bool
+//    var message: String
+//    
+//}
+//extension Encodable {
+//
+//    var dict : [String: Any]? {
+//        guard let data = try? JSONEncoder().encode(self) else { return nil }
+//        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] else { return nil }
+//        return json
+//    }
+//}
