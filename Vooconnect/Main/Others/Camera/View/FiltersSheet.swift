@@ -7,16 +7,8 @@
 
 import SwiftUI
 
-struct FiltersSheet: UIViewRepresentable {
-//    typealias UIViewType = MyView
-    
-    func makeUIView(context: Context) -> FilterView {
-        let view = FilterView()
-        return view
-    }
-    func updateUIView(_uiView: FilterView, context: Context) {
-
-    }
+struct FiltersSheet: View {
+    //    typealias UIViewType = MyView
     
     @State private var portrait: Bool = true
     @State private var landscape: Bool = false
@@ -89,7 +81,7 @@ struct FiltersSheet: UIViewRepresentable {
                                 .padding(.top, -5)
                             }
                         }
-                                                
+                        
                         Button {
                             portrait = false
                             landscape = true
@@ -254,29 +246,31 @@ struct FiltersSheet: UIViewRepresentable {
                     .sheet(isPresented: $isPresented) {
                         FiltersList()
                             .ignoresSafeArea()
-
+                        
                     }
-            
-//            ScrollView(showsIndicators: false) {
-//
-//                LazyVGrid(columns: gridLayoutCF, alignment: .center, spacing: columnSpacingCF, pinnedViews: []) {
-//                    Section()
-//                    {
-//                        ForEach(0..<8) { people in
-//                            FiltersList()
-//                        }
-//                    }
-//                }
-//                .padding(.top, 10)
-//            }
-            
-            
+                    
+                    //            ScrollView(showsIndicators: false) {
+                    //
+                    //                LazyVGrid(columns: gridLayoutCF, alignment: .center, spacing: columnSpacingCF, pinnedViews: []) {
+                    //                    Section()
+                    //                    {
+                    //                        ForEach(0..<8) { people in
+                    //                            FiltersList()
+                    //                        }
+                    //                    }
+                    //                }
+                    //                .padding(.top, 10)
+                    //            }
+                    
+                    
+                }
+            }
         }
     }
 }
-
-struct FiltersSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        FiltersSheet(cameraModel: CameraViewModel())
-    }
-}
+        
+        struct FiltersSheet_Previews: PreviewProvider {
+            static var previews: some View {
+                FiltersSheet(cameraModel: CameraViewModel())
+            }
+        }

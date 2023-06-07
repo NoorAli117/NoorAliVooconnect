@@ -36,14 +36,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9 - 8c3d5cf24774d9ca"
+                  uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9 - a49679b9bbfdfc79"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Vooconnect.FillYourProfileResource.hittingUpdateProfile(profileDetailsRequest: Vooconnect.ProfileDetailsRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
+                  urlString = "file:///Users/mbp/Desktop/Vooconnect/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "18"
@@ -51,14 +51,14 @@
                   offsetFromSymbolStart = "1062">
                </Location>
                <Location
-                  uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9 - 8c3d5cf24774d9ca"
+                  uuid = "DCAE0093-13AF-4D1B-A625-FF5F2BF976D9 - a49679b9bbfdfc79"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Vooconnect.FillYourProfileResource.hittingUpdateProfile(profileDetailsRequest: Vooconnect.ProfileDetailsRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
+                  urlString = "file:///Users/mbp/Desktop/Vooconnect/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "18"
@@ -132,14 +132,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "037726EC-C4EF-43BE-850F-2766A92B5926 - bcec39f16d88996"
+                  uuid = "037726EC-C4EF-43BE-850F-2766A92B5926 - c78f67ba048781c7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsDetailResource.uploadReelsDeatils(reelsPostRequest: Vooconnect.ReelsPostRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
+                  urlString = "file:///Users/mbp/Desktop/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
@@ -147,14 +147,14 @@
                   offsetFromSymbolStart = "917">
                </Location>
                <Location
-                  uuid = "037726EC-C4EF-43BE-850F-2766A92B5926 - bcec39f16d88996"
+                  uuid = "037726EC-C4EF-43BE-850F-2766A92B5926 - c78f67ba048781c7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsDetailResource.uploadReelsDeatils(reelsPostRequest: Vooconnect.ReelsPostRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mbp/Desktop/haris/vooconnect-ios-live/Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
+                  urlString = "file:///Users/mbp/Desktop/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsDetailResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
