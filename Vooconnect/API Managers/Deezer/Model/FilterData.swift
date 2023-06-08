@@ -23,7 +23,7 @@ struct FilterData: Codable {
   var status: String?
   var categories: [Categories]?
   var descriptionValue: String?
-  var lastUpdatedAt: Int?
+  var lastUpdatedAt: String?
 
 
 }

@@ -117,16 +117,6 @@
 		10B40BB82A308A9900C4D098 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B40BB52A308A9600C4D098 /* Filter.swift */; };
 		10B40BB92A308A9900C4D098 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B40BB62A308A9800C4D098 /* Item.swift */; };
 		2959044D2A18BAF600FE3499 /* Urbanist-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A91280BA2919067D008FE970 /* Urbanist-Thin.ttf */; };
-		29625F9D2A181DB3008E00FB /* ARGCameraProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F9A2A181DAE008E00FB /* ARGCameraProtocol.swift */; };
-		29625F9E2A181DB3008E00FB /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F9B2A181DB0008E00FB /* Permission.swift */; };
-		29625F9F2A181DB3008E00FB /* ARGCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625F9C2A181DB2008E00FB /* ARGCamera.swift */; };
-		29625FA22A181DD9008E00FB /* ARGPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA12A181DD9008E00FB /* ARGPreferences.swift */; };
-		29625FA82A181E05008E00FB /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA42A181E01008E00FB /* FilterManager.swift */; };
-		29625FA92A181E05008E00FB /* BulgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA52A181E02008E00FB /* BulgeManager.swift */; };
-		29625FAA2A181E05008E00FB /* BeautyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA62A181E04008E00FB /* BeautyManager.swift */; };
-		29625FAB2A181E05008E00FB /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FA72A181E05008E00FB /* ContentManager.swift */; };
-		29625FAE2A181E40008E00FB /* NetworkManagerAR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */; };
-		29625FB02A181F5E008E00FB /* ARGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FAF2A181F5E008E00FB /* ARGScene.swift */; };
 		29625FB32A182017008E00FB /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29625FB22A182017008E00FB /* RealmManager.swift */; };
 		297754B92A2A036A0006DB3F /* LanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754B82A2A036A0006DB3F /* LanguageModel.swift */; };
 		297754BB2A2A039B0006DB3F /* LangViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297754BA2A2A039B0006DB3F /* LangViewModel.swift */; };
@@ -360,14 +350,10 @@
 		AB752EBA29AC53370065E1C8 /* FinalPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB752EB929AC53370065E1C8 /* FinalPreviewController.swift */; };
 		AB752EBC29AD37140065E1C8 /* AudioExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB752EBB29AD37140065E1C8 /* AudioExtension.swift */; };
 		AB811D0429E1FD6200E14881 /* AVPlayerViewController-Subtitles in Frameworks */ = {isa = PBXBuildFile; productRef = AB811D0329E1FD6200E14881 /* AVPlayerViewController-Subtitles */; };
-		ABAEA64429B4555200B5277E /* ARContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAEA64329B4555200B5277E /* ARContainerView.swift */; };
-		ABAEA64729B456D300B5277E /* ARModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAEA64629B456D300B5277E /* ARModel.swift */; };
-		ABAEA64929B456F300B5277E /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAEA64829B456F300B5277E /* ARViewModel.swift */; };
 		ABAEA64E29B8308F00B5277E /* glasses.usdz in Resources */ = {isa = PBXBuildFile; fileRef = ABAEA64D29B8308F00B5277E /* glasses.usdz */; };
 		ABAEA65229B98E2F00B5277E /* redEye.usdz in Resources */ = {isa = PBXBuildFile; fileRef = ABAEA65029B98E2F00B5277E /* redEye.usdz */; };
 		ABAEA65629B9903500B5277E /* objEye.obj in Resources */ = {isa = PBXBuildFile; fileRef = ABAEA65529B9903500B5277E /* objEye.obj */; };
 		ABAEA65829BA4C1D00B5277E /* glasses2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = ABAEA65729BA4C1D00B5277E /* glasses2.usdz */; };
-		ABAEA65B29BA5A0C00B5277E /* TypeOfARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAEA65A29BA5A0C00B5277E /* TypeOfARView.swift */; };
 		ABAEA65D29BA5EE200B5277E /* monsterMask.usdz in Resources */ = {isa = PBXBuildFile; fileRef = ABAEA65C29BA5EE200B5277E /* monsterMask.usdz */; };
 		ABAEA66029BA71EA00B5277E /* monsterMask.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = ABAEA65F29BA71EA00B5277E /* monsterMask.rcproject */; };
 		ABAEA66229BA734F00B5277E /* glassesScene.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = ABAEA66129BA734F00B5277E /* glassesScene.rcproject */; };
@@ -527,16 +513,6 @@
 		23BAA11E8767BE34AB95E0B2 /* Pods-Vooconnect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vooconnect.debug.xcconfig"; path = "Target Support Files/Pods-Vooconnect/Pods-Vooconnect.debug.xcconfig"; sourceTree = "<group>"; };
 		29625F082A178C95008E00FB /* ARGear.framework 2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "ARGear.framework 2"; path = "../../../../../../Downloads/ARGear.framework 2"; sourceTree = "<group>"; };
 		29625F092A178CB6008E00FB /* ARGear.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARGear.framework; path = ../../../../../../Downloads/ARGear.framework; sourceTree = "<group>"; };
-		29625F9A2A181DAE008E00FB /* ARGCameraProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGCameraProtocol.swift; sourceTree = "<group>"; };
-		29625F9B2A181DB0008E00FB /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
-		29625F9C2A181DB2008E00FB /* ARGCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGCamera.swift; sourceTree = "<group>"; };
-		29625FA12A181DD9008E00FB /* ARGPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGPreferences.swift; sourceTree = "<group>"; };
-		29625FA42A181E01008E00FB /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
-		29625FA52A181E02008E00FB /* BulgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulgeManager.swift; sourceTree = "<group>"; };
-		29625FA62A181E04008E00FB /* BeautyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautyManager.swift; sourceTree = "<group>"; };
-		29625FA72A181E05008E00FB /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
-		29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerAR.swift; sourceTree = "<group>"; };
-		29625FAF2A181F5E008E00FB /* ARGScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARGScene.swift; sourceTree = "<group>"; };
 		29625FB22A182017008E00FB /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		297754B82A2A036A0006DB3F /* LanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModel.swift; sourceTree = "<group>"; };
 		297754BA2A2A039B0006DB3F /* LangViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangViewModel.swift; sourceTree = "<group>"; };
@@ -769,15 +745,11 @@
 		AB752EB629AB1E1D0065E1C8 /* SoundsViewBlocEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewBlocEvent.swift; sourceTree = "<group>"; };
 		AB752EB929AC53370065E1C8 /* FinalPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalPreviewController.swift; sourceTree = "<group>"; };
 		AB752EBB29AD37140065E1C8 /* AudioExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioExtension.swift; sourceTree = "<group>"; };
-		ABAEA64329B4555200B5277E /* ARContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARContainerView.swift; sourceTree = "<group>"; };
-		ABAEA64629B456D300B5277E /* ARModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARModel.swift; sourceTree = "<group>"; };
-		ABAEA64829B456F300B5277E /* ARViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewModel.swift; sourceTree = "<group>"; };
 		ABAEA64D29B8308F00B5277E /* glasses.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = glasses.usdz; sourceTree = "<group>"; };
 		ABAEA64F29B98E2F00B5277E /* marioHat.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = marioHat.usdz; sourceTree = "<group>"; };
 		ABAEA65029B98E2F00B5277E /* redEye.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = redEye.usdz; sourceTree = "<group>"; };
 		ABAEA65529B9903500B5277E /* objEye.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = objEye.obj; sourceTree = "<group>"; };
 		ABAEA65729BA4C1D00B5277E /* glasses2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = glasses2.usdz; sourceTree = "<group>"; };
-		ABAEA65A29BA5A0C00B5277E /* TypeOfARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfARView.swift; sourceTree = "<group>"; };
 		ABAEA65C29BA5EE200B5277E /* monsterMask.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = monsterMask.usdz; sourceTree = "<group>"; };
 		ABAEA65F29BA71EA00B5277E /* monsterMask.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = monsterMask.rcproject; sourceTree = "<group>"; };
 		ABAEA66129BA734F00B5277E /* glassesScene.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = glassesScene.rcproject; sourceTree = "<group>"; };
@@ -1316,55 +1288,6 @@
 				10B40BB62A308A9800C4D098 /* Item.swift */,
 			);
 			path = ARModel;
-			sourceTree = "<group>";
-		};
-		29625F982A181D7E008E00FB /* ARGearHelpers */ = {
-			isa = PBXGroup;
-			children = (
-				29625FA62A181E04008E00FB /* BeautyManager.swift */,
-				29625FA52A181E02008E00FB /* BulgeManager.swift */,
-				29625FA72A181E05008E00FB /* ContentManager.swift */,
-				29625FA42A181E01008E00FB /* FilterManager.swift */,
-				29625FAC2A181E33008E00FB /* Network */,
-				29625FA32A181DF1008E00FB /* ARGScene */,
-				29625FA02A181DCB008E00FB /* ARGPreferences */,
-				29625F992A181D96008E00FB /* ARGCamera */,
-			);
-			path = ARGearHelpers;
-			sourceTree = "<group>";
-		};
-		29625F992A181D96008E00FB /* ARGCamera */ = {
-			isa = PBXGroup;
-			children = (
-				29625F9C2A181DB2008E00FB /* ARGCamera.swift */,
-				29625F9A2A181DAE008E00FB /* ARGCameraProtocol.swift */,
-				29625F9B2A181DB0008E00FB /* Permission.swift */,
-			);
-			path = ARGCamera;
-			sourceTree = "<group>";
-		};
-		29625FA02A181DCB008E00FB /* ARGPreferences */ = {
-			isa = PBXGroup;
-			children = (
-				29625FA12A181DD9008E00FB /* ARGPreferences.swift */,
-			);
-			path = ARGPreferences;
-			sourceTree = "<group>";
-		};
-		29625FA32A181DF1008E00FB /* ARGScene */ = {
-			isa = PBXGroup;
-			children = (
-				29625FAF2A181F5E008E00FB /* ARGScene.swift */,
-			);
-			path = ARGScene;
-			sourceTree = "<group>";
-		};
-		29625FAC2A181E33008E00FB /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				29625FAD2A181E40008E00FB /* NetworkManagerAR.swift */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		29625FB12A181FEF008E00FB /* Data */ = {
@@ -2043,9 +1966,7 @@
 			children = (
 				10B40BB32A3089F100C4D098 /* ARModel */,
 				29625FB12A181FEF008E00FB /* Data */,
-				29625F982A181D7E008E00FB /* ARGearHelpers */,
 				85A4676D29F59DDC005A5D4C /* ContentView.swift */,
-				ABAEA64129B4552A00B5277E /* AR View */,
 				ABC9F82E29AAD228006436A1 /* API Managers */,
 				ABC9F82829AACD4C006436A1 /* Vooconnect.entitlements */,
 				ABC9F81F29AAC9F1006436A1 /* Extensions */,
@@ -2371,33 +2292,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		ABAEA64129B4552A00B5277E /* AR View */ = {
-			isa = PBXGroup;
-			children = (
-				ABAEA65929BA59F800B5277E /* Enum */,
-				ABAEA64529B456C600B5277E /* Model */,
-				ABAEA64229B4553200B5277E /* View */,
-			);
-			path = "AR View";
-			sourceTree = "<group>";
-		};
-		ABAEA64229B4553200B5277E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				ABAEA64329B4555200B5277E /* ARContainerView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		ABAEA64529B456C600B5277E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				ABAEA64629B456D300B5277E /* ARModel.swift */,
-				ABAEA64829B456F300B5277E /* ARViewModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		ABAEA64C29B8308000B5277E /* 3DModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -2412,14 +2306,6 @@
 				ABAEA64D29B8308F00B5277E /* glasses.usdz */,
 			);
 			path = 3DModels;
-			sourceTree = "<group>";
-		};
-		ABAEA65929BA59F800B5277E /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				ABAEA65A29BA5A0C00B5277E /* TypeOfARView.swift */,
-			);
-			path = Enum;
 			sourceTree = "<group>";
 		};
 		ABAEA65E29BA71DC00B5277E /* ARScenes */ = {
@@ -2757,7 +2643,6 @@
 				A99AE83C291E5D6E00E613F1 /* OTPValidation.swift in Sources */,
 				049F4BF029BBB67100113EA0 /* FindFriendsView.swift in Sources */,
 				049F4C1B29BBB6E400113EA0 /* UserDefaultsKeys.swift in Sources */,
-				29625FA92A181E05008E00FB /* BulgeManager.swift in Sources */,
 				042FDD1529D52CF1008B81C7 /* UIScreen + Extensions.swift in Sources */,
 				A932F902296014D00098B14E /* ReelsCommentTextField.swift in Sources */,
 				AB37593629CAB32A000D0A2D /* curlyHairScene.rcproject in Sources */,
@@ -2781,14 +2666,11 @@
 				049F4C0C29BBB6BC00113EA0 /* PrivacyView.swift in Sources */,
 				042FDD2C29D8D659008B81C7 /* SwitchAccountViewModel.swift in Sources */,
 				ABC9F83429AAD437006436A1 /* DeezerSongModel.swift in Sources */,
-				ABAEA64929B456F300B5277E /* ARViewModel.swift in Sources */,
 				A901699A2941E3560089AA45 /* CustomeSheetMoreOtptions.swift in Sources */,
 				049F4C0E29BBB6BC00113EA0 /* HelpCenterView.swift in Sources */,
 				049F4C1C29BBB6E400113EA0 /* Logger.swift in Sources */,
-				29625FAA2A181E05008E00FB /* BeautyManager.swift in Sources */,
 				ABC55C5229AFBF4300C3E320 /* ContentOverlayModel.swift in Sources */,
 				A955F24229532FB200498540 /* LiveSettingsSheet.swift in Sources */,
-				ABAEA64729B456D300B5277E /* ARModel.swift in Sources */,
 				A95462472955AD1B00C4D233 /* ViewersList.swift in Sources */,
 				ABC55C3A29AE8A8100C3E320 /* ViewExtension.swift in Sources */,
 				A9C460052949E8DD00A06896 /* SoundsView.swift in Sources */,
@@ -2822,7 +2704,6 @@
 				A953A2DE2938573B00CE493F /* BirthDayResource.swift in Sources */,
 				049F4C2929BBBD5400113EA0 /* FollowingButton.swift in Sources */,
 				049F4BCA29BBB5E100113EA0 /* View + Extensions.swift in Sources */,
-				29625F9F2A181DB3008E00FB /* ARGCamera.swift in Sources */,
 				04DBC98229BD933C00DEBAF5 /* EditProfileView.swift in Sources */,
 				049F4BF729BBB67100113EA0 /* SubscribeComponents.swift in Sources */,
 				049F4C2529BBBCE700113EA0 /* NilModel.swift in Sources */,
@@ -2864,7 +2745,6 @@
 				049F4BD729BBB61F00113EA0 /* NetworkAuthenticationModel.swift in Sources */,
 				049F4BF129BBB67100113EA0 /* FindFriendsComponents.swift in Sources */,
 				ABC55C5729AFC65700C3E320 /* PostModel.swift in Sources */,
-				29625F9E2A181DB3008E00FB /* Permission.swift in Sources */,
 				ABC9F82529AAC9F2006436A1 /* ShapeExtension.swift in Sources */,
 				049F4BD729BBB61F00113EA0 /* NetworkAuthenticationModel.swift in Sources */,
 				049F4BF129BBB67100113EA0 /* FindFriendsComponents.swift in Sources */,
@@ -2913,16 +2793,13 @@
 				049F4C1229BBB6BD00113EA0 /* PrivacyPolicyView.swift in Sources */,
 				A9D09CB4292DE3B400B8B0B9 /* UploadProfileImageResource.swift in Sources */,
 				041572AC2A13E459002CEE1E /* MusicView.swift in Sources */,
-				29625FA22A181DD9008E00FB /* ARGPreferences.swift in Sources */,
 				A940CEF029277A1500BE4533 /* ForgotPasswordPhoneEmail.swift in Sources */,
 				A9F2408829683F2E0063D430 /* TrendingHashtagView.swift in Sources */,
 				0496379429BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift in Sources */,
 				A958B5502923437500FE16EA /* CreateNewPasswordView.swift in Sources */,
 				AB37595729CFCD2F000D0A2D /* PostVisibilityView.swift in Sources */,
-				29625FB02A181F5E008E00FB /* ARGScene.swift in Sources */,
 				A955F2382953001B00498540 /* CustomeSheet.swift in Sources */,
 				A955F23C2953036B00498540 /* CustomeTextFieldSix.swift in Sources */,
-				29625FA82A181E05008E00FB /* FilterManager.swift in Sources */,
 				29E4B4602A25183800C79AA8 /* Functions.swift in Sources */,
 				049F4BDB29BBB61F00113EA0 /* NetworkConstants.swift in Sources */,
 				04C7526729D1AE1F00A0337A /* LocationManager.swift in Sources */,
@@ -3008,12 +2885,10 @@
 				29E5A2AD2A2B4D3100E4C093 /* CategoryView.swift in Sources */,
 				ABC9F82729AACACA006436A1 /* ColorsHelper.swift in Sources */,
 				A9AD88DA2932162D009B16F8 /* PasswordTextFieldTwo.swift in Sources */,
-				29625FAE2A181E40008E00FB /* NetworkManagerAR.swift in Sources */,
 				A9B24790293DC4EB00B5A233 /* CameraViewModel.swift in Sources */,
 				A99AE836291E22A400E613F1 /* SignUpModel.swift in Sources */,
 				A9785FA22911102D00F19ADD /* VooconnectApp.swift in Sources */,
 				ABC9F81129AA9F37006436A1 /* ApiEnpointsHelper.swift in Sources */,
-				29625F9D2A181DB3008E00FB /* ARGCameraProtocol.swift in Sources */,
 				A9EF3BDD2951BF1C003B06F4 /* PopUpDismiss.swift in Sources */,
 				ABC55C5529AFC29200C3E320 /* TypeOfOverlay.swift in Sources */,
 				A953A2DC2938571D00CE493F /* BirthDayViewModel.swift in Sources */,
@@ -3021,7 +2896,6 @@
 				04D6392829F44A8200718FE0 /* QRCodeView.swift in Sources */,
 				047A625E29D23E28006D2635 /* MessageComposeView.swift in Sources */,
 				A954C2FE294ADFD6000176FF /* UploadReelsDetailResource.swift in Sources */,
-				29625FAB2A181E05008E00FB /* ContentManager.swift in Sources */,
 				04DD22EF29DCC07700DE7103 /* InstagramLoginManager.swift in Sources */,
 				042FDD2229D79236008B81C7 /* RoundedCornors.swift in Sources */,
 				AB37593829CD0603000D0A2D /* SpeechRecognizerHelper.swift in Sources */,
@@ -3086,8 +2960,6 @@
 				29E5A2AB2A2B4CBB00E4C093 /* CategoryViewModel.swift in Sources */,
 				A90169982941DBD30089AA45 /* BottomSheetView.swift in Sources */,
 				A91280E429191A7E008FE970 /* CreateYourAccountView.swift in Sources */,
-				ABAEA65B29BA5A0C00B5277E /* TypeOfARView.swift in Sources */,
-				ABAEA64429B4555200B5277E /* ARContainerView.swift in Sources */,
 				A99AE83E291E5D7D00E613F1 /* OTPResource.swift in Sources */,
 				A99AE82C291E1BBD00E613F1 /* SignUpViewModell.swift in Sources */,
 				04DBC98429BD935500DEBAF5 /* EditProfileComponents.swift in Sources */,
