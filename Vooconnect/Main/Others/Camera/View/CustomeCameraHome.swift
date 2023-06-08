@@ -39,7 +39,6 @@ struct CustomeCameraHome: View {
     @State private var cameraFlip: Bool = false
     
     @State private var filersSheet: Bool = false
-    @State private var beautySheet: Bool = false
     @State private var effectsSheet: Bool = false
     
     var body: some View {
@@ -395,7 +394,6 @@ struct CustomeCameraHome: View {
                                                     .padding(.bottom, -5)
                                                 Button {
                                                     print("Beauty2===========")
-                                                    beautySheet.toggle()
                                                     
                                                 } label: {
                                                     Image("Beauty2")
@@ -675,11 +673,6 @@ struct CustomeCameraHome: View {
                     }
                 }
                 
-                //Beauty
-//                .sheet(isPresented: $beautySheet) {
-//                    BeautyView()
-//                        .edgesIgnoringSafeArea(.bottom)
-//                }
                 
                 // Effects
                 .blurredSheet(.init(.white), show: $effectsSheet) {
