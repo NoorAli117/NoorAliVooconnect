@@ -3104,7 +3104,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Vooconnect/Preview Content\"";
-				DEVELOPMENT_TEAM = 5FQV9R5NVC;
+				DEVELOPMENT_TEAM = R884X3NXXR;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3156,7 +3156,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Vooconnect/Preview Content\"";
-				DEVELOPMENT_TEAM = 5FQV9R5NVC;
+				DEVELOPMENT_TEAM = R884X3NXXR;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3185,7 +3185,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Vooconnect;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vooconnectssss.farooq;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

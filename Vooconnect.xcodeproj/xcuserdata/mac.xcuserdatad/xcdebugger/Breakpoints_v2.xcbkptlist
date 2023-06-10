@@ -49,6 +49,36 @@
                   endingLineNumber = "68"
                   offsetFromSymbolStart = "5604">
                </Location>
+               <Location
+                  uuid = "833EA2C6-4CE2-4ABC-8412-C91C37C17DD8 - 40145db32af56caa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in Vooconnect.LogInResource.hittingLogInApi(signupRequest: Vooconnect.SignUpRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Auth/LogIn/LogInResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "5644">
+               </Location>
+               <Location
+                  uuid = "833EA2C6-4CE2-4ABC-8412-C91C37C17DD8 - 40145db32af56caa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in Vooconnect.LogInResource.hittingLogInApi(signupRequest: Vooconnect.SignUpRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Auth/LogIn/LogInResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "5760">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -107,6 +137,36 @@
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Projects/Fiver/Vooconnect/vooconnect2/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "228">
+               </Location>
+               <Location
+                  uuid = "F259C599-67FF-4E63-8639-25100F29BC7E - 3fa7963ddeb401f3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FillYourProfileResource.hittingUpdateProfile(profileDetailsRequest: Vooconnect.ProfileDetailsRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "1968">
+               </Location>
+               <Location
+                  uuid = "F259C599-67FF-4E63-8639-25100F29BC7E - c69baa3853f398de"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, Swift.Error&gt;) -&gt; () in Vooconnect.FillYourProfileResource.hittingUpdateProfile(profileDetailsRequest: Vooconnect.ProfileDetailsRequest, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/Resource/FillYourProfileResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "28"
@@ -241,6 +301,36 @@
                   endingLineNumber = "138"
                   offsetFromSymbolStart = "244">
                </Location>
+               <Location
+                  uuid = "B993FEE6-7D43-451E-A97F-F5646B869B4C - 27670ecd9e50fe9f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FillYourProfileViewModel.upDateProfileApi() -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/ViewModel/FillYourProfileViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
+                  offsetFromSymbolStart = "1856">
+               </Location>
+               <Location
+                  uuid = "B993FEE6-7D43-451E-A97F-F5646B869B4C - ae30948699e6ba73"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Vooconnect.FillYourProfileViewModel.upDateProfileApi() -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/ViewModel/FillYourProfileViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "244">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -331,6 +421,36 @@
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Projects/Fiver/Vooconnect/vooconnect2/Vooconnect/Main/Others/FillYourProfile/View/FillYourProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "391"
+                  endingLineNumber = "391"
+                  offsetFromSymbolStart = "272">
+               </Location>
+               <Location
+                  uuid = "802DDA9B-F8B2-4D10-9C09-AA52AC55D392 - 3671df6807002583"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FillYourProfileView.uploadImageee(complitionHandler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/View/FillYourProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "390"
+                  endingLineNumber = "390"
+                  offsetFromSymbolStart = "1404">
+               </Location>
+               <Location
+                  uuid = "802DDA9B-F8B2-4D10-9C09-AA52AC55D392 - 6cd65c6054e4ce4a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Vooconnect.FillYourProfileView.uploadImageee(complitionHandler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/View/FillYourProfileView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "391"
@@ -448,6 +568,36 @@
                   startingLineNumber = "93"
                   endingLineNumber = "93"
                   offsetFromSymbolStart = "1224">
+               </Location>
+               <Location
+                  uuid = "57DB1816-8BB5-4B20-9EE0-B55B4D544EF4 - 51606cac8b60e6e5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.UploadProfileImageResource.uploadImage(imageUploadRequest: Foundation.Data, paramName: Swift.String, fileName: Swift.String, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/Resource/UploadProfileImageResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "700">
+               </Location>
+               <Location
+                  uuid = "57DB1816-8BB5-4B20-9EE0-B55B4D544EF4 - 51606cac8b60e6e5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.UploadProfileImageResource.uploadImage(imageUploadRequest: Foundation.Data, paramName: Swift.String, fileName: Swift.String, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/FillYourProfile/Resource/UploadProfileImageResource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "1252">
                </Location>
             </Locations>
          </BreakpointContent>
