@@ -789,12 +789,9 @@ struct FinalVideoToPostView: View {
                             print("Sucessss......")
                             complitionHandler(true)
                         } else {
-                            if (error == "502 Bad Gateway"){
-                                print("Fill the mandatory fields")
-                                loader = false
-                            }
                             print("Errror.....")
                             complitionHandler(false)
+                            loader = false
                         }
                     }
                 })

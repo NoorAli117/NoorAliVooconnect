@@ -28,6 +28,17 @@
 		047A625829D23387006D2635 /* ContactsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625729D23387006D2635 /* ContactsComponents.swift */; };
 		047A625B29D2356B006D2635 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625A29D2356B006D2635 /* ContactsViewModel.swift */; };
 		047A625E29D23E28006D2635 /* MessageComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625D29D23E28006D2635 /* MessageComposeView.swift */; };
+		0480589A2A34F53400C5AB1B /* ARGCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058972A34F53200C5AB1B /* ARGCamera.swift */; };
+		0480589B2A34F53400C5AB1B /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058982A34F53300C5AB1B /* Permission.swift */; };
+		0480589C2A34F53400C5AB1B /* ARGCameraProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058992A34F53400C5AB1B /* ARGCameraProtocol.swift */; };
+		0480589F2A34F57300C5AB1B /* ARGPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0480589E2A34F57300C5AB1B /* ARGPreferences.swift */; };
+		048058A22A34F5A200C5AB1B /* ARGScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058A12A34F5A200C5AB1B /* ARGScene.swift */; };
+		048058A72A34F5F300C5AB1B /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058A32A34F5ED00C5AB1B /* FilterManager.swift */; };
+		048058A82A34F5F300C5AB1B /* BulgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058A42A34F5EE00C5AB1B /* BulgeManager.swift */; };
+		048058A92A34F5F300C5AB1B /* BeautyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058A52A34F5F000C5AB1B /* BeautyManager.swift */; };
+		048058AA2A34F5F300C5AB1B /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058A62A34F5F300C5AB1B /* ContentManager.swift */; };
+		048058AD2A34F60500C5AB1B /* NetworkManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */; };
+		048058AF2A35C94200C5AB1B /* BeautyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AE2A35C94200C5AB1B /* BeautyView.swift */; };
 		0496379229BFB2CE0044DA57 /* CreatorMoreOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */; };
 		0496379429BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */; };
 		049F4BBC29BBB54300113EA0 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 049F4BBB29BBB54300113EA0 /* SDWebImageSwiftUI */; };
@@ -425,6 +436,17 @@
 		047A625729D23387006D2635 /* ContactsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsComponents.swift; sourceTree = "<group>"; };
 		047A625A29D2356B006D2635 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
 		047A625D29D23E28006D2635 /* MessageComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComposeView.swift; sourceTree = "<group>"; };
+		048058972A34F53200C5AB1B /* ARGCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGCamera.swift; sourceTree = "<group>"; };
+		048058982A34F53300C5AB1B /* Permission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
+		048058992A34F53400C5AB1B /* ARGCameraProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGCameraProtocol.swift; sourceTree = "<group>"; };
+		0480589E2A34F57300C5AB1B /* ARGPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGPreferences.swift; sourceTree = "<group>"; };
+		048058A12A34F5A200C5AB1B /* ARGScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGScene.swift; sourceTree = "<group>"; };
+		048058A32A34F5ED00C5AB1B /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
+		048058A42A34F5EE00C5AB1B /* BulgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulgeManager.swift; sourceTree = "<group>"; };
+		048058A52A34F5F000C5AB1B /* BeautyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautyManager.swift; sourceTree = "<group>"; };
+		048058A62A34F5F300C5AB1B /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
+		048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+Ext.swift"; sourceTree = "<group>"; };
+		048058AE2A35C94200C5AB1B /* BeautyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyView.swift; sourceTree = "<group>"; };
 		0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsView.swift; sourceTree = "<group>"; };
 		0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsComponents.swift; sourceTree = "<group>"; };
 		049F4BC429BBB5E100113EA0 /* Color + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color + Extensions.swift"; sourceTree = "<group>"; };
@@ -512,7 +534,6 @@
 		10B40BB62A308A9800C4D098 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		23BAA11E8767BE34AB95E0B2 /* Pods-Vooconnect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vooconnect.debug.xcconfig"; path = "Target Support Files/Pods-Vooconnect/Pods-Vooconnect.debug.xcconfig"; sourceTree = "<group>"; };
 		29625F082A178C95008E00FB /* ARGear.framework 2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "ARGear.framework 2"; path = "../../../../../../Downloads/ARGear.framework 2"; sourceTree = "<group>"; };
-		29625F092A178CB6008E00FB /* ARGear.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARGear.framework; path = ../../../../../../Downloads/ARGear.framework; sourceTree = "<group>"; };
 		29625FB22A182017008E00FB /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		297754B82A2A036A0006DB3F /* LanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModel.swift; sourceTree = "<group>"; };
 		297754BA2A2A039B0006DB3F /* LangViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LangViewModel.swift; sourceTree = "<group>"; };
@@ -858,6 +879,55 @@
 				047A625D29D23E28006D2635 /* MessageComposeView.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		048058952A34F50600C5AB1B /* ARGearHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				048058AB2A34F5F900C5AB1B /* Network */,
+				048058A52A34F5F000C5AB1B /* BeautyManager.swift */,
+				048058A42A34F5EE00C5AB1B /* BulgeManager.swift */,
+				048058A62A34F5F300C5AB1B /* ContentManager.swift */,
+				048058A32A34F5ED00C5AB1B /* FilterManager.swift */,
+				048058A02A34F58900C5AB1B /* ARGScene */,
+				0480589D2A34F55000C5AB1B /* ARGPreferences */,
+				048058962A34F50F00C5AB1B /* ARGCamera */,
+			);
+			path = ARGearHelpers;
+			sourceTree = "<group>";
+		};
+		048058962A34F50F00C5AB1B /* ARGCamera */ = {
+			isa = PBXGroup;
+			children = (
+				048058972A34F53200C5AB1B /* ARGCamera.swift */,
+				048058992A34F53400C5AB1B /* ARGCameraProtocol.swift */,
+				048058982A34F53300C5AB1B /* Permission.swift */,
+			);
+			path = ARGCamera;
+			sourceTree = "<group>";
+		};
+		0480589D2A34F55000C5AB1B /* ARGPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				0480589E2A34F57300C5AB1B /* ARGPreferences.swift */,
+			);
+			path = ARGPreferences;
+			sourceTree = "<group>";
+		};
+		048058A02A34F58900C5AB1B /* ARGScene */ = {
+			isa = PBXGroup;
+			children = (
+				048058A12A34F5A200C5AB1B /* ARGScene.swift */,
+			);
+			path = ARGScene;
+			sourceTree = "<group>";
+		};
+		048058AB2A34F5F900C5AB1B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		0496379029BFB2B40044DA57 /* ShareView */ = {
@@ -1881,7 +1951,7 @@
 		A958B6542923B1AD00FE16EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				29625F092A178CB6008E00FB /* ARGear.framework */,
+				1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */,
 				29625F082A178C95008E00FB /* ARGear.framework 2 */,
 				04DD22EC29DC6BE300DE7103 /* Twitter.framework */,
 				0DE5759621D06BEFA8AF4238 /* Pods_Vooconnect.framework */,
@@ -1939,7 +2009,6 @@
 		A9785F952911102D00F19ADD = {
 			isa = PBXGroup;
 			children = (
-				1064AC6C2A2F6CA800DFF2BB /* ARGear.framework */,
 				ABAEA65E29BA71DC00B5277E /* ARScenes */,
 				ABAEA64C29B8308000B5277E /* 3DModels */,
 				A958B65C2923B7DA00FE16EA /* CountryPicker-master */,
@@ -1964,6 +2033,7 @@
 		A9785FA02911102D00F19ADD /* Vooconnect */ = {
 			isa = PBXGroup;
 			children = (
+				048058952A34F50600C5AB1B /* ARGearHelpers */,
 				10B40BB32A3089F100C4D098 /* ARModel */,
 				29625FB12A181FEF008E00FB /* Data */,
 				85A4676D29F59DDC005A5D4C /* ContentView.swift */,
@@ -2177,6 +2247,7 @@
 				A932F8FB295FF9280098B14E /* EffectsList.swift */,
 				297754BC2A2A05340006DB3F /* BotSheetView.swift */,
 				29E5A2AC2A2B4D3100E4C093 /* CategoryView.swift */,
+				048058AE2A35C94200C5AB1B /* BeautyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2651,6 +2722,7 @@
 				A9F24082296824200063D430 /* HastagNotificationView.swift in Sources */,
 				049F4C1329BBB6BD00113EA0 /* SettingRowType.swift in Sources */,
 				04D6393229F6631300718FE0 /* CreatorViewComponents.swift in Sources */,
+				048058A82A34F5F300C5AB1B /* BulgeManager.swift in Sources */,
 				049F4C1329BBB6BD00113EA0 /* SettingRowType.swift in Sources */,
 				049F4BF429BBB67100113EA0 /* CreatorProfileView.swift in Sources */,
 				A933C9C5294728AC0009F8A5 /* PreviewFromGallery.swift in Sources */,
@@ -2664,6 +2736,7 @@
 				042FDD2C29D8D659008B81C7 /* SwitchAccountViewModel.swift in Sources */,
 				049F4C1129BBB6BD00113EA0 /* LanguageView.swift in Sources */,
 				049F4C0C29BBB6BC00113EA0 /* PrivacyView.swift in Sources */,
+				048058AD2A34F60500C5AB1B /* NetworkManager+Ext.swift in Sources */,
 				042FDD2C29D8D659008B81C7 /* SwitchAccountViewModel.swift in Sources */,
 				ABC9F83429AAD437006436A1 /* DeezerSongModel.swift in Sources */,
 				A901699A2941E3560089AA45 /* CustomeSheetMoreOtptions.swift in Sources */,
@@ -2671,6 +2744,7 @@
 				049F4C1C29BBB6E400113EA0 /* Logger.swift in Sources */,
 				ABC55C5229AFBF4300C3E320 /* ContentOverlayModel.swift in Sources */,
 				A955F24229532FB200498540 /* LiveSettingsSheet.swift in Sources */,
+				0480589C2A34F53400C5AB1B /* ARGCameraProtocol.swift in Sources */,
 				A95462472955AD1B00C4D233 /* ViewersList.swift in Sources */,
 				ABC55C3A29AE8A8100C3E320 /* ViewExtension.swift in Sources */,
 				A9C460052949E8DD00A06896 /* SoundsView.swift in Sources */,
@@ -2733,9 +2807,11 @@
 				A9453E97292B51BA00728A19 /* MediaFile.swift in Sources */,
 				04D6392B29F55F2700718FE0 /* ManageAccountsViewModel.swift in Sources */,
 				042FDD2729D8CE1C008B81C7 /* VooconnectModel.xcdatamodeld in Sources */,
+				048058AA2A34F5F300C5AB1B /* ContentManager.swift in Sources */,
 				049F4BFA29BBB67100113EA0 /* CreatorSearchComponents.swift in Sources */,
 				049F4C1029BBB6BD00113EA0 /* CreatorView.swift in Sources */,
 				A945313C2914D6CC00321407 /* BuzzView.swift in Sources */,
+				048058AF2A35C94200C5AB1B /* BeautyView.swift in Sources */,
 				04E05D9829CF2320004F5406 /* StatsModel.swift in Sources */,
 				A9AD88D829321393009B16F8 /* CustomeTextFieldFive.swift in Sources */,
 				AB37595E29D4A3FE000D0A2D /* TypeOfSoundFilter.swift in Sources */,
@@ -2842,6 +2918,7 @@
 				A95462492955AFD700C4D233 /* GoLiveTogeRequestSheet.swift in Sources */,
 				A97E6C5029486DB400FD6B7B /* SearchLiveView.swift in Sources */,
 				049F4BF829BBB67100113EA0 /* SubscriberViewModel.swift in Sources */,
+				048058A22A34F5A200C5AB1B /* ARGScene.swift in Sources */,
 				A9975A58295428E300E6C71C /* AddModeratorsList.swift in Sources */,
 				A9975A562954255C00E6C71C /* AddModeratorsListView.swift in Sources */,
 				29625FB32A182017008E00FB /* RealmManager.swift in Sources */,
@@ -2850,6 +2927,7 @@
 				A91280E229190BD0008FE970 /* ConnectWithEmailAndPhoneView.swift in Sources */,
 				A9B2478E293DC3BB00B5A233 /* CustomeCameraView.swift in Sources */,
 				04C1D5F829BBC42000284F72 /* LogInResource.swift in Sources */,
+				0480589F2A34F57300C5AB1B /* ARGPreferences.swift in Sources */,
 				A98201E9293B004F0055CAFD /* ReelsModel.swift in Sources */,
 				04C7526429D1A81C00A0337A /* GeneralManagerImpl.swift in Sources */,
 				A92F2AE8291A560D00FD63B9 /* OTPView.swift in Sources */,
@@ -2860,7 +2938,9 @@
 				A9BBD3E3292234BE00ABC50D /* PopUpView.swift in Sources */,
 				AB37593F29CDFC7F000D0A2D /* VideoMediaInput.swift in Sources */,
 				A97E6C562948792E00FD6B7B /* SearchButtonView.swift in Sources */,
+				0480589B2A34F53400C5AB1B /* Permission.swift in Sources */,
 				A9975A5E295467C800E6C71C /* UserManageSheet.swift in Sources */,
+				0480589A2A34F53400C5AB1B /* ARGCamera.swift in Sources */,
 				049F4BF329BBB67100113EA0 /* SwitchAccountView.swift in Sources */,
 				049F4C2E29BBBD6E00113EA0 /* PrimaryFillButton.swift in Sources */,
 				A955F2362952C19900498540 /* LiveStreamingView.swift in Sources */,
@@ -2876,11 +2956,13 @@
 				A9453E9B292B522C00728A19 /* ReelsView.swift in Sources */,
 				ABC55C5929AFC82900C3E320 /* TypeOfVisibility.swift in Sources */,
 				AB37595B29D4A297000D0A2D /* SoundsFilterView.swift in Sources */,
+				048058A92A34F5F300C5AB1B /* BeautyManager.swift in Sources */,
 				B24881402923F69B0024B72F /* CustomeTextFieldFour.swift in Sources */,
 				04DD22EB29DC690700DE7103 /* TwitterLoginManager.swift in Sources */,
 				A954623F2955A3CD00C4D233 /* ViewerProfileDetailSheet.swift in Sources */,
 				049F4C1429BBB6BD00113EA0 /* SettingView.swift in Sources */,
 				049F4C0F29BBB6BD00113EA0 /* ManageAccountsView.swift in Sources */,
+				048058A72A34F5F300C5AB1B /* FilterManager.swift in Sources */,
 				041572B02A13E4FB002CEE1E /* CommentReplySheet.swift in Sources */,
 				29E5A2AD2A2B4D3100E4C093 /* CategoryView.swift in Sources */,
 				ABC9F82729AACACA006436A1 /* ColorsHelper.swift in Sources */,
@@ -3185,7 +3267,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Vooconnectssss.farooq;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnect.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AVKit
+import ARGear
 
 struct CustomeCameraHome: View {
     
@@ -39,7 +39,26 @@ struct CustomeCameraHome: View {
     @State private var cameraFlip: Bool = false
     
     @State private var filersSheet: Bool = false
+    @State private var beautySheet: Bool = false
     @State private var effectsSheet: Bool = false
+    var toast_main_position = CGPoint(x: 0, y: 0)
+    
+    // MARK: - ARGearSDK properties
+    private var argConfig: ARGConfig?
+    @State private var argSession: ARGSession?
+    private var currentFaceFrame: ARGFrame?
+    private var nextFaceFrame: ARGFrame?
+    private var preferences: ARGPreferences = ARGPreferences()
+    
+    // MARK: - Camera & Scene properties
+    private let serialQueue = DispatchQueue(label: "serialQueue")
+    private var currentCamera: CameraDeviceWithPosition = .front
+    
+    private var arCamera: ARGCamera!
+    private var arScene: ARGScene!
+//    private var arMedia: ARGMedia = ARGMedia()
+    
+    private lazy var cameraPreviewCALayer = CALayer()
     
     var body: some View {
         
@@ -394,7 +413,7 @@ struct CustomeCameraHome: View {
                                                     .padding(.bottom, -5)
                                                 Button {
                                                     print("Beauty2===========")
-                                                    
+                                                    beautySheet.toggle()
                                                 } label: {
                                                     Image("Beauty2")
                                                 }
@@ -672,7 +691,19 @@ struct CustomeCameraHome: View {
                         // Fallback on earlier versions
                     }
                 }
-                
+                .blurredSheet(.init(.white), show: $beautySheet) {
+
+                } content: {
+                    if #available(iOS 16.0, *) {
+                        BeautyView()
+                            .presentationDetents([.large,.medium,.height(140)])
+                            .onAppear {
+                                cameraModel.getFilterData()
+                            }
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                }
                 
                 // Effects
                 .blurredSheet(.init(.white), show: $effectsSheet) {
@@ -699,6 +730,27 @@ struct CustomeCameraHome: View {
         }
         
         
+    }
+    // MARK: - ARGearSDK setupConfig
+    private func setupARGearConfig() {
+        do {
+            let config = ARGConfig(
+                apiURL: API_HOST,
+                apiKey: API_KEY,
+                secretKey: API_SECRET_KEY,
+                authKey: API_AUTH_KEY
+            )
+            argSession = try ARGSession(argConfig: config, feature: [.faceMeshTracking])
+//            argSession?.delegate = self
+            
+            let debugOption: ARGInferenceDebugOption = self.preferences.showLandmark ? .optionDebugFaceLandmark2D : .optionDebugNON
+            argSession?.inferenceDebugOption = debugOption
+            
+        } catch let error as NSError {
+            print("Failed to initialize ARGear Session with error: %@", error.description)
+        } catch let exception as NSException {
+            print("Exception to initialize ARGear Session with error: %@", exception.description)
+        }
     }
 }
 
