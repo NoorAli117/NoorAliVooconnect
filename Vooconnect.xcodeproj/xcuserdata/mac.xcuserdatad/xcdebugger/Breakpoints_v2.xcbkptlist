@@ -983,54 +983,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7690338F-0EB0-4AB8-9486-25259E728BD2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "uploadReels(imageUploadRequest:paramName:fileName:complitionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "7690338F-0EB0-4AB8-9486-25259E728BD2 - 9d4b2e59cd33684"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "451">
-               </Location>
-               <Location
-                  uuid = "7690338F-0EB0-4AB8-9486-25259E728BD2 - 9d4b2e59cd33684"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "332">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "57DB1816-8BB5-4B20-9EE0-B55B4D544EF4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"

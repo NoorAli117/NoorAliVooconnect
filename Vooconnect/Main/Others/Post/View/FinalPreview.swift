@@ -9,16 +9,22 @@ import SwiftUI
 import AVKit
 import Photos
 import AVPlayerViewController_Subtitles
+import AVFoundation
+import CoreImage
+import CoreImage.CIFilterBuiltins
+import NavigationStack
 
 // MARK: Final Video Preview
 struct FinalPreview: View{
     @Environment(\.presentationMode) var presentaionMode
+    @EnvironmentObject private var navigationModel: NavigationModel
     @ObservedObject private var controller : FinalPreviewController
     @StateObject var speechRecognizer = SpeechRecognizerHelper()
     @State private var postModel : PostModel
     @State var songModel : DeezerSongModel?
     @State var speed : Float
-    @State private var renderUrl : URL? = nil
+    @State private var renderUrl : URL?
+    @State var trimRenderUrl = URL(string: "")
     @Binding var showPreview: Bool
     @State private var finalVideoPost: Bool = false
     private let uploadReels: UploadReelsResource = UploadReelsResource()
@@ -39,7 +45,8 @@ struct FinalPreview: View{
     @State private var isRecording = false
     @State private var textView : AnyView?
     @State private var stickerTextName = ""
-    
+    @State private var navigateToNextView = false
+//    @State var playermanager = PlayerViewModel()
     
     init(url:URL, showPreview: Binding<Bool>,songModel : DeezerSongModel?, speed : Float = 1){
         _songModel = State(initialValue: songModel)
@@ -53,6 +60,7 @@ struct FinalPreview: View{
         self.postModel.songModel = songModel
        
         print("URL FINAL PREVIEW1: " + (url.absoluteString ))
+//        playermanager.videoUrl = url
     }
     ///add deezer audio to video
     func addSongAudio(){
@@ -320,6 +328,9 @@ struct FinalPreview: View{
                             VStack {
                                 
                                 Button {
+                                    navigateToNextView = true
+                                    isPlaying = false
+//                                    controller.pause()
                                     
                                 } label: {
                                     
@@ -331,6 +342,18 @@ struct FinalPreview: View{
 //                                            .padding(.top, -5)
                                     }
                                 }
+                                
+                                let url = self.postModel.contentUrl
+//                                let pathUrl = url?.path
+                                let asset = AVURLAsset(url: url!, options: nil)
+                                let playermanager = PlayerViewModel(videoUrl: url!)
+                                
+                                
+                                NavigationLink(destination:
+                                                AdjustVideoView(slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, renderUrl:$renderUrl, postModel: $postModel)
+                                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $navigateToNextView) {
+                                        EmptyView()
+                                    }
                                 
                                 if(self.postModel.isImageContent() == false)
                                 {
@@ -422,12 +445,14 @@ struct FinalPreview: View{
                                 
                                 Button {
                                     loading = true
-                                    controller.noiseReductionToVideo(videoUrl: self.postModel.contentUrl!.absoluteString,callback: {val in
-                                        self.postModel.contentUrl = val
-                                        loading = false
-                                        self.controller.setNewUrl(url: self.postModel.contentUrl!)
-                                        self.controller.play()
-                                    })
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0){
+                                        controller.noiseReductionToVideo(videoUrl: self.postModel.contentUrl!.absoluteString,callback: {val in
+                                            self.postModel.contentUrl = val
+                                            self.controller.setNewUrl(url: self.postModel.contentUrl!)
+                                            self.controller.play()
+                                            loading = false
+                                        })
+                                    }
                                 } label: {
                                     Image("PreviewReduceNoise")
                                 }
@@ -803,6 +828,13 @@ struct FinalPreview: View{
         
     }
     
+    
+    
+//    fileprivate func trimVideoAtUrl(_ url: URL) {
+//
+//    }
+    
+    
     ///Video or image content view
     func contentView(size:CGSize) -> some View{
         let isImage = self.postModel.isImageContent()
@@ -814,11 +846,11 @@ struct FinalPreview: View{
                     AsyncImage(url: self.postModel.contentUrl){image in
                         image.resizable()
                     }
-                    placeholder:{
-                        ProgressView()
-                    }
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: size.width,alignment: .center)
+                placeholder:{
+                    ProgressView()
+                }
+                .aspectRatio(contentMode: .fit)
+                .frame(width: size.width,alignment: .center)
                     Spacer()
                 }
             }else{

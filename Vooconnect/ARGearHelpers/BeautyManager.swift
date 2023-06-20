@@ -68,6 +68,8 @@ class BeautyManager {
         let value = self.convertSliderValueToBeautyValue(type: type, value: value)
         
         contents.setBeauty(type, value: value)
+        print("Value Seted")
+        
     }
     
     public func getBeautyValue(type: ARGContentItemBeauty) -> Float {
