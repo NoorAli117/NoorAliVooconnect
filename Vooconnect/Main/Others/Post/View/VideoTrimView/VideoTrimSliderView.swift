@@ -6,7 +6,6 @@
 //
 
 
-
 import SwiftUI
 import CoreMedia
 
@@ -23,8 +22,6 @@ struct SliderView: View {
     
     var body: some View {
         ZStack {
-            
-            //Path between both handles
             SliderPathBetweenView(frames: $frames, handleMoved: handleMoved, slider: slider)
             
             //Low Handle
@@ -120,3 +117,4 @@ struct SliderPathBetweenView: View {
         })
     }
 }
+

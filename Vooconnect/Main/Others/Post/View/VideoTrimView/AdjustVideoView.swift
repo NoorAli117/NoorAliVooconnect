@@ -103,8 +103,8 @@ struct AdjustVideoView: View {
                             }
 
                         }else{
-//                            Spacer()
-//                            Spacer(minLength: 20)
+                           Text("")
+                            .frame(width: 98, height: 56)
                         }
                     }
                     .padding(.bottom)
@@ -132,7 +132,7 @@ struct AdjustVideoView: View {
             generator.appliesPreferredTrackTransform = true
             
             var frameForTimes = [NSValue]()
-            let sampleCounts = 10
+            let sampleCounts = 17
             let totalTimeLength = Int(videoDuration.seconds * Double(videoDuration.timescale))
             let step = totalTimeLength / sampleCounts
             

@@ -297,7 +297,7 @@ struct FinalPreview: View{
                                     
                                     self.postModel.enableCaptions.toggle()
                                     self.postModel = self.postModel
-                                    self.controller.forcePlay()
+                                    self.controller.play()
                                     //                                    controller.getAudioFromVideoUrl(url: self.postModel.contentUrl!.absoluteString, callback: {val in
 //                                        DispatchQueue.main.async {
 ////                                            self.controller.videoPlayer.player = vmInput.player
@@ -330,8 +330,7 @@ struct FinalPreview: View{
                                 
                                 Button {
                                     navigateToNextView = true
-                                    isPlaying = false
-//                                    controller.pause()
+                                    controller.pause()
                                     
                                 } label: {
                                     
@@ -363,13 +362,13 @@ struct FinalPreview: View{
                                         {
                                             self.postModel.audioContentUrl = nil
                                             self.postModel = self.postModel
-                                            self.controller.forcePlay()
+                                            self.controller.play()
                                             return
                                         }
                                         self.controller.textToSpeech(post: self.postModel, callback: {val in
                                             self.postModel.audioContentUrl = val
                                             self.postModel = self.postModel
-                                            self.controller.forcePlay()
+                                            self.controller.play()
                                             let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: val.absoluteString)
                                             
     //                                        #if DEBUG
@@ -770,6 +769,9 @@ struct FinalPreview: View{
             }
             .ignoresSafeArea(.all)
             .navigationBarHidden(true)
+        }
+        .onDisappear{
+            controller.pause()
         }
     }
     
