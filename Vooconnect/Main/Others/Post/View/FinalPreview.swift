@@ -46,6 +46,7 @@ struct FinalPreview: View{
     @State private var textView : AnyView?
     @State private var stickerTextName = ""
     @State private var navigateToNextView = false
+    
 //    @State var playermanager = PlayerViewModel()
     
     init(url:URL, showPreview: Binding<Bool>,songModel : DeezerSongModel?, speed : Float = 1){
@@ -350,7 +351,7 @@ struct FinalPreview: View{
                                 
                                 
                                 NavigationLink(destination:
-                                                AdjustVideoView(slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, renderUrl:$renderUrl, postModel: $postModel)
+                                                AdjustVideoView(slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, renderUrl:$renderUrl, postModel: $postModel, callWhenBack: callWithBack)
                                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $navigateToNextView) {
                                         EmptyView()
                                     }
@@ -769,6 +770,12 @@ struct FinalPreview: View{
             }
             .ignoresSafeArea(.all)
             .navigationBarHidden(true)
+        }
+    }
+    
+    func callWithBack()  {
+        if let url = postModel.contentUrl {
+            controller.videoPlayer.onChange(for: url )
         }
     }
     

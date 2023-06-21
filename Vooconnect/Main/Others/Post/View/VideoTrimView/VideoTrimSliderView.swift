@@ -23,13 +23,7 @@ struct SliderView: View {
     
     var body: some View {
         ZStack {
-//            if validError {
-//                Color.black.opacity(0.8)
-//                    .ignoresSafeArea()
-//                    .overlay(MyAlertInfo(title: "Rognage impossible", message: "Veuillez sélectionner un zone de rognage correcte", ok: "OK",
-//                                         showAlert: $validError))
-//                    .zIndex(20.0)
-//            }
+            
             //Path between both handles
             SliderPathBetweenView(frames: $frames, handleMoved: handleMoved, slider: slider)
             
@@ -58,36 +52,6 @@ struct SliderView: View {
                         slider.middleHandle.currentLocation.x = slider.highHandle.currentLocation.x - 20.0
                     }
                 }
-            
-            //Middle Handle
-//            SliderCursorView(handle: slider.middleHandle, handelImage: "ic_video_cursor")
-//                .highPriorityGesture(slider.middleHandle.sliderDragGesture)
-//                .onChange(of: slider.middleHandle.currentValue) { value in
-//                    if value > slider.lowHandle.currentValue && value < slider.highHandle.currentValue {
-//                        playerManager.seekVideo(toPosition: CGFloat(value - 1.0))
-//                    } else {
-//                        slider.middleHandle.currentLocation = slider.lowHandle.currentLocation
-//                    }
-//                }
-//                .onChange(of: playerManager.currentTime) { time in
-//                    if
-////                        slider.middleHandle.currentLocation.x < slider.lowHandle.currentLocation.x ||
-//                            slider.middleHandle.currentLocation.x + 20.0 > slider.highHandle.currentLocation.x {
-//                        if playerManager.isPlaying {
-//                            playerManager.playPause()
-//                        }
-//                        return
-//                    }
-//                    if let currentItem = playerManager.player.currentItem {
-//                        slider.middleHandle.currentLocation.x = (time / currentItem.duration.seconds) * 280
-//                    }
-//                }
-//                .onChange(of: playerManager.isFinishedPlaying) { finished in
-//                    if finished {
-////                        playerManager.seekVideo(toPosition: 0.0)
-//                        slider.middleHandle.currentLocation = slider.lowHandle.currentLocation
-//                    }
-//                }
         }
         .frame(width: slider.width, height: slider.lineWidth)
     }

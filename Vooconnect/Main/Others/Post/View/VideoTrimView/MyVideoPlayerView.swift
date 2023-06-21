@@ -45,33 +45,10 @@ struct MyVideoPlayerView: View {
                         .foregroundColor(.black.opacity(0.3))
                 }
                 Spacer()
-//                HStack {
-//                    if let playerItem = playerVM.player.currentItem {
-//                        Slider(value: $playerVM.currentTime, in: 0...playerItem.asset.duration.seconds, onEditingChanged: { isEditing in
-//                            playerVM.isEditingCurrentTime = isEditing
-//                        })
-//                            .accentColor(.white)
-//                            .padding(.leading)
-//                    }
-////                    Button(action: {
-////                        fullScreen.toggle()
-////                    }) {
-////                        Image(fullScreen ? "ic_minimize" : "ic_maximize")
-////                            .padding()
-////                    }
-//                }
-//                .if(fullScreen) {
-//                    $0.padding()
-//                        .padding(.bottom, 80.0)
-//
-//                }
             }
             Spacer()
         }
-//        .frame(width: fullScreen ? UIScreen.main.bounds.width - 20 : 252, height: fullScreen ? UIScreen.main.bounds.height - 20 : 448)
-//        .if (!fullScreen) { $0.padding(.top, -20) }
         .ignoresSafeArea()
-//        .statusBar(hidden: fullScreen)
         .onChange(of: isMuted) { value in
             playerVM.player.isMuted = value
         }

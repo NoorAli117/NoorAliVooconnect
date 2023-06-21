@@ -1,8 +1,8 @@
 //
-//  PlayerViewModel.swift
-//  custom-avplayer-swiftui
+//  AdjustVideoView.swift
+//  Vooconnect
 //
-//  Created by Marco Falanga on 19/11/21.
+//  Created by Mac on 16/06/2023.
 //
 
 import AVFoundation

@@ -28,7 +28,7 @@ struct AdjustVideoView: View {
     @Binding var renderUrl: URL?
     @State private var isAlert: Bool = false
     @Binding var postModel: PostModel
-    
+    var callWhenBack : () -> ()
     var body: some View {
         NavigationView{
             ZStack{
@@ -42,6 +42,7 @@ struct AdjustVideoView: View {
                     .frame(width: UIScreen.main.bounds.width - 40, height: 70, alignment: .trailing)
                     .padding(20)
                     .onTapGesture {
+                        self.callWhenBack()
                         presentaionMode.wrappedValue.dismiss()
                     }
 //
