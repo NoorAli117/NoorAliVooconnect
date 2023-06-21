@@ -96,7 +96,8 @@ struct FinalPreview: View{
     
     ///add record audio to video
     func mergeRecordAudioWithVideo(){
-        controller.mergeVideoAndAudio(videoUrl: self.postModel.contentUrl!, audioUrl: controller.audioRecorder.url, completion: {error, url in
+        let audioURL = controller.audioRecorder.url
+        controller.mergeVideoAndAudio(videoUrl: self.postModel.contentUrl!, audioUrl: audioURL, completion: {error, url in
             guard let url = url else{
                 print("error merging video and audio")
                 return

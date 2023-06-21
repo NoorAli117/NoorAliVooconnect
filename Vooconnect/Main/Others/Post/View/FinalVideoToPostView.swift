@@ -67,6 +67,7 @@ struct FinalVideoToPostView: View {
     @State private var isTwetter = false
     @State private var isInstagram = false
     @GestureState private var tapGestureState = false
+    @State private var extractedImage: UIImage?
     
     
     var catSelected: (Int) -> () = {val in}
@@ -139,10 +140,24 @@ struct FinalVideoToPostView: View {
                                 .padding(.trailing)
                             
                             //                            Image("SelectCover")
-                            testCover()
-                                .cornerRadius(15)
+                            if let image = extractedImage {
+                                ExtractedImageView(image: image)
+                                    .cornerRadius(15)
+                            } else {
+                                testCover()
+                                    .cornerRadius(15)
+                            }
+//                            testCover()
+//                                .cornerRadius(15)
                             
                             
+                        }
+                        .onAppear {
+                            extractImageFromVideo(url: postModel.contentUrl!) { image in
+                                DispatchQueue.main.async {
+                                    extractedImage = image
+                                }
+                            }
                         }
                         .padding(.top,2)
                         
@@ -917,6 +932,24 @@ struct FinalVideoToPostView: View {
         self.message = messages
         self.isShowPopup = true
     }
+    
+    func extractImageFromVideo(url: URL, completion: @escaping (UIImage?) -> Void) {
+        let asset = AVAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        
+        generator.appliesPreferredTrackTransform = true
+        let time = CMTime(seconds: 0, preferredTimescale: 1)
+        
+        generator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, image, _, _, _ in
+            guard let cgImage = image else {
+                completion(nil)
+                return
+            }
+            
+            let uiImage = UIImage(cgImage: cgImage)
+            completion(uiImage)
+        }
+    }
         
         func testCover() -> some View{
             let data = try? Data(contentsOf: self.renderUrl!)
@@ -994,3 +1027,15 @@ struct FinalVideoToPostView: View {
 //    }
 //}
 //getImageVideoBaseURL + "/marked" + fileName
+
+struct ExtractedImageView: View {
+    let image: UIImage
+    
+    var body: some View {
+        Image(uiImage: image ?? UIImage(imageLiteralResourceName: "SelectCover"))
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .scaledToFill()
+            .frame(width: 100, height: 132)
+    }
+}

@@ -479,6 +479,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     func mergeVideoAndAudio(videoUrl: URL,audioUrl: URL,shouldFlipHorizontally: Bool = false,
                             completion: @escaping (_ error: Error?, _ url: URL?) -> Void) {
 
+        
         let mixComposition = AVMutableComposition()
         var mutableCompositionVideoTrack = [AVMutableCompositionTrack]()
         var mutableCompositionAudioTrack = [AVMutableCompositionTrack]()
