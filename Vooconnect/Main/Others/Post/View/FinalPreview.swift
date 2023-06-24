@@ -298,7 +298,7 @@ struct FinalPreview: View{
                                     
                                     self.postModel.enableCaptions.toggle()
                                     self.postModel = self.postModel
-                                    self.controller.play()
+                                    self.controller.forcePlay()
                                     //                                    controller.getAudioFromVideoUrl(url: self.postModel.contentUrl!.absoluteString, callback: {val in
 //                                        DispatchQueue.main.async {
 ////                                            self.controller.videoPlayer.player = vmInput.player
@@ -363,13 +363,13 @@ struct FinalPreview: View{
                                         {
                                             self.postModel.audioContentUrl = nil
                                             self.postModel = self.postModel
-                                            self.controller.play()
+                                            self.controller.forcePlay()
                                             return
                                         }
                                         self.controller.textToSpeech(post: self.postModel, callback: {val in
                                             self.postModel.audioContentUrl = val
                                             self.postModel = self.postModel
-                                            self.controller.play()
+                                            self.controller.forcePlay()
                                             let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: val.absoluteString)
                                             
     //                                        #if DEBUG
@@ -396,16 +396,12 @@ struct FinalPreview: View{
                                             if(self.postModel.audioContentUrl != nil)
                                             {
                                                 Image("speechPurple")
-                                                Text("Speech")
-                                                    .font(.custom("Urbanist-Medium", size: 12))
-                                                    .foregroundColor(ColorsHelper.deepPurple)
                                             }else{
                                                 Image("speechIcon")
-                                                Text("Speech")
-                                                    .font(.custom("Urbanist-Medium", size: 12))
-                                                    .foregroundColor(.white)
-                                                    
                                             }
+                                            Text("Text To\nSpeech")
+                                                .font(.custom("Urbanist-Medium", size: 12))
+                                                .foregroundColor(.white)
                                             
                                             
     //                                            .padding(.top, -5)
@@ -772,7 +768,9 @@ struct FinalPreview: View{
             .navigationBarHidden(true)
         }
         .onDisappear{
-            controller.pause()
+            DispatchQueue.main.async {
+                controller.videoPlayer.player.pause()
+            }
         }
     }
     
@@ -970,6 +968,7 @@ struct FinalPreview: View{
             )
             .animation(.linear, value: textOffset)
     }
+    
     
 //    struct AVPlayerView: UIViewControllerRepresentable {
 //

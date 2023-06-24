@@ -59,7 +59,6 @@ struct CustomeCameraHome: View {
     
     @State private var arCamera: ARGCamera!
     @State private var arScene: ARGScene!
-//    private var arMedia: ARGMedia = ARGMedia()
     
     
     var body: some View {
@@ -148,7 +147,7 @@ struct CustomeCameraHome: View {
                 ZStack {   // (alignment: .bottom)
 //                MARK: Camera View
 //                     Text("MARK: Camera View")
-//                    MyARView(arScene: $arScene, argConfig: argConfig, argSession: argSession, currentFaceFrame: currentFaceFrame, nextFaceFrame: nextFaceFrame, preferences: preferences, arCamera: $arCamera, cameraPreviewCALayer: $cameraPreviewCALayer)
+                    MyARView(arScene: $arScene, argConfig: argConfig, argSession: argSession, currentFaceFrame: currentFaceFrame, nextFaceFrame: nextFaceFrame, preferences: preferences, cameraPreviewCALayer: $cameraPreviewCALayer)
 
                     if clickPhoto == true {
                         CustomeCameraForPhoto(preview:{url in
@@ -751,13 +750,14 @@ struct CustomeCameraHome: View {
             .animation(.easeInOut, value: cameraModel.showPreview)
             .navigationBarHidden(true)
             .onAppear {
-                
-                cameraModel.recordedDuration = 0
+//                cameraModel.recordedDuration = 0
                 runARGSession()
                 initHelpers()
-//                cameraModel.previewURL = nil
+                connectAPI()
                 setupARGearConfig()
-                cameraModel.recordedURLs.removeAll()
+            }
+            .onDisappear{
+                stopARGSession()
             }
             
         }
@@ -781,36 +781,18 @@ struct CustomeCameraHome: View {
             
             let debugOption: ARGInferenceDebugOption = self.preferences.showLandmark ? .optionDebugFaceLandmark2D : .optionDebugNON
             argSession?.inferenceDebugOption = debugOption
-            
+            print("ARGear Setup success")
         } catch let error as NSError {
             print("Failed to initialize ARGear Session with error: %@", error.description)
         } catch let exception as NSException {
             print("Exception to initialize ARGear Session with error: %@", exception.description)
         }
     }
-//    private func setupCamera() {
-//        arCamera = ARGCamera()
-//
-//        arCamera.sampleBufferHandler = { [weak self] output, sampleBuffer, connection in
-//            guard let self = self else { return }
-//
-//            self.serialQueue.async {
-//
-//                self.argSession?.update(sampleBuffer, from: connection)
-//            }
-//        }
-//
-//        self.permissionCheck {
-//            self.arCamera.startCamera()
-//
-//            self.setCameraInfo()
-//        }
-//    }
- 
     
     private func connectAPI() {
         
         NetworkManager.shared.connectAPI { (result: Result<[String: Any], APIError>) in
+//            print("connectAPI cameraView", result)
             switch result {
             case .success(let data):
                 RealmManager.shared.setARGearData(data) { success in
@@ -852,13 +834,16 @@ struct CustomeCameraHome: View {
 
     
     private func runARGSession() {
+        print("Session Started")
         argSession?.run()
     }
     
     private func stopARGSession() {
+        print("Session Stoped")
         argSession?.pause()
     }
     private func destroyARGSession() {
+        print("Session destroyed")
         argSession?.destroy()
     }
     
@@ -943,8 +928,9 @@ struct MyARView: UIViewRepresentable {
     @State  var currentFaceFrame: ARGFrame?
     @State  var nextFaceFrame: ARGFrame?
     @State  var preferences: ARGPreferences = ARGPreferences()
-    @Binding  var arCamera: ARGCamera?
+//    @Binding  var arCamera: ARGCamera?
     private let serialQueue = DispatchQueue(label: "serialQueue")
+    var arMedia: ARGMedia = ARGMedia()
     
     @Binding var cameraPreviewCALayer: CALayer
 
@@ -974,29 +960,56 @@ struct MyARView: UIViewRepresentable {
         cameraPreviewCALayer.frame = CGRect(x: 0, y: 0, width: arScene?.sceneView.frame.size.height ?? 0, height: arScene?.sceneView.frame.size.width ?? 0)
         cameraPreviewCALayer.contentsScale = UIScreen.main.scale
         view.layer.insertSublayer(cameraPreviewCALayer, at: 0)
+//        setupCamera()
     }
     private func refreshARFrame() {
         
         guard self.nextFaceFrame != nil && self.nextFaceFrame != self.currentFaceFrame else { return }
         self.currentFaceFrame = self.nextFaceFrame
     }
-    private func setupCamera() {
-        arCamera = ARGCamera()
-        
-        arCamera?.sampleBufferHandler = { output, sampleBuffer, connection in
-//            guard let self = self else { return }
-            
-            self.serialQueue.async {
-
-                self.argSession?.update(sampleBuffer, from: connection)
-            }
-        }
-        
+//    private func setupCamera() {
+////        arCamera = ARGCamera()
+//
+//        arCamera?.sampleBufferHandler = { output, sampleBuffer, connection in
+////            guard let self = self else { return }
+//
+//            self.serialQueue.async {
+//
+//                self.argSession?.update(sampleBuffer, from: connection)
+//            }
+//        }
+//
 //        self.permissionCheck {
-//            self.arCamera.startCamera()
+//            print("Asking for permissions")
+//            self.arCamera?.startCamera()
 //
 //            self.setCameraInfo()
 //        }
-    }
+//    }
+//    func setCameraInfo() {
+//
+//        if let device = arCamera?.cameraDevice, let connection = arCamera?.cameraConnection {
+//            self.arMedia.setVideoDevice(device)
+//            self.arMedia.setVideoDeviceOrientation(connection.videoOrientation)
+//            self.arMedia.setVideoConnection(connection)
+//        }
+////        arMedia.setMediaRatio(arCamera?.ratio)
+//        arMedia.setVideoBitrate(ARGMediaVideoBitrate(rawValue: self.preferences.videoBitrate) ?? ._4M)
+//    }
     
+    func permissionCheck(_ permissionCheckComplete: @escaping PermissionCheckComplete) {
+        
+//        let permissionLevel = self.permissionView.permission.getPermissionLevel()
+//        self.permissionView.permission.grantedHandler = permissionCheckComplete
+//        self.permissionView.setPermissionLevel(permissionLevel)
+//
+//        switch permissionLevel {
+//        case .Granted:
+//            break
+//        case .Restricted:
+//            self.removeSplashAfter(1.0)
+//        case .None:
+//            self.removeSplashAfter(1.0)
+//        }
+    }
 }

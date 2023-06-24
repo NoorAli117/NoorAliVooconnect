@@ -2,6 +2,7 @@
 import SwiftUI
 import Photos
 import AVKit
+import AVFoundation
 
 func downloadAndSaveWithCaptionVideo(){
     var fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""

@@ -50,6 +50,7 @@
 		048058AA2A34F5F300C5AB1B /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058A62A34F5F300C5AB1B /* ContentManager.swift */; };
 		048058AD2A34F60500C5AB1B /* NetworkManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */; };
 		048058AF2A35C94200C5AB1B /* BeautyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AE2A35C94200C5AB1B /* BeautyView.swift */; };
+		0486FC232A448ACD0076A7DD /* Face.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0486FC222A448ACD0076A7DD /* Face.scnassets */; };
 		0496379229BFB2CE0044DA57 /* CreatorMoreOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */; };
 		0496379429BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */; };
 		049F4BBC29BBB54300113EA0 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 049F4BBB29BBB54300113EA0 /* SDWebImageSwiftUI */; };
@@ -470,6 +471,7 @@
 		048058A62A34F5F300C5AB1B /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+Ext.swift"; sourceTree = "<group>"; };
 		048058AE2A35C94200C5AB1B /* BeautyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyView.swift; sourceTree = "<group>"; };
+		0486FC222A448ACD0076A7DD /* Face.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Face.scnassets; sourceTree = "<group>"; };
 		0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsView.swift; sourceTree = "<group>"; };
 		0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsComponents.swift; sourceTree = "<group>"; };
 		049F4BC429BBB5E100113EA0 /* Color + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color + Extensions.swift"; sourceTree = "<group>"; };
@@ -2111,6 +2113,7 @@
 		A9785FA72911103000F19ADD /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				0486FC222A448ACD0076A7DD /* Face.scnassets */,
 				A9785FA82911103000F19ADD /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -2660,6 +2663,7 @@
 				A91280D52919067E008FE970 /* Urbanist-BlackItalic.ttf in Resources */,
 				A93DBA1729127ADD00420B83 /* market.gif in Resources */,
 				A91280DE2919067E008FE970 /* README.txt in Resources */,
+				0486FC232A448ACD0076A7DD /* Face.scnassets in Resources */,
 				A91280D12919067E008FE970 /* Urbanist-MediumItalic.ttf in Resources */,
 				A91280DC2919067E008FE970 /* Urbanist-ThinItalic.ttf in Resources */,
 				A93DBA1D29127ADD00420B83 /* connectionW-.gif in Resources */,
@@ -3284,7 +3288,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnectsss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnect.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -3337,7 +3341,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnectsss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnect.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

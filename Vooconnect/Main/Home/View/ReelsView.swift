@@ -2385,6 +2385,7 @@ struct ReelsPlyer: View {
     @State private var playAndPauseOpacity: Double = 0.001
     
     @State var player = AVPlayer()
+    @State private var image: UIImage?
     
     var urll: URL
     
@@ -2410,19 +2411,47 @@ struct ReelsPlyer: View {
 //            }else {
 //                
 //            }
-            CustomVideoPlayer(player: player)
-                .edgesIgnoringSafeArea(.all)
-            
-                .onAppear {
-                    player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
-                    player.play()
-                }
-                .onDisappear {
-                    DispatchQueue.main.async {
-                        player.pause()
+            if (urll.pathExtension == "png"){
+                VStack {
+                    if let image = image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+//                            .ignoresSafeArea(.all)
+//                            .frame(maxWidth: UIScreen.main.bounds.width)
+//                            .frame(height: UIScreen.main.bounds.height)
+                    } else {
+                        // Placeholder or loading indicator
+                        ZStack{
+                            Color(.black)
+                            ProgressView()
+                        }
                     }
-                    
                 }
+                .onAppear {
+                    loadImage()
+                }
+//                .onAppear {
+//                    loadImageFromURL()
+//                }
+//                ZStack{
+//                    Color(.black)
+//                    ProgressView()
+//                }
+                
+            } else {
+                CustomVideoPlayer(player: player)
+                    .edgesIgnoringSafeArea(.all)
+                
+                    .onAppear {
+                        player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
+                        player.play()
+                    }
+                    .onDisappear {
+                        player.pause()
+                        
+                    }
+            }
             
             //            Image("")
             
@@ -3215,6 +3244,36 @@ struct ReelsPlyer: View {
         }
         
     }
+    
+    
+    func loadImage() {
+        let imageUrl = urll
+
+            URLSession.shared.dataTask(with: imageUrl) { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: data)
+                }
+            }.resume()
+        }
+    
+    
+//    func loadImageFromURL() {
+//        let url = urll
+//
+//        DispatchQueue.global().async {
+//            if let data = try? Data(contentsOf: url),
+//               let uiImage = UIImage(data: data) {
+//                let image = Image(uiImage: uiImage)
+//                DispatchQueue.main.async {
+//                    self.image = image
+//                }
+//            }
+//        }
+//    }
     
     private func playorstop(){
         playAndPause.toggle()

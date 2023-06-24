@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Ask for Tracking
         requestTracking()
-        
+        RealmManager.shared.checkAndMigration()
         return true
     }
     
