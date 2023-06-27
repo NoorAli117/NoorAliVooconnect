@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ARGear
+import ARKit
 
 struct CustomeCameraHome: View {
     
@@ -45,13 +46,13 @@ struct CustomeCameraHome: View {
     var toast_main_position = CGPoint(x: 0, y: 0)
     
     // MARK: - ARGearSDK properties
-    private var argConfig: ARGConfig?
-    @State private var argSession: ARGSession?
-    private var currentFaceFrame: ARGFrame?
-    private var nextFaceFrame: ARGFrame?
-    private var preferences: ARGPreferences = ARGPreferences()
-    
-    @State private var cameraPreviewCALayer = CALayer()
+    @State var argConfig: ARGConfig?
+    @State var argSession: ARGSession?
+    @State var currentFaceFrame: ARGFrame?
+    @State var nextFaceFrame: ARGFrame?
+    @State var preferences: ARGPreferences = ARGPreferences()
+    private var argObservers = [NSKeyValueObservation]()
+    @State var cameraPreviewCALayer = CALayer()
     
     // MARK: - Camera & Scene properties
     private let serialQueue = DispatchQueue(label: "serialQueue")
@@ -147,27 +148,27 @@ struct CustomeCameraHome: View {
                 ZStack {   // (alignment: .bottom)
 //                MARK: Camera View
 //                     Text("MARK: Camera View")
-                    MyARView(arScene: $arScene, argConfig: argConfig, argSession: argSession, currentFaceFrame: currentFaceFrame, nextFaceFrame: nextFaceFrame, preferences: preferences, cameraPreviewCALayer: $cameraPreviewCALayer)
+                    MyARView(arScene: $arScene, argConfig: $argConfig, argSession: $argSession, currentFaceFrame: $currentFaceFrame, nextFaceFrame: $nextFaceFrame, preferences: $preferences, arCamera: $arCamera, cameraPreviewCALayer: $cameraPreviewCALayer)
 
-                    if clickPhoto == true {
-                        CustomeCameraForPhoto(preview:{url in
-                            print("picture taked: "+url.absoluteString)
-                            self.cameraModel.previewURL = url
-                            self.cameraModel.showPreview = true
-                            self.preview.toggle()
-                        }, soundView: $soundView, filtersSheeet: $filersSheet)
-                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                            .padding(.top,10)
-                            .padding(.bottom,30)
-
-                    } else {
-                        CustomeCameraView()
-                            .environmentObject(cameraModel)
-                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                            .padding(.top,10)
-                            .padding(.bottom,30)
-
-                    }
+//                    if clickPhoto == true {
+//                        CustomeCameraForPhoto(preview:{url in
+//                            print("picture taked: "+url.absoluteString)
+//                            self.cameraModel.previewURL = url
+//                            self.cameraModel.showPreview = true
+//                            self.preview.toggle()
+//                        }, soundView: $soundView, filtersSheeet: $filersSheet)
+//                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+//                            .padding(.top,10)
+//                            .padding(.bottom,30)
+//
+//                    } else {
+//                        CustomeCameraView()
+//                            .environmentObject(cameraModel)
+//                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+//                            .padding(.top,10)
+//                            .padding(.bottom,30)
+//
+//                    }
 
                     if timerRunning == true {
 
@@ -751,10 +752,10 @@ struct CustomeCameraHome: View {
             .navigationBarHidden(true)
             .onAppear {
 //                cameraModel.recordedDuration = 0
-                runARGSession()
+//                runARGSession()
                 initHelpers()
                 connectAPI()
-                setupARGearConfig()
+//                addObservers()
             }
             .onDisappear{
                 stopARGSession()
@@ -767,27 +768,34 @@ struct CustomeCameraHome: View {
     
     
     
-    // MARK: - ARGearSDK setupConfig
-    private func setupARGearConfig() {
-        do {
-            let config = ARGConfig(
-                apiURL: API_HOST,
-                apiKey: API_KEY,
-                secretKey: API_SECRET_KEY,
-                authKey: API_AUTH_KEY
-            )
-            argSession = try ARGSession(argConfig: config, feature: [.faceMeshTracking])
-//            argSession?.delegate = self
-            
-            let debugOption: ARGInferenceDebugOption = self.preferences.showLandmark ? .optionDebugFaceLandmark2D : .optionDebugNON
-            argSession?.inferenceDebugOption = debugOption
-            print("ARGear Setup success")
-        } catch let error as NSError {
-            print("Failed to initialize ARGear Session with error: %@", error.description)
-        } catch let exception as NSException {
-            print("Exception to initialize ARGear Session with error: %@", exception.description)
-        }
-    }
+    
+    
+    
+//    mutating func addMainTopFunctionViewObservers() {
+//        self.argObservers.append(
+//            self.arCamera.observe(\.ratio, options: [.new]) { [weak self] obj, _ in
+//                guard let self = self else { return }
+//
+////                self.mainTopFunctionView.setRatio(obj.ratio)
+//            }
+//        )
+//    }
+    
+    
+//    mutating func addObservers() {
+//        self.addMainTopFunctionViewObservers()
+//        self.addMainBottomFunctionViewObservers()
+//    }
+//    mutating func addMainBottomFunctionViewObservers() {
+//        self.argObservers.append(
+//            self.arCamera.observe(\.ratio, options: [.new]) { [weak self] obj, _ in
+//                guard let self = self else { return }
+//
+////                self.mainBottomFunctionView.setRatio(obj.ratio)
+//            }
+//        )
+//    }
+    
     
     private func connectAPI() {
         
@@ -833,10 +841,10 @@ struct CustomeCameraHome: View {
     
 
     
-    private func runARGSession() {
-        print("Session Started")
-        argSession?.run()
-    }
+//    private func runARGSession() {
+//        print("Session Started")
+//        argSession?.run()
+//    }
     
     private func stopARGSession() {
         print("Session Stoped")
@@ -921,17 +929,14 @@ struct CircleeTwo: View {
 
 struct MyARView: UIViewRepresentable {
     @Binding var arScene: ARGScene?
-    
-    
-    var argConfig: ARGConfig?
-    @State  var argSession: ARGSession?
-    @State  var currentFaceFrame: ARGFrame?
-    @State  var nextFaceFrame: ARGFrame?
-    @State  var preferences: ARGPreferences = ARGPreferences()
-//    @Binding  var arCamera: ARGCamera?
+    @Binding var argConfig: ARGConfig?
+    @Binding var argSession: ARGSession?
+    @Binding var currentFaceFrame: ARGFrame?
+    @Binding var nextFaceFrame: ARGFrame?
+    @Binding var preferences: ARGPreferences
+    @Binding var arCamera: ARGCamera?
     private let serialQueue = DispatchQueue(label: "serialQueue")
     var arMedia: ARGMedia = ARGMedia()
-    
     @Binding var cameraPreviewCALayer: CALayer
 
     func makeUIView(context: Context) -> UIView {
@@ -967,35 +972,71 @@ struct MyARView: UIViewRepresentable {
         guard self.nextFaceFrame != nil && self.nextFaceFrame != self.currentFaceFrame else { return }
         self.currentFaceFrame = self.nextFaceFrame
     }
-//    private func setupCamera() {
-////        arCamera = ARGCamera()
-//
-//        arCamera?.sampleBufferHandler = { output, sampleBuffer, connection in
-////            guard let self = self else { return }
-//
-//            self.serialQueue.async {
-//
-//                self.argSession?.update(sampleBuffer, from: connection)
-//            }
-//        }
-//
-//        self.permissionCheck {
-//            print("Asking for permissions")
-//            self.arCamera?.startCamera()
-//
-//            self.setCameraInfo()
-//        }
-//    }
-//    func setCameraInfo() {
-//
-//        if let device = arCamera?.cameraDevice, let connection = arCamera?.cameraConnection {
-//            self.arMedia.setVideoDevice(device)
-//            self.arMedia.setVideoDeviceOrientation(connection.videoOrientation)
-//            self.arMedia.setVideoConnection(connection)
-//        }
-////        arMedia.setMediaRatio(arCamera?.ratio)
-//        arMedia.setVideoBitrate(ARGMediaVideoBitrate(rawValue: self.preferences.videoBitrate) ?? ._4M)
-//    }
+    private func setupCamera() {
+//        arCamera = ARGCamera()
+
+        arCamera?.sampleBufferHandler = { output, sampleBuffer, connection in
+//            guard let self = self else { return }
+
+            self.serialQueue.async {
+
+                self.argSession?.update(sampleBuffer, from: connection)
+            }
+        }
+
+        self.permissionCheck {
+            print("Asking for permissions")
+            self.arCamera?.startCamera()
+
+            self.setCameraInfo()
+        }
+    }
+    func setCameraInfo() {
+
+        if let device = arCamera?.cameraDevice, let connection = arCamera?.cameraConnection {
+            self.arMedia.setVideoDevice(device)
+            self.arMedia.setVideoDeviceOrientation(connection.videoOrientation)
+            self.arMedia.setVideoConnection(connection)
+        }
+//        arMedia.setMediaRatio(arCamera?.ratio)
+        arMedia.setVideoBitrate(ARGMediaVideoBitrate(rawValue: self.preferences.videoBitrate) ?? ._4M)
+    }
+
+   
+    
+    
+    public func session(_ session: ARSession, didUpdate frame: ARFrame) {
+
+//        let viewportSize = view.bounds.size
+        var updateFaceAnchor: ARFaceAnchor? = nil
+        var isFace = false
+        if let faceAnchor = frame.anchors.first as? ARFaceAnchor {
+            if faceAnchor.isTracked {
+//                updateFaceAnchor = self.currentARKitFaceAnchor
+                isFace = true
+            }
+        } else {
+            if let _ = frame.anchors.first as? ARPlaneAnchor {
+            }
+        }
+
+        let handler: ARGSessionProjectPointHandler = { (transform: simd_float3, orientation: UIInterfaceOrientation, viewport: CGSize) in
+            return frame.camera.projectPoint(transform, orientation: orientation, viewportSize: viewport)
+        }
+            
+        if isFace {
+            if let faceAnchor = updateFaceAnchor {
+//                self.argSession?.applyAdditionalFaceInfo(withPixelbuffer: frame.capturedImage, transform: faceAnchor.transform, vertices: faceAnchor.geometry.vertices, viewportSize: viewportSize, convert: handler)
+            } else {
+                self.argSession?.feedPixelbuffer(frame.capturedImage)
+            }
+        } else {
+            self.argSession?.feedPixelbuffer(frame.capturedImage)
+                }
+            }
+    
+    
+    
     
     func permissionCheck(_ permissionCheckComplete: @escaping PermissionCheckComplete) {
         
@@ -1012,4 +1053,112 @@ struct MyARView: UIViewRepresentable {
 //            self.removeSplashAfter(1.0)
 //        }
     }
+    
+    func makeCoordinator() -> Coordinator  {
+        Coordinator(argSession: self.argSession ?? ARGSession(), currentFaceFrame: self.currentFaceFrame, nextFaceFrame: self.nextFaceFrame, preferences: self.preferences, arCamera: self.arCamera, cameraPreviewCALayer: self.cameraPreviewCALayer)
+    }
+    class Coordinator: NSObject, ARGSessionDelegate {
+        var arScene: ARGScene?
+        var argSession: ARGSession?
+        var currentFaceFrame: ARGFrame?
+        var nextFaceFrame: ARGFrame?
+        var preferences: ARGPreferences?
+        var arCamera: ARGCamera?
+        var cameraPreviewCALayer: CALayer?
+        
+        init(arScene: ARGScene? = nil ,argSession: ARGSession? = nil, currentFaceFrame: ARGFrame? = nil, nextFaceFrame: ARGFrame? = nil, preferences: ARGPreferences? = nil, arCamera: ARGCamera? = nil, cameraPreviewCALayer: CALayer? = nil) {
+            self.arScene = arScene
+            self.argSession = argSession
+            self.currentFaceFrame = currentFaceFrame
+            self.nextFaceFrame = nextFaceFrame
+            self.preferences = preferences
+            self.arCamera = arCamera
+            self.cameraPreviewCALayer = cameraPreviewCALayer
+            super.init()
+            self.setupARGearConfig()
+        }
+       
+        
+         func setupARGearConfig() {
+            do {
+                let config = ARGConfig(apiURL: API_HOST, apiKey: API_KEY, secretKey: API_SECRET_KEY, authKey: API_AUTH_KEY)
+                argSession = try ARGSession(argConfig: config, feature: [.faceMeshTracking])
+                argSession?.delegate = self
+                
+                let debugOption: ARGInferenceDebugOption = self.preferences?.showLandmark ?? ARGPreferences().showLandmark ? .optionDebugFaceLandmark2D : .optionDebugNON
+                argSession?.inferenceDebugOption = debugOption
+            } catch let error as NSError {
+                print("Failed to initialize ARGear Session with error: %@", error.description)
+            } catch let exception as NSException {
+                print("Exception to initialize ARGear Session with error: %@", exception.description)
+            }
+            print("Session Started")
+            DispatchQueue.main.async {
+                self.argSession?.run()
+            }
+        }
+        private func drawARCameraPreview() {
+
+            guard
+                let frame = self.currentFaceFrame,
+                let pixelBuffer = frame.renderedPixelBuffer
+                else {
+                return
+            }
+            
+            var flipTransform = CGAffineTransform(scaleX: -1, y: 1)
+            if self.arCamera?.currentCamera == .back {
+                flipTransform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+
+            DispatchQueue.main.async {
+
+                CATransaction.flush()
+                CATransaction.begin()
+                CATransaction.setAnimationDuration(0)
+                if #available(iOS 11.0, *) {
+                    self.cameraPreviewCALayer?.contents = pixelBuffer
+                } else {
+                    self.cameraPreviewCALayer?.contents = self.pixelbufferToCGImage(pixelBuffer)
+                }
+                let angleTransform = CGAffineTransform(rotationAngle: .pi/2)
+                let transform = angleTransform.concatenating(flipTransform)
+                self.cameraPreviewCALayer?.setAffineTransform(transform)
+    //            self.cameraPreviewCALayer.frame = CGRect(x: 0, y: -self.getPreviewY(), width: self.cameraPreviewCALayer.frame.size.width, height: self.cameraPreviewCALayer.frame.size.height)
+    //            self.view.backgroundColor = .white
+                CATransaction.commit()
+            }
+        }
+        func didUpdate(_ arFrame: ARGFrame) {
+         self.drawARCameraPreview()
+
+         for face in arFrame.faces.faceList {
+            if face.isValid {
+               NSLog("landmarkcount = %d", face.landmark.landmarkCount)
+             
+//              get face information (landmarkCoordinates , rotation_matrix, translation_vector)
+//              let landmarkcount = face.landmark.landmarkCount
+//              let landmarkCoordinates = face.landmark.landmarkCoordinates
+//              let rotation_matrix = face.rotation_matrix
+//              let translation_vector = face.translation_vector
+
+            }
+         }
+         
+         nextFaceFrame = arFrame
+         
+         if #available(iOS 11.0, *) {
+         } else {
+             self.arScene?.sceneView.sceneTime += 1
+         }
+     }
+        private func pixelbufferToCGImage(_ pixelbuffer: CVPixelBuffer) -> CGImage? {
+            let ciimage = CIImage(cvPixelBuffer: pixelbuffer)
+            let context = CIContext()
+            let cgimage = context.createCGImage(ciimage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelbuffer), height: CVPixelBufferGetHeight(pixelbuffer)))
+
+            return cgimage
+        }
+    }
+    
 }
