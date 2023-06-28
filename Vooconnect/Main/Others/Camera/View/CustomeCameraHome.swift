@@ -148,27 +148,27 @@ struct CustomeCameraHome: View {
                 ZStack {   // (alignment: .bottom)
 //                MARK: Camera View
 //                     Text("MARK: Camera View")
-                    MyARView(arScene: $arScene, argConfig: $argConfig, argSession: $argSession, currentFaceFrame: $currentFaceFrame, nextFaceFrame: $nextFaceFrame, preferences: $preferences, arCamera: $arCamera, cameraPreviewCALayer: $cameraPreviewCALayer)
+//                    MyARView(arScene: $arScene, argConfig: $argConfig, argSession: $argSession, currentFaceFrame: $currentFaceFrame, nextFaceFrame: $nextFaceFrame, preferences: $preferences, arCamera: $arCamera, cameraPreviewCALayer: $cameraPreviewCALayer)
 
-//                    if clickPhoto == true {
-//                        CustomeCameraForPhoto(preview:{url in
-//                            print("picture taked: "+url.absoluteString)
-//                            self.cameraModel.previewURL = url
-//                            self.cameraModel.showPreview = true
-//                            self.preview.toggle()
-//                        }, soundView: $soundView, filtersSheeet: $filersSheet)
-//                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-//                            .padding(.top,10)
-//                            .padding(.bottom,30)
-//
-//                    } else {
-//                        CustomeCameraView()
-//                            .environmentObject(cameraModel)
-//                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-//                            .padding(.top,10)
-//                            .padding(.bottom,30)
-//
-//                    }
+                    if clickPhoto == true {
+                        CustomeCameraForPhoto(preview:{url in
+                            print("picture taked: "+url.absoluteString)
+                            self.cameraModel.previewURL = url
+                            self.cameraModel.showPreview = true
+                            self.preview.toggle()
+                        }, soundView: $soundView, filtersSheeet: $filersSheet)
+                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                            .padding(.top,10)
+                            .padding(.bottom,30)
+
+                    } else {
+                        CustomeCameraView()
+                            .environmentObject(cameraModel)
+                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                            .padding(.top,10)
+                            .padding(.bottom,30)
+
+                    }
 
                     if timerRunning == true {
 
@@ -765,36 +765,6 @@ struct CustomeCameraHome: View {
         
         
     }
-    
-    
-    
-    
-    
-    
-//    mutating func addMainTopFunctionViewObservers() {
-//        self.argObservers.append(
-//            self.arCamera.observe(\.ratio, options: [.new]) { [weak self] obj, _ in
-//                guard let self = self else { return }
-//
-////                self.mainTopFunctionView.setRatio(obj.ratio)
-//            }
-//        )
-//    }
-    
-    
-//    mutating func addObservers() {
-//        self.addMainTopFunctionViewObservers()
-//        self.addMainBottomFunctionViewObservers()
-//    }
-//    mutating func addMainBottomFunctionViewObservers() {
-//        self.argObservers.append(
-//            self.arCamera.observe(\.ratio, options: [.new]) { [weak self] obj, _ in
-//                guard let self = self else { return }
-//
-////                self.mainBottomFunctionView.setRatio(obj.ratio)
-//            }
-//        )
-//    }
     
     
     private func connectAPI() {

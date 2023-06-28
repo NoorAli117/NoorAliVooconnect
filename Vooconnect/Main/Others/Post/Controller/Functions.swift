@@ -6,7 +6,7 @@ import AVFoundation
 
 func downloadAndSaveWithCaptionVideo(){
     var fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-    let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + "/captioned" + fileName)
+    let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + fileName)
     print(markedVideoURL!)
     let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     let destinationUrl = docsUrl?.appendingPathComponent(markedVideoURL?.lastPathComponent ?? "")

@@ -10,7 +10,7 @@ import UIKit
 
 class UploadReelsResource {
     
-    func uploadReels(imageUploadRequest: URL,paramName : String, fileName : String, complitionHandler : @escaping(Bool, String?) -> Void) {
+    func uploadReels(imageUploadRequest: URL,paramName : String, fileName : String, subtitleLang : String, subtitle_apply : Bool,  complitionHandler : @escaping(Bool, String?) -> Void) {
         let session = URLSession.shared
         let boundary = UUID().uuidString
         var data = Data()
@@ -18,21 +18,27 @@ class UploadReelsResource {
         let parameters : [String:Any]?
         parameters = ["upload_path" : "reels"]
         
-//        if parameters != nil {
-//            for (key, value) in parameters! {
-//                data.append("--\(boundary)\r\n".data(using: .utf8)!)
-//                data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-//                data.append("\(value)\r\n".data(using: .utf8)!)
-//            }
-//        }
         var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
         urlRequest.httpMethod = "post"
 
         if let fileData = try? Data(contentsOf: imageUploadRequest) {
             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            
             data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
             data.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
             data.append(fileData)
+            
+            // Add subtitle_apply parameter
+            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            data.append("Content-Disposition: form-data; name=\"\(subtitle_apply)\"\r\n".data(using: .utf8)!)
+            data.append("\r\ntrue\r\n".data(using: .utf8)!)
+            
+            // Add subtitleLang parameter
+            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            data.append("Content-Disposition: form-data; name=\"\(subtitleLang)\"\r\n".data(using: .utf8)!)
+            data.append("\r\nen-US\r\n".data(using: .utf8)!)
+           
+            
             data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         }
         
@@ -51,36 +57,10 @@ class UploadReelsResource {
             if let data = httpData {
                 
                 do {
-//                    let data : [String:Any] = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String : Any]
-//
-//                    debugPrint("The Profile Response", data)
-////                    complitionHandler(true, "")
-//
-//                    if data["status"] as! Int == 1 {
-//                        print("Susses===========")
-//
-//                        do {
-//                            let data = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-//                            do {
-//                                let model = try JSONDecoder().decode(uploadImageSuccess.self, from: data)
-//                                print("The success Image Name==========", model.data?[0].name ?? "")
-////                                complitionHandler(false, model.errors.)
-//
-//                                let name = model.data?[0].name ?? ""
-//                                UserDefaults.standard.set(name, forKey: "imageName")
-//
-//                                let size = model.data?[0].size ?? ""
-//                                UserDefaults.standard.set(size, forKey: "reelSize")
-//
-//                                let reelsName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-//                                print("THE reelsName is======", reelsName )
-//
-//                                let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
-//                                print("THE reelsSize is=======", reelsSize)
-//
                             let data = try? JSONDecoder().decode(UploadRes.self, from: data)
                     if let data {
                         if data.status == true {
+                            print(data.data)
                             let name = data.data.first?.name ?? ""
                             UserDefaults.standard.set(name, forKey: "imageName")
 
@@ -97,21 +77,6 @@ class UploadReelsResource {
                     }else{
                         complitionHandler(false, httpError?.localizedDescription)
                     }
-                                
-                                
-//                                complitionHandler(false, model.data?[0].name ?? "")
-                                
-//                            } catch {
-//                                print("the decoded error", error.localizedDescription)
-//                            }
-//                        } catch {
-//                            print("the data decoded error", error.localizedDescription)
-//                        }
-//
-//                    } else {
-//                        print("Failed===========")
-//                    }
-
                 } catch {
                     debugPrint("Error in decoding the model")
                     complitionHandler(false, "Please login first")
@@ -120,6 +85,8 @@ class UploadReelsResource {
             } else if let resposne = httpResponse {
                 
             } else {
+                print("Error: \(httpError?.localizedDescription)")
+                complitionHandler(false, httpError?.localizedDescription)
                 print("ther error")
             }
             
@@ -285,7 +252,6 @@ struct UploadRes: Codable {
     let data: [Datum]
 }
 
-// MARK: - Datum
 struct Datum: Codable {
     let name, size: String
 }
