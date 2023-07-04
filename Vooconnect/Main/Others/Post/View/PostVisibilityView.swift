@@ -49,7 +49,7 @@ struct PostVisibilityView: View {
                 HStack{
                     Spacer()
                     Text("This post will be visible to")
-                        .urbanistBold(fontSize: 24)
+                        .urbanistBold(fontSize: 20)
                         .padding(.bottom,10)
                     Spacer()
                 }

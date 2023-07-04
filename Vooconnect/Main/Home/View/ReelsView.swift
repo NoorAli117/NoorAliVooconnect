@@ -2201,7 +2201,7 @@ struct ReelsView: View {
     @State var reelId: Int = 0
     @State var reelTagIndex: Int = 0
     
-    @Binding var bool: Bool
+    @State var bool: Bool = false
     @Binding var cameraView: Bool
     @Binding var live: Bool
     @Binding var bottomSheetBlock: Bool
@@ -2247,6 +2247,21 @@ struct ReelsView: View {
 //                            .onDisappear{
 //                                topBar = false
 //                            }
+                            .onChange(of: reelTagIndex) { index in
+                                print("Current Index \(index)")
+                                print("Previous Index \(reelTagIndex)")
+                                if index != 0 {
+                                    withAnimation(.easeInOut){
+                                        topBar = false
+                                    }
+                                    bool = false
+                                }else{
+                                    withAnimation(.easeInOut){
+                                        topBar = true
+                                    }
+                                    bool = false
+                                }
+                            }
                         
                         
                     }
@@ -3186,25 +3201,6 @@ struct ReelsPlyer: View {
             .foregroundColor(.white)
             .frame(maxHeight: .infinity, alignment: .bottom)
             
-            HStack {
-                if self.showTwo {
-                    VStack {
-                        Diamond()
-                            .frame(width: 60, height: 40)
-                            .padding(.bottom, -30)
-                            .padding(.leading, -50)
-                            .foregroundColor(.white)
-                        
-                        PopOverTwo(show: $show, camera: $cameraView, live: $live)
-                            .background(Color.white)
-                            .cornerRadius(15)
-                    }
-                }
-                Spacer()
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-            .padding(.top, 5)
-            .padding(.leading, 5)
             
             
             HStack {
@@ -3347,52 +3343,6 @@ struct AcctionButtions: View {
 
 let sampleText = "fdsgkldfgjodgmlhjasjuhmr9 gurih ughwau idhfu9 erh ko iuhgefguyh reiuhgy8 ureh iughf greiuwe g8yewgr igruiaew8ug reugt "
 
-struct PopOverTwo: View {
-    
-    @Binding var show: Bool
-    @Binding var camera: Bool
-    @Binding var live: Bool
-    
-    var body: some View {
-        
-        VStack(alignment: .leading, spacing: 15) {
-            
-            VStack {
-                
-                Button {
-                    //                    show.toggle()
-                    camera.toggle()
-                } label: {
-                    HStack(spacing: 15) {
-                        Text("Posts")
-                            .padding(.trailing, 3)
-                        //                    Spacer()
-                        Image("PopUpPlay")
-                    }
-                }
-                Button {
-                    //                    show.toggle()
-                    //                    cameraTwo.toggle()
-                    live.toggle()
-                } label: {
-                    HStack(spacing: 15) {
-                        Text("Live")
-                            .padding(.trailing)
-                        //                    Spacer()
-                        Image("PopUpVideo")
-                        
-                    }
-                }
-            }
-            .foregroundColor(.black)
-            .frame(width: 100)
-            .padding(10)
-        }
-        
-        
-    }
-    
-}
 
 struct PopOverThree: View {
     

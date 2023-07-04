@@ -14,48 +14,44 @@ class UploadReelsResource {
         let session = URLSession.shared
         let boundary = UUID().uuidString
         var data = Data()
-        
-        let parameters : [String:Any]?
-        parameters = ["upload_path" : "reels"]
-        
+
         var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
         urlRequest.httpMethod = "post"
 
         if let fileData = try? Data(contentsOf: imageUploadRequest) {
             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            
+
             data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
             data.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
             data.append(fileData)
-            
+
             // Add subtitle_apply parameter
-            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            data.append("Content-Disposition: form-data; name=\"\(subtitle_apply)\"\r\n".data(using: .utf8)!)
-            data.append("\r\ntrue\r\n".data(using: .utf8)!)
-            
-            // Add subtitleLang parameter
-            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            data.append("Content-Disposition: form-data; name=\"\(subtitleLang)\"\r\n".data(using: .utf8)!)
-            data.append("\r\nen-US\r\n".data(using: .utf8)!)
-           
-            
-            data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+             data.append("Content-Disposition: form-data; name=\"subtitle_apply\"\r\n".data(using: .utf8)!)
+             data.append("\r\n\(String(subtitle_apply))\r\n".data(using: .utf8)!)
+
+             // Add subtitleLang parameter
+             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+             data.append("Content-Disposition: form-data; name=\"subtitleLang\"\r\n".data(using: .utf8)!)
+             data.append("\r\n\(subtitleLang)\r\n".data(using: .utf8)!)
+
+             data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         }
-        
-        
+
+
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
-            
+
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
             urlRequest.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
-            
+
             print("ACCESS TOKEN=========", tokenData)
-            
+
         }
-        
+
         session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
-            
+            print(String(data: httpData!, encoding: .utf8)!)
             if let data = httpData {
-                
+
                 do {
                             let data = try? JSONDecoder().decode(UploadRes.self, from: data)
                     if let data {
@@ -72,7 +68,7 @@ class UploadReelsResource {
 
                             let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
                             print("THE reelsSize is=======", reelsSize)
-                            complitionHandler(true, "")
+                            complitionHandler(true, "done")
                         }
                     }else{
                         complitionHandler(false, httpError?.localizedDescription)
@@ -81,18 +77,14 @@ class UploadReelsResource {
                     debugPrint("Error in decoding the model")
                     complitionHandler(false, "Please login first")
                 }
-                
+
             } else if let resposne = httpResponse {
-                
             } else {
                 print("Error: \(httpError?.localizedDescription)")
                 complitionHandler(false, httpError?.localizedDescription)
                 print("ther error")
             }
-            
         }.resume()
-        
-        
     }
     
     func uploadPost(post: ReelsPostRequest, complitionHandler : @escaping(Bool, String?) -> Void) {

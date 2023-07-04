@@ -109,3 +109,42 @@ struct TextViewTwo: UIViewRepresentable {
         
     }
 }
+struct DescriptionTextEditor: View {
+    @Binding var text: String
+    var placeholder: String
+    @FocusState private var isFocused: Bool
+    
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            TextEditor(text: $text)
+                .font(.custom("Urbanist-Regular", size: 18))
+                .padding(.leading, 4)
+                .padding(.top, 8)
+                .focused($isFocused)
+                .clipped()
+                .frame(height: 136)
+                .onChange(of: text) { newValue in
+                    print(newValue)
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .strokeBorder((LinearGradient(colors: [
+                            Color("GradientOne"),
+                            Color("GradientTwo"),
+                        ], startPoint: .top, endPoint: .bottom)
+                        ), lineWidth: 2)
+                        .frame(height: 136)
+                    )
+                    if text.isEmpty {
+                        Text(placeholder)
+                            .font(.custom("Urbanist-Regular", size: 18))
+                            .foregroundColor(Color.gray)
+                            .padding(.leading, 4)
+                            .padding(.top, 8)
+                            .frame(height: 136)
+                            .clipped()
+                    }
+                
+        }
+    }
+}

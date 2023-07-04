@@ -516,12 +516,32 @@ struct HomePageView: View {
                         .padding(.horizontal, 25)
                         .padding(.top, -10)
                         .padding(.bottom, -8)
+                        
+//                        HStack {
+//                            if self.show {
+//                                VStack {
+//                                    Diamond()
+//                                        .frame(width: 60, height: 40)
+//                                        .padding(.bottom, -30)
+//                                        .padding(.leading, -50)
+//                                        .foregroundColor(.white)
+//
+//                                    PopOverTwo(show: $show, camera: $cameraView, live: $live)
+//                                        .background(Color.white)
+//                                        .cornerRadius(15)
+//                                }
+//                            }
+////                            Spacer()
+//                        }
+//                        .frame(maxHeight: .infinity, alignment: .top)
+//                        .padding(.top, 5)
+//                        .padding(.leading, 5)
                     }
                     
                     ZStack(alignment: .top) {
                         TabView(selection: self.$currentTab) {
                             
-                            ReelsView(currentReel: reelsVM.allReels.first?.postID ?? 0, topBar: $topBar, bool:  $show,
+                            ReelsView(currentReel: reelsVM.allReels.first?.postID ?? 0, topBar: $topBar,
                             cameraView: $cameraView, live: $live, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport:
                              $bottomSheetReport, myProfileView: $myProfileView,  creatorProfileView: $creatorProfileView,
                              musicView: $musicView, liveViewer: $liveViewer, commentSheet: $commentSheet, commentReplySheet:
@@ -544,6 +564,27 @@ struct HomePageView: View {
                         
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .edgesIgnoringSafeArea(.all)
+                        .overlay(
+                            HStack {
+                                if self.show {
+                                    VStack {
+                                        Diamond()
+                                            .frame(width: 60, height: 40)
+                                            .padding(.bottom, -30)
+                                            .padding(.leading, -50)
+                                            .foregroundColor(.white)
+                                        
+                                        PopOverTwo(show: $show, camera: $cameraView, live: $live)
+                                            .background(Color.white)
+                                            .cornerRadius(15)
+                                    }
+                                }
+                                Spacer()
+                            }
+                            .frame(maxHeight: .infinity, alignment: .top)
+                            .padding(.top, 5)
+                            .padding(.leading, 5)
+                        )
                     
                         
                         //                        .alert(isPresented: $bottomSheetBlock) {
@@ -676,5 +717,50 @@ struct TabBarItemTwo: View {
         }
         .buttonStyle(.plain)
     }
+}
+
+
+struct PopOverTwo: View {
+    
+    @Binding var show: Bool
+    @Binding var camera: Bool
+    @Binding var live: Bool
+    
+    var body: some View {
+        
+        VStack(alignment: .leading, spacing: 15) {
+            
+            VStack {
+                
+                Button {
+                    camera.toggle()
+                } label: {
+                    HStack(spacing: 15) {
+                        Text("Posts")
+                            .padding(.trailing, 3)
+                        //                    Spacer()
+                        Image("PopUpPlay")
+                    }
+                }
+                Button {
+                    live.toggle()
+                } label: {
+                    HStack(spacing: 15) {
+                        Text("Live")
+                            .padding(.trailing)
+                        //                    Spacer()
+                        Image("PopUpVideo")
+                        
+                    }
+                }
+            }
+            .foregroundColor(.black)
+            .frame(width: 100)
+            .padding(10)
+        }
+        
+        
+    }
+    
 }
 

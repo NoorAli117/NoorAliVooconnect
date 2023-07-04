@@ -55,19 +55,15 @@ struct FinalVideoToPostView: View {
     @State private var selectedTopic = ""
     @State private var selectedCat: Int?
     @State private var videoData: Data?
+    @State private var showPrivacySettings = false
     
-//    @State private var whatsAppImage: String = "WhatsAppLogo"
-//    @State private var twetterImage: String = "TwetterLogo"
-//    @State private var facebookImage: String = "FacebookLogo"
-//    @State private var instagramImage: String = "InstagramLogo"
-    
-//    @State private var isFacebook = false
     @State private var isFacebook = false
     @State private var isWhatsApp = false
     @State private var isTwetter = false
     @State private var isInstagram = false
     @GestureState private var tapGestureState = false
     @State private var extractedImage: UIImage?
+    @FocusState private var isFocused: Bool
     
     
     var catSelected: (Int) -> () = {val in}
@@ -109,35 +105,12 @@ struct FinalVideoToPostView: View {
                     ScrollView(showsIndicators: false) {
                         
                         HStack {
-                            
-                            //                            Text("Hi everyone, in this video I will sing a song #song #music #love #beauty Thanks to @Vooconnect Video credit to ")
-                            
-                            //                            TextView(text: $text2).frame(numLines: 5)
-                            //                            TextViewTwo(text: $description, didStartEditing: $didStartEditing, placeholder: $placeholder
-                            //                            )
-                            TextField(placeholder, text: $description)
-                                .focused($focusedField, equals: .captionn)
-                                .onChange(of: description){val in
-                                    print("ON CHANGE DESCRIPTION: " + self.postModel.description)
-                                    self.postModel.description = val
+                            DescriptionTextEditor(text: $description, placeholder: placeholder)
+                                .focused($isFocused)
+                                .onTapGesture{
+                                    isFocused = true
                                 }
-                                .onTapGesture {
-                                    didStartEditing = true
-                                }
-                            
-                            
-                                .padding(.horizontal)
-                                .padding(.top, 5)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .strokeBorder((LinearGradient(colors: [
-                                            Color("GradientOne"),
-                                            Color("GradientTwo"),
-                                        ], startPoint: .top, endPoint: .bottom)
-                                        ), lineWidth: 2)
-                                        .frame(height: 136)
-                                }
-                                .padding(.trailing)
+                                
                             
                             //                            Image("SelectCover")
                             if let image = extractedImage {
@@ -171,7 +144,8 @@ struct FinalVideoToPostView: View {
                                 Image("HastagLogo")
                                 
                                 Button {
-                                    self.description = self.postModel.description + " #"
+                                    isFocused = true
+                                    description += " #"
                                 } label: {
                                     Text("Hashtag")
                                         .lineLimit(1)
@@ -205,7 +179,8 @@ struct FinalVideoToPostView: View {
                                 Image("AttheRateLogo")
                                 
                                 Button {
-                                    self.description = self.postModel.description + " @"
+                                    isFocused = true
+                                    description += " @"
                                 } label: {
                                     Text("Mention")
                                         .lineLimit(1)
@@ -273,8 +248,7 @@ struct FinalVideoToPostView: View {
                                 Image("CategorieLogo")
                                 
                                 Button {
-                                    
-                                    
+                                    isFocused = false
                                     showTopicView.toggle()
                                 } label: {
                                     Text("Category")
@@ -363,7 +337,8 @@ struct FinalVideoToPostView: View {
                                 Image("VisibalLogo")
                                 
                                 Button {
-                                    bottomSheetShown.toggle()
+//                                    bottomSheetShown.toggle()
+                                    showPrivacySettings.toggle()
                                 } label: {
                                     Text("Visible to Everyone")
                                         .font(.custom("Urbanist-SemiBold", size: 18))
@@ -831,7 +806,21 @@ struct FinalVideoToPostView: View {
                     //            } CustomeSheetMoreOtptions
                 
 
-                    
+                    .overlay{
+                        if(self.showPrivacySettings)
+                        {
+                            PostVisibilityView(
+                                currentVisibility: self.postModel.visibility,
+                                callback:{type in
+                                    self.showPrivacySettings = false
+                                    self.postModel.visibility = type
+                                }
+                            )
+                        }
+                    }
+                    .onTapGesture{
+                        isFocused = false
+                    }
                     if bottomSheetShown {
                         Rectangle()
                             .fill(Color.black)
@@ -851,18 +840,25 @@ struct FinalVideoToPostView: View {
                         )
                 }
                     
-                    GeometryReader { geometry in
-                        BottomSheetView(
-                            isOpen: self.$bottomSheetShown,
-                            maxHeight: geometry.size.height * 0.5
-                        ) {
-                            CustomeSheetView(callback: {type in
-                                self.postModel.visibility = type
-                                print("type of visibility")
-                                print(self.postModel.visibility)
-                            })
-                        }
-                    }.edgesIgnoringSafeArea(.all)
+//                    GeometryReader { geometry in
+//                        BottomSheetView(
+//                            isOpen: self.$bottomSheetShown,
+//                            maxHeight: geometry.size.height * 0.5
+//                        ) {
+//                            PostVisibilityView(
+//                                currentVisibility: self.postModel.visibility,
+//                                callback:{type in
+//                                    self.showPrivacySettings = false
+//                                    self.postModel.visibility = type
+//                                }
+//                            )
+//                            CustomeSheetView(callback: {type in
+//                                self.postModel.visibility = type
+//                                print("type of visibility")
+//                                print(self.postModel.visibility)
+//                            })
+//                        }
+//                    }.edgesIgnoringSafeArea(.all)
                 if self.isShowPopup {
                     GeometryReader { geometry in
                         VStack {
@@ -995,7 +991,7 @@ struct FinalVideoToPostView: View {
                     complitionHandler(false)
                     return
                 }
-                print("image url \(self.postModel.contentUrl!)\ncaption:\(self.captionLang), \(self.autoCaption)")
+                print("image url \(self.postModel.contentUrl!)")
                 let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
                 let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
                 let fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
@@ -1005,11 +1001,12 @@ struct FinalVideoToPostView: View {
                 }
                 let content = ContentDetail(name: fileName, size: reelsSize)
                 print("caption and lan:  ", self.captionLang, self.autoCaption)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: "This is title", description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, tags: tag )
+                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, tags: tag )
                 uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                     DispatchQueue.main.async {
                         if(responsee == true) {
                             print("Sucessss......")
+                            print("")
                             complitionHandler(true)
                         } else {
                             print("Errror.....")
@@ -1024,7 +1021,7 @@ struct FinalVideoToPostView: View {
 
 //struct FinalVideoToPostView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        FinalVideoToPostView(url: URL (string: "http://www.example.com/image.jpg")!)
+//        FinalVideoToPostView()
 //    }
 //}
 //getImageVideoBaseURL + "/marked" + fileName

@@ -40,7 +40,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                 setupRecognition()
                 videoPlayer.onEndVideo = {
                     self.captioning = ""
-//                    self.setupRecognition()
+                    self.setupRecognition()
                 }
                 
             }else{
@@ -580,59 +580,4 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         }
 
     }
-    
-//    func cropVideo(sourceURL1: URL, startTime:Float, endTime:Float)
-//    {
-//        let manager = FileManager.default
-//
-//        guard let documentDirectory = try? manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {return}
-//        let mediaType = "mp4"
-//        if mediaType == kUTTypeMovie as String || mediaType == "mp4" as String {
-//            let asset = AVAsset(url: sourceURL1 as URL)
-//            let length = Float(asset.duration.value) / Float(asset.duration.timescale)
-//            print("video length: \(length) seconds")
-//
-//            let start = startTime
-//            let end = endTime
-//
-//            var outputURL = documentDirectory.appendingPathComponent("output")
-//            do {
-//                try manager.createDirectory(at: outputURL, withIntermediateDirectories: true, attributes: nil)
-//                outputURL = outputURL.appendingPathComponent("\(UUID().uuidString).\(mediaType)")
-//            }catch let error {
-//                print(error)
-//            }
-//
-//            //Remove existing file
-//            _ = try? manager.removeItem(at: outputURL)
-//
-//
-//            guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {return}
-//            exportSession.outputURL = outputURL
-//            exportSession.outputFileType = .mp4
-//
-//            let startTime = CMTime(seconds: Double(start ), preferredTimescale: 1000)
-//            let endTime = CMTime(seconds: Double(end ), preferredTimescale: 1000)
-//            let timeRange = CMTimeRange(start: startTime, end: endTime)
-//
-//            exportSession.timeRange = timeRange
-//            exportSession.exportAsynchronously{
-//                switch exportSession.status {
-//                case .completed:
-//                    print("exported at \(outputURL)")
-//                case .failed:
-//                    print("failed \(exportSession.error)")
-//
-//                case .cancelled:
-//                    print("cancelled \(exportSession.error)")
-//
-//                default: break
-//                }
-//            }
-//        }
-//    }
-    
-    
-    
-    
 }
