@@ -2215,6 +2215,7 @@ struct ReelsView: View {
     @Binding var postedBy: String
     @Binding var selectedReelId: Int
     @State private var offset: CGFloat = 0
+    @State var videoIndex: Int = 0
 
     
     var body: some View {
@@ -2247,21 +2248,6 @@ struct ReelsView: View {
 //                            .onDisappear{
 //                                topBar = false
 //                            }
-                            .onChange(of: reelTagIndex) { index in
-                                print("Current Index \(index)")
-                                print("Previous Index \(reelTagIndex)")
-                                if index != 0 {
-                                    withAnimation(.easeInOut){
-                                        topBar = false
-                                    }
-                                    bool = false
-                                }else{
-                                    withAnimation(.easeInOut){
-                                        topBar = true
-                                    }
-                                    bool = false
-                                }
-                            }
                         
                         
                     }
@@ -2282,6 +2268,22 @@ struct ReelsView: View {
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 // setting max width...
                 .frame(width: size.width)
+                .onChange(of: reelTagIndex) { index in
+                    print("Current Index \(index)")
+                    if index > videoIndex {
+                        withAnimation(.easeInOut) {
+                            print(videoIndex)
+                            topBar = false
+                        }
+                        videoIndex = index
+                    }else{
+                        withAnimation(.easeInOut){
+                            topBar = true
+                            print("else index \(videoIndex)")
+                        }
+                        videoIndex = index
+                    }
+                }
 
             
             }else{

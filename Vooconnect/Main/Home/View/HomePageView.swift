@@ -561,7 +561,9 @@ struct HomePageView: View {
                         //                                player.pause()
                         ////                            }
                         //                        })
-                        
+                        .onTapGesture {
+                            show = false
+                        }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .edgesIgnoringSafeArea(.all)
                         .overlay(

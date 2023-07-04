@@ -111,7 +111,7 @@ struct TextViewTwo: UIViewRepresentable {
 }
 struct DescriptionTextEditor: View {
     @Binding var text: String
-    var placeholder: String
+    var placeholder: String = "Hi everyone, in this video I will sing a song #song #music #love #beauty Thanks to @Vooconnect Video credit to"
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -133,16 +133,16 @@ struct DescriptionTextEditor: View {
                             Color("GradientTwo"),
                         ], startPoint: .top, endPoint: .bottom)
                         ), lineWidth: 2)
-                        .frame(height: 136)
+                        .padding(.leading, 4)
                     )
                     if text.isEmpty {
                         Text(placeholder)
-                            .font(.custom("Urbanist-Regular", size: 18))
+//                            .font(.custom("Urbanist-Regular", size: 18))
                             .foregroundColor(Color.gray)
-                            .padding(.leading, 4)
-                            .padding(.top, 8)
+                            .padding(.horizontal, 8)
+                            .padding(.top, 4)
                             .frame(height: 136)
-                            .clipped()
+//                            .clipped()
                     }
                 
         }

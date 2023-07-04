@@ -20,6 +20,7 @@ struct FinalVideoToPostView: View {
     @State private var showPreview = false
     @State private var bottomSheetShown = false
     @State private var bottomSheetMoreOption = false
+    @State private var loadingVideo = false
     @State private var homeView = false
     @State var text2: String = ""
     @State var description: String = ""
@@ -64,6 +65,7 @@ struct FinalVideoToPostView: View {
     @GestureState private var tapGestureState = false
     @State private var extractedImage: UIImage?
     @FocusState private var isFocused: Bool
+    @State var progress: Double = 0
     
     
     var catSelected: (Int) -> () = {val in}
@@ -105,7 +107,7 @@ struct FinalVideoToPostView: View {
                     ScrollView(showsIndicators: false) {
                         
                         HStack {
-                            DescriptionTextEditor(text: $description, placeholder: placeholder)
+                            DescriptionTextEditor(text: $description)
                                 .focused($isFocused)
                                 .onTapGesture{
                                     isFocused = true
@@ -405,7 +407,7 @@ struct FinalVideoToPostView: View {
                                 Button {
                                     
                                 } label: {
-                                    Text("Allow Duet")
+                                    Text("Allow Duo")
                                         .font(.custom("Urbanist-SemiBold", size: 18))
                                         .foregroundColor(.black)
                                 }
@@ -452,7 +454,7 @@ struct FinalVideoToPostView: View {
                                 Button {
                                     
                                 } label: {
-                                    Text("Allow Stitch")
+                                    Text("Allow Knit")
                                         .font(.custom("Urbanist-SemiBold", size: 18))
                                         .foregroundColor(.black)
                                 }
@@ -688,6 +690,8 @@ struct FinalVideoToPostView: View {
                         
                         HStack {
                             Button {
+                                loadingVideo = true
+                                simulateVideoDownload()
                                 
                             } label: {
                                 Spacer()
@@ -807,6 +811,19 @@ struct FinalVideoToPostView: View {
                 
 
                     .overlay{
+                        if loadingVideo {
+                            Color.black.opacity(0.3)
+                                .edgesIgnoringSafeArea(.all)
+                                .overlay(
+                                    ZStack {
+                                        CircularProgressView(progress: progress)
+                                        Text("\(Int(progress * 100))%")
+                                            .font(.custom("Urbanist-Regular", size: 22))
+                                            .bold()
+                                    }
+                                    .frame(width: 60, height: 60)
+                                )
+                        }
                         if(self.showPrivacySettings)
                         {
                             PostVisibilityView(
@@ -919,6 +936,54 @@ struct FinalVideoToPostView: View {
                 .navigationBarHidden(true)
             }
         }
+    func simulateVideoDownload() {
+        DispatchQueue.global(qos: .background).async {
+            let totalProgressSteps = 100
+            
+            for i in 0..<totalProgressSteps {
+                usleep(100_000) // Simulating delay in video download
+                
+                DispatchQueue.main.async {
+                    progress = Double(i + 1) / Double(totalProgressSteps)
+                    
+                    if i == totalProgressSteps - 1 {
+                        // Download completed
+                        loadingVideo = false
+                        print("Video download completed")
+                        
+                        // Call the function to save the video or image to the gallery here
+                        saveVideoToGallery()
+                    }
+                }
+            }
+        }
+        }
+    
+    func saveVideoToGallery(){
+        print("Should save to device: "+self.saveToDevice.description)
+            guard let renderUrl = self.renderUrl else{
+                print("incorrect url, can't save to gallery")
+                return
+            }
+            print("saving to device, url: " + renderUrl.absoluteString)
+            if(self.postModel.isImageContent())
+            {
+                let data = try? Data(contentsOf: renderUrl)
+                let image = UIImage(data: data!)
+                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+            }
+            else{
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: renderUrl)
+                }) { complete, error in
+                    if complete {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                            print("Saved to gallery")
+                        }
+                    }
+                }
+            }
+    }
     func shareToFacebook(videoURL: URL) {
         let activityItems: [Any] = [videoURL, self.postModel.description]
                 let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
@@ -1035,5 +1100,36 @@ struct ExtractedImageView: View {
             .aspectRatio(contentMode: .fit)
             .scaledToFill()
             .frame(width: 100, height: 132)
+    }
+}
+struct CircularProgressView: View {
+    let progress: Double
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(
+                    Color.gray.opacity(0.5),
+                    lineWidth: 5
+                )
+            Circle()
+                .trim(from: 0, to: progress)
+                .stroke(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color("buttionGradientTwo"),
+                            Color("buttionGradientOne"),
+                        ]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    style: StrokeStyle(
+                        lineWidth: 5,
+                        lineCap: .round
+                    )
+                )
+                .rotationEffect(.degrees(-90))
+                .animation(.easeOut, value: progress)
+            
+        }
     }
 }

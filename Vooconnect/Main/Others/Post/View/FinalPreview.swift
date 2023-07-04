@@ -499,11 +499,19 @@ struct FinalPreview: View{
                             
                             
                         }
+                        .onDisappear{
+                            DispatchQueue.main.async {
+                                controller.videoPlayer.stopAllProcesses()
+                                VideoPlayer(player: nil)
+                                print("Player Stoped")
+                            }
+                        }
                         
                         .padding(.top, 100)
                         .padding(.trailing, 20)
                         
                     }
+                
                 
                 // MARK: Next and Draft Button
                 
@@ -531,6 +539,8 @@ struct FinalPreview: View{
                             Spacer()
                             
                             Button {
+//                                controller.videoPlayer.stopAllProcesses()
+//                                print("stopAllProcesses done")
                                 loading = true
                                 self.renderUrl = self.postModel.contentUrl
                                 if(self.postModel.audioContentUrl != nil)
@@ -767,12 +777,8 @@ struct FinalPreview: View{
             .ignoresSafeArea(.all)
             .navigationBarHidden(true)
         }
-        .onDisappear{
-            DispatchQueue.main.async {
-                controller.videoPlayer.player.pause()
-            }
-        }
     }
+    
     
     func callWithBack()  {
         if let url = postModel.contentUrl {

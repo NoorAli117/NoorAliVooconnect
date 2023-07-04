@@ -140,6 +140,7 @@ class VideoMediaInput: NSObject {
             print("Pausing playback!")
             player.pause()
             player.rate = speed
+            self.player.isMuted = true
         }
     }
     
