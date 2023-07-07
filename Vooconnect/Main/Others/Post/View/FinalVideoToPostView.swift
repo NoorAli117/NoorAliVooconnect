@@ -148,6 +148,7 @@ struct FinalVideoToPostView: View {
                                 Button {
                                     isFocused = true
                                     description += " #"
+                                    
                                 } label: {
                                     Text("Hashtag")
                                         .lineLimit(1)
@@ -251,6 +252,7 @@ struct FinalVideoToPostView: View {
                                 
                                 Button {
                                     isFocused = false
+                                    self.postModel.description = description
                                     showTopicView.toggle()
                                 } label: {
                                     Text("Category")
@@ -528,7 +530,10 @@ struct FinalVideoToPostView: View {
                             VStack {
                                 if isWhatsApp {
                                     Circle()
-                                        .strokeBorder(Color.black, lineWidth: 2)
+                                        .strokeBorder(LinearGradient(colors: [
+                                            Color("buttionGradientTwo"),
+                                            Color("buttionGradientOne"),
+                                        ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
                                         .frame(width: 50, height: 50)
                                         .overlay(
                                             Circle()
@@ -567,7 +572,10 @@ struct FinalVideoToPostView: View {
                             VStack {
                                 if isInstagram {
                                     Circle()
-                                        .strokeBorder(Color.black, lineWidth: 2)
+                                        .strokeBorder(LinearGradient(colors: [
+                                            Color("buttionGradientTwo"),
+                                            Color("buttionGradientOne"),
+                                        ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
                                         .frame(width: 50, height: 50)
                                         .overlay(
                                             Circle()
@@ -606,7 +614,10 @@ struct FinalVideoToPostView: View {
                             VStack {
                                 if isFacebook {
                                     Circle()
-                                        .strokeBorder(Color.black, lineWidth: 2)
+                                        .strokeBorder(LinearGradient(colors: [
+                                            Color("buttionGradientTwo"),
+                                            Color("buttionGradientOne"),
+                                        ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
                                         .frame(width: 50, height: 50)
                                         .overlay(
                                             Circle()
@@ -645,7 +656,10 @@ struct FinalVideoToPostView: View {
                             VStack {
                                 if isTwetter {
                                     Circle()
-                                        .strokeBorder(Color.black, lineWidth: 2)
+                                        .strokeBorder(LinearGradient(colors: [
+                                            Color("buttionGradientTwo"),
+                                            Color("buttionGradientOne"),
+                                        ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
                                         .frame(width: 50, height: 50)
                                         .overlay(
                                             Circle()
@@ -837,6 +851,7 @@ struct FinalVideoToPostView: View {
                     }
                     .onTapGesture{
                         isFocused = false
+                        self.postModel.description = description
                     }
                     if bottomSheetShown {
                         Rectangle()
@@ -936,6 +951,8 @@ struct FinalVideoToPostView: View {
                 .navigationBarHidden(true)
             }
         }
+    
+    
     func simulateVideoDownload() {
         DispatchQueue.global(qos: .background).async {
             let totalProgressSteps = 100

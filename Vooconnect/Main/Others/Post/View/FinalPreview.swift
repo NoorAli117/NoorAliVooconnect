@@ -502,7 +502,6 @@ struct FinalPreview: View{
                         .onDisappear{
                             DispatchQueue.main.async {
                                 controller.videoPlayer.stopAllProcesses()
-                                VideoPlayer(player: nil)
                                 print("Player Stoped")
                             }
                         }

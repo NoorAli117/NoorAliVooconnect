@@ -14,7 +14,7 @@ var assatEndPoint = "https://api.vooconnect.com:9452/api/v1"
 var userApiEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
 var getBaseURL = "https://api.vooconnect.com:9451/api/v1"
 var getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads/"
-var getImageVideoMarkedBaseURL = "https://api.vooconnect.com:9452/uploads/marked"//3002
+var getImageVideoMarkedBaseURL = "https://api.vooconnect.com:9452"//3002
 //
 //
 //
@@ -23,7 +23,7 @@ var getImageVideoMarkedBaseURL = "https://api.vooconnect.com:9452/uploads/marked
 //var userApiEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
 //var getBaseURL = "https://vooconnectpost.devssh.xyz/api/v1"//3001
 //var getImageVideoBaseURL = "https://vooconnectasset.devssh.xyz/uploads"//3002
-//var getImageVideoMarkedBaseURL = "https://vooconnectasset.devssh.xyz/uploads/marked"//3002
+//var getImageVideoMarkedBaseURL = "https://vooconnectasset.devssh.xyz"//3002
 
 struct EndPoints {
     
@@ -65,5 +65,6 @@ struct EndPoints {
     static var users = "/users"
     static var interest_categ = "/int_categ"
     static var user_interest_categ = "/user_int_categ"
+    static var mention = "/search-username"
     
 }

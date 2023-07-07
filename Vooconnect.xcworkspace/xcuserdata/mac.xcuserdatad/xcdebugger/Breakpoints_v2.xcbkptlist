@@ -14,10 +14,10 @@
             filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1078"
-            endingLineNumber = "1078"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "1095"
+            endingLineNumber = "1095"
+            landmarkName = "uploadReelss(complitionHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -238,8 +238,8 @@
             filePath = "Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "923"
-            endingLineNumber = "923"
+            startingLineNumber = "926"
+            endingLineNumber = "926"
             landmarkName = "setupScene(view:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -680,8 +680,8 @@
             filePath = "Vooconnect/Main/Others/Post/View/VideoTrimView/AdjustVideoView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -751,22 +751,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "669146C1-42EA-4A40-B909-C4928E8F4101"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Post/View/VideoTrimView/AdjustVideoView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
-            landmarkName = "cropVideo(sourceURL1:statTime:endTime:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E4DECBB4-17EC-4959-A74E-A1A35FACEF24"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -774,8 +758,8 @@
             filePath = "Vooconnect/Main/Others/Post/View/VideoTrimView/AdjustVideoView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -794,53 +778,6 @@
             endingLineNumber = "416"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "19A81BEE-C87A-48E4-B910-E41564C6F8A6 - 4f895cd875c3b095"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
-                  offsetFromSymbolStart = "304">
-               </Location>
-               <Location
-                  uuid = "19A81BEE-C87A-48E4-B910-E41564C6F8A6 - c48defe17a71977f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "416"
-                  endingLineNumber = "416"
-                  offsetFromSymbolStart = "304">
-               </Location>
-               <Location
-                  uuid = "19A81BEE-C87A-48E4-B910-E41564C6F8A6 - 8d9bf83bfb8876ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "424"
-                  endingLineNumber = "424"
-                  offsetFromSymbolStart = "416">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -888,36 +825,6 @@
                   endingLineNumber = "101"
                   offsetFromSymbolStart = "556">
                </Location>
-               <Location
-                  uuid = "928156BE-C215-47B5-AF3C-882EF372B4DB - b1a65cace21acfb8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FinalPreview.mergeRecordAudioWithVideo() -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "876">
-               </Location>
-               <Location
-                  uuid = "928156BE-C215-47B5-AF3C-882EF372B4DB - 1781c9aea2f07b88"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;, Swift.Optional&lt;Foundation.URL&gt;) -&gt; () in Vooconnect.FinalPreview.mergeRecordAudioWithVideo() -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "556">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -935,53 +842,6 @@
             endingLineNumber = "420"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "BDC91942-CFD1-4579-956E-F400169DE33B - 4f895cd875c3b009"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "424"
-                  endingLineNumber = "424"
-                  offsetFromSymbolStart = "480">
-               </Location>
-               <Location
-                  uuid = "BDC91942-CFD1-4579-956E-F400169DE33B - c48defe17a7194fb"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "420"
-                  endingLineNumber = "420"
-                  offsetFromSymbolStart = "480">
-               </Location>
-               <Location
-                  uuid = "BDC91942-CFD1-4579-956E-F400169DE33B - 8d9bf83bfb8876ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "424"
-                  endingLineNumber = "424"
-                  offsetFromSymbolStart = "416">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1014,38 +874,6 @@
             endingLineNumber = "362"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "5025B73B-C0DF-4474-A063-C589A7E8C10B - 3c0a2e3b3127686f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #4 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "362"
-                  endingLineNumber = "362"
-                  offsetFromSymbolStart = "524">
-               </Location>
-               <Location
-                  uuid = "5025B73B-C0DF-4474-A063-C589A7E8C10B - 39e2b3e9daca930c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #4 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "363"
-                  endingLineNumber = "363"
-                  offsetFromSymbolStart = "524">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1091,36 +919,6 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "370"
                   endingLineNumber = "370"
-                  offsetFromSymbolStart = "392">
-               </Location>
-               <Location
-                  uuid = "806121AA-1527-4964-A34B-AA2BEE33A18E - 39e2b3e9daca93e7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #4 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "370"
-                  endingLineNumber = "370"
-                  offsetFromSymbolStart = "1864">
-               </Location>
-               <Location
-                  uuid = "806121AA-1527-4964-A34B-AA2BEE33A18E - c3f1fb181b013e9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Foundation.URL) -&gt; () in closure #4 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "371"
-                  endingLineNumber = "371"
                   offsetFromSymbolStart = "392">
                </Location>
             </Locations>
@@ -1187,36 +985,6 @@
                   endingLineNumber = "183"
                   offsetFromSymbolStart = "24">
                </Location>
-               <Location
-                  uuid = "CFDF1DC0-8C8E-42DA-9BC1-C750FFD57193 - 4f3c0382f148d326"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "440">
-               </Location>
-               <Location
-                  uuid = "CFDF1DC0-8C8E-42DA-9BC1-C750FFD57193 - 7a09eeb12e0f108a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Vooconnect.ContentOverlayModel) -&gt; Swift.Bool in closure #1 () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;, SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt;&gt;&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;SwiftUI.Image, SwiftUI.Image&gt;, SwiftUI.Text)&gt;&gt;&gt;&gt;, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.Image&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Button&lt;SwiftUI.VStack&lt;SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI.TupleView&lt;(SwiftUI.Image, &lt;&lt;opaque return type of SwiftUI.View.foregroundColor(Swift.Optional&lt;SwiftUI.Color&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;&gt;&gt;)&gt;&gt;)&gt; in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "24">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1224,7 +992,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BA9A8CCD-B896-4F3C-8823-AD7A81F25971"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Vooconnect/Helpers/SoundsManagerHelper.swift"
@@ -1240,7 +1008,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E1801570-CC48-4019-AFB3-3BFBF9DAC5CB"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Vooconnect/Helpers/SoundsManagerHelper.swift"
@@ -1325,8 +1093,8 @@
             filePath = "Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "938"
-            endingLineNumber = "938"
+            startingLineNumber = "941"
+            endingLineNumber = "941"
             landmarkName = "setupScene(view:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1341,8 +1109,8 @@
             filePath = "Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "948"
-            endingLineNumber = "948"
+            startingLineNumber = "951"
+            endingLineNumber = "951"
             landmarkName = "setupCamera()"
             landmarkType = "7">
             <Locations>
@@ -1389,28 +1157,28 @@
             filePath = "Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1054"
-            endingLineNumber = "1054"
+            startingLineNumber = "1057"
+            endingLineNumber = "1057"
             landmarkName = "setupARGearConfig()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "84E106B1-BBA0-4FA5-A526-557B32DA2CFA - dab57219b962fb00"
+                  uuid = "84E106B1-BBA0-4FA5-A526-557B32DA2CFA - 31e16d28085cecdc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.MyARView.Coordinator.setupARGearConfig() -&gt; ()"
+                  symbolName = "Vooconnect.MyARView.Coordinator.init(arScene: Swift.Optional&lt;Vooconnect.ARGScene&gt;, argSession: Swift.Optional&lt;__C.ARGSession&gt;, currentFaceFrame: Swift.Optional&lt;__C.ARGFrame&gt;, nextFaceFrame: Swift.Optional&lt;__C.ARGFrame&gt;, preferences: Swift.Optional&lt;Vooconnect.ARGPreferences&gt;, arCamera: Swift.Optional&lt;Vooconnect.ARGCamera&gt;, cameraPreviewCALayer: Swift.Optional&lt;__C.CALayer&gt;) -&gt; Vooconnect.MyARView.Coordinator"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1083"
-                  endingLineNumber = "1083"
-                  offsetFromSymbolStart = "520">
+                  startingLineNumber = "1048"
+                  endingLineNumber = "1048"
+                  offsetFromSymbolStart = "1104">
                </Location>
                <Location
-                  uuid = "84E106B1-BBA0-4FA5-A526-557B32DA2CFA - dab57219b962fb2f"
+                  uuid = "84E106B1-BBA0-4FA5-A526-557B32DA2CFA - dab57219b962fc83"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -1420,8 +1188,8 @@
                   urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1084"
-                  endingLineNumber = "1084"
+                  startingLineNumber = "1048"
+                  endingLineNumber = "1048"
                   offsetFromSymbolStart = "308">
                </Location>
                <Location
@@ -1452,10 +1220,57 @@
             filePath = "Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1105"
-            endingLineNumber = "1105"
+            startingLineNumber = "1108"
+            endingLineNumber = "1108"
             landmarkName = "didUpdate(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A63C6396-2A2E-4FB7-B7B0-E26FF2E797E1 - df763ab68585d0f7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[2] = Value Promoted from Box&gt; of closure #1 @Swift.MainActor () -&gt; () in Vooconnect.MyARView.Coordinator.drawARCameraPreview() -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1099"
+                  endingLineNumber = "1099"
+                  offsetFromSymbolStart = "616">
+               </Location>
+               <Location
+                  uuid = "A63C6396-2A2E-4FB7-B7B0-E26FF2E797E1 - 6c671ce01658d43d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.MyARView.Coordinator.didUpdate(__C.ARGFrame) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1099"
+                  endingLineNumber = "1099"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "A63C6396-2A2E-4FB7-B7B0-E26FF2E797E1 - 6c671ce01658d4f7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.MyARView.Coordinator.didUpdate(__C.ARGFrame) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1105"
+                  endingLineNumber = "1105"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1468,8 +1283,8 @@
             filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "734"
-            endingLineNumber = "734"
+            startingLineNumber = "748"
+            endingLineNumber = "748"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -1516,8 +1331,8 @@
             filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1049"
-            endingLineNumber = "1049"
+            startingLineNumber = "1066"
+            endingLineNumber = "1066"
             landmarkName = "uploadReelss(complitionHandler:)"
             landmarkType = "7">
             <Locations>
@@ -1564,8 +1379,8 @@
             filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1051"
-            endingLineNumber = "1051"
+            startingLineNumber = "1068"
+            endingLineNumber = "1068"
             landmarkName = "uploadReelss(complitionHandler:)"
             landmarkType = "7">
             <Locations>
@@ -1629,6 +1444,36 @@
                   endingLineNumber = "991"
                   offsetFromSymbolStart = "880">
                </Location>
+               <Location
+                  uuid = "625FE91B-10DD-437F-9923-EF6DAE7D5D0B - a037619cd7bd31c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FinalVideoToPostView.uploadReelss(complitionHandler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1054"
+                  endingLineNumber = "1054"
+                  offsetFromSymbolStart = "1080">
+               </Location>
+               <Location
+                  uuid = "625FE91B-10DD-437F-9923-EF6DAE7D5D0B - 6b3d8fe577f6fc0d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Vooconnect.FinalVideoToPostView.uploadReelss(complitionHandler: (Swift.Bool) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1055"
+                  endingLineNumber = "1055"
+                  offsetFromSymbolStart = "932">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1642,287 +1487,10 @@
             filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "735"
-            endingLineNumber = "735"
+            startingLineNumber = "749"
+            endingLineNumber = "749"
             landmarkName = "body"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6CA7BE90-4360-4DAA-9922-6CD78D711CFD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1052"
-            endingLineNumber = "1052"
-            landmarkName = "uploadReelss(complitionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "uploadReels(imageUploadRequest:paramName:fileName:subtitleLang:subtitle_apply:complitionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48 - 87632f327bae51d7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "356">
-               </Location>
-               <Location
-                  uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48 - 87632f327bae51d7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "864">
-               </Location>
-               <Location
-                  uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48 - d812f2c91020f1fc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "920">
-               </Location>
-               <Location
-                  uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48 - d812f2c91020f1fc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "988">
-               </Location>
-               <Location
-                  uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48 - d812f2c91020f1fc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "996">
-               </Location>
-               <Location
-                  uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48 - d812f2c91020f1fc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "1044">
-               </Location>
-               <Location
-                  uuid = "C86CADEE-B849-4D2F-A7B2-B1E055408F48 - 87632f327bae5195"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "864">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "uploadReels(imageUploadRequest:paramName:fileName:subtitleLang:subtitle_apply:complitionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210895"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "1264">
-               </Location>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210895"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "1388">
-               </Location>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210895"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "1256">
-               </Location>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210895"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "1380">
-               </Location>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210895"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "1420">
-               </Location>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210895"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "1544">
-               </Location>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210757"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "1420">
-               </Location>
-               <Location
-                  uuid = "6AE26A55-C62B-418A-A830-4713E51AAAC8 - d812f2c910210757"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.UploadReelsResource.uploadReels(imageUploadRequest: Foundation.URL, paramName: Swift.String, fileName: Swift.String, subtitleLang: Swift.String, subtitle_apply: Swift.Bool, complitionHandler: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "1544">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1935,56 +1503,168 @@
             filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1073"
-            endingLineNumber = "1073"
-            landmarkName = "ExtractedImageView"
-            landmarkType = "14">
+            startingLineNumber = "1090"
+            endingLineNumber = "1090"
+            landmarkName = "uploadReelss(complitionHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "49DE00AE-A91A-45E0-9446-EB8522C99525"
+            uuid = "3AA9A486-D2A7-4992-A28F-03BCFCB6AC2E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Post/View/FinalPreview.swift"
+            filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "770"
+            endingLineNumber = "770"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A3593D7-BE2F-474D-A66E-6A8230CFE5E7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "771"
+            endingLineNumber = "771"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C275E55E-9B23-4AFC-82A0-DF88830D9866"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Post/Resource/UploadReelsResource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "uploadCaption(imageUploadRequest:paramName:fileName:complitionHandler:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E639B02C-3EDA-4722-9150-EBAE5393A376"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/ReelsResource/ReelsResource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "getCreatorImage()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE4DAFBC-E4BA-4737-BED0-EDBA4EB5A70F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Post/Controller/Functions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "9"
+            endingLineNumber = "9"
+            landmarkName = "downloadAndSaveWithCaptionVideo()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "554105AD-0216-416C-BFA3-C26200287EA6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Sounds/View/SoundsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
+            landmarkName = "songListView(songModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C19D4434-EB9D-4958-9F26-24C1C2689358"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Sounds/View/SoundsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "songListView(songModel:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "40CC2C52-CD7D-4B7D-9106-AE0479EA4C31"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/ReelsResource/ReelsResource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "getCreatorImage()"
+            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "49DE00AE-A91A-45E0-9446-EB8522C99525 - 5a1f12293b2943b7"
+                  uuid = "40CC2C52-CD7D-4B7D-9106-AE0479EA4C31 - 6c0bd5faeac9653b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #2 () -&gt; () in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
+                  symbolName = "Vooconnect.CreatorImageService.getCreatorImage() -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/ReelsResource/ReelsResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "506"
-                  endingLineNumber = "506"
-                  offsetFromSymbolStart = "260">
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "252">
                </Location>
                <Location
-                  uuid = "49DE00AE-A91A-45E0-9446-EB8522C99525 - 5a1f12293b294356"
+                  uuid = "40CC2C52-CD7D-4B7D-9106-AE0479EA4C31 - 6c0bd5faeac9653b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #2 () -&gt; () in closure #5 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(alignment: SwiftUI.Alignment, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0&gt;)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarHidden(Swift.Bool) -&gt; some&gt;&gt;.0 in Vooconnect.FinalPreview.body.getter : some"
+                  symbolName = "Vooconnect.CreatorImageService.getCreatorImage() -&gt; ()"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/ReelsResource/ReelsResource.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "505"
-                  endingLineNumber = "505"
-                  offsetFromSymbolStart = "336">
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "1120">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1992,17 +1672,145 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E25FAE29-11F4-4AA1-A330-F705EBD98537"
+            uuid = "E838953B-A703-449F-A759-DB1CA63CBF62"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Post/Controller/FinalPreviewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "mergeVideoAndAudio(videoUrl:audioUrl:shouldFlipHorizontally:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E838953B-A703-449F-A759-DB1CA63CBF62 - 2cbae63bd537c11a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 2 of Vooconnect.FinalPreviewController.mergeVideoAndAudio(videoUrl: Foundation.URL, audioUrl: Foundation.URL, shouldFlipHorizontally: Swift.Bool, completion: (Swift.Optional&lt;Swift.Error&gt;, Swift.Optional&lt;Foundation.URL&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Controller/FinalPreviewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "479"
+                  endingLineNumber = "479"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "E838953B-A703-449F-A759-DB1CA63CBF62 - 1c6513c2ac2d7ae1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FinalPreviewController.mergeVideoAndAudio(videoUrl: Foundation.URL, audioUrl: Foundation.URL, shouldFlipHorizontally: Swift.Bool, completion: (Swift.Optional&lt;Swift.Error&gt;, Swift.Optional&lt;Foundation.URL&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/Controller/FinalPreviewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "483"
+                  endingLineNumber = "483"
+                  offsetFromSymbolStart = "520">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F6ECB35-D7B3-4C12-9657-5577B5DD21C9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Others/Post/View/FinalPreview.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "addSongAudio()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0F6ECB35-D7B3-4C12-9657-5577B5DD21C9 - e1317cc9143b85e5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FinalPreview.addSongAudio() -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "1452">
+               </Location>
+               <Location
+                  uuid = "0F6ECB35-D7B3-4C12-9657-5577B5DD21C9 - e74e011517ba7e04"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;, Swift.Optional&lt;Foundation.URL&gt;) -&gt; () in Vooconnect.FinalPreview.addSongAudio() -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Others/Post/View/FinalPreview.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "908">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "17AFDD12-CCAC-42C8-94D3-2210DCD3BBE0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2464"
+            endingLineNumber = "2464"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "57C9D4DA-BF2F-4682-B3BF-BDD52A2A5A87"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2237"
+            endingLineNumber = "2237"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33E27D20-2089-464F-B544-6FAB9F5F20CC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "1069"
+            endingLineNumber = "1069"
+            landmarkName = "uploadReelss(complitionHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

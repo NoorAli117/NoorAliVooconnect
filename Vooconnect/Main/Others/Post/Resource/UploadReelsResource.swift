@@ -42,7 +42,7 @@ class UploadReelsResource {
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
 
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
-            urlRequest.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+            urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
 
             print("ACCESS TOKEN=========", tokenData)
 

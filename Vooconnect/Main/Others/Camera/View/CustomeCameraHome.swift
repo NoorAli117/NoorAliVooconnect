@@ -30,9 +30,9 @@ struct CustomeCameraHome: View {
     
     @StateObject var camera = CameraModelPhoto()
     
-    @State var countdownTimerText = 3
-    @State var countdownTimer : Int = 3
-    @State private var countdownTimer2 = 3
+    @State var countdownTimerText = 0
+    @State var countdownTimer : Int = 0
+    @State private var countdownTimer2 = 0
     
     @State var timerRunning = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -262,7 +262,10 @@ struct CustomeCameraHome: View {
 
                                                     timerImage = true
 
-                                                    if countdownTimer == 3 {
+                                                    if countdownTimer == 0 {
+                                                        countdownTimer = 3
+                                                        countdownTimerText = 3
+                                                    } else if countdownTimer == 3 {
                                                         countdownTimer = 5
                                                         countdownTimerText = 5
                                                     } else if countdownTimer == 5 {
@@ -281,8 +284,8 @@ struct CustomeCameraHome: View {
                                                         countdownTimer = 30
                                                         countdownTimerText = 30
                                                     } else {
-                                                        countdownTimer = 3
-                                                        countdownTimerText = 3
+                                                        countdownTimer = 0
+                                                        countdownTimerText = 0
                                                     }
                                                     countdownTimer2 = countdownTimer
 
@@ -393,8 +396,8 @@ struct CustomeCameraHome: View {
                                                                 .overlay {
                                                                     Text(
                                                                         cameraModel.speed < 1 ?
-                                                                        "\(String(format: "%.2f", cameraModel.speed))x":
-                                                                        "\(Int(cameraModel.speed))x")
+                                                                        "\(String(format: "%.2f", cameraModel.speed))":
+                                                                        "\(Int(cameraModel.speed))")
                                                                         .foregroundColor(.white)
                                                                         .font(.custom("Urbanist-Bold", size: 8))
                                                                 }

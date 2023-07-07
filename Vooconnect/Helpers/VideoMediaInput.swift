@@ -174,16 +174,17 @@ class VideoMediaInput: NSObject {
         
         print("tracks? \(playerItem.asset.tracks)\n")
         
-        let audioTrack = playerItem.asset.tracks(withMediaType: AVMediaType.audio).first!
-        let inputParams = AVMutableAudioMixInputParameters(track: audioTrack)
-        inputParams.audioTapProcessor = tap?.takeRetainedValue()//tap?.takeUnretainedValue()
-//        tap?.release()
-        
-        // print("inputParms: \(inputParams), \(inputParams.audioTapProcessor)\n")
-        let audioMix = AVMutableAudioMix()
-        audioMix.inputParameters = [inputParams]
-        
-        playerItem.audioMix = audioMix
+        if let audioTrack = playerItem.asset.tracks(withMediaType: AVMediaType.audio).first {
+            let inputParams = AVMutableAudioMixInputParameters(track: audioTrack)
+            inputParams.audioTapProcessor = tap?.takeRetainedValue()
+            // print("inputParms: \(inputParams), \(inputParams.audioTapProcessor)\n")
+            let audioMix = AVMutableAudioMix()
+            audioMix.inputParameters = [inputParams]
+            
+            playerItem.audioMix = audioMix
+        } else {
+            print("No audio track found.")
+        }
     }
     
     //MARK: TAP CALLBACKS

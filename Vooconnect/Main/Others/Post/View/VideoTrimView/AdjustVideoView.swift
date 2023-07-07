@@ -68,7 +68,11 @@ struct AdjustVideoView: View {
 //                                        .normalShadow()
                                         .overlay (
                                             Text("Cancel")
-                                                .foregroundColor(.black)
+                                                .foregroundStyle(
+                                                    LinearGradient(colors: [
+                                                        Color("buttionGradientTwo"),
+                                                        Color("buttionGradientOne"),
+                                                    ], startPoint: .topLeading, endPoint: .bottomTrailing))
                                         )
                                 }
                                 Spacer(minLength: 20)
@@ -92,7 +96,10 @@ struct AdjustVideoView: View {
                                     }
                                 } label: {
                                     RoundedRectangle(cornerRadius: 25)
-                                        .foregroundColor(Color(uiColor: UIColor(red: 0.29, green: 0.27, blue: 0.29, alpha: 1.00)))
+                                        .fill(LinearGradient(colors: [
+                                            Color("buttionGradientTwo"),
+                                            Color("buttionGradientOne"),
+                                        ], startPoint: .topLeading, endPoint: .bottomTrailing))
                                         .frame(width: 98, height: 56)
                                         .overlay (
                                             Text("Trim")

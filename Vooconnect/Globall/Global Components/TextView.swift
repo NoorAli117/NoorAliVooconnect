@@ -111,7 +111,13 @@ struct TextViewTwo: UIViewRepresentable {
 }
 struct DescriptionTextEditor: View {
     @Binding var text: String
-    var placeholder: String = "Hi everyone, in this video I will sing a song #song #music #love #beauty Thanks to @Vooconnect Video credit to"
+    @State private var mentionData: String = ""
+    @State private var isListVisible: Bool = false
+    @State private var userName: [String] = []
+    @State private var searchResults: [String] = []
+    
+    private let placeholder: String = "Hi everyone, in this video I will sing a song #song #music #love #beauty. Thanks to @Vooconnect! Video credit to"
+    
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -125,26 +131,137 @@ struct DescriptionTextEditor: View {
                 .frame(height: 136)
                 .onChange(of: text) { newValue in
                     print(newValue)
+                    isListVisible = false
+                    if let lastIndex = newValue.lastIndex(of: "@") {
+                        let substring = newValue.suffix(from: newValue.index(after: lastIndex))
+                        if (substring.last != " "){
+                            if !substring.contains(" ") {
+                                let newValueAfterAt = String(substring)
+                                self.mentionData = newValueAfterAt
+                                searchUsername()
+                                isListVisible = true
+                            }
+                        }
+                    } else {
+                        isListVisible = false
+                    }
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 15)
-                        .strokeBorder((LinearGradient(colors: [
-                            Color("GradientOne"),
-                            Color("GradientTwo"),
-                        ], startPoint: .top, endPoint: .bottom)
-                        ), lineWidth: 2)
+                        .strokeBorder(
+                            LinearGradient(
+                                colors: [
+                                    Color("GradientOne"),
+                                    Color("GradientTwo"),
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            ),
+                            lineWidth: 2
+                        )
                         .padding(.leading, 4)
-                    )
-                    if text.isEmpty {
-                        Text(placeholder)
-//                            .font(.custom("Urbanist-Regular", size: 18))
-                            .foregroundColor(Color.gray)
-                            .padding(.horizontal, 8)
-                            .padding(.top, 4)
-                            .frame(height: 136)
-//                            .clipped()
+                )
+            
+            if text.isEmpty {
+                Text(placeholder)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 8)
+                    .padding(.top, 4)
+                    .frame(height: 136)
+            }
+            
+            if isListVisible {
+                VStack {
+                    ForEach(searchResults, id: \.self) { item in
+                        Button(action: {
+                            selectMention(item)
+                            isListVisible = false
+                        }) {
+                            Text(item)
+                        }
+                        .foregroundColor(.primary)
                     }
-                
+                    .listRowInsets(EdgeInsets())
+                }
+                .padding(.top, 40)
+                .frame(width: 100)
+                .background(Color.white.opacity(0.5))
+                .cornerRadius(8)
+                .shadow(radius: 4)
+                .frame(height: 120)
+                .onTapGesture {
+                    isFocused = true
+                    isListVisible = false
+                }
+            }
+        }
+    }
+    
+    private func selectMention(_ mention: String) {
+        let mentionRange = text.range(of: mentionData, options: .caseInsensitive)
+        
+        if let range = mentionRange {
+            text.replaceSubrange(range, with: "\(mention)")
+            isListVisible = false
+            mentionData = ""
+        }
+    }
+
+
+    func searchUsername() {
+        guard let url = URL(string: baseURL + EndPoints.mention) else {
+            print("Invalid URL")
+            return
+        }
+
+        let parameters: [String: Any] = [
+            "username": mentionData
+        ]
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters)
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        if let data = data {
+                            do {
+                                let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                                if let results = jsonResponse as? [String: Any],
+                                   let data = results["data"] as? [[String: Any]] {
+                                    let usernames = data.compactMap { $0["username"] as? String }
+                                    DispatchQueue.main.async {
+                                        searchResults = usernames
+                                    }
+                                }
+                            } catch {
+                                print("Error parsing JSON: \(error)")
+                            }
+                        }
+                    } else {
+                        print("HTTP response status code: \(httpResponse.statusCode)")
+                    }
+                }
+            }
+
+            task.resume()
+
+        } catch {
+            print("Error creating JSON data: \(error)")
         }
     }
 }
+class SearchResultsWrapper: ObservableObject {
+    @Published var searchResults: [String] = []
+}
+//"john","Ali","Hussain","Noor","Ayan","baqir","Hassan","Farooq"
