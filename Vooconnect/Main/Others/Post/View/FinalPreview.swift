@@ -45,23 +45,24 @@ struct FinalPreview: View{
     @State private var isRecording = false
     @State private var textView : AnyView?
     @State private var stickerTextName = ""
-    @State private var navigateToNextView = false
+    @State private var adjustmentView = false
+    @State private var voiceOverView = false
+    @StateObject var cameraModel = CameraViewModel()
     
 //    @State var playermanager = PlayerViewModel()
     
-    init(url:URL, showPreview: Binding<Bool>,songModel : DeezerSongModel?, speed : Float = 1){
-        _songModel = State(initialValue: songModel)
-        _showPreview = showPreview
+    init(url: URL, showPreview: Binding<Bool>, songModel: DeezerSongModel?, speed: Float = 1) {
         _postModel = State(initialValue: PostModel())
         _speed = State(initialValue: speed)
+        _songModel = State(initialValue: songModel)
+        _showPreview = showPreview
         let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
-        controller = FinalPreviewController(url: url, isImage:  isImage ,speed: speed)
+        controller = FinalPreviewController(url: url, isImage: isImage, speed: speed)
+        self.postModel = PostModel()
         self.postModel.contentUrl = url
         self.postModel.speed = speed
         self.postModel.songModel = songModel
-       
-        print("URL FINAL PREVIEW1: " + (url.absoluteString ))
-//        playermanager.videoUrl = url
+        print("URL FINAL PREVIEW1: " + url.absoluteString)
     }
     ///add deezer audio to video
     func addSongAudio(){
@@ -78,21 +79,137 @@ struct FinalPreview: View{
             return
         }
         loading = true
-        controller.mergeVideoAndAudio(videoUrl: self.postModel.contentUrl!, audioUrl: URL(string: songModel?.preview ?? "")!, completion:{error, url in
-            guard let url = url else{
-                print("error merging video and audio")
+        removeAudioFromVideo(videoURL: self.postModel.contentUrl!){url, error in
+            if let error = error {
+                print("Failed to remove audio: \(error.localizedDescription)")
+            } else if let audioURL = URL(string: (songModel?.preview ?? "")!) {
+                print("new remove URL: \(url)")
+//                renderUrl = url
+                self.postModel.contentUrl = url
+                controller.mergeVideoAndAudio(videoUrl: url!, audioUrl: audioURL, completion:{error, url in
+                    guard let url = url else{
+                        print("final error merging video and audio")
+                        return
+                    }
+                    print("video and audio merge, new url: "+url.absoluteString)
+                    print("last url: "+self.postModel.contentUrl!.absoluteString)
+                    self.postModel.contentUrl = url
+                    renderUrl = url
+//                    self.cameraModel.previewURL = url
+                    
+                    loading = false
+                    DispatchQueue.main.async {
+                        loading = false
+                        self.controller.setNewUrl(url: url)
+                        self.controller.play()
+                    }
+                })
+            }
+            
+        }
+        
+    }
+    
+    func removeAudioFromVideo(videoURL: URL, completion: @escaping (URL?, Error?) -> Void) {
+        let fileManager = FileManager.default
+        let composition = AVMutableComposition()
+
+        guard let sourceAsset = AVURLAsset(url: videoURL) as AVAsset? else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid video asset"]))
+            return
+        }
+
+        guard let compositionVideoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to add video track"]))
+            return
+        }
+
+        guard let sourceVideoTrack = sourceAsset.tracks(withMediaType: .video).first else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Video track not found"]))
+            return
+        }
+
+        let timeRange = CMTimeRange(start: .zero, duration: sourceAsset.duration)
+
+        do {
+            try compositionVideoTrack.insertTimeRange(timeRange, of: sourceVideoTrack, at: .zero)
+        } catch {
+            completion(nil, error)
+            return
+        }
+
+        // Create a layer instruction for the video track
+        let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: compositionVideoTrack)
+
+        // Get the track's natural size
+        let naturalSize = sourceVideoTrack.naturalSize
+
+        // Check if the video track's dimensions need to be swapped
+        let shouldSwapDimensions = needsSwapDimensions(for: sourceVideoTrack.preferredTransform)
+
+        // Swap the dimensions if necessary
+        let renderSize: CGSize = shouldSwapDimensions ? CGSize(width: naturalSize.height, height: naturalSize.width) : naturalSize
+
+        // Create a transform to rotate the video
+        let transform = sourceVideoTrack.preferredTransform
+
+        // Apply the transform to the layer instruction
+        videoLayerInstruction.setTransform(transform, at: .zero)
+
+        let videoCompositionInstruction = AVMutableVideoCompositionInstruction()
+        videoCompositionInstruction.timeRange = CMTimeRange(start: .zero, duration: composition.duration)
+        videoCompositionInstruction.layerInstructions = [videoLayerInstruction]
+
+        // Create a video composition and set the instructions
+        let videoComposition = AVMutableVideoComposition()
+        videoComposition.renderSize = renderSize
+        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+        videoComposition.instructions = [videoCompositionInstruction]
+
+        // Export the video
+        let exportPath = NSTemporaryDirectory().appending("\(Date()).mp4")
+        let exportURL = URL(fileURLWithPath: exportPath)
+
+        if fileManager.fileExists(atPath: exportPath) {
+            do {
+                try fileManager.removeItem(at: exportURL)
+            } catch {
+                completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to remove existing export file"]))
                 return
             }
-            print("video and audio merge, new url: "+url.absoluteString)
-            print("last url: "+self.postModel.contentUrl!.absoluteString)
-            self.postModel.contentUrl = url
-            loading = false
+        }
+
+        guard let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to create AVAssetExportSession"]))
+            return
+        }
+
+        // Set the video composition for the exporter
+        exporter.videoComposition = videoComposition
+
+        // Rotate the video track to its original size
+        compositionVideoTrack.preferredTransform = transform.inverted()
+
+        exporter.outputURL = exportURL
+        exporter.outputFileType = .mp4
+
+        exporter.exportAsynchronously {
             DispatchQueue.main.async {
-                self.controller.setNewUrl(url: url)
-                self.controller.play()
+                if exporter.status == .completed {
+                    completion(exportURL, nil)
+                } else {
+                    completion(nil, exporter.error)
+                }
             }
-        })
+        }
     }
+
+    // Function to check if video track's dimensions need to be swapped
+    func needsSwapDimensions(for transform: CGAffineTransform) -> Bool {
+        return transform.a == 0 && transform.d == 0 && (transform.b == 1.0 || transform.b == -1.0) && (transform.c == 1.0 || transform.c == -1.0)
+    }
+    
+    
     
     ///add record audio to video
     func mergeRecordAudioWithVideo(){
@@ -330,7 +447,7 @@ struct FinalPreview: View{
                             VStack {
                                 
                                 Button {
-                                    navigateToNextView = true
+                                    adjustmentView = true
                                     controller.pause()
                                     
                                 } label: {
@@ -352,7 +469,7 @@ struct FinalPreview: View{
                                 
                                 NavigationLink(destination:
                                                 AdjustVideoView(slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, renderUrl:$renderUrl, postModel: $postModel, callWhenBack: callWithBack)
-                                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $navigateToNextView) {
+                                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $adjustmentView) {
                                         EmptyView()
                                     }
                                 
@@ -408,37 +525,42 @@ struct FinalPreview: View{
                                         }
                                     }
                                 }
-                                
-                                
+//                                let playermanager = PlayerViewModel(videoUrl: url!)
+                                NavigationLink(destination:
+                                                SoundEditView(playerVM: playermanager, postModel: $postModel)
+                                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $voiceOverView) {
+                                        EmptyView()
+                                    }
                                 
                                 Button {
-                                    if(!isRecording){
-                                        controller.startRecording()
-                                    }else
-                                    {
-                                        controller.stopRecording()
-                                        mergeRecordAudioWithVideo()
-                                    }
-                                    isRecording.toggle()
+                                    
+                                    voiceOverView.toggle()
+                                    
+//                                    if(!isRecording){
+//                                        controller.startRecording()
+//                                    }else
+//                                    {
+//                                        controller.stopRecording()
+//                                        mergeRecordAudioWithVideo()
+//                                    }
+//                                    isRecording.toggle()
                                     
                                     
                                 } label: {
-                                    if(!self.isRecording)
-                                    {
+                                    VStack{
                                         Image("PreviewVoice")
-                                    }else{
-                                        Image("microphonePurple")
+                                        Text("Audio")
+                                            .font(.custom("Urbanist-Medium", size: 12))
+                                            .foregroundColor(.white)
+                                            .padding(.top, -5)
+                                        
+                                        Text("Editing")
+                                            .font(.custom("Urbanist-Medium", size: 12))
+                                            .foregroundColor(.white)
+                                            .padding(.top, -10)
                                     }
                                 }
-                                Text("Audio")
-                                    .font(.custom("Urbanist-Medium", size: 12))
-                                    .foregroundColor(.white)
-                                    .padding(.top, -5)
                                 
-                                Text("Editing")
-                                    .font(.custom("Urbanist-Medium", size: 12))
-                                    .foregroundColor(.white)
-                                    .padding(.top, -10)
                                 
                                 Button {
                                     loading = true

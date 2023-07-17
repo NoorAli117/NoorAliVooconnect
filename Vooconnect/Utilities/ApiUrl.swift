@@ -14,7 +14,7 @@ var assatEndPoint = "https://api.vooconnect.com:9452/api/v1"
 var userApiEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
 var getBaseURL = "https://api.vooconnect.com:9451/api/v1"
 var getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads/"
-var getImageVideoMarkedBaseURL = "https://api.vooconnect.com:9452"//3002
+var getImageVideoMarkedBaseURL = "https://api.vooconnect.com:9452/uploads/marked"//3002
 //
 //
 //

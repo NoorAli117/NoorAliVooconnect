@@ -66,6 +66,8 @@ struct FinalVideoToPostView: View {
     @State private var extractedImage: UIImage?
     @FocusState private var isFocused: Bool
     @State var progress: Double = 0
+    @State private var subLang: String = ""
+    @State private var subAllow: String = ""
     
     
     var catSelected: (Int) -> () = {val in}
@@ -748,19 +750,15 @@ struct FinalVideoToPostView: View {
                                 uploadReelss { isSuccess in
                                     if isSuccess {
                                         print("success=========")
-                                        navigateToNextView = true
                                         if (self.saveToDevice){
                                             print("Should save to device: " + self.saveToDevice.description)
-                                            if (self.autoCaption) {
-                                                Task {
+                                            Task {
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                                     downloadAndSaveWithCaptionVideo()
-                                                    loader = false
                                                 }
-                                            } else {
-                                                Task{
-                                                    downloadAncdSaveVideo()
-                                                    loader = false
-                                                }
+                                                navigateToNextView = true
+                                                loader = false
+                                                print("Video downloaded into gallery")
                                             }
                                         }
                                         if (isFacebook == true){
@@ -1065,7 +1063,14 @@ struct FinalVideoToPostView: View {
         
         private func uploadReelss(complitionHandler : @escaping(Bool) -> Void) {
             self.postModel.contentUrl = self.renderUrl
-            uploadReels.uploadReels(imageUploadRequest: self.postModel.contentUrl!, paramName: "asset", fileName: renderUrl?.lastPathComponent ?? "default.\(postModel.isImageContent() ? "png" : "mp4")", subtitleLang: self.captionLang, subtitle_apply: self.autoCaption) { responsee, errorMessage in
+            
+            if (autoCaption == true){
+                self.subAllow = "true"
+                self.subLang = captionLang
+            } else{
+                self.subAllow = "false"
+            }
+            uploadReels.uploadReels(imageUploadRequest: self.postModel.contentUrl!, paramName: "asset", fileName: renderUrl?.lastPathComponent ?? "default.\(postModel.isImageContent() ? "png" : "mp4")", subtitleLang: self.subLang, subtitle_apply: subAllow) { responsee, errorMessage in
                 if(!responsee || errorMessage == nil)
                 {
                     
@@ -1139,6 +1144,32 @@ struct CircularProgressView: View {
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     ),
+                    style: StrokeStyle(
+                        lineWidth: 5,
+                        lineCap: .round
+                    )
+                )
+                .rotationEffect(.degrees(-90))
+                .animation(.easeOut, value: progress)
+            
+        }
+    }
+}
+
+
+struct CircularProgressCameraView: View {
+    let progress: Double
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(
+                    Color.white,
+                    lineWidth: 5
+                )
+            Circle()
+                .trim(from: 0, to: progress)
+                .stroke(
+                    Color.red,
                     style: StrokeStyle(
                         lineWidth: 5,
                         lineCap: .round

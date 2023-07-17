@@ -10,7 +10,7 @@ import UIKit
 
 class UploadReelsResource {
     
-    func uploadReels(imageUploadRequest: URL,paramName : String, fileName : String, subtitleLang : String, subtitle_apply : Bool,  complitionHandler : @escaping(Bool, String?) -> Void) {
+    func uploadReels(imageUploadRequest: URL,paramName : String, fileName : String, subtitleLang : String, subtitle_apply : String,  complitionHandler : @escaping(Bool, String?) -> Void) {
         let session = URLSession.shared
         let boundary = UUID().uuidString
         var data = Data()
@@ -28,7 +28,7 @@ class UploadReelsResource {
             // Add subtitle_apply parameter
              data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
              data.append("Content-Disposition: form-data; name=\"subtitle_apply\"\r\n".data(using: .utf8)!)
-             data.append("\r\n\(String(subtitle_apply))\r\n".data(using: .utf8)!)
+             data.append("\r\n\(subtitle_apply)\r\n".data(using: .utf8)!)
 
              // Add subtitleLang parameter
              data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
@@ -45,6 +45,7 @@ class UploadReelsResource {
             urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
 
             print("ACCESS TOKEN=========", tokenData)
+            print(String(data: data, encoding: .utf8) ?? "")
 
         }
 

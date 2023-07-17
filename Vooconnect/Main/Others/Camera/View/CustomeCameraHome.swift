@@ -33,6 +33,7 @@ struct CustomeCameraHome: View {
     @State var countdownTimerText = 0
     @State var countdownTimer : Int = 0
     @State private var countdownTimer2 = 0
+    @State private var progress: Double = 0
     
     @State var timerRunning = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -523,74 +524,59 @@ struct CustomeCameraHome: View {
                                     Spacer()
 
                                 } else {
-                                    Button {
-
-                                        print("click")
-
-                                        if cameraModel.isRecording{
-                                            cameraModel.stopRecording()
-                                            countdownTimer = countdownTimer2
-                                            countdownTimerText = countdownTimer2
-                                        }
-
-                                        else {
-                                            timerRunning = true
-                                            countdownTimer = countdownTimer2
-                                            countdownTimerText = countdownTimer2
-                                            let afterTime = DispatchTimeInterval.seconds(self.countdownTimer)
-                                            print("start recording in: " + self.countdownTimer.description)
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + afterTime) {
-                                                timerRunning = false
-                                                cameraModel.startRecording()
-                                            }
-
-
-                                        }
-
-                                    } label: {
-
-                                        if cameraModel.isRecording {
-                                            Image("CameraRecording")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 58, height: 58)
-
-//                                                .overlay(content: {
-//                                                    CircleeTwo(circleProgress: $circleProgress, widthAndHeight: widthAndHeight, progressColor: progressColor)
-//                                                })
-
-//                                                .overlay(
-//
-////                                                    circleee(percent: (cameraModel.recordedDuration / cameraModel.maxDuration))
-//
-//
-////                                                       RoundedRectangle(cornerRadius: 29)
-////                                                           .stroke(.blue, lineWidth: 4)
-//////                                                           .frame(width: 58, height: 58, alignment: .center)
-////                                                        .frame(width: 58 * (cameraModel.recordedDuration / cameraModel.maxDuration), height: 58 * (cameraModel.recordedDuration / cameraModel.maxDuration), alignment: .center)
-//
-//
-//                                                   )
-                                                
-//                                                .frame(width: size.width * (cameraModel.recordedDuration / cameraModel.maxDuration))
+                                        Button {
                                             
-                                                .offset(x: 10)
-
-                                        } else {
-                                            Image("VideoClick")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 58, height: 58)
-                                                .offset(x: 10)
+                                            print("click")
+                                            
+                                            if cameraModel.isRecording{
+                                                cameraModel.stopRecording()
+                                                countdownTimer = countdownTimer2
+                                                countdownTimerText = countdownTimer2
+                                            }
+                                            
+                                            else {
+                                                timerRunning = true
+                                                countdownTimer = countdownTimer2
+                                                countdownTimerText = countdownTimer2
+                                                let afterTime = DispatchTimeInterval.seconds(self.countdownTimer)
+                                                print("start recording in: " + self.countdownTimer.description)
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + afterTime) {
+                                                    timerRunning = false
+                                                    cameraModel.startRecording()
+                                                    simulateVideoProgress()
+                                                }
                                                 
+                                                
+                                            }
+                                            
+                                        } label: {
+                                            if cameraModel.isRecording {
+                                                CircularProgressCameraView(progress: progress)
+                                                    .frame(height: 58)
+                                                    .offset(x: 10)
+                                                    .overlay(
+                                                        Image("CameraRecording")
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fill)
+                                                            .frame(width: 58, height: 58)
+                                                            .offset(x: 10)
+                                                    )
+                                                
+                                            } else {
+                                                CircularProgressCameraView(progress: progress)
+                                                    .frame(height: 58)
+                                                    .offset(x: 10)
+                                                    .overlay(
+                                                        Image("VideoClick")
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fill)
+                                                            .frame(width: 58, height: 58)
+                                                            .offset(x: 10)
+                                                    )
+                                            }
                                         }
-                                        
-    
-                                        
+                                        .padding(.leading, 8) // 8
                                     }
-                                    .padding(.leading, 8) // 8
-//                                    Spacer()
-                                }
                                 
                                 Spacer()
                                                                     
@@ -769,6 +755,40 @@ struct CustomeCameraHome: View {
         
     }
     
+    
+    func simulateVideoProgress() {
+        let stepFrequency = 10 // Number of steps per second (adjust as desired)
+        let totalProgressSteps = Int(cameraModel.maxDuration) * stepFrequency
+        let stepDuration = 1.0 / Double(totalProgressSteps)
+
+        DispatchQueue.global(qos: .background).async {
+            var shouldStop = false // Flag to indicate if the progress should be stopped
+
+            for i in 0..<totalProgressSteps {
+                usleep(useconds_t(stepDuration * 1_000_000)) // Simulating delay in audio progress
+                
+                DispatchQueue.main.async {
+                    if !cameraModel.isRecording {
+                        shouldStop = true // Set the flag to stop the progress
+                    }
+
+                    if !shouldStop {
+                        progress = Double(i + 1) / Double(totalProgressSteps)
+                    }
+
+                    if shouldStop || i == totalProgressSteps - 1 {
+                        cameraModel.isRecording = false
+                        print("Video Recording completed")
+                        cameraModel.stopRecording()
+                    }
+                }
+
+                if shouldStop {
+                    break // Exit the loop if the progress should be stopped
+                }
+            }
+        }
+    }
     
     private func connectAPI() {
         

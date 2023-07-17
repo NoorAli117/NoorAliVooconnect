@@ -34,6 +34,8 @@
 		043BCB512A3CD30B0051A57C /* VideoCursorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BCB502A3CD30B0051A57C /* VideoCursorSlider.swift */; };
 		043BCB532A3CD3CF0051A57C /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BCB522A3CD3CF0051A57C /* RangeSlider.swift */; };
 		043BCB552A3CD4F00051A57C /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BCB542A3CD4F00051A57C /* PlayerViewModel.swift */; };
+		0458EB842A5EB72000CD7B79 /* AudioRecrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */; };
+		0478E6122A5946A300656D8D /* SoundEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478E6112A5946A300656D8D /* SoundEditView.swift */; };
 		047A625329D22F3D006D2635 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625229D22F3D006D2635 /* EditProfileViewModel.swift */; };
 		047A625629D23333006D2635 /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625529D23333006D2635 /* ContactsView.swift */; };
 		047A625829D23387006D2635 /* ContactsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625729D23387006D2635 /* ContactsComponents.swift */; };
@@ -455,6 +457,8 @@
 		043BCB502A3CD30B0051A57C /* VideoCursorSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCursorSlider.swift; sourceTree = "<group>"; };
 		043BCB522A3CD3CF0051A57C /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		043BCB542A3CD4F00051A57C /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecrder.swift; sourceTree = "<group>"; };
+		0478E6112A5946A300656D8D /* SoundEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEditView.swift; sourceTree = "<group>"; };
 		047A625229D22F3D006D2635 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		047A625529D23333006D2635 /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		047A625729D23387006D2635 /* ContactsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsComponents.swift; sourceTree = "<group>"; };
@@ -902,6 +906,15 @@
 				043BCB472A3C84A40051A57C /* AdjustVideoView.swift */,
 			);
 			path = VideoTrimView;
+			sourceTree = "<group>";
+		};
+		0478E6102A59459C00656D8D /* EditAudio */ = {
+			isa = PBXGroup;
+			children = (
+				0478E6112A5946A300656D8D /* SoundEditView.swift */,
+				0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */,
+			);
+			path = EditAudio;
 			sourceTree = "<group>";
 		};
 		047A625429D2331A006D2635 /* Contacts */ = {
@@ -1986,6 +1999,7 @@
 		A9566DFA29447EBB00FCBA75 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0478E6102A59459C00656D8D /* EditAudio */,
 				043BCB492A3CD16C0051A57C /* VideoTrimView */,
 				A9E4B67A293F023100C92C57 /* FinalPreview.swift */,
 				A92DF0C2293F49EE00FB8B3D /* FinalVideoToPostView.swift */,
@@ -3022,6 +3036,7 @@
 				A955F23E295309FC00498540 /* GoLiveCreatorList.swift in Sources */,
 				049F4BDD29BBB61F00113EA0 /* UserAuthenticationManagerImpl.swift in Sources */,
 				AB752EB529AB1E130065E1C8 /* SoundViewBlocState.swift in Sources */,
+				0478E6122A5946A300656D8D /* SoundEditView.swift in Sources */,
 				A963E8FF2922635300EB4369 /* ForgotPasswordOTPView.swift in Sources */,
 				A9453E9B292B522C00728A19 /* ReelsView.swift in Sources */,
 				ABC55C5929AFC82900C3E320 /* TypeOfVisibility.swift in Sources */,
@@ -3114,6 +3129,7 @@
 				29E5A2AB2A2B4CBB00E4C093 /* CategoryViewModel.swift in Sources */,
 				A90169982941DBD30089AA45 /* BottomSheetView.swift in Sources */,
 				A91280E429191A7E008FE970 /* CreateYourAccountView.swift in Sources */,
+				0458EB842A5EB72000CD7B79 /* AudioRecrder.swift in Sources */,
 				A99AE83E291E5D7D00E613F1 /* OTPResource.swift in Sources */,
 				A99AE82C291E1BBD00E613F1 /* SignUpViewModell.swift in Sources */,
 				04DBC98429BD935500DEBAF5 /* EditProfileComponents.swift in Sources */,
