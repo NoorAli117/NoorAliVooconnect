@@ -63,6 +63,7 @@ struct CustomeCameraHome: View {
     @State private var arScene: ARGScene!
     
     
+    
     var body: some View {
         
         NavigationView {
@@ -94,13 +95,12 @@ struct CustomeCameraHome: View {
                 }
 
                 if let url = cameraModel.previewURL ,cameraModel.showPreview {
+                    let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
                     NavigationLink(
                         destination: FinalPreview(
-                            url: url,
-                            showPreview: $cameraModel.showPreview,
-                            songModel: cameraModel.songModel,
-                            speed: cameraModel.speed
-                        )
+                            
+                            controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: cameraModel.speed, showPreview: $cameraModel.showPreview,
+                            url: .constant(url))
                             .navigationBarBackButtonHidden(true)
                             .navigationBarHidden(true)
 
@@ -552,7 +552,7 @@ struct CustomeCameraHome: View {
                                         } label: {
                                             if cameraModel.isRecording {
                                                 CircularProgressCameraView(progress: progress)
-                                                    .frame(height: 58)
+                                                    .frame(height: 60)
                                                     .offset(x: 10)
                                                     .overlay(
                                                         Image("CameraRecording")
@@ -564,10 +564,10 @@ struct CustomeCameraHome: View {
                                                 
                                             } else {
                                                 CircularProgressCameraView(progress: progress)
-                                                    .frame(height: 58)
+                                                    .frame(height: 60)
                                                     .offset(x: 10)
                                                     .overlay(
-                                                        Image("VideoClick")
+                                                        Image("CameraRecording")
                                                             .resizable()
                                                             .aspectRatio(contentMode: .fill)
                                                             .frame(width: 58, height: 58)

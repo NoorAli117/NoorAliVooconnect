@@ -138,7 +138,7 @@ struct DescriptionTextEditor: View {
                             if !substring.contains(" ") {
                                 let newValueAfterAt = String(substring)
                                 self.mentionData = newValueAfterAt
-                                searchUsername()
+                                searchUsername(name: newValueAfterAt)
                                 isListVisible = true
                             }
                         }
@@ -188,7 +188,8 @@ struct DescriptionTextEditor: View {
                 .background(Color.white.opacity(0.5))
                 .cornerRadius(8)
                 .shadow(radius: 4)
-                .frame(height: 120)
+                .frame(height: 100)
+                .offset(y: 30)
                 .onTapGesture {
                     isFocused = true
                     isListVisible = false
@@ -206,61 +207,53 @@ struct DescriptionTextEditor: View {
             mentionData = ""
         }
     }
-
-
-    func searchUsername() {
-        guard let url = URL(string: baseURL + EndPoints.mention) else {
+    
+    
+    func searchUsername(name: String) {
+        guard let url = URL(string: baseURL + EndPoints.mention + "?username=" + name) else {
             print("Invalid URL")
             return
         }
-
-        let parameters: [String: Any] = [
-            "username": mentionData
-        ]
-
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: parameters)
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
-
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let error = error {
-                    print("Error: \(error)")
-                    return
-                }
-
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode == 200 {
-                        if let data = data {
-                            do {
-                                let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
-                                if let results = jsonResponse as? [String: Any],
-                                   let data = results["data"] as? [[String: Any]] {
-                                    let usernames = data.compactMap { $0["username"] as? String }
-                                    DispatchQueue.main.async {
-                                        searchResults = usernames
-                                    }
-                                }
-                            } catch {
-                                print("Error parsing JSON: \(error)")
-                            }
-                        }
-                    } else {
-                        print("HTTP response status code: \(httpResponse.statusCode)")
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Invalid HTTP response")
+                return
+            }
+            
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("HTTP response status code: \(httpResponse.statusCode)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+            
+            do {
+                let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                if let results = jsonResponse as? [String: Any],
+                   let data = results["data"] as? [[String: Any]] {
+                    let usernames = data.compactMap { $0["username"] as? String }
+                    DispatchQueue.main.async {
+                        searchResults = usernames
                     }
                 }
+            } catch {
+                print("Error parsing JSON: \(error)")
             }
-
-            task.resume()
-
-        } catch {
-            print("Error creating JSON data: \(error)")
         }
+        
+        task.resume()
     }
 }
+
 class SearchResultsWrapper: ObservableObject {
     @Published var searchResults: [String] = []
 }

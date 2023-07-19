@@ -123,9 +123,9 @@ class VideoMediaInput: NSObject {
     deinit{
         print(">> VideoInput deinited !!!! 📌📌")
         
-        NotificationCenter.default.removeObserver(self)
+//        NotificationCenter.default.removeObserver(self)
         
-        stopAllProcesses()
+//        stopAllProcesses()
         
     }
     public func playVideo(){
@@ -219,7 +219,7 @@ class VideoMediaInput: NSObject {
         (tap, numberFrames, flags, bufferListInOut, numberFramesOut, flagsOut) in
 //        print("callback \(bufferListInOut)\n")
 
-        let selfMediaInput = Unmanaged<VideoMediaInput>.fromOpaque(MTAudioProcessingTapGetStorage(tap)).takeUnretainedValue()
+    let selfMediaInput = Unmanaged<VideoMediaInput>.fromOpaque(MTAudioProcessingTapGetStorage(tap)).takeUnretainedValue()
         
         let status = MTAudioProcessingTapGetSourceAudio(tap, numberFrames, bufferListInOut, flagsOut, nil, numberFramesOut)
         //print("get audio: \(status)\n")

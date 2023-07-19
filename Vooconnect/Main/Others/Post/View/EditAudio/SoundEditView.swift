@@ -23,7 +23,7 @@ struct SoundEditView: View {
     @State private var audioRecorder: AVAudioRecorder?
     @State private var outputUrl: URL?
     @StateObject var cameraModel = CameraViewModel()
-//    var callWhenBack : () -> ()
+    var callWhenBack : () -> ()
     
     var body: some View{
         NavigationView{
@@ -61,7 +61,7 @@ struct SoundEditView: View {
                                     Button(action: {
                                         withAnimation {
                                             cameraModel.previewURL = postModel.contentUrl
-//                                            self.callWhenBack()
+                                            self.callWhenBack()
                                             
                                             isButton = false
                                         }

@@ -17,215 +17,42 @@ import NavigationStack
 // MARK: Final Video Preview
 struct FinalPreview: View{
     @Environment(\.presentationMode) var presentaionMode
-    @EnvironmentObject private var navigationModel: NavigationModel
-    @ObservedObject private var controller : FinalPreviewController
+    @EnvironmentObject  var navigationModel: NavigationModel
+    @State var controller : FinalPreviewController
     @StateObject var speechRecognizer = SpeechRecognizerHelper()
-    @State private var postModel : PostModel
-    @State var songModel : DeezerSongModel?
-    @State var speed : Float
-    @State private var renderUrl : URL?
+    @State  var postModel : PostModel = PostModel()
+    @State var songModel : DeezerSongModel? = DeezerSongModel()
+    @State var speed : Float = 1.0
+    @State  var renderUrl : URL?
     @State var trimRenderUrl = URL(string: "")
     @Binding var showPreview: Bool
-    @State private var finalVideoPost: Bool = false
-    private let uploadReels: UploadReelsResource = UploadReelsResource()
-    @State private var isPlaying: Bool = false;
-    @State private var loading: Bool = false
-    @State private var stickerOffset = CGSize.zero
-    @State private var textOffset = CGSize.zero
-    @State private var accumulatedTextOffset = CGSize.zero
-    @State private var accumulatedstickerOffset = CGSize.zero
-    @State private var stickerScale : CGFloat = 1.0
-    @State private var textScale : CGFloat = 1.0
-    @State private var enableSticker : Bool = false
-    @State private var enableText : Bool = false
-    @State private var showTextAlert = false
-    @State private var showStickerView = false
-    @State private var showPrivacySettings = false
-    @State private var text = ""
-    @State private var isRecording = false
-    @State private var textView : AnyView?
-    @State private var stickerTextName = ""
-    @State private var adjustmentView = false
-    @State private var voiceOverView = false
+    @State  var finalVideoPost: Bool = false
+     let uploadReels: UploadReelsResource = UploadReelsResource()
+    @State  var isPlaying: Bool = false;
+    @State  var loading: Bool = false
+    @State  var stickerOffset = CGSize.zero
+    @State  var textOffset = CGSize.zero
+    @State  var accumulatedTextOffset = CGSize.zero
+    @State  var accumulatedstickerOffset = CGSize.zero
+    @State  var stickerScale : CGFloat = 1.0
+    @State  var textScale : CGFloat = 1.0
+    @State  var enableSticker : Bool = false
+    @State  var enableText : Bool = false
+    @State  var showTextAlert = false
+    @State  var showStickerView = false
+    @State  var showPrivacySettings = false
+    @State  var text = ""
+    @State  var isRecording = false
+    @State  var textView : AnyView?
+    @State  var stickerTextName = ""
+    @State  var adjustmentView = false
+    @State  var voiceOverView = false
     @StateObject var cameraModel = CameraViewModel()
+    @Binding var url: URL
+    @State var changeURL = URL(string: "")
     
 //    @State var playermanager = PlayerViewModel()
-    
-    init(url: URL, showPreview: Binding<Bool>, songModel: DeezerSongModel?, speed: Float = 1) {
-        _postModel = State(initialValue: PostModel())
-        _speed = State(initialValue: speed)
-        _songModel = State(initialValue: songModel)
-        _showPreview = showPreview
-        let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
-        controller = FinalPreviewController(url: url, isImage: isImage, speed: speed)
-        self.postModel = PostModel()
-        self.postModel.contentUrl = url
-        self.postModel.speed = speed
-        self.postModel.songModel = songModel
-        print("URL FINAL PREVIEW1: " + url.absoluteString)
-    }
-    ///add deezer audio to video
-    func addSongAudio(){
-        
-        if(self.postModel.isImageContent() == false){
-        }else{
-            return
-        }
-        if(songModel == nil)
-        {
-            print("song not present on video")
-            controller.play()
-            loading = false
-            return
-        }
-        loading = true
-        removeAudioFromVideo(videoURL: self.postModel.contentUrl!){url, error in
-            if let error = error {
-                print("Failed to remove audio: \(error.localizedDescription)")
-            } else if let audioURL = URL(string: (songModel?.preview ?? "")!) {
-                print("new remove URL: \(url)")
-//                renderUrl = url
-                self.postModel.contentUrl = url
-                controller.mergeVideoAndAudio(videoUrl: url!, audioUrl: audioURL, completion:{error, url in
-                    guard let url = url else{
-                        print("final error merging video and audio")
-                        return
-                    }
-                    print("video and audio merge, new url: "+url.absoluteString)
-                    print("last url: "+self.postModel.contentUrl!.absoluteString)
-                    self.postModel.contentUrl = url
-                    renderUrl = url
-//                    self.cameraModel.previewURL = url
-                    
-                    loading = false
-                    DispatchQueue.main.async {
-                        loading = false
-                        self.controller.setNewUrl(url: url)
-                        self.controller.play()
-                    }
-                })
-            }
-            
-        }
-        
-    }
-    
-    func removeAudioFromVideo(videoURL: URL, completion: @escaping (URL?, Error?) -> Void) {
-        let fileManager = FileManager.default
-        let composition = AVMutableComposition()
 
-        guard let sourceAsset = AVURLAsset(url: videoURL) as AVAsset? else {
-            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid video asset"]))
-            return
-        }
-
-        guard let compositionVideoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else {
-            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to add video track"]))
-            return
-        }
-
-        guard let sourceVideoTrack = sourceAsset.tracks(withMediaType: .video).first else {
-            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Video track not found"]))
-            return
-        }
-
-        let timeRange = CMTimeRange(start: .zero, duration: sourceAsset.duration)
-
-        do {
-            try compositionVideoTrack.insertTimeRange(timeRange, of: sourceVideoTrack, at: .zero)
-        } catch {
-            completion(nil, error)
-            return
-        }
-
-        // Create a layer instruction for the video track
-        let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: compositionVideoTrack)
-
-        // Get the track's natural size
-        let naturalSize = sourceVideoTrack.naturalSize
-
-        // Check if the video track's dimensions need to be swapped
-        let shouldSwapDimensions = needsSwapDimensions(for: sourceVideoTrack.preferredTransform)
-
-        // Swap the dimensions if necessary
-        let renderSize: CGSize = shouldSwapDimensions ? CGSize(width: naturalSize.height, height: naturalSize.width) : naturalSize
-
-        // Create a transform to rotate the video
-        let transform = sourceVideoTrack.preferredTransform
-
-        // Apply the transform to the layer instruction
-        videoLayerInstruction.setTransform(transform, at: .zero)
-
-        let videoCompositionInstruction = AVMutableVideoCompositionInstruction()
-        videoCompositionInstruction.timeRange = CMTimeRange(start: .zero, duration: composition.duration)
-        videoCompositionInstruction.layerInstructions = [videoLayerInstruction]
-
-        // Create a video composition and set the instructions
-        let videoComposition = AVMutableVideoComposition()
-        videoComposition.renderSize = renderSize
-        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
-        videoComposition.instructions = [videoCompositionInstruction]
-
-        // Export the video
-        let exportPath = NSTemporaryDirectory().appending("\(Date()).mp4")
-        let exportURL = URL(fileURLWithPath: exportPath)
-
-        if fileManager.fileExists(atPath: exportPath) {
-            do {
-                try fileManager.removeItem(at: exportURL)
-            } catch {
-                completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to remove existing export file"]))
-                return
-            }
-        }
-
-        guard let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
-            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to create AVAssetExportSession"]))
-            return
-        }
-
-        // Set the video composition for the exporter
-        exporter.videoComposition = videoComposition
-
-        // Rotate the video track to its original size
-        compositionVideoTrack.preferredTransform = transform.inverted()
-
-        exporter.outputURL = exportURL
-        exporter.outputFileType = .mp4
-
-        exporter.exportAsynchronously {
-            DispatchQueue.main.async {
-                if exporter.status == .completed {
-                    completion(exportURL, nil)
-                } else {
-                    completion(nil, exporter.error)
-                }
-            }
-        }
-    }
-
-    // Function to check if video track's dimensions need to be swapped
-    func needsSwapDimensions(for transform: CGAffineTransform) -> Bool {
-        return transform.a == 0 && transform.d == 0 && (transform.b == 1.0 || transform.b == -1.0) && (transform.c == 1.0 || transform.c == -1.0)
-    }
-    
-    
-    
-    ///add record audio to video
-    func mergeRecordAudioWithVideo(){
-        let audioURL = controller.audioRecorder.url
-        controller.mergeVideoAndAudio(videoUrl: self.postModel.contentUrl!, audioUrl: audioURL, completion: {error, url in
-            guard let url = url else{
-                print("error merging video and audio")
-                return
-            }
-            DispatchQueue.main.async {
-                self.controller.setNewUrl(url: url)
-                self.postModel.contentUrl = url
-                controller.play()
-            }
-        })
-    }
     
     var body: some View{
         
@@ -237,7 +64,6 @@ struct FinalPreview: View{
                 contentView(size:size)
                     .disabled(true)
                     .onAppear{
-                        addSongAudio()
                     }
                     .onTapGesture {
                         if(controller.isPlaying)
@@ -527,7 +353,7 @@ struct FinalPreview: View{
                                 }
 //                                let playermanager = PlayerViewModel(videoUrl: url!)
                                 NavigationLink(destination:
-                                                SoundEditView(playerVM: playermanager, postModel: $postModel)
+                                                SoundEditView(playerVM: playermanager, postModel: $postModel, callWhenBack: callWithBack)
                                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $voiceOverView) {
                                         EmptyView()
                                     }
@@ -623,7 +449,7 @@ struct FinalPreview: View{
                         }
                         .onDisappear{
                             DispatchQueue.main.async {
-                                controller.videoPlayer.stopAllProcesses()
+                                controller.pause()
                                 print("Player Stoped")
                             }
                         }
@@ -898,12 +724,31 @@ struct FinalPreview: View{
             .ignoresSafeArea(.all)
             .navigationBarHidden(true)
         }
+        .onAppear {
+            print("final preview appear----------------")
+            self.postModel.contentUrl = url
+            self.postModel.speed = speed
+            self.postModel.songModel = songModel
+            if (changeURL != nil){
+                let isImage = !(changeURL!.absoluteString.lowercased().contains(".mp4") || changeURL!.absoluteString.lowercased().contains(".mov"))
+                controller = FinalPreviewController(url: changeURL!, isImage: isImage, speed: cameraModel.speed)
+            }
+            print("URL FINAL PREVIEW1: " + url.absoluteString)
+        }
+        .onDisappear{
+            print("final preview disappear")
+        }
     }
     
     
     func callWithBack()  {
         if let url = postModel.contentUrl {
-            controller.videoPlayer.onChange(for: url )
+            self.changeURL = url
+            self.renderUrl = url
+            if (changeURL != nil){
+                let isImage = !(changeURL!.absoluteString.lowercased().contains(".mp4") || changeURL!.absoluteString.lowercased().contains(".mov"))
+                controller = FinalPreviewController(url: changeURL!, isImage: isImage, speed: cameraModel.speed)
+            }
         }
     }
     
@@ -992,6 +837,7 @@ struct FinalPreview: View{
                 VideoPlayer(player: controller.videoPlayer.player)
                     .aspectRatio(contentMode: .fill)
                     .frame(width: size.width, height: size.height)
+                
             }
         }
         .background {

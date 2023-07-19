@@ -20,6 +20,7 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     @Published var isRecording: Bool = false
     @Published var recordedURLs: [URL] = []
     @Published var previewURL: URL? = nil
+    @Published var localPreviewURL: URL? = nil
     @Published var showPreview: Bool = false
               
     // Top Progress Bar
@@ -170,6 +171,112 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     }
     //merge Song with audio
     
+    
+    func mergeVideoAndAudio(videoUrl: URL,audioUrl: URL,shouldFlipHorizontally: Bool = false,
+                            completion: @escaping (_ error: Error?, _ url: URL?) -> Void) {
+
+        
+        let mixComposition = AVMutableComposition()
+        var mutableCompositionVideoTrack = [AVMutableCompositionTrack]()
+        var mutableCompositionAudioTrack = [AVMutableCompositionTrack]()
+        var mutableCompositionAudioOfVideoTrack = [AVMutableCompositionTrack]()
+
+        //start merge
+
+        let aVideoAsset = AVAsset(url: videoUrl)
+        let aAudioAsset = AVAsset(url: audioUrl)
+        let compositionAddVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.video,
+                                                                       preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        
+        let compositionAddAudio = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio,
+                                                                 preferredTrackID: kCMPersistentTrackID_Invalid)!
+
+        let compositionAddAudioOfVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio,
+                                                                        preferredTrackID: kCMPersistentTrackID_Invalid)!
+        
+        let first = CMTimeRange(start: CMTime.zero, duration: aVideoAsset.duration)
+        let fullRange = CMTimeRange(start: CMTime.zero, duration: CMTime(value: aVideoAsset.duration.value, timescale: CMTimeScale(self.speed)))
+        compositionAddVideo?.scaleTimeRange(first, toDuration: fullRange.duration)
+        compositionAddAudio.scaleTimeRange(first, toDuration: fullRange.duration)
+        compositionAddAudioOfVideo.scaleTimeRange(first, toDuration: fullRange.duration)
+
+        let aVideoAssetTrack: AVAssetTrack = aVideoAsset.tracks(withMediaType: AVMediaType.video)[0]
+        let aAudioOfVideoAssetTrack: AVAssetTrack? = aVideoAsset.tracks(withMediaType: AVMediaType.audio).first
+        let aAudioAssetTrack: AVAssetTrack = aAudioAsset.tracks(withMediaType: AVMediaType.audio)[0]
+
+        // Default must have tranformation
+        compositionAddVideo?.preferredTransform = aVideoAssetTrack.preferredTransform
+
+        if shouldFlipHorizontally {
+            // Flip video horizontally
+            var frontalTransform: CGAffineTransform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+            frontalTransform = frontalTransform.translatedBy(x: -aVideoAssetTrack.naturalSize.width, y: 0.0)
+            frontalTransform = frontalTransform.translatedBy(x: 0.0, y: -aVideoAssetTrack.naturalSize.width)
+            compositionAddVideo?.preferredTransform = frontalTransform
+        }
+
+        mutableCompositionVideoTrack.append(compositionAddVideo!)
+        mutableCompositionAudioTrack.append(compositionAddAudio)
+        mutableCompositionAudioOfVideoTrack.append(compositionAddAudioOfVideo)
+        
+
+        do {
+            try mutableCompositionVideoTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
+                                                                                duration: aVideoAssetTrack.timeRange.duration),
+                                                                of: aVideoAssetTrack,
+                                                                at: CMTime.zero)
+
+            //In my case my audio file is longer then video file so i took videoAsset duration
+            //instead of audioAsset duration
+            try mutableCompositionAudioTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
+                                                                                duration: aVideoAssetTrack.timeRange.duration),
+                                                                of: aAudioAssetTrack,
+                                                                at: CMTime.zero)
+
+            // adding audio (of the video if exists) asset to the final composition
+            if let aAudioOfVideoAssetTrack = aAudioOfVideoAssetTrack {
+                try mutableCompositionAudioOfVideoTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
+                                                                                           duration: aVideoAssetTrack.timeRange.duration),
+                                                                           of: aAudioOfVideoAssetTrack,
+                                                                           at: CMTime.zero)
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+
+        // Exporting
+        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/newVideo.mp4")
+        do { // delete old video
+            try FileManager.default.removeItem(at: savePathUrl)
+        } catch { print(error.localizedDescription) }
+        
+        let assetExport: AVAssetExportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)!
+        assetExport.outputFileType = AVFileType.mp4
+        assetExport.outputURL = savePathUrl
+        assetExport.shouldOptimizeForNetworkUse = true
+        
+
+        assetExport.exportAsynchronously { () -> Void in
+            switch assetExport.status {
+            case AVAssetExportSession.Status.completed:
+                print("success")
+                completion(nil, savePathUrl)
+            case AVAssetExportSession.Status.failed:
+                print("failed \(assetExport.error?.localizedDescription ?? "error nil")")
+                completion(assetExport.error, nil)
+            case AVAssetExportSession.Status.cancelled:
+                print("cancelled \(assetExport.error?.localizedDescription ?? "error nil")")
+                completion(assetExport.error, nil)
+            default:
+                print("complete")
+                completion(assetExport.error, nil)
+            }
+        }
+
+    }
+    
     func mergeAudioToVideo(sourceAudioPath: String, sourceVideoPath: String, completion: @escaping (URL?, Error?) -> Void) {
         
         
@@ -319,7 +426,7 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         print("Start recording")
         if(songModel != nil)
         {
-            let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: songModel!.preview)
+            let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: songModel!.preview!)
         }
         recordingStopWatch()
         isRecording = true
@@ -349,10 +456,32 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         }
         
         // CREATED SUCCESSFULLY
-        print(outputFileURL)
         self.recordedURLs.append(outputFileURL)
         if self.recordedURLs.count == 1{
-            self.previewURL = outputFileURL
+            if(self.songModel == nil)
+            {
+                print("=========\(outputFileURL)")
+                print("output url: \(outputFileURL)")
+                self.previewURL = outputFileURL
+            }
+            self.removeAudioFromVideo(videoURL: outputFileURL){url, error in
+                if let error = error {
+                    print("Failed to remove audio: \(error.localizedDescription)")
+                } else if let audioURL = URL(string: (self.songModel?.preview ?? "")!) {
+                    self.mergeVideoAndAudio(videoUrl: url!, audioUrl: audioURL, completion:{error, url in
+                        guard let url = url else{
+                            print("final error merging video and audio")
+                            return
+                        }
+                        print("video and audio merge, new url: "+url.absoluteString)
+                        self.previewURL = nil
+                        DispatchQueue.main.async {
+                            self.previewURL = url
+                        }
+                    })
+                }
+                
+            }
             return
         }
         
@@ -371,7 +500,6 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
                 }
                 else{
                     if let finalURL = exporter.outputURL{
-                        print(finalURL)
                         DispatchQueue.main.async {
                             self.previewURL = finalURL
                         }
