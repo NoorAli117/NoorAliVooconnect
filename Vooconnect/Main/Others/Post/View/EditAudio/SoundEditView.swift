@@ -107,17 +107,29 @@ struct SoundEditView: View {
         let stepDuration = 1.0 / Double(totalProgressSteps)
 
         DispatchQueue.global(qos: .background).async {
+            var shouldStop = false // Flag to indicate if the progress should be stopped
+
             for i in 0..<totalProgressSteps {
                 usleep(useconds_t(stepDuration * 1_000_000)) // Simulating delay in audio progress
                 
                 DispatchQueue.main.async {
-                    progress = Double(i + 1) / Double(totalProgressSteps)
-                    
-                    if i == totalProgressSteps - 1 {
+                    if !isRecording {
+                        shouldStop = true // Set the flag to stop the progress
+                    }
+
+                    if !shouldStop {
+                        progress = Double(i + 1) / Double(totalProgressSteps)
+                    }
+
+                    if shouldStop || i == totalProgressSteps - 1 {
                         isRecording = false
-                        print("Audio download completed")
+                        print("Audio Recording completed")
                         stopRecording()
                     }
+                }
+
+                if shouldStop {
+                    break // Exit the loop if the progress should be stopped
                 }
             }
         }
@@ -225,6 +237,7 @@ struct SoundEditView: View {
                     print("back")
                     presentationMode.wrappedValue.dismiss()
                     playerVM.player.pause()
+                    stopRecording()
                 }) {
                     Image(systemName: "chevron.left")
     //                Text("Back")

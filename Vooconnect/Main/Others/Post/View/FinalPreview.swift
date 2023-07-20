@@ -391,12 +391,30 @@ struct FinalPreview: View{
                                 Button {
                                     loading = true
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0){
-                                        controller.noiseReductionToVideo(videoUrl: self.postModel.contentUrl!.absoluteString,callback: {val in
-                                            self.postModel.contentUrl = val
-                                            self.controller.setNewUrl(url: self.postModel.contentUrl!)
-                                            self.controller.play()
-                                            loading = false
-                                        })
+                                        controller.denoiseVideo(inputURL: self.postModel.contentUrl!, outputURL: self.postModel.contentUrl!){ outputUrll in
+                                            if (outputUrll != nil){
+                                                if let outputURL = outputUrll {
+                                                    self.renderUrl = outputURL
+                                                    self.postModel.contentUrl = outputURL
+                                                    // Denoising process completed successfully, use the denoised video at "outputURL"
+                                                    print("Denoised video saved at: \(outputURL)")
+                                                    let isImage = !(renderUrl!.absoluteString.lowercased().contains(".mp4") || renderUrl!.absoluteString.lowercased().contains(".mov"))
+                                                    controller = FinalPreviewController(url: renderUrl!, isImage: isImage, speed: cameraModel.speed)
+                                                    loading = false
+                                                    // Perform further actions, like displaying the denoised video or saving it to the camera roll
+                                                } else {
+                                                    // Error occurred during denoising process
+                                                    print("Error: Noise reduction failed.")
+                                                    // Handle the error if noise reduction fails
+                                                }
+                                            }
+                                            //                                        controller.noiseReductionToVideo(videoUrl: self.postModel.contentUrl!.absoluteString,callback: {val in
+                                            //                                            self.postModel.contentUrl = val
+                                            //                                            self.controller.setNewUrl(url: self.postModel.contentUrl!)
+                                            //                                            self.controller.play()
+                                            //                                            loading = false
+                                            //                                        })
+                                        }
                                     }
                                 } label: {
                                     Image("PreviewReduceNoise")
@@ -736,6 +754,7 @@ struct FinalPreview: View{
             print("URL FINAL PREVIEW1: " + url.absoluteString)
         }
         .onDisappear{
+            controller.videoPlayer.stopAllProcesses()
             print("final preview disappear")
         }
     }

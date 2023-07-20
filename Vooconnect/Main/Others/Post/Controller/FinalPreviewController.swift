@@ -475,6 +475,29 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         audioRecorder?.stop()
     }
     
+//    ///refresh videoplayer
+//    
+//    private func refreshVideoPlayer() {
+//            // Remove any existing player and playerLayer
+//            player?.pause()
+//            player = nil
+//            playerLayer?.removeFromSuperlayer()
+//            playerLayer = nil
+//            
+//            // Create a new AVPlayer with the updated URL
+//            if let videoURL = videoURL {
+//                player = AVPlayer(url: videoURL)
+//                playerLayer = AVPlayerLayer(player: player)
+//                
+//                // Configure the playerLayer to fit the view's bounds
+//                playerLayer?.frame = view.bounds
+//                view.layer.addSublayer(playerLayer!)
+//                
+//                // Start playing the video
+//                player?.play()
+//            }
+//        }
+    
     //Get the audio from video, callback the url of the file
     
     func getAudioFromVideoUrl(url : String, callback : @escaping (URL) -> ()) {
@@ -686,4 +709,150 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         }
 
     }
+    
+    
+    
+    ///AVAssetReader to read video frames
+
+    
+    func setupAssetReader(asset: AVAsset) -> (AVAssetReader, CGSize)? {
+        do {
+            let reader = try AVAssetReader(asset: asset)
+            
+            // Define the video track to read
+            guard let videoTrack = asset.tracks(withMediaType: .video).first else {
+                return nil
+            }
+            
+            let naturalSize = videoTrack.naturalSize
+            
+            let outputSettings: [String: Any] = [
+                kCVPixelBufferPixelFormatTypeKey as String: NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+            ]
+            
+            let readerOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: outputSettings)
+            readerOutput.alwaysCopiesSampleData = false
+            reader.add(readerOutput)
+            
+            return (reader, naturalSize)
+        } catch {
+            print("Error setting up AVAssetReader: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+    
+    ///AVAssetWriter to write the processed video
+    
+    
+    func setupAssetWriter(url: URL, width: Int, height: Int) -> AVAssetWriter? {
+        do {
+            let writer = try AVAssetWriter(outputURL: url, fileType: .mp4)
+            
+            let outputSettings: [String: Any] = [
+                AVVideoCodecKey: AVVideoCodecType.h264,
+                AVVideoWidthKey: width,
+                AVVideoHeightKey: height
+            ]
+            
+            let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: outputSettings)
+            writerInput.expectsMediaDataInRealTime = false
+            writer.add(writerInput)
+            
+            return writer
+        } catch {
+            print("Error setting up AVAssetWriter: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    
+    ///noise reduction function using a CIFilter
+
+    func applyNoiseReduction(to pixelBuffer: CVPixelBuffer) -> CVPixelBuffer? {
+        let inputImage = CIImage(cvPixelBuffer: pixelBuffer)
+        guard let noiseReductionFilter = CIFilter(name: "CINoiseReduction") else {
+            return nil
+        }
+        
+        noiseReductionFilter.setValue(inputImage, forKey: kCIInputImageKey)
+        noiseReductionFilter.setValue(0.02, forKey: "inputNoiseLevel")
+        noiseReductionFilter.setValue(0.4, forKey: "inputSharpness")
+        
+        guard let outputImage = noiseReductionFilter.outputImage else {
+            return nil
+        }
+        
+        let context = CIContext()
+        var outputPixelBuffer: CVPixelBuffer?
+        CVPixelBufferCreate(nil, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer), kCVPixelFormatType_32BGRA, nil, &outputPixelBuffer)
+        context.render(outputImage, to: outputPixelBuffer!)
+        
+        return outputPixelBuffer
+    }
+
+    ///Process and denoise the video frames
+    
+    func denoiseVideo(inputURL: URL, outputURL: URL, completion: @escaping (URL?) -> Void) {
+        let videoAsset = AVAsset(url: inputURL)
+
+        guard let (reader, videoSize) = setupAssetReader(asset: videoAsset) else {
+            print("Error setting up AVAssetReader.")
+            completion(nil) // Call completion with nil to indicate an error
+            return
+        }
+
+        guard let writer = setupAssetWriter(url: outputURL, width: Int(videoSize.width), height: Int(videoSize.height)) else {
+            print("Error setting up AVAssetWriter.")
+            completion(nil) // Call completion with nil to indicate an error
+            return
+        }
+
+        let writerInput = writer.inputs.first!
+        writer.startWriting()
+        reader.startReading()
+        writer.startSession(atSourceTime: CMTime.zero)
+
+        let videoProcessingQueue = DispatchQueue(label: "com.yourapp.videoProcessingQueue")
+        writerInput.requestMediaDataWhenReady(on: videoProcessingQueue) {
+            while writerInput.isReadyForMoreMediaData {
+                if let sampleBuffer = reader.outputs.first?.copyNextSampleBuffer() {
+                    // Perform noise reduction on the sampleBuffer's video frame
+                    if let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+                        let denoisedPixelBuffer = self.applyNoiseReduction(to: pixelBuffer)
+                        if let denoisedBuffer = denoisedPixelBuffer {
+                            // Create a new CMSampleBuffer with the denoised pixel buffer
+                            var newSampleBuffer: CMSampleBuffer?
+                            var timingInfo = CMSampleTimingInfo()
+                            CMSampleBufferGetSampleTimingInfo(sampleBuffer, at: 0, timingInfoOut: &timingInfo)
+
+                            // Create CMVideoFormatDescription for the denoised pixel buffer
+                            var formatDescription: CMVideoFormatDescription?
+                            CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault, imageBuffer: denoisedBuffer, formatDescriptionOut: &formatDescription)
+
+                            // Create the new sample buffer with the format description and timing info
+                            CMSampleBufferCreateReadyWithImageBuffer(allocator: kCFAllocatorDefault,
+                                                                     imageBuffer: denoisedBuffer,
+                                                                     formatDescription: formatDescription!,
+                                                                     sampleTiming: &timingInfo,
+                                                                     sampleBufferOut: &newSampleBuffer)
+
+                            // Append the denoised sample buffer to the writerInput
+                            if let newSampleBuffer = newSampleBuffer {
+                                writerInput.append(newSampleBuffer)
+                            }
+                        }
+                    }
+                } else {
+                    writerInput.markAsFinished()
+                    writer.finishWriting {
+                        // Call the completion handler with the output URL once the writing is finished
+                        completion(outputURL)
+                    }
+                    break
+                }
+            }
+        }
+    }
+
 }

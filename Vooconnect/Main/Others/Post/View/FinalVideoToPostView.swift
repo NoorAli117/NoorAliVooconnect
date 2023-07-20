@@ -16,7 +16,6 @@ import FBSDKShareKit
 struct FinalVideoToPostView: View {
     
     @Environment(\.presentationMode) var presentaionMode
-    @State private var navigateToNextView = false
     @State private var showPreview = false
     @State private var bottomSheetShown = false
     @State private var bottomSheetMoreOption = false
@@ -86,10 +85,10 @@ struct FinalVideoToPostView: View {
                 
                 VStack {
                     
-                    NavigationLink(destination: HomePageView()
-                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $homeView) {
-                            EmptyView()
-                        }
+//                    NavigationLink(destination: HomePageView()
+//                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $homeView) {
+//                            EmptyView()
+//                        }
                     
                     HStack {
                         Button {
@@ -749,17 +748,20 @@ struct FinalVideoToPostView: View {
                                 }
                                 uploadReelss { isSuccess in
                                     if isSuccess {
-                                        print("success=========")
                                         if (self.saveToDevice){
                                             print("Should save to device: " + self.saveToDevice.description)
                                             Task {
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                                     downloadAndSaveWithCaptionVideo()
                                                 }
-                                                navigateToNextView = true
+                                                homeView = true
                                                 loader = false
                                                 print("Video downloaded into gallery")
                                             }
+                                        }else{
+                                            loader = false
+                                            print("success=========")
+                                            homeView = true
                                         }
                                         if (isFacebook == true){
                                             DispatchQueue.main.async{
@@ -789,7 +791,7 @@ struct FinalVideoToPostView: View {
                                     }
                                     Spacer()
                                     NavigationLink(destination: HomePageView()
-                                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $navigateToNextView) {
+                                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $homeView) {
                                             EmptyView()
                                         }
                                 }
@@ -1164,14 +1166,14 @@ struct CircularProgressCameraView: View {
             Circle()
                 .stroke(
                     Color.white,
-                    lineWidth: 5
+                    lineWidth: 6
                 )
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
                     Color.red,
                     style: StrokeStyle(
-                        lineWidth: 5,
+                        lineWidth: 6,
                         lineCap: .round
                     )
                 )

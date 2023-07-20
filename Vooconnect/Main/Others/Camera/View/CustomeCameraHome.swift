@@ -215,7 +215,8 @@ struct CustomeCameraHome: View {
                                                         self.cameraModel.switchCamera()
                                                     } else {
                                                         flash = false
-                                                        self.cameraModel.checkPermission(isBackCamera: self.cameraModel.isBackCamera)
+                                                        self.cameraModel.switchCamera()
+//                                                        self.cameraModel.checkPermission(isBackCamera: self.cameraModel.isBackCamera)
                                                     }
 
                                                 } label: {
@@ -551,26 +552,26 @@ struct CustomeCameraHome: View {
                                             
                                         } label: {
                                             if cameraModel.isRecording {
-                                                CircularProgressCameraView(progress: progress)
-                                                    .frame(height: 60)
+                                                Image("CameraRecording")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 58, height: 58)
                                                     .offset(x: 10)
                                                     .overlay(
-                                                        Image("CameraRecording")
-                                                            .resizable()
-                                                            .aspectRatio(contentMode: .fill)
-                                                            .frame(width: 58, height: 58)
+                                                        CircularProgressCameraView(progress: progress)
+                                                            .frame(height: 54)
                                                             .offset(x: 10)
                                                     )
                                                 
                                             } else {
-                                                CircularProgressCameraView(progress: progress)
-                                                    .frame(height: 60)
+                                                Image("CameraRecording")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 58, height: 58)
                                                     .offset(x: 10)
                                                     .overlay(
-                                                        Image("CameraRecording")
-                                                            .resizable()
-                                                            .aspectRatio(contentMode: .fill)
-                                                            .frame(width: 58, height: 58)
+                                                        CircularProgressCameraView(progress: progress)
+                                                            .frame(height: 54)
                                                             .offset(x: 10)
                                                     )
                                             }

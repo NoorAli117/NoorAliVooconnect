@@ -50,7 +50,7 @@ class UploadReelsResource {
         }
 
         session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
-            print(String(data: httpData!, encoding: .utf8)!)
+//            print(String(data: httpData!, encoding: .utf8)!)
             if let data = httpData {
 
                 do {

@@ -125,7 +125,7 @@ class VideoMediaInput: NSObject {
         
 //        NotificationCenter.default.removeObserver(self)
         
-//        stopAllProcesses()
+        stopAllProcesses()
         
     }
     public func playVideo(){
