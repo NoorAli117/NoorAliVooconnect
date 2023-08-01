@@ -8,6 +8,7 @@
 import Foundation
 
 import AVFoundation
+import UIKit
 // MARK: Camera View Model
 class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDelegate {
     
@@ -564,8 +565,6 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         exporter.videoComposition = videoComposition
         completion(exporter)
     }
-    
-    
     
     
 }

@@ -34,18 +34,18 @@ struct AdjustVideoView: View {
             ZStack{
                 MyVideoPlayerView(playerVM: playerVM)
                 VStack{
-                    HStack{
-                        Text("Done")
-                            .foregroundColor(.white)
-                    }
-                    .cornerRadius(40)
-                    .frame(width: UIScreen.main.bounds.width - 40, height: 70, alignment: .trailing)
-                    .padding(20)
-                    .onTapGesture {
-                        self.callWhenBack()
-                        presentaionMode.wrappedValue.dismiss()
-                    }
-//
+//                    HStack{
+//                        Text("Done")
+//                            .foregroundColor(.white)
+//                    }
+//                    .cornerRadius(40)
+//                    .frame(width: UIScreen.main.bounds.width - 40, height: 70, alignment: .trailing)
+//                    .padding(20)
+//                    .onTapGesture {
+//                        self.callWhenBack()
+//                        presentaionMode.wrappedValue.dismiss()
+//                    }
+////
                     Spacer()
                     
                     VStack(alignment: .center){
@@ -118,6 +118,8 @@ struct AdjustVideoView: View {
 //                    Spacer(minLength: 20)
                     
                 }
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading: backButton)
             }
             .onAppear {
                 getVideoFrames()
@@ -130,6 +132,18 @@ struct AdjustVideoView: View {
         }
         
     }
+    
+    var backButton: some View {
+            Button(action: {
+                // Handle back button action here
+                print("back")
+                self.callWhenBack()
+                presentaionMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "chevron.left")
+//                Text("Back")
+            }
+        }
     
     func getVideoFrames() {
             self.frames.removeAll()

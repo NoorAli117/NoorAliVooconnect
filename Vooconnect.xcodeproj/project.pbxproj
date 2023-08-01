@@ -34,7 +34,12 @@
 		043BCB512A3CD30B0051A57C /* VideoCursorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BCB502A3CD30B0051A57C /* VideoCursorSlider.swift */; };
 		043BCB532A3CD3CF0051A57C /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BCB522A3CD3CF0051A57C /* RangeSlider.swift */; };
 		043BCB552A3CD4F00051A57C /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BCB542A3CD4F00051A57C /* PlayerViewModel.swift */; };
+		043BDB7F2A78ECA10052A572 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BDB7E2A78ECA10052A572 /* Line.swift */; };
+		043BDB812A78F3840052A572 /* DrawingDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BDB802A78F3840052A572 /* DrawingDocument.swift */; };
+		043BDB852A7906200052A572 /* DrawingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BDB842A7906200052A572 /* DrawingEngine.swift */; };
+		043BDB872A7906BF0052A572 /* DrawingShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BDB862A7906BF0052A572 /* DrawingShape.swift */; };
 		0458EB842A5EB72000CD7B79 /* AudioRecrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */; };
+		0458EB862A69764100CD7B79 /* VideoCredit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458EB852A69764100CD7B79 /* VideoCredit.swift */; };
 		0478E6122A5946A300656D8D /* SoundEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478E6112A5946A300656D8D /* SoundEditView.swift */; };
 		047A625329D22F3D006D2635 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625229D22F3D006D2635 /* EditProfileViewModel.swift */; };
 		047A625629D23333006D2635 /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625529D23333006D2635 /* ContactsView.swift */; };
@@ -53,6 +58,7 @@
 		048058AD2A34F60500C5AB1B /* NetworkManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */; };
 		048058AF2A35C94200C5AB1B /* BeautyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AE2A35C94200C5AB1B /* BeautyView.swift */; };
 		0486FC232A448ACD0076A7DD /* Face.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0486FC222A448ACD0076A7DD /* Face.scnassets */; };
+		048AB8D42A72AAC40067622C /* VideoGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 048AB8D32A72AAC40067622C /* VideoGenerator.m */; };
 		0496379229BFB2CE0044DA57 /* CreatorMoreOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */; };
 		0496379429BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */; };
 		049F4BBC29BBB54300113EA0 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 049F4BBB29BBB54300113EA0 /* SDWebImageSwiftUI */; };
@@ -457,7 +463,12 @@
 		043BCB502A3CD30B0051A57C /* VideoCursorSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCursorSlider.swift; sourceTree = "<group>"; };
 		043BCB522A3CD3CF0051A57C /* RangeSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		043BCB542A3CD4F00051A57C /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		043BDB7E2A78ECA10052A572 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		043BDB802A78F3840052A572 /* DrawingDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingDocument.swift; sourceTree = "<group>"; };
+		043BDB842A7906200052A572 /* DrawingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingEngine.swift; sourceTree = "<group>"; };
+		043BDB862A7906BF0052A572 /* DrawingShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingShape.swift; sourceTree = "<group>"; };
 		0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecrder.swift; sourceTree = "<group>"; };
+		0458EB852A69764100CD7B79 /* VideoCredit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCredit.swift; sourceTree = "<group>"; };
 		0478E6112A5946A300656D8D /* SoundEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEditView.swift; sourceTree = "<group>"; };
 		047A625229D22F3D006D2635 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		047A625529D23333006D2635 /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
@@ -476,6 +487,9 @@
 		048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+Ext.swift"; sourceTree = "<group>"; };
 		048058AE2A35C94200C5AB1B /* BeautyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyView.swift; sourceTree = "<group>"; };
 		0486FC222A448ACD0076A7DD /* Face.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Face.scnassets; sourceTree = "<group>"; };
+		048AB8D22A72AAC30067622C /* VideoGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoGenerator.h; sourceTree = "<group>"; };
+		048AB8D32A72AAC40067622C /* VideoGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoGenerator.m; sourceTree = "<group>"; };
+		048AB8D52A72BD3D0067622C /* Vooconnect-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vooconnect-Bridging-Header.h"; sourceTree = "<group>"; };
 		0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsView.swift; sourceTree = "<group>"; };
 		0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsComponents.swift; sourceTree = "<group>"; };
 		049F4BC429BBB5E100113EA0 /* Color + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color + Extensions.swift"; sourceTree = "<group>"; };
@@ -1938,6 +1952,7 @@
 				ABC55C5A29AFC8B400C3E320 /* PostCategoriesModel.swift */,
 				ABC55C5C29AFC93600C3E320 /* TagPeopleModel.swift */,
 				ABC55C5E29AFC99800C3E320 /* LocationModel.swift */,
+				043BDB7E2A78ECA10052A572 /* Line.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1946,6 +1961,7 @@
 			isa = PBXGroup;
 			children = (
 				A954C300294AE363000176FF /* ReelsPostViewModel.swift */,
+				043BDB802A78F3840052A572 /* DrawingDocument.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2009,6 +2025,7 @@
 				AB37594229CE638D000D0A2D /* AddStickerView.swift */,
 				AB37595629CFCD2F000D0A2D /* PostVisibilityView.swift */,
 				29E922CF2A289CD80008F39C /* progressView.swift */,
+				0458EB852A69764100CD7B79 /* VideoCredit.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2120,6 +2137,7 @@
 				A955F2332952C0ED00498540 /* LiveStreaming */,
 				A954621E2955562D00C4D233 /* LiveViewers */,
 				A9785FA72911103000F19ADD /* Preview Content */,
+				048AB8D52A72BD3D0067622C /* Vooconnect-Bridging-Header.h */,
 			);
 			path = Vooconnect;
 			sourceTree = "<group>";
@@ -2282,6 +2300,8 @@
 				A943809E2940734D007D9DF4 /* Model */,
 				A9B2478C293DC06800B5A233 /* View */,
 				A9B2478B293DC05600B5A233 /* ViewModel */,
+				048AB8D32A72AAC40067622C /* VideoGenerator.m */,
+				048AB8D22A72AAC30067622C /* VideoGenerator.h */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -2428,6 +2448,8 @@
 				AB752EB929AC53370065E1C8 /* FinalPreviewController.swift */,
 				29E4B45F2A25183800C79AA8 /* Functions.swift */,
 				043BCB412A3B5F220051A57C /* Foundation+Extension.swift */,
+				043BDB842A7906200052A572 /* DrawingEngine.swift */,
+				043BDB862A7906BF0052A572 /* DrawingShape.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2633,6 +2655,7 @@
 				TargetAttributes = {
 					A9785F9D2911102D00F19ADD = {
 						CreatedOnToolsVersion = 14.0.1;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -2863,6 +2886,7 @@
 				049F4C2529BBBCE700113EA0 /* NilModel.swift in Sources */,
 				042FDD1F29D791E1008B81C7 /* BottomSheet.swift in Sources */,
 				049F4C1E29BBB6E400113EA0 /* SetReactiveMethods.swift in Sources */,
+				043BDB7F2A78ECA10052A572 /* Line.swift in Sources */,
 				049F4C2929BBBD5400113EA0 /* FollowingButton.swift in Sources */,
 				049F4BCA29BBB5E100113EA0 /* View + Extensions.swift in Sources */,
 				04DBC98229BD933C00DEBAF5 /* EditProfileView.swift in Sources */,
@@ -2954,6 +2978,7 @@
 				041572AC2A13E459002CEE1E /* MusicView.swift in Sources */,
 				A940CEF029277A1500BE4533 /* ForgotPasswordPhoneEmail.swift in Sources */,
 				A9F2408829683F2E0063D430 /* TrendingHashtagView.swift in Sources */,
+				043BDB812A78F3840052A572 /* DrawingDocument.swift in Sources */,
 				0496379429BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift in Sources */,
 				A958B5502923437500FE16EA /* CreateNewPasswordView.swift in Sources */,
 				AB37595729CFCD2F000D0A2D /* PostVisibilityView.swift in Sources */,
@@ -2972,6 +2997,7 @@
 				AB752EAB29AAFBD20065E1C8 /* DeezerArtistModel.swift in Sources */,
 				ABC55C5B29AFC8B400C3E320 /* PostCategoriesModel.swift in Sources */,
 				A954624F2955C6E100C4D233 /* QuestionAnswerList.swift in Sources */,
+				043BDB852A7906200052A572 /* DrawingEngine.swift in Sources */,
 				049F4BD829BBB61F00113EA0 /* NetworkErrors.swift in Sources */,
 				049F4C0929BBB6BC00113EA0 /* SettingViewModel.swift in Sources */,
 				049F4BD929BBB61F00113EA0 /* NetworkManager.swift in Sources */,
@@ -2985,8 +3011,10 @@
 				04DBC97D29BD7A4D00DEBAF5 /* CreatorProfileViewModel.swift in Sources */,
 				A92DF0C3293F49EE00FB8B3D /* FinalVideoToPostView.swift in Sources */,
 				A998410929596B18003209F3 /* GiftPanelSheet.swift in Sources */,
+				043BDB872A7906BF0052A572 /* DrawingShape.swift in Sources */,
 				049F4BF629BBB67100113EA0 /* SubscribeView.swift in Sources */,
 				A94040E12913880600E0DDD6 /* SignUpViewModel.swift in Sources */,
+				048AB8D42A72AAC40067622C /* VideoGenerator.m in Sources */,
 				A98B97BC29505A330084B4F4 /* MyProfileView.swift in Sources */,
 				297754BD2A2A05340006DB3F /* BotSheetView.swift in Sources */,
 				ABC9F82A29AACEF3006436A1 /* SoundsManagerHelper.swift in Sources */,
@@ -3110,6 +3138,7 @@
 				A99AE82E291E209300E613F1 /* HttpUtility.swift in Sources */,
 				A9E4B67B293F023100C92C57 /* FinalPreview.swift in Sources */,
 				A9EFE515294D72CB00211382 /* ReelsLikeViewModel.swift in Sources */,
+				0458EB862A69764100CD7B79 /* VideoCredit.swift in Sources */,
 				A97E6C52294870E200FD6B7B /* SearchHashtagView.swift in Sources */,
 				A932F8FE2960070F0098B14E /* CommentSheet.swift in Sources */,
 				A9453E96292B51BA00728A19 /* Reel.swift in Sources */,
@@ -3269,6 +3298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Vooconnect/Vooconnect.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3281,6 +3311,12 @@
 					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Realm/Realm.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/RealmSwift.framework/Headers\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Realm/Headers\"",
+				);
 				INFOPLIST_FILE = Vooconnect/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vooconnect Live";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
@@ -3311,6 +3347,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/HNH Work/iOS/Vooconnect/Vooconnect/Vooconnect-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3322,6 +3360,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Vooconnect/Vooconnect.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3334,6 +3373,12 @@
 					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Realm/Realm.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/RealmSwift.framework/Headers\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Realm/Headers\"",
+				);
 				INFOPLIST_FILE = Vooconnect/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Vooconnect Live";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
@@ -3364,6 +3409,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/HNH Work/iOS/Vooconnect/Vooconnect/Vooconnect-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

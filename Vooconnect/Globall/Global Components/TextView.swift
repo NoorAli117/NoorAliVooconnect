@@ -10,7 +10,7 @@ import SwiftUI
 struct TextView: UIViewRepresentable {
     typealias UIViewType = UITextView
     
-    var placeholderText: String = "Hi everyone, in this video I will sing a song #song #music #love #beauty Thanks to @Vooconnect Video credit to"
+    var placeholderText: String = "Add Video Description"
     @Binding var text: String
     
     func makeUIView(context: UIViewRepresentableContext<TextView>) -> UITextView {
@@ -110,13 +110,16 @@ struct TextViewTwo: UIViewRepresentable {
     }
 }
 struct DescriptionTextEditor: View {
+    
     @Binding var text: String
     @State private var mentionData: String = ""
-    @State private var isListVisible: Bool = false
-    @State private var userName: [String] = []
-    @State private var searchResults: [String] = []
+    @Binding var isListVisible: Bool
+//    @State private var userName: [String] = []
+    @State var searchResults: [String] = []
     
-    private let placeholder: String = "Hi everyone, in this video I will sing a song #song #music #love #beauty. Thanks to @Vooconnect! Video credit to"
+    private let placeholder: String = "Add Video Description"
+    
+    var mentionVM: MentionResource = MentionResource()
     
     @FocusState private var isFocused: Bool
     
@@ -138,12 +141,10 @@ struct DescriptionTextEditor: View {
                             if !substring.contains(" ") {
                                 let newValueAfterAt = String(substring)
                                 self.mentionData = newValueAfterAt
-                                searchUsername(name: newValueAfterAt)
+                                mentionVM.searchUsername(name: newValueAfterAt)
                                 isListVisible = true
                             }
                         }
-                    } else {
-                        isListVisible = false
                     }
                 }
                 .overlay(
@@ -170,31 +171,31 @@ struct DescriptionTextEditor: View {
                     .frame(height: 136)
             }
             
-            if isListVisible {
-                VStack {
-                    ForEach(searchResults, id: \.self) { item in
-                        Button(action: {
-                            selectMention(item)
-                            isListVisible = false
-                        }) {
-                            Text(item)
-                        }
-                        .foregroundColor(.primary)
-                    }
-                    .listRowInsets(EdgeInsets())
-                }
-                .padding(.top, 40)
-                .frame(width: 100)
-                .background(Color.white.opacity(0.5))
-                .cornerRadius(8)
-                .shadow(radius: 4)
-                .frame(height: 100)
-                .offset(y: 30)
-                .onTapGesture {
-                    isFocused = true
-                    isListVisible = false
-                }
-            }
+//            if isListVisible {
+//                VStack {
+//                    ForEach(searchResults, id: \.self) { item in
+//                        Button(action: {
+//                            selectMention(item)
+//                            isListVisible = false
+//                        }) {
+//                            Text(item)
+//                        }
+//                        .foregroundColor(.primary)
+//                    }
+//                    .listRowInsets(EdgeInsets())
+//                }
+//                .padding(.top, 40)
+//                .frame(width: 100)
+//                .background(Color.white.opacity(0.5))
+//                .cornerRadius(8)
+//                .shadow(radius: 4)
+//                .frame(height: 100)
+//                .offset(y: 30)
+//                .onTapGesture {
+//                    isFocused = true
+//                    isListVisible = false
+//                }
+//            }
         }
     }
     
@@ -209,41 +210,73 @@ struct DescriptionTextEditor: View {
     }
     
     
+    
+}
+struct MentionData: Codable {
+    var status: Bool
+    var data: [UserData]
+}
+
+struct UserData: Codable {
+    var userName: String?
+
+    enum CodingKeys: String, CodingKey {
+        case userName = "username"
+    }
+}
+
+//class SearchResultsWrapper: ObservableObject {
+//    @Published var searchResults: [String] = []
+//}
+//"john","Ali","Hussain","Noor","Ayan","baqir","Hassan","Farooq"
+
+class MentionResource: ObservableObject{
+    
+    @Published var userName: [UserData] = []
+
     func searchUsername(name: String) {
-        guard let url = URL(string: baseURL + EndPoints.mention + "?username=" + name) else {
-            print("Invalid URL")
-            return
+        let baseURL = baseURL + EndPoints.mention  // Replace with your base URL
+        let queryParameter = "?username=" + name
+        var url = URLRequest(url: URL(string: baseURL + queryParameter)!)
+
+        let session = URLSession.shared
+        let boundary = UUID().uuidString
+        var data = Data()
+
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            url.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            url.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
+            print("ACCESS TOKEN=========", tokenData)
         }
-        
+
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
             }
-            
+
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Invalid HTTP response")
                 return
             }
-            
+
             guard (200...299).contains(httpResponse.statusCode) else {
                 print("HTTP response status code: \(httpResponse.statusCode)")
                 return
             }
-            
+
             guard let data = data else {
                 print("No data received")
                 return
             }
             
             do {
-                let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
-                if let results = jsonResponse as? [String: Any],
-                   let data = results["data"] as? [[String: Any]] {
-                    let usernames = data.compactMap { $0["username"] as? String }
-                    DispatchQueue.main.async {
-                        searchResults = usernames
-                    }
+                let decodedData = try JSONDecoder().decode(MentionData.self, from: data) // Decode the data
+                DispatchQueue.main.async {
+                    // Handle the decoded data here
+                    print("Decoded Data:", decodedData)
+                    
+                    self.userName = decodedData.data
                 }
             } catch {
                 print("Error parsing JSON: \(error)")
@@ -252,9 +285,5 @@ struct DescriptionTextEditor: View {
         
         task.resume()
     }
-}
 
-class SearchResultsWrapper: ObservableObject {
-    @Published var searchResults: [String] = []
 }
-//"john","Ali","Hussain","Noor","Ayan","baqir","Hassan","Farooq"

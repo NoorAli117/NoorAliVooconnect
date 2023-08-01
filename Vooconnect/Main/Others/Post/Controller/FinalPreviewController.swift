@@ -432,7 +432,6 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                     print("merge video error - " + error.localizedDescription)
                 }
         }
-
     
     
     ///AUDIO SECTION

@@ -48,7 +48,7 @@ struct PostVisibilityView: View {
             VStack(alignment:.leading){
                 HStack{
                     Spacer()
-                    Text("This post will be visible to")
+                    Text("This post will be visible to \(currentVisibility.rawValue)")
                         .urbanistBold(fontSize: 20)
                         .padding(.bottom,10)
                     Spacer()

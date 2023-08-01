@@ -13,10 +13,12 @@ import AVFoundation
 import CoreImage
 import CoreImage.CIFilterBuiltins
 import NavigationStack
+import PencilKit
 
 // MARK: Final Video Preview
 struct FinalPreview: View{
     @Environment(\.presentationMode) var presentaionMode
+    @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject  var navigationModel: NavigationModel
     @State var controller : FinalPreviewController
     @StateObject var speechRecognizer = SpeechRecognizerHelper()
@@ -37,6 +39,7 @@ struct FinalPreview: View{
     @State  var stickerScale : CGFloat = 1.0
     @State  var textScale : CGFloat = 1.0
     @State  var enableSticker : Bool = false
+    @State  var marker : Bool = false
     @State  var enableText : Bool = false
     @State  var showTextAlert = false
     @State  var showStickerView = false
@@ -50,6 +53,16 @@ struct FinalPreview: View{
     @StateObject var cameraModel = CameraViewModel()
     @Binding var url: URL
     @State var changeURL = URL(string: "")
+    @StateObject var drawingDocument = DrawingDocument()
+    @State private var deletedLines = [Line]()
+    
+    @State private var selectedColor: Color = .black
+    @State private var selectedLineWidth: CGFloat = 1
+    
+    let engine = DrawingEngine()
+    @State private var showConfirmation: Bool = false
+    
+    
     
 //    @State var playermanager = PlayerViewModel()
 
@@ -81,6 +94,9 @@ struct FinalPreview: View{
                         if(enableSticker){
                             stickerView
                         }
+                        if(marker){
+                            markerView(cameraSize: size)
+                        }
                         if(self.postModel.enableCaptions){
                             VStack{
                                 Spacer()
@@ -99,6 +115,52 @@ struct FinalPreview: View{
                         if(loading){
                             ProgressView()
                                 .foregroundColor(.white)
+                        }
+                    }
+                    .overlay(alignment: .top){
+                        if marker {
+                            HStack {
+                                ColorPicker("line color", selection: $selectedColor)
+                                    .labelsHidden()
+                                Slider(value: $selectedLineWidth, in: 1...20) {
+                                    Text("linewidth")
+                                }.frame(maxWidth: 100)
+                                Text(String(format: "%.0f", selectedLineWidth))
+                                
+                                Spacer()
+                                
+                                Button {
+                                    let last = drawingDocument.lines.removeLast()
+                                    deletedLines.append(last)
+                                } label: {
+                                    Image(systemName: "arrow.uturn.backward.circle")
+                                        .imageScale(.large)
+                                }.disabled(drawingDocument.lines.count == 0)
+                                
+                                Button {
+                                    let last = deletedLines.removeLast()
+                                    
+                                    drawingDocument.lines.append(last)
+                                } label: {
+                                    Image(systemName: "arrow.uturn.forward.circle")
+                                        .imageScale(.large)
+                                }.disabled(deletedLines.count == 0)
+                                
+                                Button(action: {
+                                    showConfirmation = true
+                                }) {
+                                    Text("Delete")
+                                }.foregroundColor(.red)
+                                    .confirmationDialog(Text("Are you sure you want to delete everything?"), isPresented: $showConfirmation) {
+                                        
+                                        Button("Delete", role: .destructive) {
+                                            drawingDocument.lines = [Line]()
+                                            deletedLines = [Line]()
+                                        }
+                                    }
+                                
+                            }.padding(.top, 30)
+                                .padding()
                         }
                     }
                 
@@ -145,6 +207,32 @@ struct FinalPreview: View{
                                         {
                                             Image("addText")
                                             Text("Text")
+                                                .font(.custom("Urbanist-Medium", size: 12))
+                                                .foregroundColor(.white)
+                                                .padding(.top, -5)
+                                        }
+                                    }
+                                    
+                                }
+                                Button {
+                                    marker.toggle()
+                                    if(marker){
+                                        
+                                    }
+                                } label: {
+                                    VStack{
+                                        if(self.marker)
+                                        {
+                                            
+                                            Image("editPurple")
+                                            Text("Marder")
+                                                .font(.custom("Urbanist-Medium", size: 12))
+                                                .foregroundColor(ColorsHelper.deepPurple)
+                                                .padding(.top, -5)
+                                        }else
+                                        {
+                                            Image("edit")
+                                            Text("Marker")
                                                 .font(.custom("Urbanist-Medium", size: 12))
                                                 .foregroundColor(.white)
                                                 .padding(.top, -5)
@@ -753,9 +841,11 @@ struct FinalPreview: View{
             }
             print("URL FINAL PREVIEW1: " + url.absoluteString)
         }
-        .onDisappear{
-            controller.videoPlayer.stopAllProcesses()
-            print("final preview disappear")
+        .onChange(of: scenePhase){ newValue in
+            if newValue == .background{
+                controller.videoPlayer.stopAllProcesses()
+                 print("final preview disappear")
+            }
         }
     }
     
@@ -779,6 +869,9 @@ struct FinalPreview: View{
             if(enableSticker){
                 stickerView(cameraSize: cameraSize)
             }
+            if(marker){
+                markerView(cameraSize: cameraSize)
+            }
         }
     }
     
@@ -793,14 +886,39 @@ struct FinalPreview: View{
             let view = textView(cameraSize: size).offset(CGSize(width: -textOffset.width, height: -textOffset.height))
             array.append((view.asUIImage(),textOffset))
         }
-        if(!enableText && !enableSticker){
+        if(marker){
+            let view = markerView(cameraSize: size)
+            let image = view.asUIImage()
+            array.append((image, CGSize(width: size.width, height: size.height)))
+        }
+        if(!enableText && !enableSticker && !marker){
             self.renderUrl = self.postModel.contentUrl
             callback(self.renderUrl!)
             return
         }
         print("CAMERA SIZE: "+size.debugDescription)
         if(postModel.isImageContent()){
-            
+            controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, completion: {val in
+                guard let url = val else{
+                    print("merge url not correct")
+                    return
+                }
+    //            PHPhotoLibrary.shared().performChanges({
+    //                        PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+    //            }) { complete, error in
+    //                if complete {
+    //                    print("Saved to gallery")
+    //                }
+    //            }
+                DispatchQueue.main.async {
+    //                self.enableSticker = false
+    //                self.enableText = false
+    //                self.controller.videoPlayer = AVPlayer(url: url)
+    //                self.postModel.contentUrl = url
+                    
+                    callback(url)
+                }
+            })
         }else{
             controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, completion: {val in
                 guard let url = val else{
@@ -887,13 +1005,38 @@ struct FinalPreview: View{
 //
 //    }
     
+    
+    func markerView(cameraSize: CGSize) -> some View{
+        ZStack {
+            Color.black
+                .opacity(0.1)
+                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({ value in
+                        let newPoint = value.location
+                        if value.translation.width + value.translation.height == 0 {
+                            // TODO: use selected color and linewidth
+                            drawingDocument.lines.append(Line(points: [newPoint], color: selectedColor, lineWidth: selectedLineWidth))
+                        } else {
+                            let index = drawingDocument.lines.count - 1
+                            drawingDocument.lines[index].points.append(newPoint)
+                        }
+
+                    }).onEnded({ value in
+                        if let last = drawingDocument.lines.last?.points, last.isEmpty {
+                            drawingDocument.lines.removeLast()
+                        }
+                    }))
+            
+            ForEach(drawingDocument.lines){ line in
+                DrawingShape(points: line.points)
+                    .stroke(line.color, style: StrokeStyle(lineWidth: line.lineWidth, lineCap: .round, lineJoin: .round))
+            }
+        }
+    }
+    
     func stickerView(cameraSize : CGSize) -> some View{
         Image(uiImage: stickerTextName.image()!)
             .resizable()
             .scaledToFit()
-            .frame(width: 100 * self.stickerScale, height: 100 * self.stickerScale)
-//            .scaleEffect(stickerScale)
-            .offset(x: stickerOffset.width, y: stickerOffset.height )
             .gesture(
                 DragGesture(minimumDistance: 2)
                     .onChanged { gesture in

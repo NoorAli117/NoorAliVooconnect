@@ -26,7 +26,7 @@ struct CustomeCameraHome: View {
     @State private var timerImage: Bool = false
     @State private var durationImage: Bool = false
     
-    @State private var clickPhoto: Bool = false
+    @State private var clickPhoto: Bool = true
     
     @StateObject var camera = CameraModelPhoto()
     
@@ -152,12 +152,7 @@ struct CustomeCameraHome: View {
 //                    MyARView(arScene: $arScene, argConfig: $argConfig, argSession: $argSession, currentFaceFrame: $currentFaceFrame, nextFaceFrame: $nextFaceFrame, preferences: $preferences, arCamera: $arCamera, cameraPreviewCALayer: $cameraPreviewCALayer)
 
                     if clickPhoto == true {
-                        CustomeCameraForPhoto(preview:{url in
-                            print("picture taked: "+url.absoluteString)
-                            self.cameraModel.previewURL = url
-                            self.cameraModel.showPreview = true
-                            self.preview.toggle()
-                        }, soundView: $soundView, filtersSheeet: $filersSheet)
+                        CustomeCameraForPhoto(filtersSheeet: $filersSheet)
                             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                             .padding(.top,10)
                             .padding(.bottom,30)
@@ -546,10 +541,7 @@ struct CustomeCameraHome: View {
                                                     cameraModel.startRecording()
                                                     simulateVideoProgress()
                                                 }
-                                                
-                                                
                                             }
-                                            
                                         } label: {
                                             if cameraModel.isRecording {
                                                 Image("CameraRecording")
@@ -588,6 +580,7 @@ struct CustomeCameraHome: View {
                                     Button {
                                         if let _ = cameraModel.previewURL{
                                             DispatchQueue.main.async {
+                                                print(("video recorded"))
                                                 countdownTimer = self.countdownTimer2
                                                 cameraModel.showPreview.toggle()
                                                 preview.toggle()
