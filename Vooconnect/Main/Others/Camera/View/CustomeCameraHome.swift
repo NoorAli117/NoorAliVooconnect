@@ -26,7 +26,7 @@ struct CustomeCameraHome: View {
     @State private var timerImage: Bool = false
     @State private var durationImage: Bool = false
     
-    @State private var clickPhoto: Bool = true
+    @State private var clickPhoto: Bool = false
     
     @StateObject var camera = CameraModelPhoto()
     

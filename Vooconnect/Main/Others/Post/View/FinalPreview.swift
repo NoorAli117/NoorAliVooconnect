@@ -76,7 +76,9 @@ struct FinalPreview: View{
                 let stickerView = stickerView(cameraSize: size)
                 contentView(size:size)
                     .disabled(true)
-                    .onAppear{
+                    .onDisappear{
+//                        controller.videoPlayer.stopAllProcesses()
+                         print("final preview disappear---------------------")
                     }
                     .onTapGesture {
                         if(controller.isPlaying)
@@ -382,7 +384,7 @@ struct FinalPreview: View{
                                 
                                 
                                 NavigationLink(destination:
-                                                AdjustVideoView(slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, renderUrl:$renderUrl, postModel: $postModel, callWhenBack: callWithBack)
+                                                AdjustVideoView(slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, renderUrl: $changeURL, postModel: $postModel, callWhenBack: callWithBack)
                                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $adjustmentView) {
                                         EmptyView()
                                     }
@@ -642,6 +644,15 @@ struct FinalPreview: View{
                                                             self.postModel.contentOverlay.append(model!)
                                                         }
                                                     }
+                                                    
+                                                    if(marker){
+                                                        var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
+                                                        if(model != nil){
+                                                            self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
+                                                            model!.size = textOffset
+                                                            self.postModel.contentOverlay.append(model!)
+                                                        }
+                                                    }
                                                     self.renderUrl = url
                                                     finalVideoPost.toggle()
                                                 })
@@ -650,12 +661,19 @@ struct FinalPreview: View{
                                                 render(size: size,callback: {url in
                                                     loading = false
                                                     self.renderUrl = url
+                                                    self.cameraModel.previewURL = url
                                                     if(enableSticker){
                                                         let model = postModel.contentOverlay.first(where: {val in val.type == .sticker})
                                                         if(model == nil){
                                                             self.postModel.contentOverlay.append(ContentOverlayModel(type: .sticker, size: stickerOffset, scale: stickerScale, value: self.stickerTextName, color: .black, fontSize: 0, enableBackground: false, font: .system))
                                                         }
                                                     }
+//                                                    if(marker){
+//                                                        let model = postModel.contentOverlay.first(where: {val in val.type == .sticker})
+//                                                        if(model == nil){
+//                                                            self.postModel.contentOverlay.append(ContentOverlayModel(type: .sticker, size: stickerOffset, scale: stickerScale, value: self.stickerTextName, color: .black, fontSize: 0, enableBackground: false, font: .system))
+//                                                        }
+//                                                    }
                                                     if(enableText){
                                                         var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
                                                         if(model != nil){
@@ -705,6 +723,14 @@ struct FinalPreview: View{
                                                     self.postModel.contentOverlay.append(model!)
                                                 }
                                             }
+//                                            if(marker){
+//                                                var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
+//                                                if(model != nil){
+//                                                    self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
+//                                                    model!.size = textOffset
+//                                                    self.postModel.contentOverlay.append(model!)
+//                                                }
+//                                            }
                                             self.renderUrl = url
                                             finalVideoPost.toggle()
                                         })
@@ -835,29 +861,30 @@ struct FinalPreview: View{
             self.postModel.contentUrl = url
             self.postModel.speed = speed
             self.postModel.songModel = songModel
-            if (changeURL != nil){
-                let isImage = !(changeURL!.absoluteString.lowercased().contains(".mp4") || changeURL!.absoluteString.lowercased().contains(".mov"))
-                controller = FinalPreviewController(url: changeURL!, isImage: isImage, speed: cameraModel.speed)
-            }
-            print("URL FINAL PREVIEW1: " + url.absoluteString)
-        }
-        .onChange(of: scenePhase){ newValue in
-            if newValue == .background{
-                controller.videoPlayer.stopAllProcesses()
-                 print("final preview disappear")
-            }
+//            self.changeURL = url
+//            for _ in 0...2{
+                controller.loadData(url: url)
+                print("URL FINAL PREVIEW1: " + url.absoluteString)
+//            }
         }
     }
     
     
     func callWithBack()  {
+//        self.url = URL(string: "")!
         if let url = postModel.contentUrl {
-            self.changeURL = url
-            self.renderUrl = url
-            if (changeURL != nil){
-                let isImage = !(changeURL!.absoluteString.lowercased().contains(".mp4") || changeURL!.absoluteString.lowercased().contains(".mov"))
-                controller = FinalPreviewController(url: changeURL!, isImage: isImage, speed: cameraModel.speed)
+            self.url = url
+            
+//            self.changeURL = url
+            for _ in 0...2{
+                controller.loadData(url: url)
+                print("URL FINAL PREVIEW1: " + url.absoluteString)
             }
+//            if (changeURL != nil){
+//                let isImage = !(changeURL!.absoluteString.lowercased().contains(".mp4") || changeURL!.absoluteString.lowercased().contains(".mov"))
+//                controller = FinalPreviewController(url: changeURL!, isImage: isImage, speed: cameraModel.speed)
+//                controller.loadData(url: url)
+//            }
         }
     }
     
@@ -898,45 +925,14 @@ struct FinalPreview: View{
         }
         print("CAMERA SIZE: "+size.debugDescription)
         if(postModel.isImageContent()){
-            controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, completion: {val in
-                guard let url = val else{
-                    print("merge url not correct")
-                    return
-                }
-    //            PHPhotoLibrary.shared().performChanges({
-    //                        PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-    //            }) { complete, error in
-    //                if complete {
-    //                    print("Saved to gallery")
-    //                }
-    //            }
-                DispatchQueue.main.async {
-    //                self.enableSticker = false
-    //                self.enableText = false
-    //                self.controller.videoPlayer = AVPlayer(url: url)
-    //                self.postModel.contentUrl = url
-                    
-                    callback(url)
-                }
-            })
+            
         }else{
             controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, completion: {val in
                 guard let url = val else{
                     print("merge url not correct")
                     return
                 }
-    //            PHPhotoLibrary.shared().performChanges({
-    //                        PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-    //            }) { complete, error in
-    //                if complete {
-    //                    print("Saved to gallery")
-    //                }
-    //            }
                 DispatchQueue.main.async {
-    //                self.enableSticker = false
-    //                self.enableText = false
-    //                self.controller.videoPlayer = AVPlayer(url: url)
-    //                self.postModel.contentUrl = url
                     
                     callback(url)
                 }
@@ -1037,6 +1033,9 @@ struct FinalPreview: View{
         Image(uiImage: stickerTextName.image()!)
             .resizable()
             .scaledToFit()
+            .frame(width: 100 * self.stickerScale, height: 100 * self.stickerScale)
+//            .scaleEffect(stickerScale)
+            .offset(x: stickerOffset.width, y: stickerOffset.height )
             .gesture(
                 DragGesture(minimumDistance: 2)
                     .onChanged { gesture in

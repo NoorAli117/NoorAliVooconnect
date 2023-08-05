@@ -36,17 +36,20 @@ struct MyVideoPlayerView: View {
 //                        .padding()
 //                }
 //                .padding(.top, fullScreen ? 80 : 0)
-                Spacer()
-                Button {
-                    playerVM.playPause()
-                } label: {
-                    Image(systemName: playerVM.isPlaying ? "pause.circle.fill": "play.circle.fill")
-                        .font(.system(size: 56))
-                        .foregroundColor(.black.opacity(0.3))
-                }
-                Spacer()
+                
+//                Button {
+//                    playerVM.playPause()
+//                } label: {
+//                    Image(systemName: playerVM.isPlaying ? "pause.circle.fill": "play.circle.fill")
+//                        .font(.system(size: 56))
+//                        .foregroundColor(.black.opacity(0.3))
+//                }
+//                Spacer()
             }
             Spacer()
+        }
+        .onTapGesture {
+            playerVM.playPause()
         }
         .ignoresSafeArea()
         .onChange(of: isMuted) { value in

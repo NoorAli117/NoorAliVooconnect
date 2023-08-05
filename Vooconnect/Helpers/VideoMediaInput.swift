@@ -51,7 +51,7 @@ class VideoMediaInput: NSObject {
             self?.player.rate = speed
         }
         
-        setupProcessingTap()
+//        setupProcessingTap()
         
         
         player.replaceCurrentItem(with: playerItem)
@@ -123,7 +123,7 @@ class VideoMediaInput: NSObject {
     deinit{
         print(">> VideoInput deinited !!!! 📌📌")
         
-//        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
         stopAllProcesses()
         

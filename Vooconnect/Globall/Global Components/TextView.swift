@@ -78,6 +78,7 @@ struct TextViewTwo: UIViewRepresentable {
     @Binding var text: String
     @Binding var didStartEditing: Bool
     @Binding var placeholder: String
+    @State var userNames: [String] = []
 
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
@@ -114,12 +115,13 @@ struct DescriptionTextEditor: View {
     @Binding var text: String
     @State private var mentionData: String = ""
     @Binding var isListVisible: Bool
-//    @State private var userName: [String] = []
-    @State var searchResults: [String] = []
+    @Binding var userNames: [String]
+    @Binding var videoCreditsVisible: Bool
+    @Binding var videoCreditsText: String
     
     private let placeholder: String = "Add Video Description"
     
-    var mentionVM: MentionResource = MentionResource()
+//    var mentionVM: MentionResource = MentionResource()
     
     @FocusState private var isFocused: Bool
     
@@ -134,17 +136,19 @@ struct DescriptionTextEditor: View {
                 .frame(height: 136)
                 .onChange(of: text) { newValue in
                     print(newValue)
-                    isListVisible = false
                     if let lastIndex = newValue.lastIndex(of: "@") {
                         let substring = newValue.suffix(from: newValue.index(after: lastIndex))
                         if (substring.last != " "){
                             if !substring.contains(" ") {
                                 let newValueAfterAt = String(substring)
                                 self.mentionData = newValueAfterAt
-                                mentionVM.searchUsername(name: newValueAfterAt)
-                                isListVisible = true
+                                searchUsername(name: newValueAfterAt)
+                            }else{
+                                isListVisible = false
                             }
                         }
+                    }else{
+                        isListVisible = false
                     }
                 }
                 .overlay(
@@ -171,119 +175,110 @@ struct DescriptionTextEditor: View {
                     .frame(height: 136)
             }
             
-//            if isListVisible {
-//                VStack {
-//                    ForEach(searchResults, id: \.self) { item in
-//                        Button(action: {
-//                            selectMention(item)
-//                            isListVisible = false
-//                        }) {
-//                            Text(item)
-//                        }
-//                        .foregroundColor(.primary)
-//                    }
-//                    .listRowInsets(EdgeInsets())
-//                }
-//                .padding(.top, 40)
-//                .frame(width: 100)
-//                .background(Color.white.opacity(0.5))
-//                .cornerRadius(8)
-//                .shadow(radius: 4)
-//                .frame(height: 100)
-//                .offset(y: 30)
-//                .onTapGesture {
-//                    isFocused = true
-//                    isListVisible = false
-//                }
-//            }
-        }
-    }
-    
-    private func selectMention(_ mention: String) {
-        let mentionRange = text.range(of: mentionData, options: .caseInsensitive)
         
-        if let range = mentionRange {
-            text.replaceSubrange(range, with: "\(mention)")
-            isListVisible = false
-            mentionData = ""
         }
     }
     
     
+//    private func selectMention(_ mention: String) {
+//        let mentionRange = text.range(of: mentionData, options: .caseInsensitive)
+//
+//        if let range = mentionRange {
+//            text.replaceSubrange(range, with: "\(mention)")
+//            isListVisible = false
+//            mentionData = ""
+//        }
+//    }
     
-}
-struct MentionData: Codable {
-    var status: Bool
-    var data: [UserData]
-}
-
-struct UserData: Codable {
-    var userName: String?
-
-    enum CodingKeys: String, CodingKey {
-        case userName = "username"
-    }
-}
-
-//class SearchResultsWrapper: ObservableObject {
-//    @Published var searchResults: [String] = []
-//}
-//"john","Ali","Hussain","Noor","Ayan","baqir","Hassan","Farooq"
-
-class MentionResource: ObservableObject{
-    
-    @Published var userName: [UserData] = []
-
     func searchUsername(name: String) {
         let baseURL = baseURL + EndPoints.mention  // Replace with your base URL
         let queryParameter = "?username=" + name
         var url = URLRequest(url: URL(string: baseURL + queryParameter)!)
-
-        let session = URLSession.shared
+        
+//        let session = URLSession.shared
         let boundary = UUID().uuidString
-        var data = Data()
-
+//        var data = Data()
+        
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             url.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
             url.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "content-type")
             print("ACCESS TOKEN=========", tokenData)
         }
-
+        
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
                 return
             }
-
+            
             guard let httpResponse = response as? HTTPURLResponse else {
                 print("Invalid HTTP response")
                 return
             }
-
+            
             guard (200...299).contains(httpResponse.statusCode) else {
                 print("HTTP response status code: \(httpResponse.statusCode)")
                 return
             }
-
+            
             guard let data = data else {
                 print("No data received")
                 return
             }
+            print(String(data: data, encoding: .utf8)!)
+            let decoder = JSONDecoder()
             
             do {
-                let decodedData = try JSONDecoder().decode(MentionData.self, from: data) // Decode the data
-                DispatchQueue.main.async {
-                    // Handle the decoded data here
-                    print("Decoded Data:", decodedData)
-                    
-                    self.userName = decodedData.data
-                }
+                let response = try decoder.decode(Response.self, from: data)
+                print("Response: \(response)")
+                userNames = response.data.map { $0.username }
+                isListVisible = true
+                
             } catch {
-                print("Error parsing JSON: \(error)")
+                print("Error: \(error.localizedDescription)")
             }
         }
         
         task.resume()
     }
+    
+}
+struct Response: Codable {
+    // Define the properties that match the JSON keys
+    let status: Bool
+    let data: [User]
+}
 
+// Define another struct that conforms to Codable protocol
+struct User: Codable, Hashable {
+//    var uuid: UUID
+    var username: String
+//    var first_name: String
+//    var last_name: String
+//    var profile_image: String
+//    var middle_name: String
+}
+
+
+struct CreditsView: View{
+    @Binding var videoCreditsText: String
+    var body: some View{
+        HStack{
+            RoundedRectangle(cornerRadius: 25)
+                .fill(LinearGradient(colors: [
+                    Color("buttionGradientTwo"),
+                    Color("buttionGradientOne"),
+                ], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .frame(height: 25)
+                .overlay(
+                    HStack{
+                        Image("PlaySimple")
+                        Text(videoCreditsText)
+                            .foregroundColor(Color.white)
+                            .font(.custom("Urbanist-Regular", size: 18))
+                            .clipped()
+                    }
+                )
+        }
+    }
 }

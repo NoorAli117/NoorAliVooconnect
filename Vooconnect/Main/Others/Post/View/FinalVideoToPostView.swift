@@ -49,6 +49,7 @@ struct FinalVideoToPostView: View {
     @State private var autoCaption = false
     @State private var loader = false
     @State private var showTopicView = false
+    @State private var videoCreditsView = false
     @State private var isShowPopup = false
     @State private var message = ""
     @State private var captionLang = ""
@@ -68,8 +69,11 @@ struct FinalVideoToPostView: View {
     @State var progress: Double = 0
     @State private var subLang: String = ""
     @State private var subAllow: String = ""
-    @StateObject private var mentionVM = MentionResource()
-    
+    @State private var subString: String = ""
+    @State private var videoCreditsText: String = ""
+    @State private var videoCreditsVisible: Bool = false
+    @State var userNames: [String] = []
+    @State var videoCredits: [String] = []
     
     var catSelected: (Int) -> () = {val in}
     
@@ -77,6 +81,16 @@ struct FinalVideoToPostView: View {
         _postModel = State(initialValue: postModel)
         _renderUrl = State(initialValue: renderUrl)
     }
+    
+//    private func selectMention(_ mention: String) {
+//        let mentionRange = description.range(of: mentionData, options: .caseInsensitive)
+//
+//        if let range = mentionRange {
+//            text.replaceSubrange(range, with: "\(mention)")
+////            isListVisible = false
+////            mentionData = ""
+//        }
+//    }
     
     var body: some View {
         NavigationView {
@@ -87,10 +101,7 @@ struct FinalVideoToPostView: View {
                 
                 VStack {
                     
-//                    NavigationLink(destination: HomePageView()
-//                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $homeView) {
-//                            EmptyView()
-//                        }
+                    
                     
                     HStack {
                         Button {
@@ -110,10 +121,19 @@ struct FinalVideoToPostView: View {
                     ScrollView(showsIndicators: false) {
                         
                         HStack {
-                            DescriptionTextEditor(text: $description, isListVisible: $isListView)
+                            DescriptionTextEditor(text: $description, isListVisible: $isListView, userNames: $userNames, videoCreditsVisible: $videoCreditsVisible, videoCreditsText: $videoCreditsText)
                                 .focused($isFocused)
                                 .onTapGesture{
                                     isFocused = true
+                                }
+                                .onChange(of: description) { newValue in
+                                    print("value is\(newValue)")
+                                    if let lastIndex = newValue.lastIndex(of: "@") {
+                                        let substring = newValue.suffix(from: newValue.index(after: lastIndex))
+                                        
+                                        self.subString = String(substring)
+                                        print("sub value is\(self.subString)")
+                                    }
                                 }
                             
                             
@@ -139,6 +159,17 @@ struct FinalVideoToPostView: View {
                         }
                         .padding(.top,2)
                         
+                        HStack(alignment: .top){
+                            Text("Video credit to: ")
+                                .font(.custom("Urbanist-Regular", size: 18))
+                                .frame(width: 120)
+                            if videoCreditsVisible {
+                                CreditsView(videoCreditsText: $videoCreditsText)
+                                    .padding(.trailing, 10)
+                            }
+                            Spacer()
+                        }
+                        .padding(.top,2)
                         
                         
                         // Hastag
@@ -217,34 +248,40 @@ struct FinalVideoToPostView: View {
                             
                             HStack {
                                 
-                                Image("VideoLogo")
-                                
                                 Button {
-                                    
+                                    if (videoCreditsVisible == true){
+                                        videoCreditsVisible = false
+                                        videoCreditsView = false
+                                    }else{
+                                        videoCreditsView = true
+                                    }
                                 } label: {
-                                    Text("Videos")
-                                        .lineLimit(1)
-                                        .font(.custom("Urbanist-SemiBold", size: 14))
-                                        .foregroundStyle((LinearGradient(colors: [
-                                            Color("buttionGradientTwo"),
-                                            Color("buttionGradientOne"),
-                                        ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                        ))
+                                    HStack{
+                                        Image("VideoLogo")
+                                        Text("Videos")
+                                            .lineLimit(1)
+                                            .font(.custom("Urbanist-SemiBold", size: 14))
+                                    }
                                 }
-                                .padding(.leading, -4)
+                                .frame(width: 80, height: 32)
+                                .foregroundStyle(videoCreditsVisible ? LinearGradient(colors: [
+                                    Color.white
+                                ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
+                                    Color("buttionGradientTwo"),
+                                    Color("buttionGradientOne"),
+                                ], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .background(videoCreditsVisible ? LinearGradient(colors: [
+                                    Color("buttionGradientTwo"),
+                                    Color("buttionGradientOne"),
+                                    Color("buttionGradientOne"),
+                                ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
+                                    Color.clear,
+                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
+                                .cornerRadius(25)
+                                .overlay(videoCreditsVisible ?
+                                         RoundedRectangle(cornerRadius: 25).stroke(Color.clear, lineWidth: 0) : RoundedRectangle(cornerRadius: 25).stroke(Color("buttionGradientOne"), lineWidth: 1.5))
                                 
-                            }
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 8)
-                            //                            .padding(5)
-                            //                            .padding(.horizontal, 4)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 20)
-                                    .strokeBorder((LinearGradient(colors: [
-                                        Color("buttionGradientTwo"),
-                                        Color("buttionGradientOne"),
-                                    ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    ), lineWidth: 2)
                             }
                             
                             Spacer()
@@ -295,6 +332,9 @@ struct FinalVideoToPostView: View {
                                 showTopicView.toggle()
                             })
                         }
+                        .sheet(isPresented: $videoCreditsView) {
+                            VideoCreditsView(userNames: $videoCredits, videoCreditsView: $videoCreditsView, videoCreditsVisible: $videoCreditsVisible, videoCreditsText: $videoCreditsText)
+                        }
                         
                         
                         
@@ -303,12 +343,27 @@ struct FinalVideoToPostView: View {
                             .foregroundColor(Color("GrayThree"))
                             .padding(.top)
                         if isListView {
-                            VStack{
-                                ForEach(mentionVM.userName.indices, id: \.self) { index in
-                                    if let userName = mentionVM.userName[index].userName {
-                                        Image("ProfileLogos")
+                            ScrollView{
+                                VStack(spacing: 20){
+                                    
+                                    ForEach (userNames, id: \.self){ user in
+                                        HStack{
+                                            Button{
+                                                isListView = false
+                                                if let lastIndex = description.lastIndex(of: "@") {
+                                                    let range = lastIndex..<description.endIndex
+                                                    description = description.replacingOccurrences(of: self.subString, with: user + " ", options: [], range: range)
+                                                }
+                                            }label: {
+                                                Text(user)
+                                                    .font(.custom("Urbanist-SemiBold", size: 18))
+                                                    .foregroundColor(.black)
+                                            }
+                                            Spacer()
+                                        }
                                     }
                                 }
+                                .padding(.horizontal)
                             }
                         }else{
                             VStack{

@@ -70,6 +70,11 @@ final class PlayerViewModel: ObservableObject {
 
     }
     
+    
+    func toggleMute() {
+        player.isMuted.toggle()
+    }
+    
     func reset(videoUrl: URL) {
         self.isInPipMode = false
         self.isPlaying = false

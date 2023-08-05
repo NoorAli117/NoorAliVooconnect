@@ -18,77 +18,99 @@ struct SoundEditView: View {
     @Binding var postModel: PostModel
     @State private var isRecording: Bool = false
     @State private var isButton: Bool = false
+    @State private var soundView: Bool = false
+//    @State private var playVideo: Bool = false
     @State private var progress: Double = 0
     @State private var videoDuration: Double = 0
     @State private var audioRecorder: AVAudioRecorder?
     @State private var outputUrl: URL?
-    @StateObject var cameraModel = CameraViewModel()
+    @State var cameraModel = CameraViewModel()
+    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
+    var pickSong : (DeezerSongModel) -> () = {val in}
     var callWhenBack : () -> ()
     
     var body: some View{
+        
+        NavigationLink(destination: SoundsView(
+            pickSong: {song in
+                cameraModel.songModel = song
+                print("new song added to video: "+(cameraModel.songModel?.preview ?? ""))
+            }
+        )
+            .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $soundView) {
+                EmptyView()
+            }
         NavigationView{
-            ZStack {
-                MyVideoPlayerView(playerVM: playerVM)
-                    .onDisappear{
-                        playerVM.player.pause()
-                    }
+            
+            ZStack(alignment: .top){
+                Color.black
+                    .edgesIgnoringSafeArea(.all)
                 
                 VStack {
                     Spacer()
-                    VStack(alignment: .center) {
-                        ZStack {
-                            ZStack {
-                                Spacer()
-                                CircularProgressView(progress: progress)
-                                Button(action: {
-                                    isRecording.toggle()
-                                    if isRecording {
-                                        startRecording()
-                                        simulateVideoDownload()
-                                    } else {
-                                        stopRecording()
-                                    }
-                                }) {
-                                    Image(systemName: self.isRecording ? "mic.fill" : "mic")
-                                        .font(.system(size: 40))
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            .frame(width: 50, height: 50)
-                            
-                            if self.isButton {
-                                HStack {
-                                    Button(action: {
-                                        withAnimation {
-                                            cameraModel.previewURL = postModel.contentUrl
-                                            self.callWhenBack()
-                                            
-                                            isButton = false
-                                        }
-                                    }) {
-                                        RoundedRectangle(cornerRadius: 25)
-                                            .fill(LinearGradient(
-                                                gradient: Gradient(colors: [Color("buttionGradientTwo"), Color("buttionGradientOne")]),
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            ))
-                                            .frame(width: 98, height: 56)
-                                            .overlay(
-                                                Text("Done")
-                                                    .foregroundColor(.white)
-                                            )
-                                    }
-                                }
-                            }
+                    Spacer()
+                    let width = UIScreen.main.bounds.width-150
+                    let height = UIScreen.main.bounds.height-420
+                    RoundedRectangle(cornerRadius: 20)
+                        .overlay(
+                            MyVideoPlayerView(playerVM: playerVM)
+                                .mask(RoundedRectangle(cornerRadius: 20))
+                        )
+//                        .background(Color.white)
+                        .frame(width: width, height: height)
+                        .onDisappear {
+                            playerVM.player.pause()
+                            soundsViewBloc.stopSong()
                         }
+
+                    Spacer()
+                    Text("Suggested audio")
+                        .font(.custom("Urbanist-Bold", size: 14))
+                        .foregroundColor(Color.white)
+                    Text("Automatically sync your clips to any track")
+                        .font(.custom("Urbanist-Regular", size: 14))
+                        .foregroundColor(Color.white)
+                    ScrollView(.horizontal){
+                        HStack (alignment: .top, spacing: 20){
+                            Spacer()
+                            VStack{
+                                Rectangle()
+                                
+                                    .fill(Color.white)
+                                    .frame(width: 80, height: 80)
+                                    .clipped()
+                                    .cornerRadius(16)
+                                    .overlay(
+                                        Image("searchIcon")
+                                    )
+                                Text("Search")
+                                    .font(.custom("Urbanist-Bold", size: 14))
+                                    .foregroundColor(Color.white)
+                            }
+                            .onTapGesture {
+                                soundView.toggle()
+                            }
+//                            Spacer(minLength: 20)
+                            BlocBuilderView(bloc: soundsViewBloc) { state in
+                                ForEach(state.wrappedValue.filterSongList) { song in
+                                    songListView(songModel: song)
+                                }
+                            }
+//                            ForEach(0..<10, id: \.self) { index in
+//                                MusicItemView()
+//                            }
+                        }
+                        .padding(.bottom)
                     }
-                    .padding(.bottom)
+                    Spacer()
+                    
                 }
                 .navigationBarBackButtonHidden(true)
                 .navigationBarItems(leading: backButton)
             }
         }
         .onAppear {
+            soundsViewBloc.loadSongInit()
             prepareAudioRecorder()
             let url = postModel.contentUrl?.absoluteString
             print("duration url: \(String(describing: url))")
@@ -99,6 +121,21 @@ struct SoundEditView: View {
                 print("Video file not found.")
             }
         }
+        
+    }
+    
+    func songListView(songModel : DeezerSongModel) -> some View{
+//        print(songModel.id)
+        //        print(soundsViewBloc.state.value.preview?.!id)
+        return MusicItemView(
+            songModel: songModel,
+            preview: soundsViewBloc.state.value.preview,
+            pickSong: {val in
+                pickSong(val)
+                presentationMode.wrappedValue.dismiss()
+            }, playVideo: playerVM, cameraModel: $cameraModel
+        )
+        .environmentObject(soundsViewBloc)
     }
     
     func simulateVideoDownload() {
@@ -231,18 +268,72 @@ struct SoundEditView: View {
     
     
     
-        var backButton: some View {
-                Button(action: {
-                    // Handle back button action here
-                    print("back")
-                    presentationMode.wrappedValue.dismiss()
-                    playerVM.player.pause()
-                    stopRecording()
-                }) {
-                    Image(systemName: "chevron.left")
-    //                Text("Back")
-                }
+    var backButton: some View {
+        HStack{
+            Button(action: {
+                // Handle back button action here
+                print("back")
+                presentationMode.wrappedValue.dismiss()
+                playerVM.player.pause()
+                cameraModel.previewURL = postModel.contentUrl
+                self.callWhenBack()
+            }) {
+                Image("BackButtonWhite")
+                //                Text("Back")
             }
+            Spacer()
+            Button {
+                if let songURL = cameraModel.songModel?.preview{
+                    do {
+                        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+                        
+                        removeAudioFromVideo(videoURL: postModel.contentUrl!) { outputURL, error in
+                            if let error = error {
+                                print("Failed to remove audio: \(error.localizedDescription)")
+                            } else {
+                                print("Audio removed successfully.")
+                                DispatchQueue.main.async {
+                                    let audioUrlPath = songURL
+                                    print("Audio URL Path: \(audioUrlPath)")
+                                    let videoUrlPath = outputURL?.path
+                                    print("Video URL Path: \(videoUrlPath ?? "")")
+                                    
+                                    mergeAudioToVideo(sourceAudioPath: audioUrlPath, sourceVideoPath: videoUrlPath!) { url, error in
+                                        if let error = error {
+                                            print("Error merging audio and video: \(error.localizedDescription)")
+                                        } else if let mergedURL = url {
+                                            self.outputUrl = mergedURL
+                                            print("Merged audio and video URL: \(mergedURL)")
+                                            postModel.contentUrl = mergedURL
+                                            print("New URL: \(String(describing: postModel.contentUrl))")
+                                            playerVM.reset(videoUrl: mergedURL)
+                                            isButton = true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        print("Recording playback started.")
+                    } catch {
+                        print("Failed to play the recording: \(error.localizedDescription)")
+                    }
+                    
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 23)
+                    .fill(LinearGradient(colors: [
+                        Color("buttionGradientTwo"),
+                        Color("buttionGradientOne"),
+                    ], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(width: 98, height: 46)
+                    .overlay (
+                        Text("Done")
+                            .foregroundColor(.white)
+                    )
+            }
+        }
+    }
 }
 class AudioCaptureDelegate: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
     private let sampleBufferHandler: (CMSampleBuffer) -> Void
@@ -257,56 +348,108 @@ class AudioCaptureDelegate: NSObject, AVCaptureAudioDataOutputSampleBufferDelega
 }
 
 struct MusicItemView: View {
-    @State var songName: String
-    @State var songArtist: String
-    @Binding var image: String
     @State var songModel : DeezerSongModel
+    @State var preview : DeezerSongModel? = nil
+    var pickSong : (DeezerSongModel) -> () = {val in}
     @EnvironmentObject var soundsViewBloc: SoundsViewBloc
+    @StateObject var playVideo: PlayerViewModel
+    @Binding var cameraModel: CameraViewModel
     
     var body: some View {
-        VStack {
+        VStack (alignment: .center){
             BlocBuilderView(bloc: soundsViewBloc) { state in
                 ZStack{
-                    AsyncImage(url: URL(string: image))
-                    //                .resizable()
-                    //                .scaledToFill()
+                    if (songModel.preview != nil) {
+                        AsyncImage(url: URL(string: songModel.album!.cover))
+                            .frame(width: 80, height: 80)
+                            .clipped()
+                            .cornerRadius(16)
+                    }
+                    Image("ImageArtist")
                         .frame(width: 80, height: 80)
                         .clipped()
                         .cornerRadius(16)
-                    if(state.wrappedValue.preview != nil && state.wrappedValue.preview == songModel)
-                    {
-                        Image("PlayWhiteN")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    }
+//                    if(state.wrappedValue.preview != nil && state.wrappedValue.preview == songModel)
+//                    {
+//                        Image("PlayWhiteN")
+//                            .resizable()
+//                            .frame(width: 20, height: 20)
+//                    }
                 }
                 .frame(alignment: .center)
                 .button {
+                    cameraModel.songModel = nil
                     soundsViewBloc.playSong(songModel: songModel)
+                    cameraModel.songModel = songModel
+                    playVideo.player.play()
+                    playVideo.player.isMuted = true
+                    playVideo.player.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+                    playVideo.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
+                        // Check if the video reached its end
+                        if let duration = playVideo.player.currentItem?.duration, time >= duration {
+                            // Stop the song when the video is done
+                            soundsViewBloc.stopSong()
+                        }
+                    }
                 }
             }
             
             VStack(alignment: .leading, spacing: 6) {
                 
-                Text(songName)
-                    .font(.custom("Urbanist-Bold", size: 18))
-                    .foregroundColor(Color(#colorLiteral(red: 0.1726317704, green: 0.1726317704, blue: 0.1726317704, alpha: 0.901334851)))
-                
-                HStack {
-                    
-                    Text(songArtist)  // Medium
-                        .font(.custom("Urbanist-Medium", size: 14))
-                        .foregroundColor(Color(#colorLiteral(red: 0.4560062289, green: 0.4560062289, blue: 0.4560062289, alpha: 0.6976148593)))
-                    
-                    Spacer()
-                    
-                    Text("65.1M")
-                        .font(.custom("Urbanist-SemiBold", size: 14))
-                        .foregroundColor(Color(#colorLiteral(red: 0.4560062289, green: 0.4560062289, blue: 0.4560062289, alpha: 0.6976148593)))
-                }
+                Text(songModel.title!)
+                    .font(.custom("Urbanist-Bold", size: 14))
+                    .foregroundColor(Color.white)
+                Text(songModel.artist!.name)  // Medium
+                    .font(.custom("Urbanist-Medium", size: 10))
+                    .foregroundColor(Color.white)
                 
             }
+            .frame(width: 80)
         }
     }
 }
 
+
+//                            ZStack {
+//                                Spacer()
+//                                CircularProgressView(progress: progress)
+//                                Button(action: {
+//                                    isRecording.toggle()
+//                                    if isRecording {
+//                                        startRecording()
+//                                        simulateVideoDownload()
+//                                    } else {
+//                                        stopRecording()
+//                                    }
+//                                }) {
+//                                    Image(systemName: self.isRecording ? "mic.fill" : "mic")
+//                                        .font(.system(size: 40))
+//                                        .foregroundColor(.white)
+//                                }
+//                            }
+//                            .frame(width: 50, height: 50)
+
+//                            if self.isButton {
+//                                HStack {
+//                                    Button(action: {
+//                                        withAnimation {
+//                                            cameraModel.previewURL = postModel.contentUrl
+//                                            self.callWhenBack()
+//
+//                                            isButton = false
+//                                        }
+//                                    }) {
+//                                        RoundedRectangle(cornerRadius: 25)
+//                                            .fill(LinearGradient(
+//                                                gradient: Gradient(colors: [Color("buttionGradientTwo"), Color("buttionGradientOne")]),
+//                                                startPoint: .topLeading,
+//                                                endPoint: .bottomTrailing
+//                                            ))
+//                                            .frame(width: 98, height: 56)
+//                                            .overlay(
+//                                                Text("Done")
+//                                                    .foregroundColor(.white)
+//                                            )
+//                                    }
+//                                }
+//                            }

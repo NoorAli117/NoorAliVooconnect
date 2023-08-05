@@ -58,7 +58,6 @@
 		048058AD2A34F60500C5AB1B /* NetworkManager+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */; };
 		048058AF2A35C94200C5AB1B /* BeautyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048058AE2A35C94200C5AB1B /* BeautyView.swift */; };
 		0486FC232A448ACD0076A7DD /* Face.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0486FC222A448ACD0076A7DD /* Face.scnassets */; };
-		048AB8D42A72AAC40067622C /* VideoGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 048AB8D32A72AAC40067622C /* VideoGenerator.m */; };
 		0496379229BFB2CE0044DA57 /* CreatorMoreOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */; };
 		0496379429BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */; };
 		049F4BBC29BBB54300113EA0 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 049F4BBB29BBB54300113EA0 /* SDWebImageSwiftUI */; };
@@ -118,6 +117,7 @@
 		04C7526729D1AE1F00A0337A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7526629D1AE1F00A0337A /* LocationManager.swift */; };
 		04C7526929D1C8F400A0337A /* CreatorSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7526829D1C8F400A0337A /* CreatorSearchViewModel.swift */; };
 		04C7526B29D1CCF900A0337A /* FindFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C7526A29D1CCF900A0337A /* FindFriendViewModel.swift */; };
+		04C9D9DE2A7D2E250063FBA5 /* VideoCreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C9D9DD2A7D2E250063FBA5 /* VideoCreditsView.swift */; };
 		04D6392529F43ED600718FE0 /* LanguageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6392429F43ED600718FE0 /* LanguageViewModel.swift */; };
 		04D6392829F44A8200718FE0 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6392729F44A8200718FE0 /* QRCodeView.swift */; };
 		04D6392B29F55F2700718FE0 /* ManageAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6392A29F55F2700718FE0 /* ManageAccountsViewModel.swift */; };
@@ -487,9 +487,6 @@
 		048058AC2A34F60400C5AB1B /* NetworkManager+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+Ext.swift"; sourceTree = "<group>"; };
 		048058AE2A35C94200C5AB1B /* BeautyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyView.swift; sourceTree = "<group>"; };
 		0486FC222A448ACD0076A7DD /* Face.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Face.scnassets; sourceTree = "<group>"; };
-		048AB8D22A72AAC30067622C /* VideoGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoGenerator.h; sourceTree = "<group>"; };
-		048AB8D32A72AAC40067622C /* VideoGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoGenerator.m; sourceTree = "<group>"; };
-		048AB8D52A72BD3D0067622C /* Vooconnect-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vooconnect-Bridging-Header.h"; sourceTree = "<group>"; };
 		0496379129BFB2CE0044DA57 /* CreatorMoreOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsView.swift; sourceTree = "<group>"; };
 		0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorMoreOptionsComponents.swift; sourceTree = "<group>"; };
 		049F4BC429BBB5E100113EA0 /* Color + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color + Extensions.swift"; sourceTree = "<group>"; };
@@ -546,6 +543,7 @@
 		04C7526629D1AE1F00A0337A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		04C7526829D1C8F400A0337A /* CreatorSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorSearchViewModel.swift; sourceTree = "<group>"; };
 		04C7526A29D1CCF900A0337A /* FindFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendViewModel.swift; sourceTree = "<group>"; };
+		04C9D9DD2A7D2E250063FBA5 /* VideoCreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCreditsView.swift; sourceTree = "<group>"; };
 		04D6392429F43ED600718FE0 /* LanguageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewModel.swift; sourceTree = "<group>"; };
 		04D6392729F44A8200718FE0 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		04D6392A29F55F2700718FE0 /* ManageAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAccountsViewModel.swift; sourceTree = "<group>"; };
@@ -2026,6 +2024,7 @@
 				AB37595629CFCD2F000D0A2D /* PostVisibilityView.swift */,
 				29E922CF2A289CD80008F39C /* progressView.swift */,
 				0458EB852A69764100CD7B79 /* VideoCredit.swift */,
+				04C9D9DD2A7D2E250063FBA5 /* VideoCreditsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2137,7 +2136,6 @@
 				A955F2332952C0ED00498540 /* LiveStreaming */,
 				A954621E2955562D00C4D233 /* LiveViewers */,
 				A9785FA72911103000F19ADD /* Preview Content */,
-				048AB8D52A72BD3D0067622C /* Vooconnect-Bridging-Header.h */,
 			);
 			path = Vooconnect;
 			sourceTree = "<group>";
@@ -2300,8 +2298,6 @@
 				A943809E2940734D007D9DF4 /* Model */,
 				A9B2478C293DC06800B5A233 /* View */,
 				A9B2478B293DC05600B5A233 /* ViewModel */,
-				048AB8D32A72AAC40067622C /* VideoGenerator.m */,
-				048AB8D22A72AAC30067622C /* VideoGenerator.h */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -2886,6 +2882,7 @@
 				049F4C2529BBBCE700113EA0 /* NilModel.swift in Sources */,
 				042FDD1F29D791E1008B81C7 /* BottomSheet.swift in Sources */,
 				049F4C1E29BBB6E400113EA0 /* SetReactiveMethods.swift in Sources */,
+				04C9D9DE2A7D2E250063FBA5 /* VideoCreditsView.swift in Sources */,
 				043BDB7F2A78ECA10052A572 /* Line.swift in Sources */,
 				049F4C2929BBBD5400113EA0 /* FollowingButton.swift in Sources */,
 				049F4BCA29BBB5E100113EA0 /* View + Extensions.swift in Sources */,
@@ -3014,7 +3011,6 @@
 				043BDB872A7906BF0052A572 /* DrawingShape.swift in Sources */,
 				049F4BF629BBB67100113EA0 /* SubscribeView.swift in Sources */,
 				A94040E12913880600E0DDD6 /* SignUpViewModel.swift in Sources */,
-				048AB8D42A72AAC40067622C /* VideoGenerator.m in Sources */,
 				A98B97BC29505A330084B4F4 /* MyProfileView.swift in Sources */,
 				297754BD2A2A05340006DB3F /* BotSheetView.swift in Sources */,
 				ABC9F82A29AACEF3006436A1 /* SoundsManagerHelper.swift in Sources */,
@@ -3347,7 +3343,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/HNH Work/iOS/Vooconnect/Vooconnect/Vooconnect-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3409,7 +3405,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/mac/Documents/HNH Work/iOS/Vooconnect/Vooconnect/Vooconnect-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

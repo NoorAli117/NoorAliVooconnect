@@ -55,7 +55,9 @@ final class SoundsViewBloc: Bloc<SoundsViewBlocEvent, SoundsViewBlocState> {
             yield(self.state.value)
         }
     }
-    
+    func stopSong(){
+        SoundsManagerHelper.instance.pause()
+    }
     func showFavoriteSongList(){
 //        yield(self.state.value)
     }

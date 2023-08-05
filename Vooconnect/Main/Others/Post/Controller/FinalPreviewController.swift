@@ -32,6 +32,10 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         self.isImage = isImage
         self.speed = speed
         super.init()
+    }
+    ///Load data in to the player when appear
+    
+    func loadData(url: URL){
         DispatchQueue.global(qos: .background).async{ [self] in
             if(!isImage)
             {
@@ -48,7 +52,6 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
             }
         }
     }
-    
     ///Play video from [videoPlayer] player
     func play(){
         videoPlayer.playVideo()
