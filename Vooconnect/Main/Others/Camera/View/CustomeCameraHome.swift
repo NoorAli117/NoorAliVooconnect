@@ -32,6 +32,7 @@ struct CustomeCameraHome: View {
     
     @State var countdownTimerText = 0
     @State var countdownTimer : Int = 0
+    @State var countdownText : Int = 0
     @State private var countdownTimer2 = 0
     @State private var progress: Double = 0
     
@@ -168,12 +169,13 @@ struct CustomeCameraHome: View {
 
                     if timerRunning == true {
 
-                        Text("\(countdownTimer)")
+                        Text("\(countdownText)")
                             .foregroundColor(.white)
                             .padding()
                             .onReceive(timer) { _ in
-                                if countdownTimer > 0 && timerRunning {
-                                    countdownTimer -= 1
+                                if countdownText < countdownTimer && timerRunning {
+                                    countdownTimer += 1
+                                    countdownText += 1
                                 } else {
                                     timerRunning = false
                                 }
@@ -203,15 +205,13 @@ struct CustomeCameraHome: View {
                                                 Button {
                                                     cameraFlip.toggle()
                                                     print("Flip===========")
-
-                                                    self.cameraModel.isBackCamera.toggle()
-
-                                                    if self.cameraModel.isBackCamera == false {
-                                                        self.cameraModel.switchCamera()
+                                                    if self.cameraFlip == true {
+                                                        self.cameraModel.isBackCamera = true
+                                                        cameraModel.switchCamera()
                                                     } else {
+                                                        self.cameraModel.isBackCamera = false
                                                         flash = false
-                                                        self.cameraModel.switchCamera()
-//                                                        self.cameraModel.checkPermission(isBackCamera: self.cameraModel.isBackCamera)
+                                                        self.cameraModel.checkPermission(isBackCamera: self.cameraModel.isBackCamera)
                                                     }
 
                                                 } label: {
@@ -751,14 +751,15 @@ struct CustomeCameraHome: View {
     
     
     func simulateVideoProgress() {
-        let stepFrequency = 10 // Number of steps per second (adjust as desired)
-        let totalProgressSteps = Int(cameraModel.maxDuration) * stepFrequency
-        let stepDuration = 1.0 / Double(totalProgressSteps)
+        let stepFrequency = 13.899 // Number of steps per second (adjust as desired)
+        let totalProgressSteps = cameraModel.maxDuration * stepFrequency
+        let stepDuration = 1.0 / totalProgressSteps
 
         DispatchQueue.global(qos: .background).async {
             var shouldStop = false // Flag to indicate if the progress should be stopped
-
-            for i in 0..<totalProgressSteps {
+            var i = 0.0
+            while i < totalProgressSteps {
+                i += 1.0
                 usleep(useconds_t(stepDuration * 1_000_000)) // Simulating delay in audio progress
                 
                 DispatchQueue.main.async {

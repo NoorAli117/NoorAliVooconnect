@@ -39,7 +39,8 @@ struct FinalPreview: View{
     @State  var stickerScale : CGFloat = 1.0
     @State  var textScale : CGFloat = 1.0
     @State  var enableSticker : Bool = false
-    @State  var marker : Bool = false
+    @State  var markerStack : Bool = false
+    @State  var markerHeader : Bool = false
     @State  var enableText : Bool = false
     @State  var showTextAlert = false
     @State  var showStickerView = false
@@ -61,6 +62,8 @@ struct FinalPreview: View{
     
     let engine = DrawingEngine()
     @State private var showConfirmation: Bool = false
+    @State var isTapped = false
+    @State var generatedImage: UIImage?
     
     
     
@@ -90,14 +93,14 @@ struct FinalPreview: View{
                         }
                     }
                     .overlay {
+                        if(markerStack){
+                            markerView(cameraSize: size)
+                        }
                         if(enableText && textView != nil){
                             textView(cameraSize: size)
                         }
                         if(enableSticker){
                             stickerView
-                        }
-                        if(marker){
-                            markerView(cameraSize: size)
                         }
                         if(self.postModel.enableCaptions){
                             VStack{
@@ -120,7 +123,7 @@ struct FinalPreview: View{
                         }
                     }
                     .overlay(alignment: .top){
-                        if marker {
+                        if markerHeader {
                             HStack {
                                 ColorPicker("line color", selection: $selectedColor)
                                     .labelsHidden()
@@ -131,23 +134,29 @@ struct FinalPreview: View{
                                 
                                 Spacer()
                                 
-                                Button {
-                                    let last = drawingDocument.lines.removeLast()
-                                    deletedLines.append(last)
-                                } label: {
-                                    Image(systemName: "arrow.uturn.backward.circle")
-                                        .imageScale(.large)
-                                }.disabled(drawingDocument.lines.count == 0)
+//                                Button {
+//                                    let last = drawingDocument.lines.removeLast()
+//                                    deletedLines.append(last)
+//                                } label: {
+//                                    Image(systemName: "arrow.uturn.backward.circle")
+//                                        .imageScale(.large)
+//                                }.disabled(drawingDocument.lines.count == 0)
+//
+//                                Button {
+//                                    let last = deletedLines.removeLast()
+//
+//                                    drawingDocument.lines.append(last)
+//                                } label: {
+//                                    Image(systemName: "arrow.uturn.forward.circle")
+//                                        .imageScale(.large)
+//                                }.disabled(deletedLines.count == 0)
                                 
-                                Button {
-                                    let last = deletedLines.removeLast()
+                                Button(action: {
+                                    markerHeader = false
                                     
-                                    drawingDocument.lines.append(last)
-                                } label: {
-                                    Image(systemName: "arrow.uturn.forward.circle")
-                                        .imageScale(.large)
-                                }.disabled(deletedLines.count == 0)
-                                
+                                }) {
+                                    Text("Done")
+                                }.foregroundColor(.white)
                                 Button(action: {
                                     showConfirmation = true
                                 }) {
@@ -217,17 +226,20 @@ struct FinalPreview: View{
                                     
                                 }
                                 Button {
-                                    marker.toggle()
-                                    if(marker){
-                                        
+                                    markerStack = true
+                                    markerHeader = true
+                                    if(markerStack){
+                                        self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.marker})
+                                        textOffset = CGSize(width: size.width, height: size.height)
+                                        self.postModel.audioContentUrl = nil
                                     }
                                 } label: {
                                     VStack{
-                                        if(self.marker)
+                                        if(self.markerStack)
                                         {
                                             
                                             Image("editPurple")
-                                            Text("Marder")
+                                            Text("Marker")
                                                 .font(.custom("Urbanist-Medium", size: 12))
                                                 .foregroundColor(ColorsHelper.deepPurple)
                                                 .padding(.top, -5)
@@ -594,8 +606,6 @@ struct FinalPreview: View{
                             Spacer()
                             
                             Button {
-//                                controller.videoPlayer.stopAllProcesses()
-//                                print("stopAllProcesses done")
                                 loading = true
                                 self.renderUrl = self.postModel.contentUrl
                                 if(self.postModel.audioContentUrl != nil)
@@ -610,53 +620,6 @@ struct FinalPreview: View{
                                         loading = false
                                         self.renderUrl = url
                                         DispatchQueue.main.async {
-                                            if(self.postModel.isImageContent()){
-                                                let data = try? Data(contentsOf: self.renderUrl!)
-                                                let uiImage = UIImage(data: data!)!
-                                                let image = Image(uiImage: uiImage)
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: UIScreen.main.screenWidth() ,height:UIScreen.main.screenHeight() )
-            //                                        .rotationEffect(.degrees(90))
-                                                    .overlay{
-                                                        if(enableText && textView != nil){
-                                                            textView(cameraSize: size)
-                                                        }
-                                                        if(enableSticker){
-                                                            stickerView
-                                                        }
-                                                    }
-                                                    .snapshot()
-            //                                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                                                self.controller.storeImage(image, callback: {url in
-                                                    loading = false
-                                                    if(enableSticker){
-                                                        let model = postModel.contentOverlay.first(where: {val in val.type == .sticker})
-                                                        if(model == nil){
-                                                            self.postModel.contentOverlay.append(ContentOverlayModel(type: .sticker, size: stickerOffset, scale: stickerScale, value: self.stickerTextName, color: .black, fontSize: 0, enableBackground: false, font: .system ))
-                                                        }
-                                                    }
-                                                    if(enableText){
-                                                        var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
-                                                        if(model != nil){
-                                                            self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
-                                                            model!.size = textOffset
-                                                            self.postModel.contentOverlay.append(model!)
-                                                        }
-                                                    }
-                                                    
-                                                    if(marker){
-                                                        var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
-                                                        if(model != nil){
-                                                            self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
-                                                            model!.size = textOffset
-                                                            self.postModel.contentOverlay.append(model!)
-                                                        }
-                                                    }
-                                                    self.renderUrl = url
-                                                    finalVideoPost.toggle()
-                                                })
-                                            }else{
                                                 loading = true
                                                 render(size: size,callback: {url in
                                                     loading = false
@@ -668,12 +631,6 @@ struct FinalPreview: View{
                                                             self.postModel.contentOverlay.append(ContentOverlayModel(type: .sticker, size: stickerOffset, scale: stickerScale, value: self.stickerTextName, color: .black, fontSize: 0, enableBackground: false, font: .system))
                                                         }
                                                     }
-//                                                    if(marker){
-//                                                        let model = postModel.contentOverlay.first(where: {val in val.type == .sticker})
-//                                                        if(model == nil){
-//                                                            self.postModel.contentOverlay.append(ContentOverlayModel(type: .sticker, size: stickerOffset, scale: stickerScale, value: self.stickerTextName, color: .black, fontSize: 0, enableBackground: false, font: .system))
-//                                                        }
-//                                                    }
                                                     if(enableText){
                                                         var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
                                                         if(model != nil){
@@ -682,59 +639,20 @@ struct FinalPreview: View{
                                                             self.postModel.contentOverlay.append(model!)
                                                         }
                                                     }
+                                                    if(markerStack){
+                                                        var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.marker})
+                                                        if(model != nil){
+                                                            self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.marker})
+                                                            model!.size = size
+                                                            self.postModel.contentOverlay.append(model!)
+                                                        }
+                                                    }
                                                     finalVideoPost.toggle()
                                                 })
-                                            }
                                             loading = true
                                         }
                                     })
                                 }else{
-                                    if(self.postModel.isImageContent()){
-                                        let data = try? Data(contentsOf: self.renderUrl!)
-                                        let uiImage = UIImage(data: data!)!
-                                        let image = Image(uiImage: uiImage)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: UIScreen.main.screenWidth() ,height:UIScreen.main.screenHeight() )
-    //                                        .rotationEffect(.degrees(90))
-                                            .overlay{
-                                                if(enableText && textView != nil){
-                                                    textView(cameraSize: size)
-                                                }
-                                                if(enableSticker){
-                                                    stickerView
-                                                }
-                                            }
-                                            .snapshot()
-    //                                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                                        self.controller.storeImage(image, callback: {url in
-                                            loading = false
-                                            if(enableSticker){
-                                                let model = postModel.contentOverlay.first(where: {val in val.type == .sticker})
-                                                if(model == nil){
-                                                    self.postModel.contentOverlay.append(ContentOverlayModel(type: .sticker, size: stickerOffset, scale: stickerScale, value: self.stickerTextName, color: .black, fontSize: 0, enableBackground: false, font: .system))
-                                                }
-                                            }
-                                            if(enableText){
-                                                var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
-                                                if(model != nil){
-                                                    self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
-                                                    model!.size = textOffset
-                                                    self.postModel.contentOverlay.append(model!)
-                                                }
-                                            }
-//                                            if(marker){
-//                                                var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
-//                                                if(model != nil){
-//                                                    self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
-//                                                    model!.size = textOffset
-//                                                    self.postModel.contentOverlay.append(model!)
-//                                                }
-//                                            }
-                                            self.renderUrl = url
-                                            finalVideoPost.toggle()
-                                        })
-                                    }else{
                                         loading = true
                                         render(size: size,callback: {url in
                                             loading = false
@@ -753,26 +671,18 @@ struct FinalPreview: View{
                                                     self.postModel.contentOverlay.append(model!)
                                                 }
                                             }
+                                            if(markerStack){
+                                                var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.marker})
+                                                if(model != nil){
+                                                    self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.marker})
+                                                    model!.size = size
+                                                    self.postModel.contentOverlay.append(model!)
+                                                }
+                                            }
                                             finalVideoPost.toggle()
                                         })
-                                    }
                                     loading = true
                                 }
-                                
-                                
-                                
-                                
-                            
-                                
-                                
-//                                    uploadReelss { isSuccess in
-//                                        if isSuccess {
-//                                            print("success=========")
-//                                        } else {
-//                                            print("failed==========")
-//                                        }
-//                                    }
-                                
                             } label: {
                                 Spacer()
                                 Text("Next")
@@ -861,43 +771,32 @@ struct FinalPreview: View{
             self.postModel.contentUrl = url
             self.postModel.speed = speed
             self.postModel.songModel = songModel
-//            self.changeURL = url
-//            for _ in 0...2{
                 controller.loadData(url: url)
                 print("URL FINAL PREVIEW1: " + url.absoluteString)
-//            }
         }
     }
     
     
     func callWithBack()  {
-//        self.url = URL(string: "")!
         if let url = postModel.contentUrl {
             self.url = url
-            
-//            self.changeURL = url
             for _ in 0...2{
                 controller.loadData(url: url)
                 print("URL FINAL PREVIEW1: " + url.absoluteString)
             }
-//            if (changeURL != nil){
-//                let isImage = !(changeURL!.absoluteString.lowercased().contains(".mp4") || changeURL!.absoluteString.lowercased().contains(".mov"))
-//                controller = FinalPreviewController(url: changeURL!, isImage: isImage, speed: cameraModel.speed)
-//                controller.loadData(url: url)
-//            }
         }
     }
     
     func renderView(cameraSize : CGSize) -> some View{
         ZStack{
+            if(markerStack){
+                markerView(cameraSize: cameraSize)
+            }
             if(enableText){
                 textView(cameraSize: cameraSize)
             }
             if(enableSticker){
                 stickerView(cameraSize: cameraSize)
-            }
-            if(marker){
-                markerView(cameraSize: cameraSize)
             }
         }
     }
@@ -913,21 +812,17 @@ struct FinalPreview: View{
             let view = textView(cameraSize: size).offset(CGSize(width: -textOffset.width, height: -textOffset.height))
             array.append((view.asUIImage(),textOffset))
         }
-        if(marker){
-            let view = markerView(cameraSize: size)
-            let image = view.asUIImage()
-            array.append((image, CGSize(width: size.width, height: size.height)))
+        if(markerStack){
+            let view = markerView(cameraSize: size).offset(CGSize(width: size.width, height: size.height))
+            array.append((view.asUIImage(), size))
         }
-        if(!enableText && !enableSticker && !marker){
+        if(!enableText && !enableSticker && !markerStack){
             self.renderUrl = self.postModel.contentUrl
             callback(self.renderUrl!)
             return
         }
         print("CAMERA SIZE: "+size.debugDescription)
-        if(postModel.isImageContent()){
-            
-        }else{
-            controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, completion: {val in
+        controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, completion: {val in
                 guard let url = val else{
                     print("merge url not correct")
                     return
@@ -937,7 +832,7 @@ struct FinalPreview: View{
                     callback(url)
                 }
             })
-        }
+        
         
     }
     
@@ -1006,7 +901,9 @@ struct FinalPreview: View{
         ZStack {
             Color.black
                 .opacity(0.1)
-                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged({ value in
+                .gesture(markerHeader ?
+                         DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                    .onChanged { value in
                         let newPoint = value.location
                         if value.translation.width + value.translation.height == 0 {
                             // TODO: use selected color and linewidth
@@ -1015,13 +912,14 @@ struct FinalPreview: View{
                             let index = drawingDocument.lines.count - 1
                             drawingDocument.lines[index].points.append(newPoint)
                         }
-
-                    }).onEnded({ value in
+                    }
+                    .onEnded { value in
                         if let last = drawingDocument.lines.last?.points, last.isEmpty {
                             drawingDocument.lines.removeLast()
                         }
-                    }))
-            
+                    }
+                         : nil  // Do nothing when markerHeader is false
+                )
             ForEach(drawingDocument.lines){ line in
                 DrawingShape(points: line.points)
                     .stroke(line.color, style: StrokeStyle(lineWidth: line.lineWidth, lineCap: .round, lineJoin: .round))

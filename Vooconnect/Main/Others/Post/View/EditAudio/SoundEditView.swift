@@ -361,14 +361,15 @@ struct MusicItemView: View {
                 ZStack{
                     if (songModel.preview != nil) {
                         AsyncImage(url: URL(string: songModel.album!.cover))
-                            .frame(width: 80, height: 80)
+                            .frame(width: 70, height: 70)
+                            .clipped()
+                            .cornerRadius(16)
+                    }else{
+                        Image("ImageArtist")
+                            .frame(width: 70, height: 70)
                             .clipped()
                             .cornerRadius(16)
                     }
-                    Image("ImageArtist")
-                        .frame(width: 80, height: 80)
-                        .clipped()
-                        .cornerRadius(16)
 //                    if(state.wrappedValue.preview != nil && state.wrappedValue.preview == songModel)
 //                    {
 //                        Image("PlayWhiteN")
@@ -404,7 +405,7 @@ struct MusicItemView: View {
                     .foregroundColor(Color.white)
                 
             }
-            .frame(width: 80)
+            .frame(width: 70)
         }
     }
 }

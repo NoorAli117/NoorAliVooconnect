@@ -59,6 +59,7 @@ struct FinalVideoToPostView: View {
     @State private var showPrivacySettings = false
     
     @State private var isFacebook = false
+    @State private var isSocialMedia = false
     @State private var isWhatsApp = false
     @State private var isTwetter = false
     @State private var isInstagram = false
@@ -622,7 +623,7 @@ struct FinalVideoToPostView: View {
                                                 .opacity(tapGestureState ? 0.5 : 1.0)
                                                 .animation(.easeInOut)
                                                 .onTapGesture {
-                                                    isWhatsApp.toggle()
+                                                    isSocialMedia.toggle()
                                                 }
                                         }
                                     }
@@ -664,7 +665,7 @@ struct FinalVideoToPostView: View {
                                                 .opacity(tapGestureState ? 0.5 : 1.0)
                                                 .animation(.easeInOut)
                                                 .onTapGesture {
-                                                    isInstagram.toggle()
+                                                    isSocialMedia.toggle()
                                                 }
                                         }
                                     }
@@ -697,7 +698,7 @@ struct FinalVideoToPostView: View {
                                                         )
                                                 )
                                                 .onTapGesture {
-                                                    isFacebook.toggle()
+                                                    isSocialMedia.toggle()
                                                 }
                                         } else {
                                             Image("FacebookLogo")
@@ -739,7 +740,7 @@ struct FinalVideoToPostView: View {
                                                         )
                                                 )
                                                 .onTapGesture {
-                                                    isTwetter.toggle()
+                                                    isSocialMedia.toggle()
                                                 }
                                         } else {
                                             Image("TwetterLogo")

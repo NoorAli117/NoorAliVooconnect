@@ -9,6 +9,11 @@ import Foundation
 
 import AVFoundation
 import UIKit
+import SwiftUI
+import AVKit
+
+
+
 // MARK: Camera View Model
 class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDelegate {
     
@@ -27,9 +32,9 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     // Top Progress Bar
     @Published var recordedDuration: CGFloat = 0
     // YOUR OWN TIMING
-    @Published var maxDuration: CGFloat = 10
+    @Published var maxDuration: Double = 10.0
     
-    @Published var isBackCamera : Bool = true
+    @Published var isBackCamera : Bool = false
     @Published var isBackCameraPhoto : Bool = true
     @Published var songModel : DeezerSongModel? = nil
     @Published var filterData: FilterData? = nil
