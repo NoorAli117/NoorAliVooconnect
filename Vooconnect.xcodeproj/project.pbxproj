@@ -40,6 +40,8 @@
 		043BDB872A7906BF0052A572 /* DrawingShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BDB862A7906BF0052A572 /* DrawingShape.swift */; };
 		0458EB842A5EB72000CD7B79 /* AudioRecrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */; };
 		0458EB862A69764100CD7B79 /* VideoCredit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458EB852A69764100CD7B79 /* VideoCredit.swift */; };
+		046F52092A864F78004BDBAD /* AudioMediaInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F52082A864F78004BDBAD /* AudioMediaInput.swift */; };
+		046F520D2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F520C2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift */; };
 		0478E6122A5946A300656D8D /* SoundEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478E6112A5946A300656D8D /* SoundEditView.swift */; };
 		047A625329D22F3D006D2635 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625229D22F3D006D2635 /* EditProfileViewModel.swift */; };
 		047A625629D23333006D2635 /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A625529D23333006D2635 /* ContactsView.swift */; };
@@ -469,6 +471,8 @@
 		043BDB862A7906BF0052A572 /* DrawingShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingShape.swift; sourceTree = "<group>"; };
 		0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecrder.swift; sourceTree = "<group>"; };
 		0458EB852A69764100CD7B79 /* VideoCredit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCredit.swift; sourceTree = "<group>"; };
+		046F52082A864F78004BDBAD /* AudioMediaInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMediaInput.swift; sourceTree = "<group>"; };
+		046F520C2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewModel.swift; sourceTree = "<group>"; };
 		0478E6112A5946A300656D8D /* SoundEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEditView.swift; sourceTree = "<group>"; };
 		047A625229D22F3D006D2635 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		047A625529D23333006D2635 /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
@@ -916,6 +920,7 @@
 				043BCB4A2A3CD1B60051A57C /* MyVideoPlayerView.swift */,
 				043BCB4B2A3CD1B80051A57C /* VideoTrimSliderView.swift */,
 				043BCB472A3C84A40051A57C /* AdjustVideoView.swift */,
+				046F520C2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift */,
 			);
 			path = VideoTrimView;
 			sourceTree = "<group>";
@@ -2508,6 +2513,7 @@
 				AB37593729CD0603000D0A2D /* SpeechRecognizerHelper.swift */,
 				AB37593E29CDFC7F000D0A2D /* VideoMediaInput.swift */,
 				AB37594029CE0262000D0A2D /* ClosedCaptioning.swift */,
+				046F52082A864F78004BDBAD /* AudioMediaInput.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3030,6 +3036,7 @@
 				A9975A562954255C00E6C71C /* AddModeratorsListView.swift in Sources */,
 				29625FB32A182017008E00FB /* RealmManager.swift in Sources */,
 				85DAB8EE29EA3A63008E7F40 /* VideoSessionView.swift in Sources */,
+				046F520D2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift in Sources */,
 				ABAEA66829BA7B5C00B5277E /* girlHairScene.rcproject in Sources */,
 				A91280E229190BD0008FE970 /* ConnectWithEmailAndPhoneView.swift in Sources */,
 				A9B2478E293DC3BB00B5A233 /* CustomeCameraView.swift in Sources */,
@@ -3051,6 +3058,7 @@
 				049F4BF329BBB67100113EA0 /* SwitchAccountView.swift in Sources */,
 				049F4C2E29BBBD6E00113EA0 /* PrimaryFillButton.swift in Sources */,
 				A955F2362952C19900498540 /* LiveStreamingView.swift in Sources */,
+				046F52092A864F78004BDBAD /* AudioMediaInput.swift in Sources */,
 				AB752EB729AB1E1D0065E1C8 /* SoundsViewBlocEvent.swift in Sources */,
 				A958B55229234B3100FE16EA /* PopUpViewTwo.swift in Sources */,
 				043BCB512A3CD30B0051A57C /* VideoCursorSlider.swift in Sources */,

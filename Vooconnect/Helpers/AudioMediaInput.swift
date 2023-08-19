@@ -1,9 +1,8 @@
 //
-//  VideoMediaInput.swift
-//  GenerateMetal-iOS
+//  AudioMediaInput.swift
+//  Vooconnect
 //
-//  Created by Omar Juarez Ortiz on 2018-11-28.
-//  Copyright © 2018 All rights reserved.
+//  Created by Mac on 11/08/2023.
 //
 
 import Foundation
@@ -11,16 +10,11 @@ import UIKit
 import AVFoundation;
 import MediaToolbox
 
-protocol VideoMediaInputDelegate: AnyObject {
-    func videoFrameRefresh(sampleBuffer: CMSampleBuffer) //could be audio or video
-}
 
-class VideoMediaInput: NSObject, ObservableObject {
+class AudioMediaInput: NSObject {
     private let queue = DispatchQueue(label: "com.GenerateMetal.VideoMediaInput")
     
-    var videoURL: URL!
-    
-    weak var delegate: VideoMediaInputDelegate?
+    var audioURL: URL!
     
     private var playerItemObserver: NSKeyValueObservation?
     var displayLink: CADisplayLink!
@@ -30,15 +24,13 @@ class VideoMediaInput: NSObject, ObservableObject {
     var audioProcessingFormat:  AudioStreamBasicDescription?//UnsafePointer<AudioStreamBasicDescription>?
     var tap: Unmanaged<MTAudioProcessingTap>?
     var onEndVideo : () -> () = {}
-    var speed : Float = 1
     override init(){
         
     }
     
-    convenience init(url: URL, speed : Float){
+    convenience init(url: URL){
         self.init()
-        self.videoURL = url
-        self.speed = speed
+        self.audioURL = url
 //        self.delegate = delegate
         
         self.playerItem = AVPlayerItem(url: url)
@@ -48,10 +40,7 @@ class VideoMediaInput: NSObject, ObservableObject {
             self?.playerItemObserver = nil
             self?.player.play()
             self?.player.currentItem?.audioTimePitchAlgorithm = .timeDomain
-            self?.player.rate = speed
         }
-        
-//        setupProcessingTap()
         
         
         player.replaceCurrentItem(with: playerItem)
@@ -61,22 +50,11 @@ class VideoMediaInput: NSObject, ObservableObject {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) {[weak self] notification in
             
             if let weakSelf = self {
-                /*
-                 Setting actionAtItemEnd to None prevents the movie from getting paused at item end. A very simplistic, and not gapless, looped playback.
-                 */
-//                weakSelf.player.actionAtItemEnd = .none
                 weakSelf.player.seek(to: CMTime.zero)
                 self?.onEndVideo()
-//                weakSelf.player.play()
             }
             
         }
-//        NotificationCenter.default.addObserver(
-//            self,
-//            selector: #selector(applicationDidBecomeActive(_:)),
-//            name: UIApplication.didBecomeActiveNotification,
-//            object: nil)
-        
     }
     
     func onChange(for url : URL) {
@@ -88,7 +66,6 @@ class VideoMediaInput: NSObject, ObservableObject {
             self?.playerItemObserver = nil
             self?.player.play()
             self?.player.currentItem?.audioTimePitchAlgorithm = .timeDomain
-            self?.player.rate = self!.speed
         }
         player.replaceCurrentItem(with: playerItem)
         player.currentItem!.add(videoOutput)
@@ -96,13 +73,8 @@ class VideoMediaInput: NSObject, ObservableObject {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) {[weak self] notification in
             
             if let weakSelf = self {
-                /*
-                 Setting actionAtItemEnd to None prevents the movie from getting paused at item end. A very simplistic, and not gapless, looped playback.
-                 */
-//                weakSelf.player.actionAtItemEnd = .none
                 weakSelf.player.seek(to: CMTime.zero)
                 self?.onEndVideo()
-//                weakSelf.player.play()
             }
             
         }
@@ -128,19 +100,17 @@ class VideoMediaInput: NSObject, ObservableObject {
         stopAllProcesses()
         
     }
-    public func playVideo(){
+    public func playAudio(){
         if (player.currentItem != nil) {
             print("Starting playback!")
             player.play()
-            player.rate = speed
         }
     }
-    public func pauseVideo(){
+    public func pauseAudio(){
         if (player.currentItem != nil) {
             print("Pausing playback!")
             player.pause()
-            player.rate = speed
-            self.player.isMuted = true
+//            self.player.isMuted = true
         }
     }
     
@@ -278,7 +248,7 @@ class VideoMediaInput: NSObject, ObservableObject {
         
 //        let currentSampleTime = CMSampleBufferGetOutputPresentationTimeStamp(sbuf!);
 //        print(" audio buffer at time: \(currentSampleTime)")
-        self.delegate?.videoFrameRefresh(sampleBuffer: sbuf!)
+//        self.delegate?.videoFrameRefresh(sampleBuffer: sbuf!)
     
     }
     

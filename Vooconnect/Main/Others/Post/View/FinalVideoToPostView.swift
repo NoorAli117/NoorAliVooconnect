@@ -77,6 +77,7 @@ struct FinalVideoToPostView: View {
     @State var videoCredits: [String] = []
     
     var catSelected: (Int) -> () = {val in}
+    @State private var selectedType: SocialMediaType?
     
     init(postModel : PostModel, renderUrl : URL?){
         _postModel = State(initialValue: postModel)
@@ -412,7 +413,7 @@ struct FinalVideoToPostView: View {
                                             //                                    bottomSheetShown.toggle()
                                             showPrivacySettings.toggle()
                                         } label: {
-                                            Text("Visible to Everyone")
+                                            Text("Visible to \(self.postModel.visibility.rawValue.prefix(1).capitalized + self.postModel.visibility.rawValue.dropFirst())")
                                                 .font(.custom("Urbanist-SemiBold", size: 18))
                                                 .foregroundColor(.black)
                                         }
@@ -594,178 +595,10 @@ struct FinalVideoToPostView: View {
                                 }
                                 .padding(.top)
                                 
-                                HStack{
-                                    VStack {
-                                        if isWhatsApp {
-                                            Circle()
-                                                .strokeBorder(LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                                                .frame(width: 50, height: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .foregroundColor(.white) // Add a contrasting background color
-                                                        .frame(width: 46, height: 46) // Slightly smaller than the main circle
-                                                        .overlay(
-                                                            Image("WhatsAppLogo") // Replace "yourImageName" with the actual name of your image asset
-                                                                .resizable()
-                                                                .scaledToFit()
-                                                        )
-                                                )
-                                                .onTapGesture {
-                                                    isWhatsApp.toggle()
-                                                }
-                                        } else {
-                                            Image("WhatsAppLogo")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .opacity(tapGestureState ? 0.5 : 1.0)
-                                                .animation(.easeInOut)
-                                                .onTapGesture {
-                                                    isSocialMedia.toggle()
-                                                }
-                                        }
+                                HStack {
+                                    ForEach(SocialMediaType.allCases, id: \.self) { type in
+                                        SocialMediaIconView(type: type, selectedType: $selectedType)
                                     }
-                                    .frame(width: 50, height: 50)
-                                    .gesture(
-                                        TapGesture()
-                                            .updating($tapGestureState) { value, state, _ in
-                                                state = true
-                                            }
-                                            .onEnded { _ in
-                                                isWhatsApp.toggle()
-                                            }
-                                    )
-                                    VStack {
-                                        if isInstagram {
-                                            Circle()
-                                                .strokeBorder(LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                                                .frame(width: 50, height: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .foregroundColor(.white) // Add a contrasting background color
-                                                        .frame(width: 46, height: 46) // Slightly smaller than the main circle
-                                                        .overlay(
-                                                            Image("InstagramLogo") // Replace "yourImageName" with the actual name of your image asset
-                                                                .resizable()
-                                                                .scaledToFit()
-                                                        )
-                                                )
-                                                .onTapGesture {
-                                                    isInstagram.toggle()
-                                                }
-                                        } else {
-                                            Image("InstagramLogo")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .opacity(tapGestureState ? 0.5 : 1.0)
-                                                .animation(.easeInOut)
-                                                .onTapGesture {
-                                                    isSocialMedia.toggle()
-                                                }
-                                        }
-                                    }
-                                    .frame(width: 50, height: 50)
-                                    .gesture(
-                                        TapGesture()
-                                            .updating($tapGestureState) { value, state, _ in
-                                                state = true
-                                            }
-                                            .onEnded { _ in
-                                                isInstagram.toggle()
-                                            }
-                                    )
-                                    VStack {
-                                        if isFacebook {
-                                            Circle()
-                                                .strokeBorder(LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                                                .frame(width: 50, height: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .foregroundColor(.white) // Add a contrasting background color
-                                                        .frame(width: 46, height: 46) // Slightly smaller than the main circle
-                                                        .overlay(
-                                                            Image("FacebookLogo") // Replace "yourImageName" with the actual name of your image asset
-                                                                .resizable()
-                                                                .scaledToFit()
-                                                        )
-                                                )
-                                                .onTapGesture {
-                                                    isSocialMedia.toggle()
-                                                }
-                                        } else {
-                                            Image("FacebookLogo")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .opacity(tapGestureState ? 0.5 : 1.0)
-                                                .animation(.easeInOut)
-                                                .onTapGesture {
-                                                    isFacebook.toggle()
-                                                }
-                                        }
-                                    }
-                                    .frame(width: 50, height: 50)
-                                    .gesture(
-                                        TapGesture()
-                                            .updating($tapGestureState) { value, state, _ in
-                                                state = true
-                                            }
-                                            .onEnded { _ in
-                                                isFacebook.toggle()
-                                            }
-                                    )
-                                    VStack {
-                                        if isTwetter {
-                                            Circle()
-                                                .strokeBorder(LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                                                .frame(width: 50, height: 50)
-                                                .overlay(
-                                                    Circle()
-                                                        .foregroundColor(.white) // Add a contrasting background color
-                                                        .frame(width: 46, height: 46) // Slightly smaller than the main circle
-                                                        .overlay(
-                                                            Image("TwetterLogo") // Replace "yourImageName" with the actual name of your image asset
-                                                                .resizable()
-                                                                .scaledToFit()
-                                                        )
-                                                )
-                                                .onTapGesture {
-                                                    isSocialMedia.toggle()
-                                                }
-                                        } else {
-                                            Image("TwetterLogo")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .opacity(tapGestureState ? 0.5 : 1.0)
-                                                .animation(.easeInOut)
-                                                .onTapGesture {
-                                                    isTwetter.toggle()
-                                                }
-                                        }
-                                    }
-                                    .frame(width: 50, height: 50)
-                                    .gesture(
-                                        TapGesture()
-                                            .updating($tapGestureState) { value, state, _ in
-                                                state = true
-                                            }
-                                            .onEnded { _ in
-                                                isTwetter.toggle()
-                                            }
-                                    )
-                                    //                                .onTapGesture {
-                                    //                                    twetterImage =
-                                    //                                }
                                     Spacer()
                                 }
                                 .padding(.top)
@@ -830,7 +663,7 @@ struct FinalVideoToPostView: View {
                                                     print("success=========")
                                                     homeView = true
                                                 }
-                                                if (isFacebook == true){
+                                                if (selectedType != nil){
                                                     DispatchQueue.main.async{
                                                         print("Facebook is true")
                                                         let fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
@@ -1176,12 +1009,39 @@ struct FinalVideoToPostView: View {
         }
     }
 
-//struct FinalVideoToPostView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FinalVideoToPostView()
-//    }
-//}
-//getImageVideoBaseURL + "/marked" + fileName
+enum SocialMediaType: String, CaseIterable {
+    case WhatsApp
+    case Instagram
+    case Facebook
+    case Twetter
+}
+struct SocialMediaIconView: View {
+    let type: SocialMediaType
+    @Binding var selectedType: SocialMediaType?
+    
+    var isSelected: Bool {
+        selectedType == type
+    }
+    
+    var body: some View {
+        Image("\(type.rawValue)Logo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 50, height: 50)
+            .opacity(isSelected ? 1.0 : 0.5)
+            .overlay(
+                Circle()
+                    .strokeBorder(isSelected ? LinearGradient(colors: [Color("buttionGradientTwo"), Color("buttionGradientOne")], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color.clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+            )
+            .onTapGesture {
+                if isSelected {
+                    selectedType = nil
+                } else {
+                    selectedType = type
+                }
+            }
+    }
+}
 
 struct ExtractedImageView: View {
     let image: UIImage

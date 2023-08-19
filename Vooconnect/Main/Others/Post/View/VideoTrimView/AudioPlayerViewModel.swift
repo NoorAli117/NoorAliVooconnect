@@ -1,15 +1,15 @@
 //
-//  AdjustVideoView.swift
+//  AudioPlayerViewModel.swift
 //  Vooconnect
 //
-//  Created by Mac on 16/06/2023.
+//  Created by Mac on 15/08/2023.
 //
 
 import AVFoundation
 import Combine
 import SwiftUI
 
-final class PlayerViewModel: ObservableObject {
+final class AudioPlayerViewModel: ObservableObject {
     @Published var player = AVPlayer()
     @Published var isInPipMode: Bool = false
     @Published var isPlaying = false
@@ -18,7 +18,9 @@ final class PlayerViewModel: ObservableObject {
     @Published var isEditingCurrentTime = false
     @Published var currentTime: Double = .zero
     @Published var duration: Double?
-    @Published var speed: Float?
+//    @State var cameraModel = CameraViewModel()
+//    @State var songModel : DeezerSongModel? = DeezerSongModel()
+//    @EnvironmentObject var soundsViewBlocs: SoundsViewBloc
     
     private var subscriptions: Set<AnyCancellable> = []
     private var timeObserver: Any?
@@ -29,9 +31,10 @@ final class PlayerViewModel: ObservableObject {
         }
     }
     
-    init(videoUrl: URL, speed: Float) {
-        self.speed = speed
-        self.player = AVPlayer(url: videoUrl)
+    init(videoUrl: URL?) {
+        if let videoUrl = videoUrl {
+                    self.player = AVPlayer(url: videoUrl)
+                }
         $isEditingCurrentTime
             .dropFirst()
             .filter({ $0 == false })
@@ -40,7 +43,7 @@ final class PlayerViewModel: ObservableObject {
                 self.player.seek(to: CMTime(seconds: self.currentTime, preferredTimescale: 1), toleranceBefore: .zero, toleranceAfter: .zero)
                 if self.player.rate != 0 {
                     self.player.play()
-                    self.player.rate = speed
+//                    self.player.rate = cameraModel.speed
                 }
             })
             .store(in: &subscriptions)
@@ -92,7 +95,6 @@ final class PlayerViewModel: ObservableObject {
                 self.player.seek(to: CMTime(seconds: self.currentTime, preferredTimescale: 1), toleranceBefore: .zero, toleranceAfter: .zero)
                 if self.player.rate != 0 {
                     self.player.play()
-                    self.player.rate = speed!
                 }
             })
             .store(in: &subscriptions)
@@ -131,7 +133,6 @@ final class PlayerViewModel: ObservableObject {
         currentTime = .zero
         duration = nil
         player.replaceCurrentItem(with: item)
-        player.rate = speed!
         
         item.publisher(for: \.status)
             .filter({ $0 == .readyToPlay })
@@ -145,11 +146,11 @@ final class PlayerViewModel: ObservableObject {
         if player.timeControlStatus == .playing {
             player.pause()
         } else {
-            self.player.rate = speed!
+//            self.player.rate = cameraModel.speed
             player.play()
             isFinishedPlaying = false
         }
-        isPlaying.toggle()
+//        isPlaying.toggle()
     }
     
     func seekVideo(toPosition position: CGFloat) {

@@ -74,7 +74,7 @@ struct BeautyView: View {
                         BeautyManager.shared.setDefault()
                         
                         if selectedIndex != 0  {
-                            let beautyValue = BeautyManager.shared.getBeautyValue(type: ARGContentItemBeauty(rawValue: selectedIndex) ?? .vline)
+                            let beautyValue = BeautyManager.shared.getBeautyValue(type: ARGContentItemBeauty(rawValue: selectedIndex)!)
                             value = beautyValue
                         }
                     }
@@ -87,6 +87,8 @@ struct BeautyView: View {
                             .onTapGesture {
                                 selectedIndex = index
                                 print("Selected Index \(selectedIndex)")
+                                let beautyValue = BeautyManager.shared.getBeautyValue(type: ARGContentItemBeauty(rawValue: selectedIndex)!)
+                                self.value = Float(beautyValue)
                             }
 //                            .overlay(
 //                                RoundedRectangle(cornerRadius: 10)

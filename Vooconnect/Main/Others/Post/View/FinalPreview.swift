@@ -84,11 +84,11 @@ struct FinalPreview: View{
                          print("final preview disappear---------------------")
                     }
                     .onTapGesture {
-                        if(controller.isPlaying)
-                        {
+                        if(controller.isPlaying) {
+//                            controller.audioPlayer.pauseAudio()
                             controller.pause()
-                        }else
-                        {
+                        }else {
+//                            controller.audioPlayer.playAudio()
                             controller.play()
                         }
                     }
@@ -228,11 +228,6 @@ struct FinalPreview: View{
                                 Button {
                                     markerStack = true
                                     markerHeader = true
-                                    if(markerStack){
-                                        self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.marker})
-                                        textOffset = CGSize(width: size.width, height: size.height)
-                                        self.postModel.audioContentUrl = nil
-                                    }
                                 } label: {
                                     VStack{
                                         if(self.markerStack)
@@ -332,24 +327,9 @@ struct FinalPreview: View{
                                     .padding(.top, -5)
                                 
                                 Button {
-//                                    if(speechRecognizer.transcript != "")
-//                                    {
-//                                        speechRecognizer.reset()
-//                                        self.postModel.enableCaptions = false
-//                                        self.postModel.audioContentUrl = nil
-//                                        print("reset transcript")
-//                                        return
-//                                    }
-                                    
                                     self.postModel.enableCaptions.toggle()
                                     self.postModel = self.postModel
                                     self.controller.forcePlay()
-                                    //                                    controller.getAudioFromVideoUrl(url: self.postModel.contentUrl!.absoluteString, callback: {val in
-//                                        DispatchQueue.main.async {
-////                                            self.controller.videoPlayer.player = vmInput.player
-//
-//                                        }
-//                                    })
                                 } label: {
                                     VStack{
                                         if(!self.postModel.enableCaptions)
@@ -390,13 +370,14 @@ struct FinalPreview: View{
                                 }
                                 
                                 let url = self.postModel.contentUrl
+                                let audioURL = URL(string: songModel?.preview ?? "")
 //                                let pathUrl = url?.path
                                 let asset = AVURLAsset(url: url!, options: nil)
-                                let playermanager = PlayerViewModel(videoUrl: url!)
-                                
+                                let playermanager = PlayerViewModel(videoUrl: url!, speed: speed)
+                                let audioPlayermanager = AudioPlayerViewModel(videoUrl: audioURL)
                                 
                                 NavigationLink(destination:
-                                                AdjustVideoView(slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, renderUrl: $changeURL, postModel: $postModel, callWhenBack: callWithBack)
+                                                AdjustVideoView(url: url, slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, audioPlayerVM: audioPlayermanager, renderUrl: $changeURL, postModel: $postModel, callWhenBack: callWithBack, speed: $speed)
                                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $adjustmentView) {
                                         EmptyView()
                                     }
@@ -455,7 +436,7 @@ struct FinalPreview: View{
                                 }
 //                                let playermanager = PlayerViewModel(videoUrl: url!)
                                 NavigationLink(destination:
-                                                SoundEditView(playerVM: playermanager, postModel: $postModel, callWhenBack: callWithBack)
+                                                SoundEditView(url: url,playerVM: playermanager, audioPlayerVM: audioPlayermanager, postModel: $postModel, songModel: songModel, speed: $speed, callWhenBack: callWithBack)
                                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $voiceOverView) {
                                         EmptyView()
                                     }
@@ -501,7 +482,7 @@ struct FinalPreview: View{
                                                     // Denoising process completed successfully, use the denoised video at "outputURL"
                                                     print("Denoised video saved at: \(outputURL)")
                                                     let isImage = !(renderUrl!.absoluteString.lowercased().contains(".mp4") || renderUrl!.absoluteString.lowercased().contains(".mov"))
-                                                    controller = FinalPreviewController(url: renderUrl!, isImage: isImage, speed: cameraModel.speed)
+                                                    controller = FinalPreviewController(url: renderUrl!, isImage: isImage, speed: speed)
                                                     loading = false
                                                     // Perform further actions, like displaying the denoised video or saving it to the camera roll
                                                 } else {
@@ -639,14 +620,6 @@ struct FinalPreview: View{
                                                             self.postModel.contentOverlay.append(model!)
                                                         }
                                                     }
-                                                    if(markerStack){
-                                                        var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.marker})
-                                                        if(model != nil){
-                                                            self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.marker})
-                                                            model!.size = size
-                                                            self.postModel.contentOverlay.append(model!)
-                                                        }
-                                                    }
                                                     finalVideoPost.toggle()
                                                 })
                                             loading = true
@@ -668,14 +641,6 @@ struct FinalPreview: View{
                                                 if(model != nil){
                                                     self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
                                                     model!.size = textOffset
-                                                    self.postModel.contentOverlay.append(model!)
-                                                }
-                                            }
-                                            if(markerStack){
-                                                var model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.marker})
-                                                if(model != nil){
-                                                    self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.marker})
-                                                    model!.size = size
                                                     self.postModel.contentOverlay.append(model!)
                                                 }
                                             }
@@ -771,8 +736,9 @@ struct FinalPreview: View{
             self.postModel.contentUrl = url
             self.postModel.speed = speed
             self.postModel.songModel = songModel
-                controller.loadData(url: url)
-                print("URL FINAL PREVIEW1: " + url.absoluteString)
+            controller.loadData(url: url)
+            controller.audio = URL(string: songModel?.preview ?? "")
+            print("URL FINAL PREVIEW1: " + url.absoluteString)
         }
     }
     
@@ -782,6 +748,7 @@ struct FinalPreview: View{
             self.url = url
             for _ in 0...2{
                 controller.loadData(url: url)
+                controller.audio = URL(string: songModel?.preview ?? "")
                 print("URL FINAL PREVIEW1: " + url.absoluteString)
             }
         }
@@ -789,14 +756,14 @@ struct FinalPreview: View{
     
     func renderView(cameraSize : CGSize) -> some View{
         ZStack{
-            if(markerStack){
-                markerView(cameraSize: cameraSize)
-            }
             if(enableText){
                 textView(cameraSize: cameraSize)
             }
             if(enableSticker){
                 stickerView(cameraSize: cameraSize)
+            }
+            if(markerStack){
+                markerView(cameraSize: cameraSize)
             }
         }
     }
@@ -813,8 +780,8 @@ struct FinalPreview: View{
             array.append((view.asUIImage(),textOffset))
         }
         if(markerStack){
-            let view = markerView(cameraSize: size).offset(CGSize(width: size.width, height: size.height))
-            array.append((view.asUIImage(), size))
+            let view = markerView(cameraSize: size).offset(x: 0,y: 0)
+            array.append((view.asUIImage(),textOffset))
         }
         if(!enableText && !enableSticker && !markerStack){
             self.renderUrl = self.postModel.contentUrl
@@ -865,7 +832,6 @@ struct FinalPreview: View{
                 VideoPlayer(player: controller.videoPlayer.player)
                     .aspectRatio(contentMode: .fill)
                     .frame(width: size.width, height: size.height)
-                
             }
         }
         .background {
@@ -899,7 +865,7 @@ struct FinalPreview: View{
     
     func markerView(cameraSize: CGSize) -> some View{
         ZStack {
-            Color.black
+            Image(uiImage: UIImage.from(color: .clear, size: CGSize(width: cameraSize.width, height: cameraSize.height)))
                 .opacity(0.1)
                 .gesture(markerHeader ?
                          DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -1037,6 +1003,15 @@ struct FinalPreview: View{
     
 }
 
+extension UIImage {
+    static func from(color: UIColor, size: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { context in
+            color.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+        }
+    }
+}
 //struct FinalPreview_Previews: PreviewProvider {
 //    static var previews: some View {
 //        FinalPreview(url: URL(string: "")!, showPreview: .constant(true), songModel: nil)

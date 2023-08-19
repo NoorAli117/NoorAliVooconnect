@@ -18,6 +18,7 @@ import MobileCoreServices
 class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDelegate, VideoMediaInputDelegate
 {
     @Published var videoPlayer = VideoMediaInput()
+    @Published var audioPlayer = AudioMediaInput()
     @Published var isRecording : Bool = false
     var audioRecorder : AVAudioRecorder!
     @Published var isPlaying: Bool = false
@@ -27,6 +28,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     @Published var captioning: String = ""
     private var isImage : Bool
     private var speed : Float
+    @Published var audio: URL?
     init(url : URL, isImage : Bool, speed : Float)
     {
         self.isImage = isImage
@@ -37,30 +39,57 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     
     func loadData(url: URL){
         DispatchQueue.global(qos: .background).async{ [self] in
-            if(!isImage)
-            {
-                self.videoPlayer = VideoMediaInput(url: url,speed: speed)
-                videoPlayer.delegate = self
-                setupRecognition()
-                videoPlayer.onEndVideo = {
-                    self.captioning = ""
-                    self.setupRecognition()
+            if (self.audio != nil){
+                if(!isImage){
+                    self.videoPlayer = VideoMediaInput(url: url,speed: speed)
+                    self.audioPlayer = AudioMediaInput(url: audio!)
+                    videoPlayer.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
+                        if let duration = self.videoPlayer.player.currentItem?.duration, time >= duration {
+                            self.audioPlayer.player.pause()
+                        }
+                    }
+                    videoPlayer.delegate = self
+                    setupRecognition()
+                }else{
+                    videoPlayer = VideoMediaInput()
                 }
                 
             }else{
-                videoPlayer = VideoMediaInput()
+                if(!isImage){
+                    self.videoPlayer = VideoMediaInput(url: url,speed: speed)
+                    videoPlayer.delegate = self
+                    setupRecognition()
+                    videoPlayer.onEndVideo = {
+                        self.audioPlayer.player.pause()
+//                        self.captioning = ""
+                        self.setupRecognition()
+                    }
+                    
+                }else{
+                    videoPlayer = VideoMediaInput()
+                }
             }
         }
     }
     ///Play video from [videoPlayer] player
     func play(){
         videoPlayer.playVideo()
+        audioPlayer.playAudio()
+        videoPlayer.player.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+        audioPlayer.player.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+        videoPlayer.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
+            if let duration = self.videoPlayer.player.currentItem?.duration, time >= duration {
+                self.audioPlayer.player.pause()
+            }
+        }
         isPlaying = true
     }
     
     ///Pause video from [videoPlayer] player
     func pause(){
         videoPlayer.pauseVideo()
+        audioPlayer.pauseAudio()
+        
         isPlaying = false
     }
     
@@ -97,7 +126,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
             if let result = result {
                 self?.captioning = result.bestTranscription.formattedString
             }else{
-                print("captioning is nil")
+                print("captioning is nil and error is \(String(describing: error?.localizedDescription))")
             }
 
             // if connected to internet, then once in about every minute recognition task finishes

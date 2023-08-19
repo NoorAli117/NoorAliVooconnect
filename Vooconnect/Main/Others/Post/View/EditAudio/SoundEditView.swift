@@ -12,10 +12,12 @@ import Foundation
 
 
 struct SoundEditView: View {
-    
+    @State var url: URL?
     @StateObject var playerVM: PlayerViewModel
+    @StateObject var audioPlayerVM: AudioPlayerViewModel
     @Environment(\.presentationMode) var presentationMode
     @Binding var postModel: PostModel
+    @State var songModel: DeezerSongModel?
     @State private var isRecording: Bool = false
     @State private var isButton: Bool = false
     @State private var soundView: Bool = false
@@ -27,6 +29,7 @@ struct SoundEditView: View {
     @State var cameraModel = CameraViewModel()
     var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
     var pickSong : (DeezerSongModel) -> () = {val in}
+    @Binding var speed: Float
     var callWhenBack : () -> ()
     
     var body: some View{
@@ -51,16 +54,18 @@ struct SoundEditView: View {
                     Spacer()
                     let width = UIScreen.main.bounds.width-150
                     let height = UIScreen.main.bounds.height-420
+//                    let isImage = !(url!.absoluteString.lowercased().contains(".mp4") || url!.absoluteString.lowercased().contains(".mov"))
                     RoundedRectangle(cornerRadius: 20)
                         .overlay(
-                            MyVideoPlayerView(playerVM: playerVM)
+                            MyVideoPlayerView(playerVM: playerVM, audioPlayerVM: audioPlayerVM, speed: $speed)
                                 .mask(RoundedRectangle(cornerRadius: 20))
                         )
-//                        .background(Color.white)
                         .frame(width: width, height: height)
                         .onDisappear {
-                            playerVM.player.pause()
-                            soundsViewBloc.stopSong()
+                            self.playerVM.isPlaying = false
+                            self.audioPlayerVM.isPlaying = false
+                            print("audioView disappear============")
+                            
                         }
 
                     Spacer()
@@ -110,16 +115,10 @@ struct SoundEditView: View {
             }
         }
         .onAppear {
+            playerVM.player.rate = speed
+            self.playerVM.isPlaying = true
+            self.audioPlayerVM.isPlaying = true
             soundsViewBloc.loadSongInit()
-            prepareAudioRecorder()
-            let url = postModel.contentUrl?.absoluteString
-            print("duration url: \(String(describing: url))")
-            if let videoURL = URL(string: url!) {
-                videoDuration = getVideoDuration(url: videoURL)!
-                print("Video duration: \(videoDuration) seconds")
-            } else {
-                print("Video file not found.")
-            }
         }
         
     }
@@ -133,7 +132,7 @@ struct SoundEditView: View {
             pickSong: {val in
                 pickSong(val)
                 presentationMode.wrappedValue.dismiss()
-            }, playVideo: playerVM, cameraModel: $cameraModel
+            }, playVideo: playerVM, cameraModel: $cameraModel, audioPlayerVM: audioPlayerVM
         )
         .environmentObject(soundsViewBloc)
     }
@@ -354,6 +353,7 @@ struct MusicItemView: View {
     @EnvironmentObject var soundsViewBloc: SoundsViewBloc
     @StateObject var playVideo: PlayerViewModel
     @Binding var cameraModel: CameraViewModel
+    @StateObject var audioPlayerVM: AudioPlayerViewModel
     
     var body: some View {
         VStack (alignment: .center){
@@ -379,6 +379,7 @@ struct MusicItemView: View {
                 }
                 .frame(alignment: .center)
                 .button {
+                    audioPlayerVM.isPlaying = false
                     cameraModel.songModel = nil
                     soundsViewBloc.playSong(songModel: songModel)
                     cameraModel.songModel = songModel

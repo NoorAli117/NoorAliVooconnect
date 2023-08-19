@@ -11,6 +11,7 @@ import AVFoundation
 import UIKit
 import SwiftUI
 import AVKit
+import ARGear
 
 
 
@@ -39,8 +40,29 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     @Published var songModel : DeezerSongModel? = nil
     @Published var filterData: FilterData? = nil
     @Published var speed : Float = 1
+    @Published var filter: [Item] = []
+    @Published var content: [Category] = []
     
-    // Video
+    
+    // MARK: - ARGearSDK properties
+    private var argConfig: ARGConfig?
+    private var argSession: ARGSession?
+    private var currentFaceFrame: ARGFrame?
+    private var nextFaceFrame: ARGFrame?
+    private var preferences: ARGPreferences = ARGPreferences()
+    
+    // MARK: - Camera & Scene properties
+    private let serialQueue = DispatchQueue(label: "serialQueue")
+    private var currentCamera: CameraDeviceWithPosition = .front
+    
+    private var arCamera: ARGCamera!
+    private var arScene: ARGScene!
+    private var arMedia: ARGMedia = ARGMedia()
+    
+    private lazy var cameraPreviewCALayer = CALayer()
+    
+    
+    
     func checkPermission(isBackCamera : Bool){
 
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -464,30 +486,8 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         // CREATED SUCCESSFULLY
         self.recordedURLs.append(outputFileURL)
         if self.recordedURLs.count == 1{
-            if(self.songModel == nil)
-            {
-                print("=========\(outputFileURL)")
                 print("output url: \(outputFileURL)")
                 self.previewURL = outputFileURL
-            }
-            self.removeAudioFromVideo(videoURL: outputFileURL){url, error in
-                if let error = error {
-                    print("Failed to remove audio: \(error.localizedDescription)")
-                } else if let audioURL = URL(string: (self.songModel?.preview ?? "")!) {
-                    self.mergeVideoAndAudio(videoUrl: url!, audioUrl: audioURL, completion:{error, url in
-                        guard let url = url else{
-                            print("final error merging video and audio")
-                            return
-                        }
-                        print("video and audio merge, new url: "+url.absoluteString)
-                        self.previewURL = nil
-                        DispatchQueue.main.async {
-                            self.previewURL = url
-                        }
-                    })
-                }
-                
-            }
             return
         }
         
@@ -572,6 +572,13 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     }
     
     
-}
+    
+    private func pixelbufferToCGImage(_ pixelbuffer: CVPixelBuffer) -> CGImage? {
+        let ciimage = CIImage(cvPixelBuffer: pixelbuffer)
+        let context = CIContext()
+        let cgimage = context.createCGImage(ciimage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelbuffer), height: CVPixelBufferGetHeight(pixelbuffer)))
 
+        return cgimage
+    }
+}
 
