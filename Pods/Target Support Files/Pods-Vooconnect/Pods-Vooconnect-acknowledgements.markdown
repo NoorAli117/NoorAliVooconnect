@@ -1,6 +1,11 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## DeepAR
+
+Please see: https://developer.deepar.ai/customer-agreement
+
+
 ## FBAEMKit
 
 Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.

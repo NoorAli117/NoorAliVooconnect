@@ -8,6 +8,7 @@
 import SwiftUI
 import AVKit
 import AVFoundation
+import SwiftUIBloc
 
 struct MusicView: View {
     @Environment(\.presentationMode) var presentaionMode
@@ -17,12 +18,17 @@ struct MusicView: View {
     @StateObject private var reelVM: ReelsViewModel = ReelsViewModel()
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @Binding var cameraView: Bool
-    @State var audioPlayer: AVAudioPlayer!
+//    @State var audioPlayer: AVAudioPlayer!
+    @State private var audioPlayer: AVPlayer?
     @State var player: AVPlayer!
     @State var isPlaying = false
+    @State var songModel: DeezerSongModel?
+    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
     //    var thumbnailImageView: UIImageView
     @State var thumbnailImageView2: UIImage?
-    
+    @State var musicImage: Image?
+    @State var musicURL: String = ""
+    @State var reels: String = ""
     var gridLayoutMP: [GridItem] {
         return Array(repeating: GridItem(.fixed(120), spacing: 1), count: 3)
     }
@@ -58,227 +64,139 @@ struct MusicView: View {
                     
                     
                     //music picture with title
-                    HStack {
+                    VStack {
                         
                         ForEach(reelVM.allReels, id: \.postID) { reel in
                             if reel.postID == reelId {
-                                if reel.musicURL == nil {
-                                    Image(uiImage: thumbnailImageView2!)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 140, height: 140)
-                                        .cornerRadius(24)
-                                    
-                                    
-                                }else{
-                                    Image(reel.creatorProfileImage!)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 140, height: 140)
-                                        .cornerRadius(24)
-                                }
-                            }
-                            
-                        }
-                        
-                        //                        Image("EffectsImageE")
-                        //                            .resizable()
-                        //                            .scaledToFill()
-                        //                            .frame(width: 140, height: 140)
-                        //                            .cornerRadius(24)
-                        
-                        Spacer()
-                        
-                        VStack (alignment: .leading) {
-                            
-                            ForEach(reelVM.allReels, id: \.postID) { reel in
-                                if reel.postID == reelId {
-                                    VStack (alignment: .leading) {
-                                        Text("\(reel.musicTrack == nil ? "Original-Sound" : "\(reel.title ?? "") by")")
-                                            .font(.custom("Urbanist-Regular", size: 24))
-                                            .fontWeight(Font.Weight.semibold)
-                                            .lineLimit(1)
-                                        if reel.musicTrack != nil {
-                                            Text("\(reel.creatorFirstName! + " " + reel.creatorLastName!)")
+                                VStack(alignment: .leading){
+                                    HStack{
+                                        Image("MusicImage")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 140, height: 140)
+                                        VStack (alignment: .leading) {
+                                            Spacer()
+                                            Text("\(reel.musicTrack ?? "Original Sound")")
                                                 .font(.custom("Urbanist-Regular", size: 24))
                                                 .fontWeight(Font.Weight.semibold)
-                                                .lineLimit(1)
+                                                .lineLimit(2)
+                                            Spacer(minLength: 10.0)
+                                            Text("28,7M Videos")
+                                                .font(.custom("Urbanist-Regular", size: 14))
+                                                .fontWeight(Font.Weight.medium)
+                                                .foregroundColor(.gray)
+                                            Spacer()
                                         }
+//                                        .frame(maxWidth: .infinity)
+                                        Spacer()
+                                    }
+                                    
+                                    //buttons
+                                    HStack {
+                                        Button {
+                                            self.reels = String(reel.contentURL!)
+                                            isPlaying.toggle()
+                                            if isPlaying {
+//                                                audioPlayer?.play()
+                                                print("Playing Audio")
+                                            } else {
+//                                                audioPlayer?.pause()
+                                                print("Stop Playing")
+                                            }
+
+                                            
+                                        } label: {
+                                            HStack {
+                                                Image("PlayS")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 16, height: 16)
+                                                
+                                                Text("Play Song")
+                                                    .font(.custom("Urbanist-Regular", size: 16))
+                                                    .fontWeight(Font.Weight.medium)
+                                                    .foregroundColor(Color("buttionGradientOne"))
+                                            }
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        //                        .padding(.horizontal,10)
+                                        .padding(.vertical,8)
+                                        .overlay( RoundedRectangle(cornerRadius: 40)
+                                            .stroke(Color("buttionGradientOne"), lineWidth: 2)
+                                        )
+                                        
+                                        
+                                        Button {
+                                            
+                                        } label: {
+                                            HStack {
+                                                Image("BookmarkSound")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 16, height: 16)
+                                                
+                                                Text("Add to Favourites")
+                                                    .font(.custom("Urbanist-Regular", size: 16))
+                                                    .fontWeight(Font.Weight.medium)
+                                                    .foregroundColor(Color("buttionGradientOne"))
+                                            }
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.horizontal,3)
+                                        .padding(.vertical,8)
+                                        .overlay( RoundedRectangle(cornerRadius: 40)
+                                            .stroke(Color("buttionGradientOne"), lineWidth: 2)
+                                        )
+                                    }
+                                    
+                                    //singer
+                                    HStack {
+                                        VStack{
+                                            HStack{
+                                                Image(reel.creatorProfileImage ?? "CreaterProfileIcon")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: 60, height: 60)
+                                                    .cornerRadius(24)
+                                                    .padding(.trailing,20)
+                                                VStack(alignment: .leading){
+                                                    Text("\((reel.creatorFirstName ?? "John") + " " + (reel.creatorLastName ?? " Devise")) ")
+                                                        .font(.custom("Urbanist-Regular", size: 18))
+                                                        .fontWeight(Font.Weight.semibold)
+                                                    Text("Profesional Singer")
+                                                        .font(.custom("Urbanist-Regular", size: 14))
+                                                        .fontWeight(Font.Weight.medium)
+                                                        .foregroundColor(.gray)
+                                                }
+                                            }
+                                        }
+                                        Spacer()
+                                        Button {
+                                            likeVM.followApi(user_uuid: uuid)
+                                            presentaionMode.wrappedValue.dismiss()
+                                        } label: {
+                                            
+                                            Text("Follow")
+                                                .font(.custom("Urbanist-Medium", size: 16))
+                                                .fontWeight(Font.Weight.medium)
+                                            
+                                        }
+                                        .padding(.vertical,6)
+                                        .padding(.horizontal,16)
+                                        .background(
+                                            LinearGradient(colors: [
+                                                Color("buttionGradientOne"),
+                                                Color("buttionGradientTwo"),
+                                            ], startPoint: .leading, endPoint: .trailing)
+                                        )
+                                        .foregroundColor(.white)
+                                        .cornerRadius(30)
                                         
                                     }
                                 }
-                                
                             }
-                            
-                            
-                            Text("28,7M Videos")
-                                .font(.custom("Urbanist-Regular", size: 14))
-                                .fontWeight(Font.Weight.medium)
-                                .foregroundColor(.gray)
-                        }
-                        
-                        Spacer()
-                        
-                    }
-                    .padding(.horizontal,24)
-                    .padding(.top,24)
-                    
-                    //buttons
-                    HStack {
-                        Button {
-                            isPlaying.toggle()
-                            
-                            for reel in reelVM.allReels{
-                                if reel.postID == reelId {
-                                    
-                                    let playerItem = AVPlayerItem(url: URL(string: reel.musicURL == nil ? reel.contentURL! : reel.musicURL!)!)
-                                    print(playerItem)
-                                    player = AVPlayer(playerItem: playerItem)
-                                    if isPlaying == false {
-                                        player.play()
-                                    }else{
-                                        player.pause()
-                                    }
-                                    
-                                }
-                                
-                            }
-                            
-                            
-                        } label: {
-                            HStack {
-                                Image("PlayS")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 16, height: 16)
-                                
-                                Text("Play Song")
-                                    .font(.custom("Urbanist-Regular", size: 16))
-                                    .fontWeight(Font.Weight.medium)
-                                    .foregroundColor(Color("buttionGradientOne"))
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        //                        .padding(.horizontal,10)
-                        .padding(.vertical,8)
-                        .overlay( RoundedRectangle(cornerRadius: 40)
-                            .stroke(Color("buttionGradientOne"), lineWidth: 2)
-                        )
-                        
-                        
-                        Button {
-                            
-                        } label: {
-                            HStack {
-                                Image("BookmarkSound")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 16, height: 16)
-                                
-                                Text("Add to Favourites")
-                                    .font(.custom("Urbanist-Regular", size: 16))
-                                    .fontWeight(Font.Weight.medium)
-                                    .foregroundColor(Color("buttionGradientOne"))
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal,3)
-                        .padding(.vertical,8)
-                        .overlay( RoundedRectangle(cornerRadius: 40)
-                            .stroke(Color("buttionGradientOne"), lineWidth: 2)
-                        )
-                    }
-                    .padding(.horizontal,24)
-                    .padding(.top,24)
-                    
-                    //singer
-                    HStack {
-                        HStack {
-                            
-                            ForEach(userVM.usersList, id: \.self) { user in
-                                if user.uuid == uuid {
-                                    
-                                    if user.profile_image?.isEmpty == false {
-                                        Image(user.profile_image ?? "")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(24)
-                                            .padding(.trailing,20)
-                                    }else{
-                                        Image("musicProfileIcon")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(24)
-                                            .padding(.trailing,20)
-                                    }
-                                    
-                                }
-                            }
-                            
-                            
-                            
-                            VStack (alignment: .leading) {
-                                ForEach(userVM.usersList, id: \.self) { user in
-                                    if user.uuid == uuid {
-                                        HStack {
-                                            Text("\(user.first_name ?? "") ")
-                                                .font(.custom("Urbanist-Regular", size: 18))
-                                                .fontWeight(Font.Weight.semibold)
-                                            
-                                            Text("\(user.last_name ?? "")")
-                                                .font(.custom("Urbanist-Regular", size: 18))
-                                                .fontWeight(Font.Weight.semibold)
-                                        }
-                                    }
-                                }
-                                
-                                
-                                
-                                ForEach(likeVM.userInterestCategory, id: \.id) { categ in
-                                    if categ.user_uuid == uuid {
-                                        ForEach(likeVM.interestCategory, id: \.id) { uiCateg in
-                                            if categ.category_id == uiCateg.id {
-                                                Text("\(uiCateg.category_name)")
-                                                    .font(.custom("Urbanist-Regular", size: 14))
-                                                    .fontWeight(Font.Weight.medium)
-                                                    .foregroundColor(.gray)
-                                            }
-                                        }
-                                    }
-                                }
-                                //                                Text("Professional Singer")
-                                //                                    .font(.custom("Urbanist-Regular", size: 14))
-                                //                                    .fontWeight(Font.Weight.medium)
-                                //                                    .foregroundColor(.gray)
-                                
-                            }
-                            
-                            Spacer()
                             
                         }
-                        
-                        Button {
-                            likeVM.followApi(user_uuid: uuid)
-                            presentaionMode.wrappedValue.dismiss()
-                        } label: {
-                            
-                            Text("Follow")
-                                .font(.custom("Urbanist-Medium", size: 16))
-                                .fontWeight(Font.Weight.medium)
-                            
-                        }
-                        .padding(.vertical,6)
-                        .padding(.horizontal,16)
-                        .background(
-                            LinearGradient(colors: [
-                                Color("buttionGradientOne"),
-                                Color("buttionGradientTwo"),
-                            ], startPoint: .leading, endPoint: .trailing)
-                        )
-                        .foregroundColor(.white)
-                        .cornerRadius(30)
                     }
                     .padding(.horizontal,24)
                     .padding(.top,24)
@@ -359,18 +277,32 @@ struct MusicView: View {
             }
         }
         .onAppear {
-            getThumbnailFromUrl("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4") { image in
-                self.thumbnailImageView2 = image
-            }
-            //            for reel in reelVM.allReels {
-            //                if reel.postID == reelId {
-            //                    if reel.musicURL == nil {
-            //                        getThumbnailFromUrl(reel.contentURL!) { image in
-            //                            self.thumbnailImageView2 = image
-            //                            print("Image:    \(image) \(reel.contentURL)")
-            //                        }
-            //                    }
-            //                }}
+                    
+                    
+//            getThumbnailFromUrl("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4") { image in
+//                self.thumbnailImageView2 = image
+//            }
+            
+//            for reel in reelVM.allReels {
+//                if reel.postID == reelId {
+//                    if reel.musicURL != nil {
+//                        getThumbnailFromUrl(reel.musicURL!) { image in
+//                            self.thumbnailImageView2 = image
+//                            print("Image:    \(image) \(reel.musicURL)")
+//                        }
+//                    }
+//                }}
+
+            
+//            BlocBuilderView(bloc: soundsViewBloc) { state in
+//                ForEach(state.wrappedValue.filterSongList) { song in
+//                    if song.preview == musicURL {
+//                        getThumbnailFromUrl(musicURL) { image in
+//                            self.musicImage = image
+//                        }
+//                    }
+//                }
+//            }
             
         }
         
@@ -407,3 +339,15 @@ struct MusicView: View {
 //}
 
 
+//ForEach(likeVM.userInterestCategory, id: \.id) { categ in
+//    if categ.user_uuid == uuid {
+//        ForEach(likeVM.interestCategory, id: \.id) { uiCateg in
+//            if categ.category_id == uiCateg.id {
+//                Text("\(uiCateg.category_name)")
+//                    .font(.custom("Urbanist-Regular", size: 14))
+//                    .fontWeight(Font.Weight.medium)
+//                    .foregroundColor(.gray)
+//            }
+//        }
+//    }
+//}

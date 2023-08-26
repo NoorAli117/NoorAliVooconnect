@@ -383,9 +383,9 @@ struct HomePageView: View {
                 
                 Color(.white)
                     .ignoresSafeArea()
-                //                    .onTapGesture(count: 2) {
-                //                        print("Double tapped!")
-                //                    }
+//                    .onTapGesture(count: 2) {
+//                        print("Double tapped!")
+//                    }
                 
                 NavigationLink(destination: LiveStreamingView()  //SearchView
                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $live) {

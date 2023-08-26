@@ -191,6 +191,15 @@
         }
       },
       {
+        "package": "DeepAR",
+        "repositoryURL": "https://github.com/DeepARSDK/swift-deepar",
+        "state": {
+          "branch": null,
+          "revision": "b8f1697ef995a74e68390d3071688be061cedafe",
+          "version": "5.4.1"
+        }
+      },
+      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {

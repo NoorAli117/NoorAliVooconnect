@@ -35,20 +35,15 @@ class ReelsViewModel: ObservableObject {
                     print("the json Data", jsonData)
                     
                     let decodedData = try JSONDecoder().decode(ReelsModel.self, from: data)
-//                    print("The decoded data", decodedData.data?.posts?[0].title ?? "")
                     
                     DispatchQueue.main.async {
                         
                         self.allReels = decodedData.data?.posts ?? self.allReels
-                        
-//                        self.allReels = decodedData.data?.posts ?? self.allReels
-//                        self.sessionNextUrl = decodedData.data?.nextPage ?? ""
-                        
                     }
                     
                 } catch {
                     
-                    print("kfdjghsjdgkjdhgiunkjsnviersjcndfcg========")
+                    print("Error decoding JSON: \(error.localizedDescription)")
                     
                 }
                 

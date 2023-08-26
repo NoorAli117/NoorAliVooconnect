@@ -11,7 +11,7 @@ import Foundation
  struct ReelsPostRequest: Codable {
     let userUUID, title, description, contentType: String?
     let category: Int?
-    let musicTrack, location, visibility, musicURL: String?
+    let musicTrack, location, visibility,musicUUID, musicURL: String?
     let content: [ContentDetail]?
     let allowComment, allowDuet, allowStitch: Bool?
     
@@ -25,6 +25,7 @@ import Foundation
         case category
         case musicTrack = "music_track"
         case location, visibility
+        case musicUUID = "music_uuid"
         case musicURL = "music_url"
         case content
         case allowComment = "allow_comment"

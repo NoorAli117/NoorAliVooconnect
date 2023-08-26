@@ -18,7 +18,7 @@ struct FiltersSheet: View {
     @State var isPresented = false
     @ObservedObject var cameraModel: CameraViewModel
     
-    @State var filters: [Item]
+//    @State var filters: [Item]
     
     var body: some View {
         VStack {

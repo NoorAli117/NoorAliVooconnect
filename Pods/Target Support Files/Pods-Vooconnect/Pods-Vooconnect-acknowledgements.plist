@@ -14,6 +14,17 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Please see: https://developer.deepar.ai/customer-agreement
+</string>
+			<key>License</key>
+			<string>Please see: https://developer.deepar.ai/customer-agreement</string>
+			<key>Title</key>
+			<string>DeepAR</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.
 
 You are hereby granted a non-exclusive, worldwide, royalty-free license to use,

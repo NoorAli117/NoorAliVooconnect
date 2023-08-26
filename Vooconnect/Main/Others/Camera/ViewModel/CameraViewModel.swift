@@ -40,28 +40,10 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     @Published var songModel : DeezerSongModel? = nil
     @Published var filterData: FilterData? = nil
     @Published var speed : Float = 1
-    @Published var filter: [Item] = []
+//    @Published var filter: [Item] = []
     @Published var content: [Category] = []
     
-    
-    // MARK: - ARGearSDK properties
-    private var argConfig: ARGConfig?
-    private var argSession: ARGSession?
-    private var currentFaceFrame: ARGFrame?
-    private var nextFaceFrame: ARGFrame?
-    private var preferences: ARGPreferences = ARGPreferences()
-    
-    // MARK: - Camera & Scene properties
-    private let serialQueue = DispatchQueue(label: "serialQueue")
-    private var currentCamera: CameraDeviceWithPosition = .front
-    
-    private var arCamera: ARGCamera!
-    private var arScene: ARGScene!
-    private var arMedia: ARGMedia = ARGMedia()
-    
-    private lazy var cameraPreviewCALayer = CALayer()
-    
-    
+   
     
     func checkPermission(isBackCamera : Bool){
 

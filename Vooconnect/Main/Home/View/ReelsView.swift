@@ -2216,14 +2216,12 @@ struct ReelsView: View {
     @Binding var selectedReelId: Int
     @State private var offset: CGFloat = 0
     @State var videoIndex: Int = 0
+    @State var show: Bool = false
 
     
     var body: some View {
         
         // Setting Width and height for rotated view...
-        
-    
-        
         GeometryReader { proxy in
             
             let size = proxy.size
@@ -2231,10 +2229,8 @@ struct ReelsView: View {
             if reelsVM.allReels.count > 0 {
                 // Vertical Page Tab View...
                 TabView(selection: $reelTagIndex) {
-                    //                ForEach($reels) { $reel in
                     ForEach(reelsVM.allReels.indices, id: \.self) { index in
-                        
-                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, urll: URL(string: getImageVideoBaseURL + reelsVM.allReels[index].contentURL!)!)
+                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], show: $show, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, urll: URL(string: getImageVideoBaseURL + reelsVM.allReels[index].contentURL!)!)
                         // setting width...
                             .frame(width: size.width, height: size.height)
                             .padding()
@@ -2242,26 +2238,11 @@ struct ReelsView: View {
                             .rotationEffect(.init(degrees: -90))
                             .ignoresSafeArea(.all, edges: .top)
                             .tag(index)
-//                            .onAppear{
-//                                topBar = true
-//                            }
-//                            .onDisappear{
-//                                topBar = false
-//                            }
                         
                         
                     }
                     
                 }
-//                .onChange(of: reelTagIndex) { index in
-//                    print("Current Index \(index)")
-//                    print("Previous Index \(reelTagIndex)")
-//                    if index != 0 {
-//                        topBar = false
-//                    }else{
-//                        topBar = true
-//                    }
-//                }
                 .rotationEffect(.init(degrees: 90))
                 // Since view is rotated setting height as width...
                 .frame(width: size.height)
@@ -2272,13 +2253,15 @@ struct ReelsView: View {
                     print("Current Index \(index)")
                     if index > videoIndex {
                         withAnimation(.easeInOut) {
-                            print(videoIndex)
+                            print("if index \(videoIndex)")
                             topBar = false
+                            show = false
                         }
                         videoIndex = index
                     }else{
                         withAnimation(.easeInOut){
                             topBar = true
+                            show = false
                             print("else index \(videoIndex)")
                         }
                         videoIndex = index
@@ -2308,10 +2291,6 @@ struct ReelsView: View {
                             .padding(.bottom, -30)
                             .padding(.leading, -50)
                             .foregroundColor(.white)
-                        
-                        PopOverTwo(show: $bool, camera: $cameraView, live: $live)
-                            .background(Color.white)
-                            .cornerRadius(15)
                     }
                 }
                 Spacer()
@@ -2329,12 +2308,12 @@ struct ReelsView: View {
     
 }
 
-struct ReelsView_Previews: PreviewProvider {
-    static var previews: some View {
-        //        ReelsView()
-        HomePageView()
-    }
-}
+//struct ReelsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        //        ReelsView()
+//        HomePageView()
+//    }
+//}
 
 //var player = AVPlayer()
 
@@ -2354,7 +2333,7 @@ struct ReelsPlyer: View {
     
     //    @Binding var reel: Reel
     
-    @State var show: Bool = false
+    @Binding var show: Bool
     @State var longPressPopUp: Bool = false
     
     @Binding var showTwo: Bool
@@ -2410,24 +2389,6 @@ struct ReelsPlyer: View {
         
         
         ZStack {
-            
-//            if (self.reelsDetail.contentType == "video") {
-//                CustomVideoPlayer(player: player)
-//                    .edgesIgnoringSafeArea(.all)
-//                
-//                    .onAppear {
-//                        player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
-//                        player.play()
-//                    }
-//                    .onDisappear {
-//                        DispatchQueue.main.async {
-//                            player.pause()
-//                        }
-//                        
-//                    }
-//            }else {
-//                
-//            }
             if (urll.pathExtension == "png"){
                 VStack {
                     if let image = image {
@@ -2472,23 +2433,23 @@ struct ReelsPlyer: View {
             
             //            Image("")
             
-            GeometryReader { proxy -> Color in
-                
-                let minY = proxy.frame(in: .global).minY
-                
-                let size = proxy.size
-                
-                DispatchQueue.main.async {
-                    
-                    if -minY < (size.height / 2) && minY < (size.height / 2) {
-                        player.play()
-                    } else {
-                        player.pause()
-                    }
-                    
-                }
-                return Color.clear
-            }
+//            GeometryReader { proxy -> Color in
+//
+//                let minY = proxy.frame(in: .global).minY
+//
+//                let size = proxy.size
+//
+//                DispatchQueue.main.async {
+//
+//                    if -minY < (size.height / 2) && minY < (size.height / 2) {
+//                        player.play()
+//                    } else {
+//                        player.pause()
+//                    }
+//
+//                }
+//                return Color.clear
+//            }
             
             
             
@@ -2545,12 +2506,6 @@ struct ReelsPlyer: View {
                     Button {
                         show = false
                         showTwo = false
-                        
-                        //                            let postID = reelsDetail.postID ?? 0
-                        //                            print("PostIddddd========",postID)
-                        //                            UserDefaults.standard.set(postID, forKey: "postID")
-                        //                            likeVM.blockPostApi()
-                        //                            bottomSheetBlock.toggle()
                         bottomSheetReport.toggle()
                         
                     } label: {
@@ -2575,7 +2530,6 @@ struct ReelsPlyer: View {
                             .frame(width: 26, height: 26)
                         
                     }
-//                    .padding(.top, -5)
                 
                 }
                 
@@ -2717,10 +2671,7 @@ struct ReelsPlyer: View {
                             creatorProfileView.toggle()
                         }label: {
                             HStack(spacing: 10) {
-                                
-                                //                                Image("CreaterProfileIcon")
                                 CreatorProfileImageView(allReels: reelsDetail)
-                                //                                    .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 55, height: 55)
                                     .cornerRadius(10)
@@ -2729,16 +2680,11 @@ struct ReelsPlyer: View {
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(Color.white,lineWidth: 6)
                                     )
-                                //                                    .clipShape(Circle())
-                                
                                 VStack(alignment: .leading, spacing: 5) {
                                     HStack {
-                                        //                                        Text("jenny Wilson")
                                         Text(reelsDetail.creatorFirstName ?? "jenny Wilson")
                                             .font(.custom("Urbanist-Bold", size: 18))
                                             .foregroundColor(.white)
-                                        
-                                        //                                        Text("jenny Wilson")
                                         Text(reelsDetail.creatorLastName ?? "")
                                             .font(.custom("Urbanist-Bold", size: 18))
                                             .foregroundColor(.white)
@@ -2759,19 +2705,13 @@ struct ReelsPlyer: View {
                                             }
                                         }
                                     }
-                                    
-//                                    Text("Actress & Singer")
-//                                        .font(.custom("Urbanist-Medium", size: 14))
-//                                        .foregroundColor(.white.opacity(7))
-                                    //                                        .foregroundColor(Color("GrayFour"))
-                                    
                                 }
                                 
                             }
                             .padding(.bottom, 1)
                         }
                         
-                        // Title Custom View...
+                        /// Title Custom View...
                         
                         Button {
                             
@@ -2808,11 +2748,6 @@ struct ReelsPlyer: View {
                         Text(reelsDetail.title ?? "")
                             .font(.custom("Urbanist-Medium", size: 14))
                             .foregroundColor(.white)  // change
-                        //                                .foregroundColor(.black)
-//                        Text(reelsDetail.postDescription)
-//                            .font(.custom("Urbanist-Medium", size: 12))
-//                            .foregroundColor(.white)
-//                            .padding(.top, -10)
                         
                     }
                     
@@ -2832,9 +2767,8 @@ struct ReelsPlyer: View {
                                     .padding(.top, -23)
                                     .padding(.trailing, -110)
                                     .foregroundColor(.white)
-                                //                                                .rotationEffect(Angle(degrees: 20))
+                                
                             }
-                            //                                        .padding(.trailing, 100)
                             .padding(.bottom, -10)
                         }
                     }
@@ -2929,7 +2863,7 @@ struct ReelsPlyer: View {
                             if playAndPause == true {
                                 player.pause()
                             } else {
-//                                player.play()
+                                player.play()
                             }
                             
                         } label: {
@@ -2993,7 +2927,7 @@ struct ReelsPlyer: View {
                         
                         Image("MusicIcon")
                         
-                        Text(reelsDetail.musicTrack ?? "Favorite Girl by Justin Bieber")
+                        Text(reelsDetail.musicTrack ?? "Original Sound")
                             .font(.caption)
                             .fontWeight(.semibold)
                         
@@ -3127,7 +3061,6 @@ struct ReelsPlyer: View {
                     
                     Button {
                         postedBy = reelsDetail.creatorUUID ?? ""
-                        //                                player.pause()
                         show = false
                         showTwo = false
                         creatorProfileView.toggle()
@@ -3152,7 +3085,6 @@ struct ReelsPlyer: View {
                     }
                     
                     Button {
-                        //                                player.pause()
                         show = false
                         showTwo = false
                         myProfileView.toggle()
@@ -3220,7 +3152,6 @@ struct ReelsPlyer: View {
         
             print("Tappedd")
             postedBy = reelsDetail.creatorUUID ?? ""
-            //                player.pause()
         }
         
         

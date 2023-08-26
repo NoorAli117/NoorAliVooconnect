@@ -8,6 +8,7 @@
 import SwiftUI
 import ARGear
 import ARKit
+import DeepAR
 
 struct CustomeCameraHome: View {
     
@@ -46,23 +47,6 @@ struct CustomeCameraHome: View {
     @State private var effectsSheet: Bool = false
     @State private var isShowPopup: Bool = false
     var toast_main_position = CGPoint(x: 0, y: 0)
-    
-    // MARK: - ARGearSDK properties
-    @State var argConfig: ARGConfig?
-    @State var argSession: ARGSession?
-    @State var currentFaceFrame: ARGFrame?
-    @State var nextFaceFrame: ARGFrame?
-    @State var preferences: ARGPreferences = ARGPreferences()
-    private var argObservers = [NSKeyValueObservation]()
-    @State var cameraPreviewCALayer = CALayer()
-    
-    // MARK: - Camera & Scene properties
-    private let serialQueue = DispatchQueue(label: "serialQueue")
-    private var currentCamera: CameraDeviceWithPosition = .front
-    
-    @State private var arCamera: ARGCamera!
-    @State private var arScene: ARGScene!
-    
     
     
     var body: some View {
@@ -160,6 +144,7 @@ struct CustomeCameraHome: View {
 
                     } else {
                         CustomeCameraView()
+//                        DeepARView()
                             .environmentObject(cameraModel)
                             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                             .padding(.top,10)
@@ -706,20 +691,20 @@ struct CustomeCameraHome: View {
                 .padding(.horizontal)
                 .padding(.bottom, -5)
 
-                // Filters
-                .blurredSheet(.init(.white), show: $filersSheet) {
-
-                } content: {
-                    if #available(iOS 16.0, *) {
-                        FiltersSheet(cameraModel: cameraModel, filters: cameraModel.filter)
-                            .presentationDetents([.large,.medium,.height(300)])
-                            .onAppear {
-                                cameraModel.getFilterData()
-                            }
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                }
+//                // Filters
+//                .blurredSheet(.init(.white), show: $filersSheet) {
+//
+//                } content: {
+//                    if #available(iOS 16.0, *) {
+//                        FiltersSheet(cameraModel: cameraModel, filters: cameraModel.filter)
+//                            .presentationDetents([.large,.medium,.height(300)])
+//                            .onAppear {
+//                                cameraModel.getFilterData()
+//                            }
+//                    } else {
+//                        // Fallback on earlier versions
+//                    }
+//                }
                 .blurredSheet(.init(.white), show: $beautySheet) {
 
                 } content: {

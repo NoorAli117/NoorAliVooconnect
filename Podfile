@@ -12,4 +12,5 @@ target 'Vooconnect' do
  	pod 'FBSDKLoginKit'
  	pod 'FBSDKShareKit'
   	pod 'RealmSwift'
+	pod 'DeepAR'
 end

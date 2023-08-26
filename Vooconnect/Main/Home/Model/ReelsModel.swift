@@ -35,6 +35,7 @@ struct Post: Codable, Hashable {
     let contentType: String?
     let musicTrack: String?
     let musicURL: String?
+    let musicUUID: String?;
     let allowComment, allowDuet, allowStitch: String?
     let creatorUUID: String?
     let creatorFirstName, creatorLastName, creatorUsername, creatorProfileImage: String?
@@ -48,6 +49,7 @@ struct Post: Codable, Hashable {
         case location
         case contentURL = "content_url"
         case contentType = "content_type"
+        case musicUUID = "music_uuid"
         case musicTrack = "music_track"
         case musicURL = "music_url"
         case allowComment = "allow_comment"
