@@ -82,6 +82,10 @@ struct BlockPostRequest: Encodable {
     let uuid: String
     let post_id: Int
 }
+struct BlockUserRequest: Encodable {
+    let uuid: String
+    let user_uuid: String
+}
 
 struct ReportPostRequest: Encodable {
     let uuid: String

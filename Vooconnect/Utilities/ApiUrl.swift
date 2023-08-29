@@ -57,6 +57,7 @@ struct EndPoints {
     
     static var like = "/like-unlike-post"
     static var blockPost = "/block-post"
+    static var blockUser = "/block-user"
     static var abuseReportPost = "/report-abuse-post"
     static var bookMark = "/bookmark-post"
     static var comment = "/comment-on-post"

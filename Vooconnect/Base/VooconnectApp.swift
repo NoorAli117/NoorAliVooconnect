@@ -47,6 +47,7 @@ struct VooconnectApp: App {
             .overlay {
                 LaunchView()
             }
+//            ARGearView()
         }
     }
 }

@@ -11,6 +11,7 @@ target 'Vooconnect' do
 	pod 'FBSDKCoreKit'
  	pod 'FBSDKLoginKit'
  	pod 'FBSDKShareKit'
-  	pod 'RealmSwift'
-	pod 'DeepAR'
+  pod 'RealmSwift'
+  pod 'SDWebImage', '~> 5.0'
+  pod 'Toast-Swift', '~> 5.0.1'
 end

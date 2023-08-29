@@ -8,7 +8,7 @@
 import SwiftUI
 import ARGear
 import ARKit
-import DeepAR
+//import DeepAR
 
 struct CustomeCameraHome: View {
     
@@ -144,7 +144,6 @@ struct CustomeCameraHome: View {
 
                     } else {
                         CustomeCameraView()
-//                        DeepARView()
                             .environmentObject(cameraModel)
                             .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                             .padding(.top,10)
@@ -705,20 +704,20 @@ struct CustomeCameraHome: View {
 //                        // Fallback on earlier versions
 //                    }
 //                }
-                .blurredSheet(.init(.white), show: $beautySheet) {
-
-                } content: {
-                    if #available(iOS 16.0, *) {
-                        BeautyView()
-
-                            .presentationDetents([.large,.medium,.height(140)])
-                            .onAppear {
-                                cameraModel.getFilterData()
-                            }
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                }
+//                .blurredSheet(.init(.white), show: $beautySheet) {
+//
+//                } content: {
+//                    if #available(iOS 16.0, *) {
+//                        BeautyView()
+//
+//                            .presentationDetents([.large,.medium,.height(140)])
+//                            .onAppear {
+//                                cameraModel.getFilterData()
+//                            }
+//                    } else {
+//                        // Fallback on earlier versions
+//                    }
+//                }
 
                 // Effects
                 .blurredSheet(.init(.white), show: $effectsSheet) {

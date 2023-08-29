@@ -542,25 +542,12 @@ struct HomePageView: View {
                         TabView(selection: self.$currentTab) {
                             
                             ReelsView(currentReel: reelsVM.allReels.first?.postID ?? 0, topBar: $topBar,
-                            cameraView: $cameraView, live: $live, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport:
-                             $bottomSheetReport, myProfileView: $myProfileView,  creatorProfileView: $creatorProfileView,
-                             musicView: $musicView, liveViewer: $liveViewer, commentSheet: $commentSheet, commentReplySheet:
-                             $commentReplySheet, postedBy: $postedBy, selectedReelId: $reelId).tag(0)
-                            
-//                                .padding(.vertical, -16)
-                            //                            TimeLineView().tag(1)
+                                      cameraView: $cameraView, live: $live, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport:
+                                        $bottomSheetReport, myProfileView: $myProfileView,  creatorProfileView: $creatorProfileView,
+                                      musicView: $musicView, liveViewer: $liveViewer, commentSheet: $commentSheet, commentReplySheet:
+                                        $commentReplySheet, postedBy: $postedBy, selectedReelId: $reelId).tag(0)
                             NotificationsView().tag(1)
-                            
-                            //                            MyProfileView().tag(2) // MyProfileView  MarketView
-//                            TimeLineView().tag(2)
-                            
                         }
-                        
-                        //                        .onChange(of: currentTab, perform: { newValue in
-                        ////                            if newValue == 1 {
-                        //                                player.pause()
-                        ////                            }
-                        //                        })
                         .onTapGesture {
                             show = false
                         }

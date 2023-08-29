@@ -103,10 +103,40 @@ class ReelsLikeViewModel: ObservableObject {
         
     }
     
+    func blockUserApi() {  // postID
+        
+        let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+        let user_uuid = UserDefaults.standard.string(forKey: "user_uuid") ?? ""
+        
+        let request = BlockUserRequest(uuid: uuid, user_uuid: user_uuid)
+        
+        print("REQUEST=========",request)
+        
+            reelsLikeResource.hittingBlockUserApi(blockUserRequest: request) { isSuccess, sussesMessage in
+            if isSuccess {
+                DispatchQueue.main.async {
+                    print("Success=========")
+                    
+                    self.blockPostDataModel.isPresentingSuccess = true
+                    self.blockPostDataModel.successMessage = sussesMessage ?? ""
+                    
+//                    likeVM.blockPostDataModel.isPresentingSuccess
+                }
+                
+            } else {
+                DispatchQueue.main.async {
+                    print("Faileur===========")
+                    
+                }
+                
+            }
+        }
+        
+    }
     func blockPostApi() {  // postID
         
         let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-        let postID = UserDefaults.standard.integer(forKey: "postID") 
+        let postID = UserDefaults.standard.integer(forKey: "postID")
         
         let request = BlockPostRequest(uuid: uuid, post_id: postID)
         

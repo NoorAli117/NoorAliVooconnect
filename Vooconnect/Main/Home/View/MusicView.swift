@@ -18,24 +18,25 @@ struct MusicView: View {
     @StateObject private var reelVM: ReelsViewModel = ReelsViewModel()
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @Binding var cameraView: Bool
-//    @State var audioPlayer: AVAudioPlayer!
-    @State private var audioPlayer: AVPlayer?
+    @State var audioPlayer: AVAudioPlayer!
+//    @State private var audioPlayer: AVPlayer?
     @State var player: AVPlayer!
     @State var isPlaying = false
+    @State var viewerProfile = false
     @State var songModel: DeezerSongModel?
     var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
     //    var thumbnailImageView: UIImageView
     @State var thumbnailImageView2: UIImage?
     @State var musicImage: Image?
     @State var musicURL: String = ""
-    @State var reels: String = ""
+    @State var reels: Post?
     var gridLayoutMP: [GridItem] {
         return Array(repeating: GridItem(.fixed(120), spacing: 1), count: 3)
     }
     
+    
     var body: some View {
         NavigationView {
-            
             ZStack {
                 Color(.white)
                     .ignoresSafeArea()
@@ -94,17 +95,20 @@ struct MusicView: View {
                                     //buttons
                                     HStack {
                                         Button {
-                                            self.reels = String(reel.contentURL!)
-                                            isPlaying.toggle()
-                                            if isPlaying {
-//                                                audioPlayer?.play()
-                                                print("Playing Audio")
-                                            } else {
-//                                                audioPlayer?.pause()
-                                                print("Stop Playing")
+                                            let audioOutputURL = FileManager.default.temporaryDirectory.appendingPathComponent("output.m4a")
+                                            if let reelURL = reel.contentURL{
+                                                print(reelURL)
+                                                let videoReelURL = URL(string: reelURL)
+                                                print("video URL: \(String(describing: videoReelURL))")
+                                                extractAudio(sourceUrl: videoReelURL!) { result in
+                                                    switch result {
+                                                    case .success(let audioUrl):
+                                                        play(url: audioUrl)
+                                                    case .failure(let error):
+                                                        print("Audio extraction and playback error: \(error)")
+                                                    }
+                                                }
                                             }
-
-                                            
                                         } label: {
                                             HStack {
                                                 Image("PlayS")
@@ -153,11 +157,10 @@ struct MusicView: View {
                                     HStack {
                                         VStack{
                                             HStack{
-                                                Image(reel.creatorProfileImage ?? "CreaterProfileIcon")
+                                                Image(reel.creatorProfileImage ?? "squareTwoS")
                                                     .resizable()
                                                     .scaledToFill()
                                                     .frame(width: 60, height: 60)
-                                                    .cornerRadius(24)
                                                     .padding(.trailing,20)
                                                 VStack(alignment: .leading){
                                                     Text("\((reel.creatorFirstName ?? "John") + " " + (reel.creatorLastName ?? " Devise")) ")
@@ -167,6 +170,9 @@ struct MusicView: View {
                                                         .font(.custom("Urbanist-Regular", size: 14))
                                                         .fontWeight(Font.Weight.medium)
                                                         .foregroundColor(.gray)
+                                                }
+                                                .onTapGesture{
+                                                    viewerProfile = true
                                                 }
                                             }
                                         }
@@ -276,36 +282,77 @@ struct MusicView: View {
                 }
             }
         }
-        .onAppear {
-                    
-                    
-//            getThumbnailFromUrl("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4") { image in
-//                self.thumbnailImageView2 = image
-//            }
+        .blurredSheet(.init(.white), show: $viewerProfile) {
             
-//            for reel in reelVM.allReels {
-//                if reel.postID == reelId {
-//                    if reel.musicURL != nil {
-//                        getThumbnailFromUrl(reel.musicURL!) { image in
-//                            self.thumbnailImageView2 = image
-//                            print("Image:    \(image) \(reel.musicURL)")
-//                        }
-//                    }
-//                }}
-
-            
-//            BlocBuilderView(bloc: soundsViewBloc) { state in
-//                ForEach(state.wrappedValue.filterSongList) { song in
-//                    if song.preview == musicURL {
-//                        getThumbnailFromUrl(musicURL) { image in
-//                            self.musicImage = image
-//                        }
-//                    }
-//                }
-//            }
-            
+        } content: {
+            if #available(iOS 16.0, *) {
+                ViewerProfileDetailSheet(reelId: reelId)
+                    .presentationDetents([.large,.medium,.height(500)])
+            } else {
+                // Fallback on earlier versions
+            }
         }
         
+        
+    }
+    
+    func extractAudio(sourceUrl: URL, completion: @escaping (Result<URL, Error>) -> ()) {
+        let composition = AVMutableComposition()
+        
+        do {
+            let asset = AVURLAsset(url: sourceUrl)
+            guard let audioAssetTrack = asset.tracks(withMediaType: .audio).first else {
+                completion(.failure(NSError(domain: "AudioTrackError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No audio track found"])))
+                return
+            }
+            
+            guard let audioCompositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else {
+                completion(.failure(NSError(domain: "AudioTrackError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to create audio composition track"])))
+                return
+            }
+            
+            try audioCompositionTrack.insertTimeRange(audioAssetTrack.timeRange, of: audioAssetTrack, at: .zero)
+        } catch {
+            completion(.failure(error))
+            return
+        }
+        
+        let outputUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("out.m4a")
+        if FileManager.default.fileExists(atPath: outputUrl.path) {
+            try? FileManager.default.removeItem(at: outputUrl)
+        }
+        
+        let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough)!
+        exportSession.outputFileType = .m4a
+        exportSession.outputURL = outputUrl
+        
+        exportSession.exportAsynchronously {
+            if let error = exportSession.error {
+                completion(.failure(error))
+            } else if exportSession.status == .completed {
+                completion(.success(outputUrl))
+            } else {
+                completion(.failure(NSError(domain: "ExportError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Export failed"])))
+            }
+        }
+    }
+
+    
+    func play(url: URL) {
+        print("playing \(url)")
+
+        do {
+            let playerItem = AVPlayerItem(url: url)
+
+            self.player = try AVPlayer(playerItem: playerItem)
+            player!.volume = 1.0
+            player!.play()
+        } catch let error as NSError {
+            self.player = nil
+            print(error.localizedDescription)
+        } catch {
+            print("AVPlayer init failed")
+        }
     }
     
     func getThumbnailFromUrl(_ url: String?, _ completion: @escaping ((_ image: UIImage?)->Void)) {

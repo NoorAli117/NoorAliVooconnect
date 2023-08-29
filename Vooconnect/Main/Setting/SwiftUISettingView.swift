@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  SwiftUISettingView.swift
 //  Vooconnect
 //
 //  Created by Vooconnect on 19/12/22.
@@ -9,7 +9,7 @@ import SwiftUI
 import Swinject
 import SDWebImageSwiftUI
 
-struct SettingView: View {
+struct SwiftUISettingView: View {
     var userAuthanticationManager = Container.default.resolver.resolve(UserAuthenticationManager.self)!
     
     @StateObject var settingViewModel = SettingViewModel()
@@ -51,7 +51,7 @@ struct SettingView: View {
     }
 }
 
-extension SettingView{
+extension SwiftUISettingView{
     func HeaderView() -> some View{
         HStack {
             
@@ -98,7 +98,7 @@ extension SettingView{
     }
 }
 
-extension SettingView{
+extension SwiftUISettingView{
     /// Get a view to navigate on which
     func getViewToNavigate(destination: SettingRowType) -> AnyView {
         switch destination {
