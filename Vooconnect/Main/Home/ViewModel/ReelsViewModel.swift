@@ -26,6 +26,12 @@ class ReelsViewModel: ObservableObject {
         var urlRequest = URLRequest(url: URL(string:  getBaseURL + EndPoints.reels)!)
         urlRequest.httpMethod = "GET"
         
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+        
         URLSession.shared.dataTask(with: urlRequest) { httpData, httpResponse, httpError in
             if let data = httpData {
                 

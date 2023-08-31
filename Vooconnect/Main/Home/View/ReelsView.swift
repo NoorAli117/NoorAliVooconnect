@@ -2216,6 +2216,8 @@ struct ReelsView: View {
     @Binding var selectedReelId: Int
     @State private var offset: CGFloat = 0
     @State var videoIndex: Int = 0
+    @State private var removeReel: Bool = false
+    @State private var userUUid: String = ""
 
     
     var body: some View {
@@ -2234,7 +2236,7 @@ struct ReelsView: View {
                     //                ForEach($reels) { $reel in
                     ForEach(reelsVM.allReels.indices, id: \.self) { index in
                         
-                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, urll: URL(string: getImageVideoBaseURL + reelsVM.allReels[index].contentURL!)!)
+                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, urll: URL(string: getImageVideoBaseURL + reelsVM.allReels[index].contentURL!)!)
                         // setting width...
                             .frame(width: size.width, height: size.height)
                             .padding()
@@ -2274,6 +2276,10 @@ struct ReelsView: View {
                         withAnimation(.easeInOut) {
                             print(videoIndex)
                             topBar = false
+                            if removeReel{
+                                removeReels(withCreatorUUID: userUUid)
+                            }
+                            removeReel = false
                         }
                         videoIndex = index
                     }else{
@@ -2326,6 +2332,10 @@ struct ReelsView: View {
         // setting intial reel...
         
     }
+    func removeReels(withCreatorUUID creatorUUID: String) {
+        reelsVM.allReels.removeAll { $0.creatorUUID == creatorUUID }
+    }
+
     
 }
 
@@ -2375,6 +2385,8 @@ struct ReelsPlyer: View {
     @State var volumeAnimation = false
     
     @State private var likeAnimation: Bool = false
+    @Binding var removeReel: Bool
+    @Binding var userUUid: String
     
     @State private var likeCount: Int = 0
     
@@ -2398,6 +2410,7 @@ struct ReelsPlyer: View {
     @Binding var topBar: Bool
     
     @State private var alert: Bool = false
+    @State private var imagePause: Bool = false
     @State private var playAndPause: Bool = false
     @State private var playAndPauseOpacity: Double = 0.001
     
@@ -2405,123 +2418,90 @@ struct ReelsPlyer: View {
     @State private var image: UIImage?
     
     var urll: URL
+    @State private var tapCount = 0
+    @State private var singleTapTimer: Timer?
+    @State private var showHeartAnimation = false
     
     var body: some View {
         
         
         ZStack {
-            if (urll.pathExtension == "png"){
-                VStack {
-                    if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-//                            .ignoresSafeArea(.all)
-//                            .frame(maxWidth: UIScreen.main.bounds.width)
-//                            .frame(height: UIScreen.main.bounds.height)
-                    } else {
-                        // Placeholder or loading indicator
-                        ZStack{
-                            Color(.black)
-                            ProgressView()
-                        }
-                    }
-                }
+            CustomVideoPlayer(player: player)
+                .edgesIgnoringSafeArea(.all)
+            
                 .onAppear {
-                    loadImage()
-                }
-//                .onAppear {
-//                    loadImageFromURL()
-//                }
-//                ZStack{
-//                    Color(.black)
-//                    ProgressView()
-//                }
-                
-            } else {
-                CustomVideoPlayer(player: player)
-                    .edgesIgnoringSafeArea(.all)
-                
-                    .onAppear {
-                        player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
-                        player.play()
+                    player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
+                    player.play()
+                    if reelsDetail.isLiked == "1"{
+                        likeAndUnlike = true
+                        likeCount = 1
                     }
-                    .onDisappear {
-                        player.pause()
+                }
+                .onDisappear {
+                    player.pause()
+                    
+                    
+                }
+                .onTapGesture {
+                    // Increment tap count and start a timer
+                    tapCount += 1
+                    if tapCount == 1 {
+                        singleTapTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                            print("Tapped")
+                            postedBy = reelsDetail.creatorUUID ?? ""
+                            playorstop()
+                            tapCount = 0 // Reset tap count
+                        }
+                    } else if tapCount == 2 {
+                        print("Double Tapped")
+                        doubleTapLikeCount = true
+                        show = false
+                        showTwo = false
+                        print("Success ====== 2")
+                        likeAndUnlike = true
+                        likeVM.reelsLikeDataModel.userUUID = reelsDetail.creatorUUID ?? ""
+                        likeVM.reelsLikeDataModel.postID = reelsDetail.postID ?? 0
                         
+                        if likeAndUnlike == true {
+                            if likeCount == 0 {
+                                likeCount = likeCount + 1
+                                likeVM.reelsLikeApi()
+                            }
+                            
+                        }
+                        showHeartAnimation = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            showHeartAnimation = false
+                        }
+                        
+                        
+                        if longPressPopUp == true {
+                            longPressPopUp = false
+                        }
+                        tapCount = 0 // Reset tap count
+                        singleTapTimer?.invalidate()
                     }
-            }
-            
-            //            Image("")
-            
-            GeometryReader { proxy -> Color in
-                
-                let minY = proxy.frame(in: .global).minY
-                
-                let size = proxy.size
-                
-                DispatchQueue.main.async {
-                    
-                    if -minY < (size.height / 2) && minY < (size.height / 2) {
-                        player.play()
-                    } else {
-                        player.pause()
-                    }
-                    
                 }
-                return Color.clear
+            if showHeartAnimation {
+                HeartLike(isTapped: $showHeartAnimation, taps: 1)
             }
-            
-            
-            
-            Color.black.opacity(0.01)
-                .onTapGesture(count: 2) {
-                    likeAnimation = true
-                    likeAndUnlike = true
-                    print("Double tapped!")
-                    
-                    //                    doubleTapLikeCount = true
-                    
-                    
-                    if doubleTapLikeCount == true {
-                        likeCount = likeCount+1
-                        likeVM.reelsLikeApi()
-                    } else {
-                        //                        likeCount = likeCount-1
-                    }
-                    
-                    //                    likeVM.reelsLikeApi()
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        likeAnimation = false
-                        //                        likeAndUnlike = false
-                        doubleTapLikeCount = false
-                    }
-                    
-                }
-            
-            if likeAnimation {
-                HeartLike(isTapped: $likeAnimation, taps: 1)
-            }
-            
-            // Live
             HStack {
                 // Live
                 Button {
-                    
+
                     //                        player.pause()
-                    
+
                     show = false
                     showTwo = false
-                    
+
                     liveViewer.toggle()
-                    
+
                 } label: {
                     Image("Live")
-                    
+
                 }
-                
-                
+
+
                 Spacer()
                 if let uuid = UserDefaults.standard.string(forKey: "uuid"){
                     if reelsDetail.creatorUUID != uuid{
@@ -2542,9 +2522,11 @@ struct ReelsPlyer: View {
                             Button {
 
                                 let user_uuid = reelsDetail.creatorUUID ?? nil
-                                print("PostIddddd========",user_uuid as Any)
+                                print("user_uuid========",user_uuid as Any)
                                 UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
                                 bottomSheetBlock.toggle()
+                                removeReel = true
+                                userUUid = user_uuid!
 
                             } label: {
                                 Image("BlockUserbutton")
@@ -2557,21 +2539,21 @@ struct ReelsPlyer: View {
                         }
                     }
                 }
-                
-                
-                
+
+
+
             }
             //                .padding(.leading)
             .padding(.leading, -1)
             .padding(.trailing, 10)
             .frame(maxHeight: .infinity, alignment: .top)
-            
-            
+
+
             // Center
-            
+
             ZStack {
-                
-                
+
+
                 if bottomSheetBlock {
                     HStack {
                         VStack{
@@ -2590,35 +2572,31 @@ struct ReelsPlyer: View {
                         .padding(.trailing,5)
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                    
-                        
+
+
                 }
-                
+
                 if bookMarkMassage == true {
-                    
+
                     Text(likeVM.bookMarkDataModel.successMessage)
                         .foregroundColor(.white)
-                    
                 }
-                
-                
-                Button {
-                    playorstop()
-                } label: {
-                        Image("PlayWhiteN")
-                            .frame(width: 100, height: 100)
-                            .opacity(playAndPauseOpacity)
+
+                if imagePause {
+                    Image("PlayWhiteN")
+                        .frame(width: 100, height: 100)
+                        .opacity(playAndPauseOpacity)
                 }
-                
-                               
+
+
             }
-            
-            
+
+
             // Recommended
             VStack {
-                
+
                 HStack {
-                    
+
                     Text("Recommended")
                         .font(.custom("Urbanist-Bold", size: 16))
                         .frame(width: 150, height: 42)
@@ -2632,7 +2610,7 @@ struct ReelsPlyer: View {
                             }
                                 .padding(.leading, 6)
                         )
-                    
+
                         .foregroundColor(followRecommendedTextColor ? Color(#colorLiteral(red: 0.787740171, green: 0.787740171, blue: 0.787740171, alpha: 0.3994205298)) : .black)
                         .onTapGesture {
                             withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.6)) {
@@ -2640,11 +2618,11 @@ struct ReelsPlyer: View {
                                 followRecommendedTextColor.toggle()
                                 show = false
                                 showTwo = false
-                                
+
                             }
                         }
-                    
-                    
+
+
                     Text("Followers")
                         .font(.custom("Urbanist-Bold", size: 16))
                         .frame(width: 150, height: 42)
@@ -2658,7 +2636,7 @@ struct ReelsPlyer: View {
                                 }
                             }
                                 .padding(.trailing, 6)
-                            
+
                         )
                         .foregroundColor(followRecommendedTextColor ? .black : Color(#colorLiteral(red: 0.787740171, green: 0.787740171, blue: 0.787740171, alpha: 0.3994205298)))
                         .onTapGesture {
@@ -2669,27 +2647,27 @@ struct ReelsPlyer: View {
                                 showTwo = false
                             }
                         }
-                    
+
                 }
-                
+
                 .frame(width: 300, height: 45)
                 .background(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)))
                 .cornerRadius(22.5)
                 .rotationEffect(.degrees(270))
-                
+
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .padding(.leading, -110)
             .padding(.top, -120)
-            
-            
+
+
             // Creator Detail
             VStack {
-                
+
                 HStack(alignment: .bottom) {
-                    
+
                     VStack(alignment: .leading, spacing: 10) {
-                        
+
                         Button{
                             show = false
                             showTwo = false
@@ -2702,62 +2680,62 @@ struct ReelsPlyer: View {
                                     .frame(width: 55, height: 55)
                                     .cornerRadius(10)
                                     .background(
-                                        
+
                                         RoundedRectangle(cornerRadius: 10)
                                             .stroke(Color.white,lineWidth: 6)
                                     )
                                 //                                    .clipShape(Circle())
-                                
+
                                 VStack(alignment: .leading, spacing: 5) {
                                     HStack {
                                         Text(reelsDetail.creatorFirstName ?? "jenny")
                                             .font(.custom("Urbanist-Bold", size: 18))
                                             .foregroundColor(.white)
-                                        
+
                                         Text(reelsDetail.creatorLastName ?? "Wilson")
                                             .font(.custom("Urbanist-Bold", size: 18))
                                             .foregroundColor(.white)
-                                        
+
                                     }
-                                    
+
                                     ForEach(likeVM.userInterestCategory, id: \.id) { categ in
                                         if categ.user_uuid == reelsDetail.creatorUUID {
-                                            
+
                                             ForEach(likeVM.interestCategory, id: \.id) { uiCateg in
                                                 if categ.category_id == uiCateg.id {
-                                                    
+
                                                     Text("\(uiCateg.category_name)")
                                                         .font(.custom("Urbanist-Medium", size: 14))
                                                         .foregroundColor(.white.opacity(7))
-                                                    
+
                                                 }
                                             }
                                         }
                                     }
-                                    
+
 //                                    Text("Actress & Singer")
 //                                        .font(.custom("Urbanist-Medium", size: 14))
 //                                        .foregroundColor(.white.opacity(7))
                                     //                                        .foregroundColor(Color("GrayFour"))
-                                    
+
                                 }
-                                
+
                             }
                             .padding(.bottom, 1)
                         }
-                        
+
                         // Title Custom View...
-                        
+
                         Button {
-                            
+
                         } label: {
                             HStack {
                                 Image("AddUserCP")
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 16, height: 16)
-                                
-                                
+
+
                                 Button {
                                     likeVM.followApi(user_uuid: reelsDetail.creatorUUID!)
                                 }label: {
@@ -2765,7 +2743,7 @@ struct ReelsPlyer: View {
                                         .font(.custom("Urbanist-Bold", size: 16))
 //                                        .fontWeight(Font.Weight.semibold)
                                 }
-                                
+
                             }
                             .padding(.horizontal,20)
                             .padding(.vertical,8)
@@ -2778,7 +2756,7 @@ struct ReelsPlyer: View {
                         )
                         .foregroundColor(.white)
                         .cornerRadius(30)
-                        
+
                         //                            Text("Hi everyone. in this video I will sing a song")
                         Text(reelsDetail.title ?? "")
                             .font(.custom("Urbanist-Medium", size: 14))
@@ -2788,11 +2766,11 @@ struct ReelsPlyer: View {
 //                            .font(.custom("Urbanist-Medium", size: 12))
 //                            .foregroundColor(.white)
 //                            .padding(.top, -10)
-                        
+
                     }
-                    
+
                     Spacer(minLength: 20)
-                    
+
                     // List of Buttons...
                     // Traling PopUp
                     VStack {
@@ -2801,7 +2779,7 @@ struct ReelsPlyer: View {
                                 PopOverTwo(show: $show, camera: $cameraView, live: $live)
                                     .background(Color.white)
                                     .cornerRadius(15)
-                                
+
                                 DiamondTwo()
                                     .frame(width: 40, height: 30)
                                     .padding(.top, -23)
@@ -2815,8 +2793,8 @@ struct ReelsPlyer: View {
                     }
                     .padding(.bottom, 195)
                     .padding(.trailing, -50)
-                    
-                    
+
+
                     // All Traling Button
                     VStack(spacing: 10) {
                         
@@ -2891,100 +2869,91 @@ struct ReelsPlyer: View {
                             //                                showMore.toggle()
                         } label: {
                             Image(show ? "PlusPurple" : "PlusIcon")  // PlusPurple
-                            
+
                         }
-                        
+
                         Button {
-                            //                                playButtonTest.toggle()
-                            show = false
-                            showTwo = false
-                            
-                            playAndPause.toggle()
-                            
-                            if playAndPause == true {
-                                player.pause()
-                            } else {
-//                                player.play()
-                            }
-                            
+                            playorstop()
+
                         } label: {
-                            Image("Play")
-                            
+                            Image(playAndPause ? "Pause" : "Play")
+
+
                         }
-                        
+
                         Button {
                             //                                if volumeAnimation {
                             //                                    return
                             //                                }
                             show = false
                             showTwo = false
-                            
+
                             isMuted.toggle()
                             // Muting player...
                             player.isMuted = isMuted
                             withAnimation {volumeAnimation.toggle()}
-                            
+
                         } label: {
                             Image(isMuted ? "VolumeUp" : "VolumeUp")
-                            
+
                         }
-                        
+
                         Button {
-                            
+
                             show = false
                             showTwo = false
-                            
+
                         } label: {
                             Image("Sound")
-                            
+
                         }
-                        
+
                     }
                     //                        .padding(.trailing, -95)
                     .padding(.bottom, 20)
-                    
+
                     //                    reel: reel
-                    
+
                 }
-                
+
                 // Music View...
                 Button {
                     selectedReelId = reelsDetail.postID ?? 0
                     postedBy = reelsDetail.creatorUUID ?? ""
                     print(postedBy)
-                    
+
                     show = false
                     showTwo = false
                     musicView.toggle()
                 }label: {
                     HStack {
-                        
+
                         //                        Image("musicProfileIcon")
                         CreatorProfileImageView(allReels: reelsDetail)
                         //                                    .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 24, height: 24)
                             .cornerRadius(10)
-                        
+
                         Image("MusicIcon")
-                        
+
                         Text(reelsDetail.musicTrack ?? "Oridinal Sound")
                             .font(.caption)
                             .fontWeight(.semibold)
-                        
+
                         Spacer(minLength: 20)
-                        
-                        
+
+
                     }
                     .padding(.top, 1)
-                    
+
                     .padding(.bottom, 10)
                 }
-                
+
                 // Floting Menue
                 // LIKE
                 HStack(spacing: 13) {
-                    
+
                     VStack {
                         Image(likeAndUnlike ? "HeartRedLV" : "LikeWhiteR") // LikeWhiteR LikeRedR LikeRedTwoR LikeRedThreeR
                             .resizable()
@@ -2992,46 +2961,48 @@ struct ReelsPlyer: View {
                             .frame(width: 28, height: 28)
                             .clipped()
                             .onTapGesture {
-                                doubleTapLikeCount = true
+//                                doubleTapLikeCount = true
                                 show = false
                                 showTwo = false
                                 print("Success ====== 2")
                                 likeAndUnlike.toggle()
                                 likeVM.reelsLikeDataModel.userUUID = reelsDetail.creatorUUID ?? ""
                                 likeVM.reelsLikeDataModel.postID = reelsDetail.postID ?? 0
-                                
+
                                 if likeAndUnlike == true {
                                     likeCount = likeCount+1
                                 } else {
                                     likeCount = likeCount-1
                                 }
-                                
+
                                 likeVM.reelsLikeApi()
-                                
+
                                 if longPressPopUp == true {
                                     longPressPopUp = false
                                 }
                             }
-                        
+
                             .onLongPressGesture(minimumDuration: -0.5) {
                                 longPressPopUp.toggle()
                             }
-                        
-                        Text("\(likeCount)")
-                            .font(.custom("Urbanist-Regular", size: 8))
-                            .offset(y: -3)
-                        
+
+                        if let likesCount = reelsDetail.likeCount {
+                            Text("\(likesCount + likeCount)")
+                                .font(.custom("Urbanist-Regular", size: 8))
+                                .offset(y: -3)
+                        }
+
                     }
-                    
+
                     Button {
                         let postID = reelsDetail.postID ?? 0
                         print("PostIddddd========",postID)
                         UserDefaults.standard.set(postID, forKey: "postID")
-                        
+
                         commentSheet.toggle()
-                        
-                        
-                        
+
+
+
                         show = false
                         showTwo = false
                     } label: {
@@ -3040,14 +3011,14 @@ struct ReelsPlyer: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 28, height: 28)
-                            
+
                             //                                    Text("22k")
                             Text("\(reelsDetail.commentCount ?? 0)")
                                 .font(.custom("Urbanist-Regular", size: 8))
                                 .offset(y: -3)
                         }
                     }
-                    
+
                     Button {
                         show = false
                         showTwo = false
@@ -3055,51 +3026,51 @@ struct ReelsPlyer: View {
                         //                                DispatchQueue.main.async {
                         share()
                         //                                }
-                        
+
                     } label: {
                         VStack {
                             Image("Share")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 28, height: 28)
-                            
+
                             //                                    Text("22k")
                             Text("\(reelsDetail.shareCount ?? 0)")
                                 .font(.custom("Urbanist-Regular", size: 8))
                                 .offset(y: -3)
                         }
                     }
-                    
-                    
+
+
                     Button {
                         show = false
                         showTwo = false
                         likeVM.bookMarkDataModel.successMessage = ""
                         bookMarkMassage = true
-                        
+
                         likeVM.bookMarkDataModel.userUUID = reelsDetail.creatorUUID ?? ""
                         likeVM.bookMarkDataModel.postID = reelsDetail.postID ?? 0
                         likeVM.bookMarkApi()
-                        
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             bookMarkMassage = false
                         }
-                        
+
                     } label: {
                         VStack {
                             Image("Save")
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 28, height: 28)
-                            
+
                             //                                    Text("22k")
                             Text("\(reelsDetail.bookmarkCount ?? 0)")
                                 .font(.custom("Urbanist-Regular", size: 8))
                                 .offset(y: -3)
-                            
+
                         }
                     }
-                    
+
                     Button {
                         postedBy = reelsDetail.creatorUUID ?? ""
                         //                                player.pause()
@@ -3108,24 +3079,24 @@ struct ReelsPlyer: View {
                         creatorProfileView.toggle()
                     } label: {
                         VStack {
-                            
+
                             CreatorProfileImageView(allReels: reelsDetail)
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 28, height: 28)
                                 .cornerRadius(14)
                                 .background(
-                                    
+
                                     RoundedRectangle(cornerRadius: 14)
                                         .stroke(Color.white,lineWidth: 1)
                                 )
                                 .offset(y: 3)
-                            
+
                             Text("")
                                 .font(.custom("Urbanist-Regular", size: 10))
                                 .offset(y: -5)
                         }
                     }
-                    
+
                     Button {
                         //                                player.pause()
                         show = false
@@ -3133,31 +3104,31 @@ struct ReelsPlyer: View {
                         myProfileView.toggle()
                     } label: {  // UserProfileImageView
                         VStack {
-                            
+
                             UserProfileImageView()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 28, height: 28)
                                 .cornerRadius(14)
                                 .background(
-                                    
+
                                     RoundedRectangle(cornerRadius: 14)
                                         .stroke(Color.white,lineWidth: 1)
                                 )
                                 .offset(y: 3)
-                            
+
                             Text("")
                                 .font(.custom("Urbanist-Regular", size: 10))
                                 .offset(y: -5)
-                            
+
                         }
-                        
+
                     }
                 }
                 .onTapGesture {
                     show = false
                     showTwo = false
                 }
-                
+
                 .padding(.top, 3)
                 .padding(.leading, 15)
                 .padding(.trailing, 15)
@@ -3169,17 +3140,17 @@ struct ReelsPlyer: View {
                     ], startPoint: .leading, endPoint: .trailing)
                 )
                 .cornerRadius(40)
-                
-                
+
+
             }
-            
+
             .padding(.horizontal)
             .padding(.bottom, 20)
             .foregroundColor(.white)
             .frame(maxHeight: .infinity, alignment: .bottom)
-            
-            
-            
+
+
+
             HStack {
                 if longPressPopUp {
                     LongPressPopUp()
@@ -3187,76 +3158,52 @@ struct ReelsPlyer: View {
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
             .padding(.bottom, 70)
-            
-        }
-        .onTapGesture {
-            show = false
-            showTwo = false
-        
-            print("Tappedd")
-            postedBy = reelsDetail.creatorUUID ?? ""
-                            player.pause()
+
         }
         
-        
+
+
         //        .environmentObject(status)
         .onAppear {
-            
-            DispatchQueue.main.async {
-                likeCount = reelsDetail.likeCount ?? 0
+
+            if reelsDetail.isLiked == "1"{
+                likeAndUnlike = true
             }
-            
+//            DispatchQueue.main.async {
+//                likeCount = reelsDetail.likeCount ?? 0
+//            }
+
         }
-        
+
         .onDisappear {
-            
+
             DispatchQueue.main.async {
                 player.pause()
             }
-            
+
         }
-        
+
     }
     
-    
-    func loadImage() {
-        let imageUrl = urll
 
-            URLSession.shared.dataTask(with: imageUrl) { data, _, error in
-                guard let data = data, error == nil else {
-                    return
-                }
-
-                DispatchQueue.main.async {
-                    self.image = UIImage(data: data)
-                }
-            }.resume()
-        }
-    
-    
-//    func loadImageFromURL() {
-//        let url = urll
-//
-//        DispatchQueue.global().async {
-//            if let data = try? Data(contentsOf: url),
-//               let uiImage = UIImage(data: data) {
-//                let image = Image(uiImage: uiImage)
-//                DispatchQueue.main.async {
-//                    self.image = image
-//                }
-//            }
-//        }
-//    }
-    
     private func playorstop(){
-        playAndPause.toggle()
-
-        if playAndPause == true {
+        imagePause.toggle()
+        if player.timeControlStatus == .playing{
             player.pause()
             playAndPauseOpacity = 1.0
-        } else {
+            playAndPause = true
+            show = false
+            plusIcon = false
+            showTwo = false
+            print("Pause")
+        }else{
             player.play()
+            playAndPause = false
             playAndPauseOpacity = 0.001
+            show = false
+            plusIcon = false
+            showTwo = false
+            print("Play")
         }
     }
     
