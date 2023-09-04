@@ -39,9 +39,11 @@ struct Post: Codable, Hashable {
     let allowComment, allowDuet, allowStitch: String?
     let creatorUUID: String?
     let creatorFirstName, creatorLastName, creatorUsername, creatorProfileImage: String?
-    let likeCount, shareCount, bookmarkCount, commentCount: Int?
+    let isBookmarked: Int
+    let isLiked: Int
+    let reactionType: Int?
+    var likeCount, shareCount, bookmarkCount, commentCount: Int?
     var player: AVPlayer?
-    var isLiked: String?
 
     enum CodingKeys: String, CodingKey {
         case postID = "post_id"
@@ -61,16 +63,24 @@ struct Post: Codable, Hashable {
         case creatorLastName = "creator_last_name"
         case creatorUsername = "creator_username"
         case creatorProfileImage = "creator_profile_image"
+        case isBookmarked = "is_bookmarked"
+        case isLiked = "is_liked"
+        case reactionType = "reaction_type"
         case likeCount = "like_count"
         case shareCount = "share_count"
         case bookmarkCount = "bookmark_count"
         case commentCount = "comment_count"
-        case isLiked = "isLiked"
     }
     
     var likeCountt: Int {
         return Int(likeCount ?? 0)
     }
+    mutating func incrementLikeCount() {
+        likeCount = likeCount! + 1
+        }
+    mutating func decrementLikeCount() {
+        likeCount = likeCount! - 1
+        }
     
 }
 

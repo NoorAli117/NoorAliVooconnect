@@ -22,6 +22,7 @@ struct MusicView: View {
 //    @State private var audioPlayer: AVPlayer?
     @State var player: AVPlayer!
     @State var isPlaying = false
+    @State var follow: Bool = false
     @State var viewerProfile = false
     @State var songModel: DeezerSongModel?
     var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
@@ -177,26 +178,35 @@ struct MusicView: View {
                                             }
                                         }
                                         Spacer()
-                                        Button {
-                                            likeVM.followApi(user_uuid: uuid)
-                                            presentaionMode.wrappedValue.dismiss()
-                                        } label: {
-                                            
-                                            Text("Follow")
-                                                .font(.custom("Urbanist-Medium", size: 16))
-                                                .fontWeight(Font.Weight.medium)
-                                            
+                                        if let uid = UserDefaults.standard.string(forKey: "uuid"){
+                                            if uuid != uid{
+                                                Button {
+                                                    follow.toggle()
+                                                    if (follow == true) {
+                                                        likeVM.followApi(user_uuid: uuid)
+                                                    }else{
+                                                        likeVM.unFollowApi(user_uuid: uuid)
+                                                    }
+                                                } label: {
+                                                    
+                                                    Text(follow ? "Following" : "Follow")
+                                                        .font(.custom("Urbanist-Medium", size: 16))
+                                                        .fontWeight(Font.Weight.medium)
+                                                    
+                                                }
+                                                .padding(.vertical,6)
+                                                .padding(.horizontal,16)
+                                                .background(follow ? LinearGradient(colors: [
+                                                    Color(.lightGray),
+                                                ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
+                                                    Color("buttionGradientOne"),
+                                                    Color("buttionGradientTwo"),
+                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                )
+                                                .foregroundColor(follow ? Color("buttionGradientOne") : .white)
+                                                .cornerRadius(30)
+                                            }
                                         }
-                                        .padding(.vertical,6)
-                                        .padding(.horizontal,16)
-                                        .background(
-                                            LinearGradient(colors: [
-                                                Color("buttionGradientOne"),
-                                                Color("buttionGradientTwo"),
-                                            ], startPoint: .leading, endPoint: .trailing)
-                                        )
-                                        .foregroundColor(.white)
-                                        .cornerRadius(30)
                                         
                                     }
                                 }

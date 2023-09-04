@@ -903,7 +903,7 @@ struct FinalVideoToPostView: View {
             }
     }
     func shareToFacebook(videoURL: URL) {
-        let activityItems: [Any] = [videoURL, self.postModel.description]
+        let activityItems: [Any] = [videoURL, self.description]
                 let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
                 UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
     }

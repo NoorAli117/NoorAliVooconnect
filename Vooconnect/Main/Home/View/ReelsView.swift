@@ -2236,7 +2236,7 @@ struct ReelsView: View {
                     //                ForEach($reels) { $reel in
                     ForEach(reelsVM.allReels.indices, id: \.self) { index in
                         
-                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, urll: URL(string: getImageVideoBaseURL + reelsVM.allReels[index].contentURL!)!)
+                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar)
                         // setting width...
                             .frame(width: size.width, height: size.height)
                             .padding()
@@ -2244,26 +2244,9 @@ struct ReelsView: View {
                             .rotationEffect(.init(degrees: -90))
                             .ignoresSafeArea(.all, edges: .top)
                             .tag(index)
-//                            .onAppear{
-//                                topBar = true
-//                            }
-//                            .onDisappear{
-//                                topBar = false
-//                            }
-                        
-                        
                     }
                     
                 }
-//                .onChange(of: reelTagIndex) { index in
-//                    print("Current Index \(index)")
-//                    print("Previous Index \(reelTagIndex)")
-//                    if index != 0 {
-//                        topBar = false
-//                    }else{
-//                        topBar = true
-//                    }
-//                }
                 .rotationEffect(.init(degrees: 90))
                 // Since view is rotated setting height as width...
                 .frame(width: size.height)
@@ -2366,6 +2349,8 @@ struct ReelsPlyer: View {
     
     @State var show: Bool = false
     @State var longPressPopUp: Bool = false
+    @State var selectedReaction: Int = 0
+    @State var postID: Int = 0
     
     @Binding var showTwo: Bool
     @Binding var cameraView: Bool
@@ -2389,9 +2374,13 @@ struct ReelsPlyer: View {
     @Binding var userUUid: String
     
     @State private var likeCount: Int = 0
+    @State private var likeeeeCount: Int = 0
+    @State private var bookmarkCount: Int = 0
     
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @State var likeAndUnlike = false
+    @State var likeImage: String = "LikeWhiteR"
+//    @State var selectedReaction: Int = 0
     //    @StateObject private var reelsVM = ReelsViewModel()
     
     @State var playButtonTest: Bool = false
@@ -2417,10 +2406,13 @@ struct ReelsPlyer: View {
     @State var player = AVPlayer()
     @State private var image: UIImage?
     
-    var urll: URL
+//    var urll: URL
     @State private var tapCount = 0
     @State private var singleTapTimer: Timer?
     @State private var showHeartAnimation = false
+    @State private var isTappedBookmark = false
+    @State private var follow = false
+    @State private var iconSize: CGFloat = 30.0
     
     var body: some View {
         
@@ -2430,11 +2422,30 @@ struct ReelsPlyer: View {
                 .edgesIgnoringSafeArea(.all)
             
                 .onAppear {
-                    player.replaceCurrentItem(with: AVPlayerItem(url: urll)) //<-- Here
+                    player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelsDetail.contentURL!)!)) //<-- Here
                     player.play()
-                    if reelsDetail.isLiked == "1"{
-                        likeAndUnlike = true
-                        likeCount = 1
+                    postID = reelsDetail.postID ?? 0
+                    if reelsDetail.isLiked == 1{
+                        if likeeeeCount == 0{
+                            likeAndUnlike = true
+                            likeeeeCount = likeeeeCount + 1
+                            if let likesCount = reelsDetail.likeCount{
+                                likeCount = likesCount
+                            }
+                            if reelsDetail.reactionType == 1{
+                                likeImage = "HeartRedLV"
+                            }else if (reelsDetail.reactionType == 2){
+                                likeImage = "Love"
+                            }else if (reelsDetail.reactionType == 3){
+                                likeImage = "Haha"
+                            }else if (reelsDetail.reactionType == 4){
+                                likeImage = "Sad"
+                            }else if (reelsDetail.reactionType == 5){
+                                likeImage = "Angry"
+                            }else if (reelsDetail.reactionType == 6){
+                                likeImage = "Angry"
+                            }
+                        }
                     }
                 }
                 .onDisappear {
@@ -2463,9 +2474,12 @@ struct ReelsPlyer: View {
                         likeVM.reelsLikeDataModel.postID = reelsDetail.postID ?? 0
                         
                         if likeAndUnlike == true {
-                            if likeCount == 0 {
-                                likeCount = likeCount + 1
-                                likeVM.reelsLikeApi()
+                            if reelsDetail.isLiked == 0{
+                                if likeeeeCount == 0{
+                                    likeeeeCount = likeeeeCount + 1
+                                    likeCount = likeCount + 1
+                                    likeVM.reelsLikeApi(reactionType: 1, postID: postID)
+                                }
                             }
                             
                         }
@@ -2726,36 +2740,49 @@ struct ReelsPlyer: View {
 
                         // Title Custom View...
 
-                        Button {
-
-                        } label: {
-                            HStack {
-                                Image("AddUserCP")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 16, height: 16)
-
-
+                        if let uuid = UserDefaults.standard.string(forKey: "uuid"){
+                            if reelsDetail.creatorUUID != uuid{
                                 Button {
-                                    likeVM.followApi(user_uuid: reelsDetail.creatorUUID!)
-                                }label: {
-                                    Text("Follow")
-                                        .font(.custom("Urbanist-Bold", size: 16))
-//                                        .fontWeight(Font.Weight.semibold)
+                                    follow.toggle()
+                                    if (follow == true) {
+                                        likeVM.followApi(user_uuid: reelsDetail.creatorUUID!)
+                                    }else{
+                                        likeVM.unFollowApi(user_uuid: reelsDetail.creatorUUID!)
+                                    }
+                                } label: {
+                                    HStack {
+                                        if (follow == true){
+                                            Image("UserPrivacy")
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 16, height: 16)
+                                        }else{
+                                            Image("AddUserCP")
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 16, height: 16)
+                                        }
+                                        
+                                        
+                                        Text(follow ? "Following" : "Follow")
+                                            .font(.custom("Urbanist-Bold", size: 16))
+                                        
+                                        
+                                    }
+                                    .padding(.horizontal,20)
+                                    .padding(.vertical,8)
                                 }
-
+                                .background(follow ? LinearGradient(colors: [
+                                    Color.white,
+                                ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
+                                    Color("buttionGradientOne"),
+                                    Color("buttionGradientTwo"),
+                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
+                                .foregroundColor(follow ? Color("buttionGradientOne") : .white)
+                                .cornerRadius(30)
                             }
-                            .padding(.horizontal,20)
-                            .padding(.vertical,8)
                         }
-                        .background(
-                            LinearGradient(colors: [
-                                Color("buttionGradientOne"),
-                                Color("buttionGradientTwo"),
-                            ], startPoint: .leading, endPoint: .trailing)
-                        )
-                        .foregroundColor(.white)
-                        .cornerRadius(30)
 
                         //                            Text("Hi everyone. in this video I will sing a song")
                         Text(reelsDetail.title ?? "")
@@ -2877,6 +2904,7 @@ struct ReelsPlyer: View {
 
                         } label: {
                             Image(playAndPause ? "Pause" : "Play")
+                            
 
 
                         }
@@ -2892,6 +2920,7 @@ struct ReelsPlyer: View {
                             // Muting player...
                             player.isMuted = isMuted
                             withAnimation {volumeAnimation.toggle()}
+                            print("Valum tapped")
 
                         } label: {
                             Image(isMuted ? "VolumeUp" : "VolumeUp")
@@ -2955,7 +2984,7 @@ struct ReelsPlyer: View {
                 HStack(spacing: 13) {
 
                     VStack {
-                        Image(likeAndUnlike ? "HeartRedLV" : "LikeWhiteR") // LikeWhiteR LikeRedR LikeRedTwoR LikeRedThreeR
+                        Image(likeImage) // LikeWhiteR LikeRedR LikeRedTwoR LikeRedThreeR
                             .resizable()
                             .scaledToFill()
                             .frame(width: 28, height: 28)
@@ -2968,14 +2997,17 @@ struct ReelsPlyer: View {
                                 likeAndUnlike.toggle()
                                 likeVM.reelsLikeDataModel.userUUID = reelsDetail.creatorUUID ?? ""
                                 likeVM.reelsLikeDataModel.postID = reelsDetail.postID ?? 0
+                                    if likeAndUnlike == true {
+                                        likeCount = likeCount+1
+                                        likeeeeCount = likeeeeCount+1
+                                        likeImage = "HeartRedLV"
+                                    } else{
+                                        likeCount = likeCount-1
+                                        likeeeeCount = likeeeeCount-1
+                                        likeImage = "LikeWhiteR"
+                                    }
 
-                                if likeAndUnlike == true {
-                                    likeCount = likeCount+1
-                                } else {
-                                    likeCount = likeCount-1
-                                }
-
-                                likeVM.reelsLikeApi()
+                                likeVM.reelsLikeApi(reactionType: 1, postID: postID)
 
                                 if longPressPopUp == true {
                                     longPressPopUp = false
@@ -2986,11 +3018,9 @@ struct ReelsPlyer: View {
                                 longPressPopUp.toggle()
                             }
 
-                        if let likesCount = reelsDetail.likeCount {
-                            Text("\(likesCount + likeCount)")
+                            Text("\(likeCount)")
                                 .font(.custom("Urbanist-Regular", size: 8))
                                 .offset(y: -3)
-                        }
 
                     }
 
@@ -3024,9 +3054,11 @@ struct ReelsPlyer: View {
                         showTwo = false
                         //                                DispatchQueue.global(qos: .background).async {
                         //                                DispatchQueue.main.async {
-                        share()
+//                        share()
                         //                                }
-
+                        if let videoURL = URL(string: getImageVideoMarkedBaseURL + reelsDetail.contentURL!){
+                            shareToFacebook(videoURL: videoURL, description: reelsDetail.postDescription!)
+                        }
                     } label: {
                         VStack {
                             Image("Share")
@@ -3042,15 +3074,22 @@ struct ReelsPlyer: View {
                     }
 
 
+                    let iconColor: Color = isTappedBookmark ? Color("buttionGradientOne") : .white
                     Button {
                         show = false
                         showTwo = false
                         likeVM.bookMarkDataModel.successMessage = ""
                         bookMarkMassage = true
+                        isTappedBookmark.toggle()
 
                         likeVM.bookMarkDataModel.userUUID = reelsDetail.creatorUUID ?? ""
                         likeVM.bookMarkDataModel.postID = reelsDetail.postID ?? 0
                         likeVM.bookMarkApi()
+                        if bookmarkCount == 0{
+                            bookmarkCount = bookmarkCount+1
+                        }else{
+                            bookmarkCount = bookmarkCount-1
+                        }
 
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             bookMarkMassage = false
@@ -3061,10 +3100,11 @@ struct ReelsPlyer: View {
                             Image("Save")
                                 .resizable()
                                 .scaledToFill()
+                                .foregroundColor(iconColor)
                                 .frame(width: 28, height: 28)
 
                             //                                    Text("22k")
-                            Text("\(reelsDetail.bookmarkCount ?? 0)")
+                            Text("\((reelsDetail.bookmarkCount ?? 0) + bookmarkCount)")
                                 .font(.custom("Urbanist-Regular", size: 8))
                                 .offset(y: -3)
 
@@ -3153,7 +3193,7 @@ struct ReelsPlyer: View {
 
             HStack {
                 if longPressPopUp {
-                    LongPressPopUp()
+                    LongPressPopUp(likeImage: $likeImage, longPressPopUp: $longPressPopUp, selectedReaction: selectedReaction, postID: $postID, likeCount: $likeCount, likeeCount: $likeeeeCount, isLiked: $likeAndUnlike)
                 }
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
@@ -3166,9 +3206,9 @@ struct ReelsPlyer: View {
         //        .environmentObject(status)
         .onAppear {
 
-            if reelsDetail.isLiked == "1"{
-                likeAndUnlike = true
-            }
+//            if reelsDetail.isLiked == "1"{
+//                likeAndUnlike = true
+//            }
 //            DispatchQueue.main.async {
 //                likeCount = reelsDetail.likeCount ?? 0
 //            }
@@ -3183,6 +3223,16 @@ struct ReelsPlyer: View {
 
         }
 
+    }
+    
+    func toggleIconSize() {
+        iconSize = playAndPause ? 30.0 : 30.0
+    }
+    
+    func shareToFacebook(videoURL: URL, description: String) {
+        let activityItems: [Any] = [videoURL, description]
+                let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+                UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
     }
     
 
