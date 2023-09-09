@@ -66,15 +66,18 @@ class ReelsLikeViewModel: ObservableObject {
     @Published var bookMarkDataModel: BookMarkDataModel = BookMarkDataModel()
     @Published var commentDataModel: CommentDataModel = CommentDataModel()
     @Published var postComments: [CommentResponse] = []
-        @Published var interestCategory: [InterestCateg] = []
-        @Published var userInterestCategory: [UserInterestCateg] = []
+    @Published var interestCategory: [InterestCateg] = []
+    @Published var userInterestCategory: [UserInterestCateg] = []
+    @Published var followingUsers: [FollowingUsers] = []
+    @Published var profile: UserProfile?
     
     private let reelsLikeResource = ReelsLikeResource()
     
     init(){
-            fetchCommentsApi()
-            fetchInterestCategoryApi()
-            fetchUICategoryApi()
+        fetchCommentsApi()
+        fetchInterestCategoryApi()
+        fetchUICategoryApi()
+        UserFollowingUsers()
         }
     
     func reelsLikeApi(reactionType: Int, postID: Int) {
@@ -126,6 +129,50 @@ class ReelsLikeViewModel: ObservableObject {
             }
         }
         
+    }
+    func UserFollowingUsers(){
+        let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+        print("User UUID=========",uuid)
+        self.getFollowingUsers(uuid: uuid)
+        print("----------------------")
+    }
+    
+    
+    
+    func getFollowingUsers(uuid: String){
+        
+        let parameters = "{\r\n    \"uuid\": \"\(uuid)\"\r\n}"
+        let postData = parameters.data(using: .utf8)
+
+        var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.followingList)!,timeoutInterval: Double.infinity)
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = postData
+
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+          guard let data = data else {
+            print(String(describing: error))
+            return
+          }
+//          print(String(data: data, encoding: .utf8)!)
+            do {
+                let decodedData = try JSONDecoder().decode(Following.self, from: data)
+                DispatchQueue.main.async {
+                    self.followingUsers = decodedData.data
+                    print("Following data: \(self.followingUsers)")
+                }
+            } catch {
+                print("Error decoding JSON: \(error.localizedDescription)")
+            }
+        }
+
+        task.resume()
+
     }
     
     func blockUserApi() {  // postID
@@ -281,7 +328,7 @@ class ReelsLikeViewModel: ObservableObject {
             let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
 //            let postID = UserDefaults.standard.integer(forKey: "postID")
             
-            let request = FollowRequest(user_uuid: uuid, uuid: user_uuid)
+            let request = FollowRequest(user_uuid: user_uuid, uuid: uuid)
             
             print("REQUEST=========",request)
             
@@ -307,7 +354,7 @@ class ReelsLikeViewModel: ObservableObject {
             let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
 //            let postID = UserDefaults.standard.integer(forKey: "postID")
             
-            let request = FollowRequest(user_uuid: uuid, uuid: user_uuid)
+            let request = FollowRequest(user_uuid: user_uuid, uuid: uuid)
             
             print("REQUEST=========",request)
             
@@ -474,5 +521,39 @@ class ReelsLikeViewModel: ObservableObject {
             dataTask.resume()
             
         }
+    
+    
+    func getUserProfile(uuid: String){
+//        let user_uuid = UserDefaults.standard.string(forKey: "user_uuid") ?? ""
+        
+        var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.profile + "/" + uuid)!)
+        
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken"){
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+        
+        urlRequest.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+          guard let data = data else {
+            print(String(describing: error))
+            return
+          }
+          print(String(data: data, encoding: .utf8)!)
+            do {
+                let decodedData = try JSONDecoder().decode(UserProfileModel.self, from: data)
+                DispatchQueue.main.async {
+                    print("profile Data \(decodedData.data)")
+                    self.profile = decodedData.data
+                }
+            } catch {
+                print("Error decoding JSON: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
+    
     
 }

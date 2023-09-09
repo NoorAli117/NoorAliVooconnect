@@ -45,6 +45,7 @@ struct EndPoints {
     static var createNewPost = "/create-new-post"
     
     static var uploadProfileData = "/update-profile"
+    static var profile = "/profile"
     
     static var uploadFile = "/upload-file"
     static var subtitles = "/lang-for-subtitles"
@@ -67,7 +68,7 @@ struct EndPoints {
     static var followingList = "/following-list"
     static var followerList = "/follower-list"
     static var replyToComment = "/reply-to-comment"
-    static var comments = "/comments"
+    static var comments = "/comments-by-post"
     static var users = "/users"
     static var interest_categ = "/int_categ"
     static var user_interest_categ = "/user_int_categ"

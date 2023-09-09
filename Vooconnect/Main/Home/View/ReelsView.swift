@@ -2195,7 +2195,7 @@ struct ReelsView: View {
     
     @State var currentReel: Int
     @StateObject private var reelsVM = ReelsViewModel()
-    
+    @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @Binding var topBar: Bool
     
     @State var reelId: Int = 0
@@ -2209,6 +2209,7 @@ struct ReelsView: View {
     @Binding var myProfileView: Bool
     @Binding var creatorProfileView: Bool
     @Binding var musicView: Bool
+    @Binding var follow: Bool
     @Binding var liveViewer: Bool
     @Binding var commentSheet: Bool
     @Binding var commentReplySheet: Bool
@@ -2236,7 +2237,7 @@ struct ReelsView: View {
                     //                ForEach($reels) { $reel in
                     ForEach(reelsVM.allReels.indices, id: \.self) { index in
                         
-                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar)
+                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
                         // setting width...
                             .frame(width: size.width, height: size.height)
                             .padding()
@@ -2339,6 +2340,7 @@ struct ReelsPlyer: View {
     @StateObject private var reelsVM = ReelsViewModel()
     
     let reelsDetail: Post
+    let followingArray: [FollowingUsers]
     
     @State var currentTab = "recommended"
     @Namespace var animation
@@ -2411,7 +2413,8 @@ struct ReelsPlyer: View {
     @State private var singleTapTimer: Timer?
     @State private var showHeartAnimation = false
     @State private var isTappedBookmark = false
-    @State private var follow = false
+    @Binding var follow: Bool
+    
     @State private var iconSize: CGFloat = 30.0
     
     var body: some View {
@@ -2422,8 +2425,22 @@ struct ReelsPlyer: View {
                 .edgesIgnoringSafeArea(.all)
             
                 .onAppear {
-                    player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelsDetail.contentURL!)!)) //<-- Here
-                    player.play()
+                    player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelsDetail.contentURL!)!)) //<-- Her
+                    let user_uuid = reelsDetail.creatorUUID ?? nil
+                    print("user_uuid========",user_uuid as Any)
+                    UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
+                    likeVM.UserFollowingUsers()
+                    likeVM.followingUsers.forEach { following in
+                        if reelsDetail.creatorUUID == following.uuid {
+                            follow = true
+                            return
+                        }else{
+                            follow = false
+                            return
+                        }
+                    }
+//                    follow = false
+                    
                     postID = reelsDetail.postID ?? 0
                     if reelsDetail.isLiked == 1{
                         if likeeeeCount == 0{
@@ -2535,12 +2552,9 @@ struct ReelsPlyer: View {
 
                             Button {
 
-                                let user_uuid = reelsDetail.creatorUUID ?? nil
-                                print("user_uuid========",user_uuid as Any)
-                                UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
                                 bottomSheetBlock.toggle()
                                 removeReel = true
-                                userUUid = user_uuid!
+//                                userUUid = user_uuid!
 
                             } label: {
                                 Image("BlockUserbutton")
@@ -2746,24 +2760,19 @@ struct ReelsPlyer: View {
                                     follow.toggle()
                                     if (follow == true) {
                                         likeVM.followApi(user_uuid: reelsDetail.creatorUUID!)
+                                        likeVM.UserFollowingUsers()
                                     }else{
                                         likeVM.unFollowApi(user_uuid: reelsDetail.creatorUUID!)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                                            likeVM.UserFollowingUsers()
+                                        }
                                     }
                                 } label: {
                                     HStack {
-                                        if (follow == true){
-                                            Image("UserPrivacy")
+                                        Image(follow ? "UserPrivacy" : "AddUserCP")
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: 16, height: 16)
-                                        }else{
-                                            Image("AddUserCP")
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: 16, height: 16)
-                                        }
-                                        
-                                        
                                         Text(follow ? "Following" : "Follow")
                                             .font(.custom("Urbanist-Bold", size: 16))
                                         

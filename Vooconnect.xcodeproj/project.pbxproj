@@ -94,6 +94,7 @@
 		049F4C2A29BBBD5400113EA0 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F4C2829BBBD5400113EA0 /* FollowButton.swift */; };
 		049F4C2C29BBBD6000113EA0 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F4C2B29BBBD6000113EA0 /* ShareSheet.swift */; };
 		049F4C2E29BBBD6E00113EA0 /* PrimaryFillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F4C2D29BBBD6E00113EA0 /* PrimaryFillButton.swift */; };
+		04B5CB042AA9B27400611259 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B5CB032AA9B27400611259 /* UserProfileModel.swift */; };
 		04C1D5EC29BBBE7F00284F72 /* CustomGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1D5EB29BBBE7F00284F72 /* CustomGradient.swift */; };
 		04C1D5F529BBC42000284F72 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1D5F029BBC42000284F72 /* LogInViewModel.swift */; };
 		04C1D5F629BBC42000284F72 /* LogInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1D5F129BBC42000284F72 /* LogInModel.swift */; };
@@ -505,6 +506,7 @@
 		049F4C2829BBBD5400113EA0 /* FollowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
 		049F4C2B29BBBD6000113EA0 /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		049F4C2D29BBBD6E00113EA0 /* PrimaryFillButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryFillButton.swift; sourceTree = "<group>"; };
+		04B5CB032AA9B27400611259 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
 		04C1D5EB29BBBE7F00284F72 /* CustomGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomGradient.swift; sourceTree = "<group>"; };
 		04C1D5F029BBC42000284F72 /* LogInViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		04C1D5F129BBC42000284F72 /* LogInModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInModel.swift; sourceTree = "<group>"; };
@@ -1795,6 +1797,7 @@
 				A9453E94292B51BA00728A19 /* Reel.swift */,
 				A9453E95292B51BA00728A19 /* MediaFile.swift */,
 				A98201E8293B004F0055CAFD /* ReelsModel.swift */,
+				04B5CB032AA9B27400611259 /* UserProfileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3014,6 +3017,7 @@
 				040B707129F90D0700BCCACD /* ProfileViewersViewModel.swift in Sources */,
 				A932F900296008470098B14E /* CommentList.swift in Sources */,
 				85DAB8ED29EA3A63008E7F40 /* VideoCanvas.swift in Sources */,
+				04B5CB042AA9B27400611259 /* UserProfileModel.swift in Sources */,
 				A99AE82E291E209300E613F1 /* HttpUtility.swift in Sources */,
 				A9E4B67B293F023100C92C57 /* FinalPreview.swift in Sources */,
 				A9EFE515294D72CB00211382 /* ReelsLikeViewModel.swift in Sources */,

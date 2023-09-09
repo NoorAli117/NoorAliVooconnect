@@ -99,6 +99,10 @@ struct BlockUserRequest: Encodable {
     let user_uuid: String
 }
 
+struct FollowingUser: Encodable {
+    let uuid: String
+}
+
 struct ReportPostRequest: Encodable {
     let uuid: String
     let post_id: Int
@@ -160,6 +164,70 @@ struct UserInterestCateg: Decodable {
     let user_uuid: String
     let category_id: Int
 }
+
+
+// MARK: - Welcome
+struct Following: Codable {
+    let status: Bool
+    let data: [FollowingUsers]
+}
+
+// MARK: - Datum
+struct FollowingUsers: Codable {
+    let id: Int?
+    let uuid, username, firstName, lastName: String?
+    let middleName: String?
+    let gender: String
+    let birthdate: String?
+    let phone: String?
+    let phoneVerifiedAt: String?
+    let email, emailVerifiedAt, password: String
+    let profileImage, coverImage, bio: String?
+    let followerCount, lat, lon: Int?
+    let instagram, facebook, twitter: String?
+    let address: String
+    let otp: String?
+    let rememberMe, verifyType, status: String?
+    let isLive: Int?
+    let deviceType: String?
+    let deviceToken, city, state, country: String?
+    let deletedAt: String?
+    let createdAt, updatedAt: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case uuid = "uuid"
+        case username = "username"
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case middleName = "middle_name"
+        case gender = "gender"
+        case birthdate = "birthdate"
+        case phone = "phone"
+        case phoneVerifiedAt = "phone_verified_at"
+        case email = "email"
+        case emailVerifiedAt = "email_verified_at"
+        case password = "password"
+        case profileImage = "profile_image"
+        case coverImage = "cover_image"
+        case bio = "bio"
+        case followerCount = "follower_count"
+        case lat, lon, instagram, facebook, twitter, address, otp
+        case rememberMe = "remember_me"
+        case verifyType = "verify_type"
+        case status = "status"
+        case isLive = "is_live"
+        case deviceType = "device_type"
+        case deviceToken = "device_token"
+        case city = "city"
+        case state = "state"
+        case country = "country"
+        case deletedAt = "deleted_at"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
+}
+
 
 //"user_uuid": "{{user_uuid}}",
 //    "post_id": 1,

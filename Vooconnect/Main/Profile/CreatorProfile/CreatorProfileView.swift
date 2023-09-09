@@ -13,7 +13,7 @@ struct CreatorProfileView: View {
     
     private var appEventsManager = Container.default.resolver.resolve(AppEventsManager.self)!
     @StateObject var creatorProfileViewModel: CreatorProfileViewModel
-    
+    @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @State private var isCreaterTotalLikePopUpPresented = false
     @State private var creatorProfilePagerType: CreatorProfilePagerType = .post
     @State private var presentActionSheet = false
