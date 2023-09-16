@@ -347,6 +347,7 @@ struct HomePageView: View {
     @State var finalVideoPost: Bool = false
     @State var myProfileView: Bool = false //
     @State var creatorProfileView: Bool = false
+    @State var postedByUUID: String = ""
     @State var musicView: Bool = false
     @State var follow: Bool = false
     @State var liveViewer: Bool = false
@@ -421,7 +422,7 @@ struct HomePageView: View {
                                 EmptyView()
                             }
                         //in last code uuid was in creator profile view
-                        NavigationLink(destination: CreatorProfileView()  //SearchView
+                        NavigationLink(destination: CreatorProfileView(id: postedByUUID)  //SearchView
                             .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $creatorProfileView) {
                                 EmptyView()
                             }
@@ -544,7 +545,7 @@ struct HomePageView: View {
                             
                             ReelsView(currentReel: reelsVM.allReels.first?.postID ?? 0, topBar: $topBar,
                                       cameraView: $cameraView, live: $live, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport:
-                                        $bottomSheetReport, myProfileView: $myProfileView,  creatorProfileView: $creatorProfileView,
+                                        $bottomSheetReport, myProfileView: $myProfileView,  creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID,
                                       musicView: $musicView, follow: $follow, liveViewer: $liveViewer, commentSheet: $commentSheet, commentReplySheet:
                                         $commentReplySheet, postedBy: $postedBy, selectedReelId: $reelId).tag(0)
                             NotificationsView().tag(1)

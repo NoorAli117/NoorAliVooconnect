@@ -2189,7 +2189,7 @@
 import SwiftUI
 import AVKit
 import Photos
-import ARGear
+import Regift
 
 struct ReelsView: View {
     
@@ -2208,6 +2208,7 @@ struct ReelsView: View {
     @Binding var bottomSheetReport: Bool
     @Binding var myProfileView: Bool
     @Binding var creatorProfileView: Bool
+    @Binding var postedByUUID: String
     @Binding var musicView: Bool
     @Binding var follow: Bool
     @Binding var liveViewer: Bool
@@ -2237,7 +2238,7 @@ struct ReelsView: View {
                     //                ForEach($reels) { $reel in
                     ForEach(reelsVM.allReels.indices, id: \.self) { index in
                         
-                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
+                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
                         // setting width...
                             .frame(width: size.width, height: size.height)
                             .padding()
@@ -2270,9 +2271,15 @@ struct ReelsView: View {
                         withAnimation(.easeInOut){
                             topBar = true
                             print("else index \(videoIndex)")
+                            if removeReel{
+                                removeReels(withCreatorUUID: userUUid)
+                            }
+                            removeReel = false
                         }
                         videoIndex = index
                     }
+                    likeVM.followingUsers = []
+                    likeVM.UserFollowingUsers()
                 }
 
             
@@ -2359,6 +2366,7 @@ struct ReelsPlyer: View {
     @Binding var live: Bool
     @Binding var myProfileView: Bool
     @Binding var creatorProfileView: Bool
+    @Binding var postedByUUID: String
     @Binding var musicView: Bool
     @Binding var liveViewer: Bool
     @Binding var postedBy: String
@@ -2403,19 +2411,27 @@ struct ReelsPlyer: View {
     @State private var alert: Bool = false
     @State private var imagePause: Bool = false
     @State private var playAndPause: Bool = false
+    @State private var shareSheet: Bool = false
     @State private var playAndPauseOpacity: Double = 0.001
     
     @State var player = AVPlayer()
     @State private var image: UIImage?
     
-//    var urll: URL
+    @State private var urll: String = ""
     @State private var tapCount = 0
     @State private var singleTapTimer: Timer?
     @State private var showHeartAnimation = false
     @State private var isTappedBookmark = false
+    @State var isDownloading = false
+    @State var isGifDownloading = false
     @Binding var follow: Bool
-    
+    @StateObject var downloader = VideoDownloader()
     @State private var iconSize: CGFloat = 30.0
+    
+    
+    @State private var isConvertingToGif = false
+    @State private var progress: Double = 0.0
+    @State private var gifImage: UIImage?
     
     var body: some View {
         
@@ -2425,20 +2441,14 @@ struct ReelsPlyer: View {
                 .edgesIgnoringSafeArea(.all)
             
                 .onAppear {
+                    if let reelURL = reelsDetail.contentURL{
+                        self.urll = reelURL
+                    }
                     player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelsDetail.contentURL!)!)) //<-- Her
                     let user_uuid = reelsDetail.creatorUUID ?? nil
                     print("user_uuid========",user_uuid as Any)
                     UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
-                    likeVM.UserFollowingUsers()
-                    likeVM.followingUsers.forEach { following in
-                        if reelsDetail.creatorUUID == following.uuid {
-                            follow = true
-                            return
-                        }else{
-                            follow = false
-                            return
-                        }
-                    }
+//                    likeVM.UserFollowingUsers()
 //                    follow = false
                     
                     postID = reelsDetail.postID ?? 0
@@ -2516,65 +2526,69 @@ struct ReelsPlyer: View {
             if showHeartAnimation {
                 HeartLike(isTapped: $showHeartAnimation, taps: 1)
             }
-            HStack {
-                // Live
-                Button {
+            VStack{
+                VideoDownloadProgressView(downloader: downloader, isDownloading: $isDownloading, isGifDownloading: $isGifDownloading)
+                HStack {
+                    // Live
+                    
+                    Button {
 
-                    //                        player.pause()
+                        //                        player.pause()
 
-                    show = false
-                    showTwo = false
+                        show = false
+                        showTwo = false
 
-                    liveViewer.toggle()
+                        liveViewer.toggle()
 
-                } label: {
-                    Image("Live")
+                    } label: {
+                        Image("Live")
 
-                }
+                    }
 
 
-                Spacer()
-                if let uuid = UserDefaults.standard.string(forKey: "uuid"){
-                    if reelsDetail.creatorUUID != uuid{
-                        VStack (alignment: .trailing) {
-                            Button {
-                                show = false
-                                showTwo = false
-                                bottomSheetReport.toggle()
+                    Spacer()
+                    if let uuid = UserDefaults.standard.string(forKey: "uuid"){
+                        if reelsDetail.creatorUUID != uuid{
+                            VStack (alignment: .trailing) {
+                                Button {
+                                    show = false
+                                    showTwo = false
+                                    bottomSheetReport.toggle()
 
-                            } label: {
-                                Image("ReportIcon")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 26, height: 26)
+                                } label: {
+                                    Image("ReportIcon")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 26, height: 26)
+
+                                }
+
+                                Button {
+
+                                    bottomSheetBlock.toggle()
+                                    removeReel = true
+                                    userUUid = reelsDetail.creatorUUID!
+
+                                } label: {
+                                    Image("BlockUserbutton")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 26, height: 26)
+
+                                }
 
                             }
-
-                            Button {
-
-                                bottomSheetBlock.toggle()
-                                removeReel = true
-//                                userUUid = user_uuid!
-
-                            } label: {
-                                Image("BlockUserbutton")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 26, height: 26)
-
-                            }
-
                         }
                     }
+
+
+
                 }
-
-
-
+                //                .padding(.leading)
+                .padding(.leading, -1)
+                .padding(.trailing, 10)
+                .frame(maxHeight: .infinity, alignment: .top)
             }
-            //                .padding(.leading)
-            .padding(.leading, -1)
-            .padding(.trailing, 10)
-            .frame(maxHeight: .infinity, alignment: .top)
 
 
             // Center
@@ -2699,6 +2713,7 @@ struct ReelsPlyer: View {
                         Button{
                             show = false
                             showTwo = false
+                            postedByUUID = reelsDetail.creatorUUID!
                             creatorProfileView.toggle()
                         }label: {
                             HStack(spacing: 10) {
@@ -2752,46 +2767,48 @@ struct ReelsPlyer: View {
                             .padding(.bottom, 1)
                         }
 
-                        // Title Custom View...
-
-                        if let uuid = UserDefaults.standard.string(forKey: "uuid"){
-                            if reelsDetail.creatorUUID != uuid{
-                                Button {
-                                    follow.toggle()
-                                    if (follow == true) {
-                                        likeVM.followApi(user_uuid: reelsDetail.creatorUUID!)
-                                        likeVM.UserFollowingUsers()
-                                    }else{
-                                        likeVM.unFollowApi(user_uuid: reelsDetail.creatorUUID!)
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                        if let uuid = UserDefaults.standard.string(forKey: "uuid") {
+                            if reelsDetail.creatorUUID != uuid {
+                                HStack{
+                                    Button {
+                                        follow.toggle()
+                                        if follow {
+                                            likeVM.followApi(user_uuid: reelsDetail.creatorUUID!)
                                             likeVM.UserFollowingUsers()
+                                        } else {
+                                            likeVM.unFollowApi(user_uuid: reelsDetail.creatorUUID!)
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                                                likeVM.UserFollowingUsers()
+                                            }
                                         }
-                                    }
-                                } label: {
-                                    HStack {
-                                        Image(follow ? "UserPrivacy" : "AddUserCP")
+                                    } label: {
+                                        HStack {
+                                            Image(follow ? "UserPrivacy" : "AddUserCP")
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: 16, height: 16)
-                                        Text(follow ? "Following" : "Follow")
-                                            .font(.custom("Urbanist-Bold", size: 16))
-                                        
-                                        
+                                            Text(follow ? "Following" : "Follow")
+                                                .font(.custom("Urbanist-Bold", size: 16))
+                                        }
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 8)
                                     }
-                                    .padding(.horizontal,20)
-                                    .padding(.vertical,8)
+                                    .background(follow ? LinearGradient(colors: [Color.white], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color("buttionGradientOne"), Color("buttionGradientTwo")], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                    .foregroundColor(follow ? Color("buttionGradientOne") : .white)
+                                    .cornerRadius(30)
                                 }
-                                .background(follow ? LinearGradient(colors: [
-                                    Color.white,
-                                ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
-                                    Color("buttionGradientOne"),
-                                    Color("buttionGradientTwo"),
-                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                )
-                                .foregroundColor(follow ? Color("buttionGradientOne") : .white)
-                                .cornerRadius(30)
+                                .onAppear{
+                                    for following in likeVM.followingUsers {
+                                            if following.uuid == reelsDetail.creatorUUID {
+                                                follow = true
+                                                break // Exit the loop if a match is found
+                                            }
+                                        }
+                                }
                             }
                         }
+
+                        // Title Custom View...
 
                         //                            Text("Hi everyone. in this video I will sing a song")
                         Text(reelsDetail.title ?? "")
@@ -3061,13 +3078,14 @@ struct ReelsPlyer: View {
                     Button {
                         show = false
                         showTwo = false
+                        shareSheet = true
                         //                                DispatchQueue.global(qos: .background).async {
                         //                                DispatchQueue.main.async {
 //                        share()
                         //                                }
-                        if let videoURL = URL(string: getImageVideoMarkedBaseURL + reelsDetail.contentURL!){
-                            shareToFacebook(videoURL: videoURL, description: reelsDetail.postDescription!)
-                        }
+//                        if let videoURL = URL(string: getImageVideoMarkedBaseURL + reelsDetail.contentURL!){
+//                            shareToFacebook(videoURL: videoURL, description: reelsDetail.description!)
+//                        }
                     } label: {
                         VStack {
                             Image("Share")
@@ -3231,6 +3249,16 @@ struct ReelsPlyer: View {
             }
 
         }
+        .blurredSheet(.init(.white), show: $shareSheet) {
+            
+        } content: {
+            if #available(iOS 16.0, *) {
+                CustomShareSheet(reelURL: $urll, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport)
+                    .presentationDetents([.large,.medium,.height(900)])
+            } else {
+                // Fallback on earlier versions
+            }
+        }
 
     }
     
@@ -3238,11 +3266,11 @@ struct ReelsPlyer: View {
         iconSize = playAndPause ? 30.0 : 30.0
     }
     
-    func shareToFacebook(videoURL: URL, description: String) {
-        let activityItems: [Any] = [videoURL, description]
-                let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-                UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
-    }
+//    func shareToFacebook(videoURL: URL, description: String) {
+//        let activityItems: [Any] = [videoURL, description]
+//                let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+//                UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+//    }
     
 
     private func playorstop(){
@@ -3485,3 +3513,20 @@ extension View {
     }
 }
 
+
+struct VideoDownloadProgressView: View {
+    @StateObject var downloader = VideoDownloader()
+    @Binding var isDownloading: Bool
+    @Binding var isGifDownloading: Bool
+    
+    var body: some View {
+        VStack {
+            if isDownloading {
+                ProgressView(value: downloader.downloadProgress, total: 1.0)
+            }
+            if isGifDownloading {
+                ProgressView(value: downloader.downloadGifProgress, total: 1.0)
+            }
+        }
+    }
+}

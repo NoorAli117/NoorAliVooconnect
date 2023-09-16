@@ -39,7 +39,6 @@ class NetworkManager {
     
     // Set global logger object
     static let netlogger = Logger()
-    var argSession: ARGSession?
     /// Use this method to call your desired endpoint
     ///
     /// - Parameters:
@@ -107,7 +106,7 @@ class NetworkManager {
                                         mediaData: mediaData,
                                         endpoint: endpoint)
             logger.debug("URL is \(url.url?.absoluteString ?? "")", category: .network)
-            
+            print("request: \(request)")
             URLSession.shared.dataTaskPublisher(for: request)
                 .tryMap { (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
@@ -131,7 +130,7 @@ class NetworkManager {
                     }
                     
                     /// - Note: print out the json data
-                     print(String(data: data, encoding: .utf8))
+                    print("\(endpoint): \(String(data: data, encoding: .utf8)!)")
                     
                      return data
                 }
@@ -166,6 +165,7 @@ class NetworkManager {
                     
                 }, receiveValue: {
                     logger.info("Value was returned successfully from network call.", category: .network)
+                    print("Value received")
                     promise(.success($0))
                 })
                 .store(in: &self.cancelables)

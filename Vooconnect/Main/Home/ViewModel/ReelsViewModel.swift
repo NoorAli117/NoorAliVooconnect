@@ -38,7 +38,7 @@ class ReelsViewModel: ObservableObject {
                 do {
                     
                     let jsonData = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                    print("the json Data", jsonData)
+                    print("Reels json Data", jsonData)
                     
                     let decodedData = try JSONDecoder().decode(ReelsModel.self, from: data)
                     
@@ -49,7 +49,7 @@ class ReelsViewModel: ObservableObject {
                     
                 } catch {
                     
-                    print("Error decoding JSON: \(error.localizedDescription)")
+                    print("Error decoding Reels JSON: \(error.localizedDescription)")
                     
                 }
                 

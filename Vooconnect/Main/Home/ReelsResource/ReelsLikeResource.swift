@@ -9,6 +9,62 @@ import Foundation
 
 class ReelsLikeResource {
     
+    func hittingCommentReactionApi(commentLikeRequest: CommentLikeRequest, complitionHandler : @escaping(Bool, String?) -> Void) {
+        
+        var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.commentReaction)!)
+                
+        urlRequest.httpMethod = "post"
+//        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+        urlRequest.httpBody = try? JSONEncoder().encode(commentLikeRequest)
+        
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+        
+        
+        
+        HttpUtility.shared.postApiData(request: urlRequest) { result in
+            
+            switch result  {
+            case .success(let response) :
+                
+                do {
+                    let data : [String:Any] = try JSONSerialization.jsonObject(with: response, options: .mutableContainers) as! [String : Any]
+                    
+                    debugPrint("The LOGIN Response", data)
+                    
+                    if data["status"] as! Int == 1 {
+                        // Sussess
+                        print("Susses===========")
+
+//                       if let records = data["data"] as? [String: Any] {
+//
+//                           let uuid = records["uuid"] as? String
+//                           UserDefaults.standard.set(uuid, forKey: "uuid")
+//                           print("THE UUID is======", uuid ?? "not save")
+//                        }
+
+                        complitionHandler(true, "Susses")
+
+                    } else {
+                        print("Failed===========")
+                        complitionHandler(false, "Failed")
+                    }
+
+                } catch {
+                    complitionHandler(false, nil)
+                    print("sakdjfhiuldasfhiuearf")
+                }
+                
+            case .failure(let error) :
+                debugPrint("The Error =====", error.localizedDescription)
+            }
+            
+        }
+        
+    }
     func hittingReactionApi(likeRequest: LikeRequest, complitionHandler : @escaping(Bool, String?) -> Void) {
         
         var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.reaction)!)
@@ -16,6 +72,62 @@ class ReelsLikeResource {
         urlRequest.httpMethod = "post"
 //        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
         urlRequest.httpBody = try? JSONEncoder().encode(likeRequest)
+        
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+        
+        
+        
+        HttpUtility.shared.postApiData(request: urlRequest) { result in
+            
+            switch result  {
+            case .success(let response) :
+                
+                do {
+                    let data : [String:Any] = try JSONSerialization.jsonObject(with: response, options: .mutableContainers) as! [String : Any]
+                    
+                    debugPrint("The LOGIN Response", data)
+                    
+                    if data["status"] as! Int == 1 {
+                        // Sussess
+                        print("Susses===========")
+
+//                       if let records = data["data"] as? [String: Any] {
+//
+//                           let uuid = records["uuid"] as? String
+//                           UserDefaults.standard.set(uuid, forKey: "uuid")
+//                           print("THE UUID is======", uuid ?? "not save")
+//                        }
+
+                        complitionHandler(true, "Susses")
+
+                    } else {
+                        print("Failed===========")
+                        complitionHandler(false, "Failed")
+                    }
+
+                } catch {
+                    complitionHandler(false, nil)
+                    print("sakdjfhiuldasfhiuearf")
+                }
+                
+            case .failure(let error) :
+                debugPrint("The Error =====", error.localizedDescription)
+            }
+            
+        }
+        
+    }
+    func hittingLikeCommentApi(commentLikeRequest: CommentLikeRequest, complitionHandler : @escaping(Bool, String?) -> Void) {
+        
+        var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.likeComment)!)
+                
+        urlRequest.httpMethod = "post"
+//        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+        urlRequest.httpBody = try? JSONEncoder().encode(commentLikeRequest)
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
@@ -358,7 +470,7 @@ class ReelsLikeResource {
     
     func hittingCommentApi(commentRequest: CommentRequest, complitionHandler : @escaping(Bool, String?) -> Void) {
         
-        var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.comment)!)
+        var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.addComment)!)
                 
         urlRequest.httpMethod = "post"
 //        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -530,7 +642,7 @@ class ReelsLikeResource {
        
     func hittingReplyToCommentApi(replyToCommentRequest: ReplyToCommentRequest, complitionHandler : @escaping(Bool, String?) -> Void) {
            
-           var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.replyToComment)!)
+           var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.addComment)!)
            
            urlRequest.httpMethod = "post"
            //        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
@@ -551,7 +663,7 @@ class ReelsLikeResource {
                    do {
                        let data : [String:Any] = try JSONSerialization.jsonObject(with: response, options: .mutableContainers) as! [String : Any]
                        
-                       debugPrint("The LOGIN Response", data)
+                       debugPrint("Comment Reply Response", data)
                        
                        if data["status"] as! Int == 1 {
                            // Sussess

@@ -13,7 +13,9 @@ struct CommentReplySheet: View {
         @StateObject private var userVM: LogInViewModel = LogInViewModel()
         @Binding var commentId: Int
         @Binding var reply_to_reply: String
+        @State var placeholder: String = ""
         @Binding var commentReplySheet: Bool
+    @FocusState private var isFocused: Bool
         
         var body: some View {
             
@@ -96,18 +98,18 @@ struct CommentReplySheet: View {
                     
                     HStack {
 
-                        ReelsCommentTextField(text: $likeVM.commentDataModel.replyText, showEmoji: $likeVM.commentDataModel.showEmoji, showAtTheRate: $likeVM.commentDataModel.showAtTheRate, placeholder: "Add reply...")
+                        ReelsCommentTextField(text: $likeVM.commentDataModel.replyText, showEmoji: $likeVM.commentDataModel.showEmoji, showAtTheRate: $likeVM.commentDataModel.showAtTheRate, placeholder: $placeholder)
 
                         Button {
-                            print("Reply To --- \(reply_to_reply)")
-                            if reply_to_reply.isEmpty {
-                                likeVM.replyToCommentApi(commentId: commentId)
-                            }else{
-                                likeVM.replyToReplyApi(commentId: commentId, reply_to_reply: reply_to_reply)
-                            }
-                           
-                            likeVM.commentDataModel.replyText = ""
-                            commentReplySheet.toggle()
+//                            print("Reply To --- \(reply_to_reply)")
+//                            if reply_to_reply.isEmpty {
+//                                likeVM.replyToCommentApi(commentId: commentId)
+//                            }else{
+//                                likeVM.replyToReplyApi(commentId: commentId, reply_to_reply: reply_to_reply)
+//                            }
+//                           
+//                            likeVM.commentDataModel.replyText = ""
+//                            commentReplySheet.toggle()
                         } label: {
                             Image("SendTwoLV")
                                 .resizable()

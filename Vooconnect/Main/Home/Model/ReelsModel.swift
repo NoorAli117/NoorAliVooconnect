@@ -29,28 +29,22 @@ struct ReelsData: Codable {
 // MARK: - Post
 struct Post: Codable, Hashable {
     let postID: Int?
-    let title, postDescription: String?
-    let location: String?
-    let contentURL: String?
-    let contentType: String?
-    let musicTrack: String?
+    let title, description, location, contentURL: String?
+    let thumbnailURL, contentType, musicUUID, musicTrack: String?
     let musicURL: String?
-    let musicUUID: String?;
-    let allowComment, allowDuet, allowStitch: String?
-    let creatorUUID: String?
+    let allowComment, allowDuet, allowStitch, creatorUUID: String?
+    let forPlanID: Int?
     let creatorFirstName, creatorLastName, creatorUsername, creatorProfileImage: String?
-    let isBookmarked: Int
-    let isLiked: Int
+    let isFollowed, isLiked: Int?
     let reactionType: Int?
-    var likeCount, shareCount, bookmarkCount, commentCount: Int?
-    var player: AVPlayer?
+    let likeCount, shareCount, isBookmarked, bookmarkCount: Int?
+    let commentCount, viewCount: Int?
 
     enum CodingKeys: String, CodingKey {
         case postID = "post_id"
-        case title
-        case postDescription = "description"
-        case location
+        case title, description, location
         case contentURL = "content_url"
+        case thumbnailURL = "thumbnail_url"
         case contentType = "content_type"
         case musicUUID = "music_uuid"
         case musicTrack = "music_track"
@@ -59,28 +53,25 @@ struct Post: Codable, Hashable {
         case allowDuet = "allow_duet"
         case allowStitch = "allow_stitch"
         case creatorUUID = "creator_uuid"
+        case forPlanID = "for_plan_id"
         case creatorFirstName = "creator_first_name"
         case creatorLastName = "creator_last_name"
         case creatorUsername = "creator_username"
         case creatorProfileImage = "creator_profile_image"
-        case isBookmarked = "is_bookmarked"
+        case isFollowed = "is_followed"
         case isLiked = "is_liked"
         case reactionType = "reaction_type"
         case likeCount = "like_count"
         case shareCount = "share_count"
+        case isBookmarked = "is_bookmarked"
         case bookmarkCount = "bookmark_count"
         case commentCount = "comment_count"
+        case viewCount = "view_count"
     }
     
     var likeCountt: Int {
-        return Int(likeCount ?? 0)
+        return Int(likeCount!)
     }
-    mutating func incrementLikeCount() {
-        likeCount = likeCount! + 1
-        }
-    mutating func decrementLikeCount() {
-        likeCount = likeCount! - 1
-        }
     
 }
 
@@ -88,6 +79,10 @@ struct Post: Codable, Hashable {
 struct LikeRequest: Encodable {
     let user_uuid: String
     let post_id, reaction_type: Int
+}
+struct CommentLikeRequest: Encodable {
+    let user_uuid: String
+    let comment_id, reaction_type: Int
 }
 
 struct BlockPostRequest: Encodable {
@@ -130,6 +125,11 @@ struct FollowRequest: Encodable {
     let uuid: String
 }
 
+struct ReplyToComment: Encodable {
+    let post_id: Int
+    let parent_comment_id: Int
+}
+
 struct ReplyToCommentRequest: Encodable {
     let user_uuid: String
     let post_id: Int
@@ -152,6 +152,44 @@ struct CommentResponse: Decodable {
     let reply_to_comment_id: Int
     let comment: String
     let reply_to_reply: String
+}
+
+struct CommentsModel: Codable {
+    let status: Bool
+    let data: [CommentsData]
+}
+
+// MARK: - Datum
+struct CommentsData: Codable {
+    let id: Int?
+    let userUUID: String?
+    let postID, replyToCommentID: Int?
+    let comment, createdAt, updatedAt: String?
+    let deletedAt: String?
+    let userFirstName, userLastName, userUsername: String?
+    let userProfileImage: String?
+    let isLiked: Int?
+    let reactionType: Int?
+    let likeCount, replyCount: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case userUUID = "user_uuid"
+        case postID = "post_id"
+        case replyToCommentID = "reply_to_comment_id"
+        case comment
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case deletedAt = "deleted_at"
+        case userFirstName = "user_first_name"
+        case userLastName = "user_last_name"
+        case userUsername = "user_username"
+        case userProfileImage = "user_profile_image"
+        case isLiked = "is_liked"
+        case reactionType = "reaction_type"
+        case likeCount = "like_count"
+        case replyCount = "reply_count"
+    }
 }
 
 struct InterestCateg: Decodable {

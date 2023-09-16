@@ -66,6 +66,8 @@ class ReelsLikeViewModel: ObservableObject {
     @Published var bookMarkDataModel: BookMarkDataModel = BookMarkDataModel()
     @Published var commentDataModel: CommentDataModel = CommentDataModel()
     @Published var postComments: [CommentResponse] = []
+    @Published var postComment: [CommentsData] = []
+    @Published var commentReplies: [CommentsData] = []
     @Published var interestCategory: [InterestCateg] = []
     @Published var userInterestCategory: [UserInterestCateg] = []
     @Published var followingUsers: [FollowingUsers] = []
@@ -80,6 +82,31 @@ class ReelsLikeViewModel: ObservableObject {
         UserFollowingUsers()
         }
     
+    func commentLikeApi(reactionType: Int, comment_id: Int) {
+        
+        let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+        
+        let request = CommentLikeRequest(user_uuid: uuid, comment_id: comment_id, reaction_type: reactionType)
+        
+        print("REQUEST=========",request)
+        
+        reelsLikeResource.hittingLikeCommentApi(commentLikeRequest: request) { isSuccess, sussesMessage in
+            if isSuccess {
+                DispatchQueue.main.async {
+                    print("Success=========")
+                    
+                }
+                
+            } else {
+                DispatchQueue.main.async {
+                    print("Faileur===========")
+                    
+                }
+                
+            }
+        }
+        
+    }
     func reelsLikeApi(reactionType: Int, postID: Int) {
         
         let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
@@ -89,6 +116,31 @@ class ReelsLikeViewModel: ObservableObject {
         print("REQUEST=========",request)
         
         reelsLikeResource.hittingLikeApi(likeRequest: request) { isSuccess, sussesMessage in
+            if isSuccess {
+                DispatchQueue.main.async {
+                    print("Success=========")
+                    
+                }
+                
+            } else {
+                DispatchQueue.main.async {
+                    print("Faileur===========")
+                    
+                }
+                
+            }
+        }
+        
+    }
+    func commentReactionApi(reactionType: Int, commentId: Int) {
+        
+        let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+        
+        let request = CommentLikeRequest(user_uuid: uuid, comment_id: commentId, reaction_type: reactionType)
+        
+        print("REQUEST=========",request)
+        
+        reelsLikeResource.hittingCommentReactionApi(commentLikeRequest: request) { isSuccess, sussesMessage in
             if isSuccess {
                 DispatchQueue.main.async {
                     print("Success=========")
@@ -159,6 +211,7 @@ class ReelsLikeViewModel: ObservableObject {
             print(String(describing: error))
             return
           }
+            self.followingUsers = []
 //          print(String(data: data, encoding: .utf8)!)
             do {
                 let decodedData = try JSONDecoder().decode(Following.self, from: data)
@@ -296,7 +349,7 @@ class ReelsLikeViewModel: ObservableObject {
         
     }
     
-    func commentApi() {
+    func addCommentApi(completion:  @escaping (Bool) -> ()) {
             
             let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
             let postID = UserDefaults.standard.integer(forKey: "postID")
@@ -309,13 +362,14 @@ class ReelsLikeViewModel: ObservableObject {
                 if isSuccess {
                     DispatchQueue.main.async {
                         print("Success=========")
+                        completion(true)
                         
                     }
                     
                 } else {
                     DispatchQueue.main.async {
                         print("Faileur===========")
-                        
+                        completion(false)
                     }
                     
                 }
@@ -376,13 +430,13 @@ class ReelsLikeViewModel: ObservableObject {
             
         }
         
-    func replyToCommentApi(commentId: Int) {
+    func replyToCommentApi(commentId: Int, completion:  @escaping (Bool) -> ()) {
             
             let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
             let postID = UserDefaults.standard.integer(forKey: "postID")
             
 
-            let request = ReplyToCommentRequest(user_uuid: uuid, post_id: postID, comment: commentDataModel.replyText, reply_to_comment_id: commentId)
+            let request = ReplyToCommentRequest(user_uuid: uuid, post_id: postID, comment: commentDataModel.commentText, reply_to_comment_id: commentId)
             
             print("REQUEST=========",request)
             
@@ -390,13 +444,13 @@ class ReelsLikeViewModel: ObservableObject {
                 if isSuccess {
                     DispatchQueue.main.async {
                         print("Success=========")
-                        
+                        completion(true)
                     }
                     
                 } else {
                     DispatchQueue.main.async {
                         print("Faileur===========")
-                        
+                        completion(false)
                     }
                     
                 }
@@ -404,13 +458,13 @@ class ReelsLikeViewModel: ObservableObject {
             
         }
         
-    func replyToReplyApi(commentId: Int, reply_to_reply: String) {
+    func replyToReplyApi(commentId: Int, reply_to_reply: String, completion:  @escaping (Bool) -> ()) {
             
             let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
             let postID = UserDefaults.standard.integer(forKey: "postID")
             
 
-            let request = ReplyToReplyRequest(user_uuid: uuid, post_id: postID, comment: commentDataModel.replyText, reply_to_comment_id: commentId, reply_to_reply: reply_to_reply)
+            let request = ReplyToReplyRequest(user_uuid: uuid, post_id: postID, comment: commentDataModel.commentText, reply_to_comment_id: commentId, reply_to_reply: reply_to_reply)
             
             print("REQUEST=========",request)
             
@@ -418,13 +472,14 @@ class ReelsLikeViewModel: ObservableObject {
                 if isSuccess {
                     DispatchQueue.main.async {
                         print("Success=========")
+                        completion(true)
                         
                     }
                     
                 } else {
                     DispatchQueue.main.async {
                         print("Faileur===========")
-                        
+                        completion(false)
                     }
                     
                 }
@@ -433,8 +488,20 @@ class ReelsLikeViewModel: ObservableObject {
         }
         
     func fetchCommentsApi() {
-            
-            let urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.comments)!)
+        let postID = UserDefaults.standard.integer(forKey: "postID")
+        
+        let parameters = "{\r\n    \"post_id\": \"\(postID)\"\r\n    \n}"
+        let postData = parameters.data(using: .utf8)
+        
+        var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.GetComments)!)
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+        
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = postData
             
             let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
                 if let error = error {
@@ -443,14 +510,59 @@ class ReelsLikeViewModel: ObservableObject {
                 }
 
                 guard let response = response as? HTTPURLResponse else { return }
-
+                
                 if response.statusCode == 200 {
                     guard let data = data else { return }
+//                    print("comment Data: \(String(describing: String(data: data, encoding: .utf8)))")
                     DispatchQueue.main.async {
                         do {
-                            let decodedComments = try JSONDecoder().decode([CommentResponse].self, from: data)
+                            let decodedComments = try JSONDecoder().decode(CommentsModel.self, from: data)
                     
-                            self.postComments = decodedComments
+                            self.postComment = decodedComments.data
+                            print("post Comments: \(self.postComment)")
+                        } catch let error {
+                            print("Error decoding Comments: ", error)
+                        }
+                    }
+                }
+            }
+
+            dataTask.resume()
+            
+        }
+    func fetchCommentRepliesApi(commentId: Int) {
+        let postID = UserDefaults.standard.integer(forKey: "postID")
+        
+//        let parameters = "{\r\n    \"post_id\": \"\(postID)\"\r\n    \n}"
+        let commentReplyBodt = ReplyToComment(post_id: postID, parent_comment_id: commentId)
+        
+        var urlRequest = URLRequest(url: URL(string: getBaseURL + EndPoints.GetComments)!)
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+        
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = try? JSONEncoder().encode(commentReplyBodt)
+            
+            let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                if let error = error {
+                    print("Request error: ", error)
+                    return
+                }
+
+                guard let response = response as? HTTPURLResponse else { return }
+                
+                if response.statusCode == 200 {
+                    guard let data = data else { return }
+//                    print("comment Data: \(String(describing: String(data: data, encoding: .utf8)))")
+                    DispatchQueue.main.async {
+                        do {
+                            let decodedComments = try JSONDecoder().decode(CommentsModel.self, from: data)
+                    
+                            self.commentReplies = decodedComments.data
+                            print("comment Replies: \(self.commentReplies)")
                         } catch let error {
                             print("Error decoding: ", error)
                         }
@@ -554,6 +666,30 @@ class ReelsLikeViewModel: ObservableObject {
         }
         task.resume()
     }
+    
+    func formatTimeElapsed(from dateString: String) -> String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Set locale to ensure correct date parsing
+            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure the date is in GMT
+            
+            if let createdAtDate = dateFormatter.date(from: dateString) {
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([.day, .hour, .minute], from: createdAtDate, to: Date())
+                
+                if let days = components.day, days > 0 {
+                    return "\(days) day\(days == 1 ? "" : "s") ago"
+                } else if let hours = components.hour, hours > 0 {
+                    return "\(hours) hour\(hours == 1 ? "" : "s") ago"
+                } else if let minutes = components.minute, minutes > 0 {
+                    return "\(minutes) minute\(minutes == 1 ? "" : "s") ago"
+                } else {
+                    return "Just now"
+                }
+            } else {
+                return "Invalid Date"
+            }
+        }
     
     
 }

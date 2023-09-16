@@ -48,4 +48,9 @@ extension View {
         dialog.show()
     }
 }
+extension UIImage {
+    var gifData: Data? {
+        return self.sd_imageData(as: .GIF)
+    }
+}
 

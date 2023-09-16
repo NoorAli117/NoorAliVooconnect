@@ -556,8 +556,8 @@
             filePath = "Vooconnect/Main/Home/ReelsResource/ReelsResource.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "getCreatorImage()"
             landmarkType = "7">
          </BreakpointContent>
@@ -620,8 +620,8 @@
             filePath = "Vooconnect/Main/Home/ReelsResource/ReelsResource.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "getCreatorImage()"
             landmarkType = "7">
             <Locations>
@@ -2215,8 +2215,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
             endingLineNumber = "58"
-            landmarkName = "CameraViewModel"
-            landmarkType = "3">
+            landmarkName = "checkPermission(isBackCamera:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "A831EE9F-41C5-4019-A11C-242D117F5B26 - fc8f9b397f75d855"
@@ -2263,8 +2263,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
             endingLineNumber = "52"
-            landmarkName = "CameraViewModel"
-            landmarkType = "3">
+            landmarkName = "checkPermission(isBackCamera:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3909,7 +3909,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
             endingLineNumber = "72"
-            landmarkName = "checkPermission(isBackCamera:)"
+            landmarkName = "getFilterData()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -4218,8 +4218,8 @@
             filePath = "Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "blockPostApi()"
             landmarkType = "7">
             <Locations>
@@ -4296,8 +4296,8 @@
             filePath = "Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "blockUserApi()"
             landmarkType = "7">
             <Locations>
@@ -4420,8 +4420,8 @@
             filePath = "Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "blockUserApi()"
             landmarkType = "7">
             <Locations>
@@ -4468,8 +4468,8 @@
             filePath = "Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "blockUserApi()"
             landmarkType = "7">
             <Locations>
@@ -4516,8 +4516,8 @@
             filePath = "Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "blockUserApi()"
             landmarkType = "7">
             <Locations>
@@ -4624,8 +4624,8 @@
             filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3030"
-            endingLineNumber = "3030"
+            startingLineNumber = "3047"
+            endingLineNumber = "3047"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -4640,8 +4640,8 @@
             filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3009"
-            endingLineNumber = "3009"
+            startingLineNumber = "3026"
+            endingLineNumber = "3026"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -4718,8 +4718,8 @@
             filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2494"
-            endingLineNumber = "2494"
+            startingLineNumber = "2504"
+            endingLineNumber = "2504"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -4766,8 +4766,8 @@
             filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2928"
-            endingLineNumber = "2928"
+            startingLineNumber = "2945"
+            endingLineNumber = "2945"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -4844,8 +4844,8 @@
             filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2932"
-            endingLineNumber = "2932"
+            startingLineNumber = "2949"
+            endingLineNumber = "2949"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -4908,8 +4908,8 @@
             filePath = "Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "reelsReactionApi(reactionType:postID:)"
             landmarkType = "7">
             <Locations>
@@ -5019,8 +5019,8 @@
             filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3205"
-            endingLineNumber = "3205"
+            startingLineNumber = "3223"
+            endingLineNumber = "3223"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -5035,10 +5035,606 @@
             filePath = "Vooconnect/Main/Home/View/ReelsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3204"
-            endingLineNumber = "3204"
+            startingLineNumber = "3222"
+            endingLineNumber = "3222"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "36A41B54-42E1-43C5-BFB1-777F9947F1F9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "562"
+            endingLineNumber = "562"
+            landmarkName = "fetchCommentRepliesApi(commentId:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "36A41B54-42E1-43C5-BFB1-777F9947F1F9 - 6a462d8f8a386cab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.ReelsLikeViewModel.fetchCommentsApi() -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "465"
+                  endingLineNumber = "465"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "36A41B54-42E1-43C5-BFB1-777F9947F1F9 - 6a462d8f8a386cca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.ReelsLikeViewModel.fetchCommentsApi() -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/ViewModel/ReelsLikeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "87">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "20C478BE-EEE8-4D0A-A05C-BE080A01E6DC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/View/CommentList.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "34102598-40CB-4C7C-B8FF-ED7D6CB8A234"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "getUserDetail(id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2704D6C4-2EB1-482B-992E-C6590A401C81"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "fetchUserDetail(id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "365B810C-E954-4684-A5BF-7A5AEEFFBD6F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "fetchUserDetail(id:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "502AA1A5-5F3B-46D1-BE85-424DC400EA7F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/View/CommentList.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "502AA1A5-5F3B-46D1-BE85-424DC400EA7F - fc49469196df227"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onLongPressGesture(minimumDuration: Swift.Double, maximumDistance: CoreGraphics.CGFloat, perform: () -&gt; (), onPressingChanged: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.Text&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt;&gt; in Vooconnect.CommentList.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/View/CommentList.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "803">
+               </Location>
+               <Location
+                  uuid = "502AA1A5-5F3B-46D1-BE85-424DC400EA7F - af12c2e01d835c4a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onLongPressGesture(minimumDuration: Swift.Double, maximumDistance: CoreGraphics.CGFloat, perform: () -&gt; (), onPressingChanged: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt;&gt; in Vooconnect.CommentList.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/View/CommentList.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "803">
+               </Location>
+               <Location
+                  uuid = "502AA1A5-5F3B-46D1-BE85-424DC400EA7F - af12c2e01d835c4a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onLongPressGesture(minimumDuration: Swift.Double, maximumDistance: CoreGraphics.CGFloat, perform: () -&gt; (), onPressingChanged: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt;&gt; in Vooconnect.CommentList.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/View/CommentList.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "728">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "274C428D-7EE2-45E8-A4F0-405E7EBFF659"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Home/View/CommentList.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "274C428D-7EE2-45E8-A4F0-405E7EBFF659 - fc49469196df206"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onLongPressGesture(minimumDuration: Swift.Double, maximumDistance: CoreGraphics.CGFloat, perform: () -&gt; (), onPressingChanged: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.Text&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt;&gt; in Vooconnect.CommentList.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/View/CommentList.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "781">
+               </Location>
+               <Location
+                  uuid = "274C428D-7EE2-45E8-A4F0-405E7EBFF659 - af12c2e01d835c6b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onLongPressGesture(minimumDuration: Swift.Double, maximumDistance: CoreGraphics.CGFloat, perform: () -&gt; (), onPressingChanged: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt;&gt; in Vooconnect.CommentList.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/View/CommentList.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "781">
+               </Location>
+               <Location
+                  uuid = "274C428D-7EE2-45E8-A4F0-405E7EBFF659 - af12c2e01d835c6b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onLongPressGesture(minimumDuration: Swift.Double, maximumDistance: CoreGraphics.CGFloat, perform: () -&gt; (), onPressingChanged: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt;&gt;, SwiftUI.Text, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.onTapGesture(count: Swift.Int, perform: () -&gt; ()) -&gt; some&gt;&gt;.0&gt;&gt;)&gt;&gt; in Vooconnect.CommentList.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Home/View/CommentList.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "688">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "08B7C970-D003-4767-B403-4E1540628DDB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "499AA003-5AF9-4FAF-B772-08B2F75DDD94"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "499AA003-5AF9-4FAF-B772-08B2F75DDD94 - dfda6da066cd6442"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.UIImage&gt;) -&gt; () in closure #2 () -&gt; () in Vooconnect.CreatorPostView.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "499AA003-5AF9-4FAF-B772-08B2F75DDD94 - 797f3b69c06eaa3d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Optional&lt;__C.UIImage&gt;) -&gt; () in closure #2 () -&gt; () in Vooconnect.CreatorPostView.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "499AA003-5AF9-4FAF-B772-08B2F75DDD94 - 802598ffaf9f1e6a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in Vooconnect.CreatorPostView.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "97"
+                  endingLineNumber = "97"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "499AA003-5AF9-4FAF-B772-08B2F75DDD94 - dfda6da066cd6423"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.UIImage&gt;) -&gt; () in closure #2 () -&gt; () in Vooconnect.CreatorPostView.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "499AA003-5AF9-4FAF-B772-08B2F75DDD94 - 4ebd3c3dd23b25e3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.CreatorPostView.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "3112">
+               </Location>
+               <Location
+                  uuid = "499AA003-5AF9-4FAF-B772-08B2F75DDD94 - 4ebd3c3dd23b25e3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.CreatorPostView.body.getter : some"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "5263">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C273BA59-5FD3-45EE-8B63-3DF1A0E1B53E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "extractImageFromVideo(url:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C273BA59-5FD3-45EE-8B63-3DF1A0E1B53E - fe7f517623b4ad16"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  uuid = "C273BA59-5FD3-45EE-8B63-3DF1A0E1B53E - fe7f517623b4acf5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "292">
+               </Location>
+               <Location
+                  uuid = "C273BA59-5FD3-45EE-8B63-3DF1A0E1B53E - fe7f517623b4adfd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "292">
+               </Location>
+               <Location
+                  uuid = "C273BA59-5FD3-45EE-8B63-3DF1A0E1B53E - fe7f517623b4adfd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "266">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B2A6758-E092-43C5-85C7-6240972E5E96"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "extractImageFromVideo(url:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0B2A6758-E092-43C5-85C7-6240972E5E96 - 38b4a55a6753812"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "248">
+               </Location>
+               <Location
+                  uuid = "0B2A6758-E092-43C5-85C7-6240972E5E96 - 38b4a55a6753812"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "112"
+                  endingLineNumber = "112"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "0B2A6758-E092-43C5-85C7-6240972E5E96 - 38b4a55a6753b1a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "0B2A6758-E092-43C5-85C7-6240972E5E96 - 38b4a55a6753b1a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
+                  offsetFromSymbolStart = "447">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C93FC366-75C3-404E-9E8C-0FF891F3C154"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "extractImageFromVideo(url:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C93FC366-75C3-404E-9E8C-0FF891F3C154 - 38b4a55a6753bd8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "364">
+               </Location>
+               <Location
+                  uuid = "C93FC366-75C3-404E-9E8C-0FF891F3C154 - 38b4a55a6753bd8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  uuid = "C93FC366-75C3-404E-9E8C-0FF891F3C154 - 38b4a55a6753ac0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  uuid = "C93FC366-75C3-404E-9E8C-0FF891F3C154 - 38b4a55a6753ac0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CMTime, Swift.Optional&lt;__C.CGImageRef&gt;, __C.CMTime, __C.AVAssetImageGeneratorResult, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Vooconnect.CreatorPostView.extractImageFromVideo(url: Foundation.URL, completion: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Documents/HNH%20Work/iOS/Vooconnect/Vooconnect/Main/Profile/CreatorProfile/CreatorProfileComponents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "606">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
