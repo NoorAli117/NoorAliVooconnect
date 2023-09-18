@@ -318,11 +318,9 @@ class ReelsLikeViewModel: ObservableObject {
         
     }
     
-    func bookMarkApi() {
+    func bookMarkApi(completion: @escaping (String, Bool) -> Void) {
         
         let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-//        let postID = UserDefaults.standard.integer(forKey: "postID")
-//
         let request = BookMarkRequest(user_uuid: uuid, post_id: bookMarkDataModel.postID)
         
         print("REQUEST=========",request)
@@ -331,7 +329,7 @@ class ReelsLikeViewModel: ObservableObject {
             if isSuccess {
                 DispatchQueue.main.async {
                     print("Success=========")
-                    
+                    completion(sussesMessage!, true)
                     self.bookMarkDataModel.isPresentingSuccess = true
                     self.bookMarkDataModel.successMessage = sussesMessage ?? ""
                     
@@ -341,6 +339,7 @@ class ReelsLikeViewModel: ObservableObject {
             } else {
                 DispatchQueue.main.async {
                     print("Faileur===========")
+                    completion(sussesMessage!, false)
                     
                 }
                 

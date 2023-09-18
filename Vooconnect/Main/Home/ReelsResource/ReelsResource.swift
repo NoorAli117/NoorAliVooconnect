@@ -85,8 +85,11 @@ class ProfileImageService: ObservableObject {
 
 
 class VideoDownloader: ObservableObject {
-    @Published var downloadProgress: Double = 0.0
+    
     @Published var downloadGifProgress: Double = 0.0
+    @Published var downloadProgress: Double = 0.0
+    
+    private var cancellables = Set<AnyCancellable>()
     func downloadVideo(url: URL, completion: @escaping (Bool) -> Void) {
         print("Video Url: \(url)")
         let task = URLSession.shared.downloadTask(with: url) { (tempURL, _, error) in
@@ -112,11 +115,19 @@ class VideoDownloader: ObservableObject {
             }
         }
         
-        task.resume()
-        
         let progressPublisher = task.progress.publisher(for: \.fractionCompleted)
-        progressPublisher.assign(to: &$downloadProgress)
+        progressPublisher
+            .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main) // Debounce the updates
+            .sink { fractionCompleted in
+                DispatchQueue.main.async {
+                    self.downloadProgress = fractionCompleted // Update progress on the main thread
+                }
+            }
+            .store(in: &cancellables)
+        
+        task.resume()
     }
+
     
     func convertAndSaveVideoToGif(videoURL: URL, completion: @escaping (Bool) -> Void) {
         // Download the video asynchronously
@@ -160,6 +171,7 @@ class VideoDownloader: ObservableObject {
         
         let progressPublisher = task.progress.publisher(for: \.fractionCompleted)
         progressPublisher.assign(to: &$downloadGifProgress)
+        print("Gif Download progress: \(downloadGifProgress)")
     }
     
     func saveGifToPhotos(gifURL: URL, completion: @escaping (Bool) -> Void) {

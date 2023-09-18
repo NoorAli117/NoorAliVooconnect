@@ -2262,7 +2262,9 @@ struct ReelsView: View {
                             print(videoIndex)
                             topBar = false
                             if removeReel{
-                                removeReels(withCreatorUUID: userUUid)
+                                DispatchQueue.main.async {
+                                    removeReels(withCreatorUUID: userUUid)
+                                }
                             }
                             removeReel = false
                         }
@@ -2272,13 +2274,14 @@ struct ReelsView: View {
                             topBar = true
                             print("else index \(videoIndex)")
                             if removeReel{
-                                removeReels(withCreatorUUID: userUUid)
+                                DispatchQueue.main.async {
+                                    removeReels(withCreatorUUID: userUUid)
+                                }
                             }
                             removeReel = false
                         }
                         videoIndex = index
                     }
-                    likeVM.followingUsers = []
                     likeVM.UserFollowingUsers()
                 }
 
@@ -2360,6 +2363,7 @@ struct ReelsPlyer: View {
     @State var longPressPopUp: Bool = false
     @State var selectedReaction: Int = 0
     @State var postID: Int = 0
+    @State var reelDescription: String = ""
     
     @Binding var showTwo: Bool
     @Binding var cameraView: Bool
@@ -2428,6 +2432,9 @@ struct ReelsPlyer: View {
     @StateObject var downloader = VideoDownloader()
     @State private var iconSize: CGFloat = 30.0
     
+    @State private var isShowPopup = false
+    @State private var message = ""
+    
     
     @State private var isConvertingToGif = false
     @State private var progress: Double = 0.0
@@ -2443,6 +2450,7 @@ struct ReelsPlyer: View {
                 .onAppear {
                     if let reelURL = reelsDetail.contentURL{
                         self.urll = reelURL
+                        self.reelDescription = reelsDetail.description ?? ""
                     }
                     player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelsDetail.contentURL!)!)) //<-- Her
                     let user_uuid = reelsDetail.creatorUUID ?? nil
@@ -2496,17 +2504,15 @@ struct ReelsPlyer: View {
                         show = false
                         showTwo = false
                         print("Success ====== 2")
-                        likeAndUnlike = true
                         likeVM.reelsLikeDataModel.userUUID = reelsDetail.creatorUUID ?? ""
                         likeVM.reelsLikeDataModel.postID = reelsDetail.postID ?? 0
                         
-                        if likeAndUnlike == true {
-                            if reelsDetail.isLiked == 0{
-                                if likeeeeCount == 0{
-                                    likeeeeCount = likeeeeCount + 1
-                                    likeCount = likeCount + 1
-                                    likeVM.reelsLikeApi(reactionType: 1, postID: postID)
-                                }
+                        if likeAndUnlike == false {
+                            if likeeeeCount == 0 {
+                                likeeeeCount = likeeeeCount + 1
+                                likeCount = likeCount + 1
+                                likeImage = "HeartRedLV"
+                                likeVM.reelsLikeApi(reactionType: 1, postID: postID)
                             }
                             
                         }
@@ -3024,13 +3030,17 @@ struct ReelsPlyer: View {
                                 likeVM.reelsLikeDataModel.userUUID = reelsDetail.creatorUUID ?? ""
                                 likeVM.reelsLikeDataModel.postID = reelsDetail.postID ?? 0
                                     if likeAndUnlike == true {
-                                        likeCount = likeCount+1
-                                        likeeeeCount = likeeeeCount+1
-                                        likeImage = "HeartRedLV"
+                                        if likeeeeCount == 0 {
+                                            likeCount = likeCount+1
+                                            likeeeeCount = likeeeeCount+1
+                                            likeImage = "HeartRedLV"
+                                        }
                                     } else{
-                                        likeCount = likeCount-1
-                                        likeeeeCount = likeeeeCount-1
-                                        likeImage = "LikeWhiteR"
+                                        if likeeeeCount == 1 {
+                                            likeCount = likeCount-1
+                                            likeeeeCount = likeeeeCount-1
+                                            likeImage = "LikeWhiteR"
+                                        }
                                     }
 
                                 likeVM.reelsLikeApi(reactionType: 1, postID: postID)
@@ -3108,18 +3118,19 @@ struct ReelsPlyer: View {
                         likeVM.bookMarkDataModel.successMessage = ""
                         bookMarkMassage = true
                         isTappedBookmark.toggle()
-
-                        likeVM.bookMarkDataModel.userUUID = reelsDetail.creatorUUID ?? ""
+                        let uuid = UserDefaults.standard.string(forKey: "uuid")
+                        likeVM.bookMarkDataModel.userUUID = uuid ?? ""
                         likeVM.bookMarkDataModel.postID = reelsDetail.postID ?? 0
-                        likeVM.bookMarkApi()
-                        if bookmarkCount == 0{
-                            bookmarkCount = bookmarkCount+1
-                        }else{
-                            bookmarkCount = bookmarkCount-1
-                        }
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            bookMarkMassage = false
+                        likeVM.bookMarkApi(){ successMessage, success in
+                            if bookmarkCount == 0{
+                                bookmarkCount = bookmarkCount+1
+                            }else{
+                                bookmarkCount = bookmarkCount-1
+                            }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                bookMarkMassage = false
+                            }
                         }
 
                     } label: {
@@ -3225,6 +3236,32 @@ struct ReelsPlyer: View {
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
             .padding(.bottom, 70)
+            
+            if self.isShowPopup {
+                GeometryReader { geometry in
+                    VStack {
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Text(message)
+                            .frame(maxHeight: 30)
+//                            .padding(.bottom, 20)
+                            .background(
+                                RoundedRectangle(cornerRadius: geometry.size.height/2)
+                                    .fill(Color.black.opacity(0.80))
+                            )
+                            .foregroundColor(Color.white)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    withAnimation {
+                                        self.isShowPopup = false
+                                    }
+                                }
+                            }
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height/1.15, alignment: .bottom)
+                }
+            }
 
         }
         
@@ -3253,7 +3290,7 @@ struct ReelsPlyer: View {
             
         } content: {
             if #available(iOS 16.0, *) {
-                CustomShareSheet(reelURL: $urll, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport)
+                CustomShareSheet(reelURL: $urll, reelDescription: $reelDescription, postID: $postID, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport, isShowPopup: $isShowPopup, message: $message)
                     .presentationDetents([.large,.medium,.height(900)])
             } else {
                 // Fallback on earlier versions

@@ -7,15 +7,21 @@
 
 import Foundation
 import SwiftUI
+import FBSDKShareKit
 
 struct CustomShareSheet: View{
     
     @StateObject var downloader = VideoDownloader()
+    @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @Binding var reelURL: String
+    @Binding var reelDescription: String
+    @Binding var postID: Int
     @Binding var shareSheet: Bool
     @Binding var isSaveVideo: Bool
     @Binding var isGifDownloading: Bool
     @Binding var bottomSheetReport: Bool
+    @Binding var isShowPopup: Bool
+    @Binding var message: String
 //    @Binding var isSuccess: Bool
     var body: some View{
         ScrollView{
@@ -56,6 +62,11 @@ struct CustomShareSheet: View{
                         Image("FacebookS")
                         Text("Facebook")
                             .font(.custom("Urbanist-Bold", size: 16))
+                    }
+                    .onTapGesture {
+                        print("Facebook tapped")
+                        shareSheet = false
+                        shareFacebookLink(url: reelURL, description: reelDescription)
                     }
                     VStack {
                         Image("InstaS")
@@ -116,11 +127,17 @@ struct CustomShareSheet: View{
                     .onTapGesture {
                         isSaveVideo = true
                         shareSheet = false
-                        let urll = "https://vooconnectasset.devssh.xyz/uploads/marked" + reelURL
+                        isShowPopup = true
+                        showMessagePopup(messages: "Saving Video...")
+                        let urll = getImageVideoBaseURL + "/marked" + reelURL
                         let videoURL = URL(string: urll)! // Replace with your video URL
-                        downloader.downloadVideo(url: videoURL) { downloadedURL in
-                            if downloadedURL == true {
-                                isSaveVideo = false
+                        DispatchQueue.main.async {
+                            downloader.downloadVideo(url: videoURL) { downloadedURL in
+                                if downloadedURL == true {
+                                    isSaveVideo = false
+                                    isShowPopup = true
+                                    showMessagePopup(messages: "Video Saved")
+                                }
                             }
                         }
                     }
@@ -149,6 +166,28 @@ struct CustomShareSheet: View{
                         Text("Add to Favorites")
                             .font(.custom("Urbanist-Bold", size: 16))
                     }
+                    .onTapGesture {
+                        shareSheet = false
+                        let uuid = UserDefaults.standard.string(forKey: "uuid")
+                        likeVM.bookMarkDataModel.userUUID = uuid ?? ""
+                        likeVM.bookMarkDataModel.postID = postID
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                            likeVM.bookMarkApi(){successMessage, success in
+                                if success == true {
+                                    if successMessage == "Post bookmarked."{
+                                        isShowPopup = true
+                                        showMessagePopup(messages: "Added to Favorites")
+                                    }else{
+                                        isShowPopup = true
+                                        showMessagePopup(messages: "Removed from Favorites")
+                                    }
+                                }else{
+                                    isShowPopup = true
+                                    showMessagePopup(messages: "Network Error")
+                                }
+                            }
+                        }
+                    }
                     VStack {
                         Image("ShareasaGifS")
                         Text("Share as a Gif")
@@ -158,12 +197,16 @@ struct CustomShareSheet: View{
                     .onTapGesture {
                         isGifDownloading = true
                         shareSheet = false
-                        let urll = "https://vooconnectasset.devssh.xyz/uploads/marked" + reelURL
+                        let urll = getImageVideoBaseURL + "/marked" + reelURL
                         let videoURL = URL(string: urll)!
-                        downloader.convertAndSaveVideoToGif(videoURL: videoURL){ success in
-                            if success {
-                                print("gif done")
-                                isGifDownloading = false
+                        showMessagePopup(messages: "Saving GIF...")
+                        DispatchQueue.main.async {
+                            downloader.convertAndSaveVideoToGif(videoURL: videoURL){ success in
+                                if success {
+                                    print("gif done")
+                                    isGifDownloading = false
+                                    showMessagePopup(messages: "GIF Saved")
+                                }
                             }
                         }
                     }
@@ -172,8 +215,22 @@ struct CustomShareSheet: View{
                 
             }
             .padding(.horizontal, 10)
+            
         }
         
         
+    }
+    func showMessagePopup(messages: String) {
+        self.message = messages
+        self.isShowPopup = true
+    }
+    func shareFacebookLink(url: String, description: String) {
+        // Create a content object
+        let content = ShareLinkContent()
+        content.contentURL = URL(string: url) // Replace with your URL
+        content.quote = description
+        
+        // Show the share dialog
+        ShareDialog(viewController: nil, content: content, delegate: nil).show()
     }
 }
