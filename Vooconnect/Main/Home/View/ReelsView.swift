@@ -3247,7 +3247,7 @@ struct ReelsPlyer: View {
                             .frame(maxHeight: 30)
 //                            .padding(.bottom, 20)
                             .background(
-                                RoundedRectangle(cornerRadius: geometry.size.height/2)
+                                RoundedRectangle(cornerRadius: geometry.size.height/1.5)
                                     .fill(Color.black.opacity(0.80))
                             )
                             .foregroundColor(Color.white)
@@ -3259,7 +3259,7 @@ struct ReelsPlyer: View {
                                 }
                             }
                     }
-                    .frame(width: geometry.size.width, height: geometry.size.height/1.15, alignment: .bottom)
+                    .frame(width: geometry.size.width, height: geometry.size.height/1.12, alignment: .bottom)
                 }
             }
 
