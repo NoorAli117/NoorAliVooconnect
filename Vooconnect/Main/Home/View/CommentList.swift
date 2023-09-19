@@ -130,6 +130,7 @@ struct CommentList: View {
                     if likeeeeCount == 0{
                         likeUnlike = true
                         likeeeeCount = likeeeeCount + 1
+                        likeImage = "HeartRedLV"
                         if let likesCount = comment.likeCount{
                             likeCount = likesCount
                         }

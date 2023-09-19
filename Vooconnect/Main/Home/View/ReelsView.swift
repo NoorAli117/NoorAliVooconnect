@@ -2428,6 +2428,7 @@ struct ReelsPlyer: View {
     @State private var isTappedBookmark = false
     @State var isDownloading = false
     @State var isGifDownloading = false
+    @State var isDuo = false
     @Binding var follow: Bool
     @StateObject var downloader = VideoDownloader()
     @State private var iconSize: CGFloat = 30.0
@@ -2444,6 +2445,12 @@ struct ReelsPlyer: View {
         
         
         ZStack {
+            
+            NavigationLink(destination: DuoView(videoUrl: $urll)  //SearchView
+                .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $isDuo) {
+                    EmptyView()
+                }
+            
             CustomVideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
             
@@ -3243,14 +3250,14 @@ struct ReelsPlyer: View {
                         Spacer()
                         Spacer()
                         Spacer()
-                        Text(message)
-                            .frame(maxHeight: 30)
-//                            .padding(.bottom, 20)
+                        Text(" \(message) ")
+                            .frame(maxHeight: 35)
                             .background(
-                                RoundedRectangle(cornerRadius: geometry.size.height/1.5)
+                                RoundedRectangle(cornerRadius: 16) // Using a fixed corner radius
                                     .fill(Color.black.opacity(0.80))
                             )
-                            .foregroundColor(Color.white)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 16)
                             .onAppear {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     withAnimation {
@@ -3290,7 +3297,7 @@ struct ReelsPlyer: View {
             
         } content: {
             if #available(iOS 16.0, *) {
-                CustomShareSheet(reelURL: $urll, reelDescription: $reelDescription, postID: $postID, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport, isShowPopup: $isShowPopup, message: $message)
+                CustomShareSheet(reelURL: $urll, reelDescription: $reelDescription, postID: $postID, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport, isShowPopup: $isShowPopup, message: $message, isDuo: $isDuo)
                     .presentationDetents([.large,.medium,.height(900)])
             } else {
                 // Fallback on earlier versions

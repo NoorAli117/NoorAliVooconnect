@@ -39,6 +39,7 @@
 		0458EB842A5EB72000CD7B79 /* AudioRecrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */; };
 		0458EB862A69764100CD7B79 /* VideoCredit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0458EB852A69764100CD7B79 /* VideoCredit.swift */; };
 		045DE49D2AB47D5900589AD8 /* CustomShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045DE49C2AB47D5900589AD8 /* CustomShareSheet.swift */; };
+		046795252AB88241008C4C34 /* DuoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046795242AB88241008C4C34 /* DuoView.swift */; };
 		046F52092A864F78004BDBAD /* AudioMediaInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F52082A864F78004BDBAD /* AudioMediaInput.swift */; };
 		046F520D2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F520C2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift */; };
 		0478E6122A5946A300656D8D /* SoundEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0478E6112A5946A300656D8D /* SoundEditView.swift */; };
@@ -455,6 +456,7 @@
 		0458EB832A5EB72000CD7B79 /* AudioRecrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecrder.swift; sourceTree = "<group>"; };
 		0458EB852A69764100CD7B79 /* VideoCredit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCredit.swift; sourceTree = "<group>"; };
 		045DE49C2AB47D5900589AD8 /* CustomShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShareSheet.swift; sourceTree = "<group>"; };
+		046795242AB88241008C4C34 /* DuoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoView.swift; sourceTree = "<group>"; };
 		046F52082A864F78004BDBAD /* AudioMediaInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMediaInput.swift; sourceTree = "<group>"; };
 		046F520C2A8B6B9C004BDBAD /* AudioPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewModel.swift; sourceTree = "<group>"; };
 		0478E6112A5946A300656D8D /* SoundEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEditView.swift; sourceTree = "<group>"; };
@@ -1671,6 +1673,7 @@
 				041572AD2A13E4E5002CEE1E /* CommentReplyList.swift */,
 				041572AF2A13E4FB002CEE1E /* CommentReplySheet.swift */,
 				045DE49C2AB47D5900589AD8 /* CustomShareSheet.swift */,
+				046795242AB88241008C4C34 /* DuoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2840,6 +2843,7 @@
 				A95462452955ACCC00C4D233 /* ViewersSheet.swift in Sources */,
 				AB752EBC29AD37140065E1C8 /* AudioExtension.swift in Sources */,
 				A94531452914D76B00321407 /* MenuView.swift in Sources */,
+				046795252AB88241008C4C34 /* DuoView.swift in Sources */,
 				A90169962941B84B0089AA45 /* CustomeCameraHomeTwo.swift in Sources */,
 				A95A93652924B23A00CABC93 /* OTPTwoView.swift in Sources */,
 				ABC9F82329AAC9F2006436A1 /* TextExtension.swift in Sources */,
