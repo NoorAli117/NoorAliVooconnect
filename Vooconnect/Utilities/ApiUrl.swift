@@ -7,14 +7,13 @@
 import Foundation
 
 //getBaseURL + EndPoints.reels)
-
+//
 //var baseURL = "https://api.vooconnect.com:9450/api/v1"
 //var assatEndPoint = "https://api.vooconnect.com:9452/api/v1"
-////var userApiEndPoint = "https://api.vooconnect.com:9452/api/v1"
 //var userApiEndPoint = "https://vooconnectasset.devssh.xyz/api/v1"//3002
 //var getBaseURL = "https://api.vooconnect.com:9451/api/v1"
-//var getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads/"
-//var getImageVideoMarkedBaseURL = "https://api.vooconnect.com:9452/uploads/marked"//3002
+//var getImageVideoBaseURL = "https://api.vooconnect.com:9452/uploads"
+//var getImageVideoMarkedBaseURL = "https://api.vooconnect.com:9452"//3002
 //
 //
 //
@@ -52,7 +51,8 @@ struct EndPoints {
     static var updateInterestList = "/update-interest-list"
     static var postInterest = "/get-interest-list"
     
-    static var reels = "/post-stream?page=1&post_type=recommended"
+    static var reels = "/post-stream"
+    static var followingReels = "/following-post-stream"
     
     static var uploadReels = "/create-new-post"
     

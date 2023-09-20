@@ -2220,6 +2220,10 @@ struct ReelsView: View {
     @State var videoIndex: Int = 0
     @State private var removeReel: Bool = false
     @State private var userUUid: String = ""
+    @State private var currentTab: String = "recommended"
+    @State private var followRecommendedTextColor: Bool = false
+    @State private var show: Bool = false
+    @State private var showTwo: Bool = false
 
     
     var body: some View {
@@ -2232,73 +2236,183 @@ struct ReelsView: View {
             
             let size = proxy.size
             
-            if reelsVM.allReels.count > 0 {
-                // Vertical Page Tab View...
-                TabView(selection: $reelTagIndex) {
-                    //                ForEach($reels) { $reel in
-                    ForEach(reelsVM.allReels.indices, id: \.self) { index in
+            if currentTab == "recommended"{
+                if reelsVM.allReels.count > 0 {
+                    // Vertical Page Tab View...
+                    TabView(selection: $reelTagIndex) {
+                        //                ForEach($reels) { $reel in
+                        ForEach(reelsVM.allReels.indices, id: \.self) { index in
+                                ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
+                            // setting width...
+                                .frame(width: size.width, height: size.height)
+                                .padding()
+                            // Rotating Content...
+                                .rotationEffect(.init(degrees: -90))
+                                .ignoresSafeArea(.all, edges: .top)
+                                .tag(index)
+                        }
                         
-                        ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
-                        // setting width...
-                            .frame(width: size.width, height: size.height)
-                            .padding()
-                        // Rotating Content...
-                            .rotationEffect(.init(degrees: -90))
-                            .ignoresSafeArea(.all, edges: .top)
-                            .tag(index)
                     }
-                    
-                }
-                .rotationEffect(.init(degrees: 90))
-                // Since view is rotated setting height as width...
-                .frame(width: size.height)
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                // setting max width...
-                .frame(width: size.width)
-                .onChange(of: reelTagIndex) { index in
-                    print("Current Index \(index)")
-                    if index > videoIndex {
-                        withAnimation(.easeInOut) {
-                            print(videoIndex)
-                            topBar = false
-                            if removeReel{
-                                DispatchQueue.main.async {
-                                    removeReels(withCreatorUUID: userUUid)
+                    .rotationEffect(.init(degrees: 90))
+                    // Since view is rotated setting height as width...
+                    .frame(width: size.height)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    // setting max width...
+                    .frame(width: size.width)
+                    .onChange(of: reelTagIndex) { index in
+                        print("Current Index \(index)")
+                        if index > videoIndex {
+                            withAnimation(.easeInOut) {
+                                print(videoIndex)
+                                topBar = false
+                                if removeReel{
+                                    DispatchQueue.main.async {
+                                        removeReels(withCreatorUUID: userUUid)
+                                    }
                                 }
+                                removeReel = false
                             }
-                            removeReel = false
-                        }
-                        videoIndex = index
-                    }else{
-                        withAnimation(.easeInOut){
-                            topBar = true
-                            print("else index \(videoIndex)")
-                            if removeReel{
-                                DispatchQueue.main.async {
-                                    removeReels(withCreatorUUID: userUUid)
+                            videoIndex = index
+                        }else{
+                            withAnimation(.easeInOut){
+                                topBar = true
+                                print("else index \(videoIndex)")
+                                if removeReel{
+                                    DispatchQueue.main.async {
+                                        removeReels(withCreatorUUID: userUUid)
+                                    }
                                 }
+                                removeReel = false
                             }
-                            removeReel = false
+                            videoIndex = index
                         }
-                        videoIndex = index
+                        likeVM.UserFollowingUsers()
+                        if index == (reelsVM.allReels.count - 3) {
+                            reelsVM.loadNext10Reels()
+                        }
                     }
-                    likeVM.UserFollowingUsers()
-                }
 
-            
-            }else{
-                VStack {
-                        Image(systemName: "folder.badge.questionmark")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 80, height: 80)
-                    
-                        Text("Empty post bucket !")
-                        .padding(.top,10)
+                
+                }else{
+                    VStack {
+                            Image(systemName: "folder.badge.questionmark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 80, height: 80)
+                        
+                            Text("Empty post bucket !")
+                            .padding(.top,10)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.gray.opacity(0.1))
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.gray.opacity(0.1))
+            }else{
+                if reelsVM.followingReels.count > 0 {
+                    // Vertical Page Tab View...
+                    TabView(selection: $reelTagIndex) {
+                        //                ForEach($reels) { $reel in
+                        ForEach(reelsVM.followingReels.indices, id: \.self) { index in
+                            ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.followingReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
+                            // setting width...
+                                .frame(width: size.width, height: size.height)
+                                .padding()
+                            // Rotating Content...
+                                .rotationEffect(.init(degrees: -90))
+                                .ignoresSafeArea(.all, edges: .top)
+                                .tag(index)
+                        }
+                        
+                    }
+                    .rotationEffect(.init(degrees: 90))
+                    // Since view is rotated setting height as width...
+                    .frame(width: size.height)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    // setting max width...
+                    .frame(width: size.width)
+                    .onChange(of: reelTagIndex) { index in
+                        print("Current Index \(index)")
+                        if index > videoIndex {
+                            withAnimation(.easeInOut) {
+                                print(videoIndex)
+                                topBar = false
+                                if removeReel{
+                                    DispatchQueue.main.async {
+                                        removeReels(withCreatorUUID: userUUid)
+                                    }
+                                }
+                                removeReel = false
+                            }
+                            videoIndex = index
+                        }else{
+                            withAnimation(.easeInOut){
+                                topBar = true
+                                print("else index \(videoIndex)")
+                                if removeReel{
+                                    DispatchQueue.main.async {
+                                        removeReels(withCreatorUUID: userUUid)
+                                    }
+                                }
+                                removeReel = false
+                            }
+                            videoIndex = index
+                        }
+                        if index == (reelsVM.allReels.count - 3) {
+                            print("allReels count\(reelsVM.allReels.count)")
+                            reelsVM.loadNext10FollowingReels()
+                        }
+                        likeVM.UserFollowingUsers()
+                    }
+
+                
+                }else{
+                    VStack {
+                            Image(systemName: "folder.badge.questionmark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 80, height: 80)
+                        
+                            Text("Empty post bucket !")
+                            .padding(.top,10)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.gray.opacity(0.1))
+                }
             }
+            // Recommended
+            VStack {
+
+                HStack {
+                    TabButton(
+                        title: "Recommended",
+                        isSelected: currentTab == "recommended",
+                        textColor: $followRecommendedTextColor
+                    ) {
+                        currentTab = "recommended"
+                        followRecommendedTextColor.toggle()
+                        show = false
+                        showTwo = false
+                    }
+                    
+                    TabButton(
+                        title: "Followers",
+                        isSelected: currentTab == "followers",
+                        textColor: $followRecommendedTextColor
+                    ) {
+                        currentTab = "followers"
+                        followRecommendedTextColor.toggle()
+                        show = false
+                        showTwo = false
+                    }
+                }
+                .frame(width: 300, height: 45)
+                .background(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)))
+                .cornerRadius(22.5)
+                .rotationEffect(.degrees(270))
+
+            }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .padding(.leading, -110)
+            .padding(.top, 200)
             
             HStack {
                 if self.bool {
@@ -2352,7 +2466,7 @@ struct ReelsPlyer: View {
     let reelsDetail: Post
     let followingArray: [FollowingUsers]
     
-    @State var currentTab = "recommended"
+    @Binding var currentTab: String
     @Namespace var animation
     
     let url = URL(string: "reels/1671107665992-test.mp4")
@@ -2408,7 +2522,6 @@ struct ReelsPlyer: View {
     @State var plusIcon: Bool = false
     
     @State private var doubleTapLikeCount: Bool = true
-    @State private var followRecommendedTextColor: Bool = false
     
     @Binding var topBar: Bool
     
@@ -2465,7 +2578,12 @@ struct ReelsPlyer: View {
                     UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
 //                    likeVM.UserFollowingUsers()
 //                    follow = false
-                    
+                    for following in likeVM.followingUsers {
+                        if following.uuid == reelsDetail.creatorUUID {
+                            follow = true
+                            break // Exit the loop if a match is found
+                        }
+                    }
                     postID = reelsDetail.postID ?? 0
                     if reelsDetail.isLiked == 1{
                         if likeeeeCount == 0{
@@ -2645,75 +2763,6 @@ struct ReelsPlyer: View {
 
 
             }
-
-
-            // Recommended
-            VStack {
-
-                HStack {
-
-                    Text("Recommended")
-                        .font(.custom("Urbanist-Bold", size: 16))
-                        .frame(width: 150, height: 42)
-                        .background(
-                            ZStack {
-                                if currentTab == "recommended" {
-                                    Color.white
-                                        .cornerRadius(21)
-                                        .matchedGeometryEffect(id: "TAB", in: animation)
-                                }
-                            }
-                                .padding(.leading, 6)
-                        )
-
-                        .foregroundColor(followRecommendedTextColor ? Color(#colorLiteral(red: 0.787740171, green: 0.787740171, blue: 0.787740171, alpha: 0.3994205298)) : .black)
-                        .onTapGesture {
-                            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.6)) {
-                                currentTab = "recommended"
-                                followRecommendedTextColor.toggle()
-                                show = false
-                                showTwo = false
-
-                            }
-                        }
-
-
-                    Text("Followers")
-                        .font(.custom("Urbanist-Bold", size: 16))
-                        .frame(width: 150, height: 42)
-                    //                            .foregroundColor(currentTab ? .black : .red)
-                        .background(
-                            ZStack {
-                                if currentTab == "followers" {
-                                    Color.white
-                                        .cornerRadius(21)
-                                        .matchedGeometryEffect(id: "TAB", in: animation)
-                                }
-                            }
-                                .padding(.trailing, 6)
-
-                        )
-                        .foregroundColor(followRecommendedTextColor ? .black : Color(#colorLiteral(red: 0.787740171, green: 0.787740171, blue: 0.787740171, alpha: 0.3994205298)))
-                        .onTapGesture {
-                            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.6)) {
-                                currentTab = "followers"
-                                followRecommendedTextColor.toggle()
-                                show = false
-                                showTwo = false
-                            }
-                        }
-
-                }
-
-                .frame(width: 300, height: 45)
-                .background(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)))
-                .cornerRadius(22.5)
-                .rotationEffect(.degrees(270))
-
-            }
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            .padding(.leading, -110)
-            .padding(.top, -120)
 
 
             // Creator Detail
@@ -3572,5 +3621,34 @@ struct VideoDownloadProgressView: View {
                 ProgressView(value: downloader.downloadGifProgress, total: 1.0)
             }
         }
+    }
+}
+
+struct TabButton: View {
+    var title: String
+    var isSelected: Bool
+    @Binding var textColor: Bool
+    var action: () -> Void
+    
+    var body: some View {
+        Text(title)
+            .font(.custom("Urbanist-Bold", size: 16))
+            .frame(width: 150, height: 42)
+            .background(
+                ZStack {
+                    if isSelected {
+                        Color.white
+                            .cornerRadius(21)
+                            .matchedGeometryEffect(id: "TAB", in: Namespace().wrappedValue)
+                    }
+                }
+                    .padding(.leading, isSelected ? 6 : 0)
+            )
+            .foregroundColor(isSelected ? .black : Color(#colorLiteral(red: 0.787740171, green: 0.787740171, blue: 0.787740171, alpha: 0.3994205298)))
+            .onTapGesture {
+                withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.6)) {
+                    action()
+                }
+            }
     }
 }
