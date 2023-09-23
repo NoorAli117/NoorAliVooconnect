@@ -13,4 +13,5 @@ target 'Vooconnect' do
  	pod 'FBSDKShareKit'
 	pod 'RealmSwift'
 	pod "Regift"
+        pod 'Toast-Swift'
 end
