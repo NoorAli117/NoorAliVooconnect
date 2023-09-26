@@ -2568,14 +2568,15 @@ struct ReelsPlyer: View {
                 .edgesIgnoringSafeArea(.all)
             
                 .onAppear {
-                    if let reelURL = reelsDetail.contentURL{
-                        self.urll = reelURL
-                        self.reelDescription = reelsDetail.description ?? ""
-                    }
-                    player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelsDetail.contentURL!)!)) //<-- Her
                     let user_uuid = reelsDetail.creatorUUID ?? nil
                     print("user_uuid========",user_uuid as Any)
                     UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
+                    if let reelURL = reelsDetail.contentURL{
+                        self.urll = reelURL
+                        self.reelDescription = reelsDetail.description ?? ""
+                        print("\(getImageVideoBaseURL + reelURL)")
+                        player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelURL)!)) //<-- Her
+                    }
 //                    likeVM.UserFollowingUsers()
 //                    follow = false
                     for following in likeVM.followingUsers {
@@ -2781,6 +2782,7 @@ struct ReelsPlyer: View {
                             HStack(spacing: 10) {
                                 CreatorProfileImageView(allReels: reelsDetail)
                                 //                                    .resizable();
+//                                Image(reelsDetail.creatorProfileImage ?? "CreaterProfileIcon")
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 55, height: 55)
                                     .cornerRadius(10)

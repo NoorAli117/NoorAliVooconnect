@@ -215,51 +215,45 @@ struct FollowingUsers: Codable {
     let id: Int?
     let uuid, username, firstName, lastName: String?
     let middleName: String?
-    let gender: String
-    let birthdate: String?
-    let phone: String?
-    let phoneVerifiedAt: String?
-    let email, emailVerifiedAt, password: String
-    let profileImage, coverImage, bio: String?
-    let followerCount, lat, lon: Int?
-    let instagram, facebook, twitter: String?
-    let address: String
-    let otp: String?
-    let rememberMe, verifyType, status: String?
+    let gender, birthdate, phone, phoneVerifiedAt: String?
+    let email, emailVerifiedAt, password, profileImage: String?
+    let coverImage, bio: String?
+    let followerCount: Int?
+    let lat: Double?
+    let instagram, facebook: String?
+    let faceboolID, twitter: String?
+    let lon: Double?
+    let address: String?
+    let otp: Int?
+    let rememberMe: String?
     let isLive: Int?
-    let deviceType: String?
-    let deviceToken, city, state, country: String?
+    let deviceType, deviceToken, verifyType, status: String?
     let deletedAt: String?
     let createdAt, updatedAt: String?
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case uuid = "uuid"
-        case username = "username"
+        case id, uuid, username
         case firstName = "first_name"
         case lastName = "last_name"
         case middleName = "middle_name"
-        case gender = "gender"
-        case birthdate = "birthdate"
-        case phone = "phone"
+        case gender, birthdate, phone = ""
         case phoneVerifiedAt = "phone_verified_at"
-        case email = "email"
+        case email
         case emailVerifiedAt = "email_verified_at"
-        case password = "password"
+        case password
         case profileImage = "profile_image"
         case coverImage = "cover_image"
-        case bio = "bio"
+        case bio
         case followerCount = "follower_count"
-        case lat, lon, instagram, facebook, twitter, address, otp
+        case lat, instagram, facebook
+        case faceboolID = "facebool_id"
+        case twitter, lon, address, otp
         case rememberMe = "remember_me"
-        case verifyType = "verify_type"
-        case status = "status"
         case isLive = "is_live"
         case deviceType = "device_type"
         case deviceToken = "device_token"
-        case city = "city"
-        case state = "state"
-        case country = "country"
+        case verifyType = "verify_type"
+        case status
         case deletedAt = "deleted_at"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
