@@ -204,19 +204,20 @@ struct UserInterestCateg: Decodable {
 }
 
 
-// MARK: - Welcome
 struct Following: Codable {
     let status: Bool
-    let data: [FollowingUsers]
+    let users: [FollowingUsers]
 }
 
-// MARK: - Datum
 struct FollowingUsers: Codable {
     let id: Int?
     let uuid, username, firstName, lastName: String?
     let middleName: String?
-    let gender, birthdate, phone, phoneVerifiedAt: String?
-    let email, emailVerifiedAt, password, profileImage: String?
+    let gender, birthdate: String?
+    let phone, phoneVerifiedAt: String?
+    let email: String?
+    let emailVerifiedAt: String?
+    let password, profileImage: String?
     let coverImage, bio: String?
     let followerCount: Int?
     let lat: Double?
@@ -227,16 +228,18 @@ struct FollowingUsers: Codable {
     let otp: Int?
     let rememberMe: String?
     let isLive: Int?
-    let deviceType, deviceToken, verifyType, status: String?
+    let deviceType: String?
+    let deviceToken: String?
+    let verifyType, status: String?
     let deletedAt: String?
     let createdAt, updatedAt: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id, uuid, username
         case firstName = "first_name"
         case lastName = "last_name"
         case middleName = "middle_name"
-        case gender, birthdate, phone = ""
+        case gender, birthdate, phone
         case phoneVerifiedAt = "phone_verified_at"
         case email
         case emailVerifiedAt = "email_verified_at"
@@ -259,9 +262,3 @@ struct FollowingUsers: Codable {
         case updatedAt = "updated_at"
     }
 }
-
-
-//"user_uuid": "{{user_uuid}}",
-//    "post_id": 1,
-//    "comment": "TEst comment"
-

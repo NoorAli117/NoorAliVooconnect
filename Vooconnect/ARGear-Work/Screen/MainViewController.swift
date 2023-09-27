@@ -525,7 +525,7 @@ extension MainViewController: MainBottomFunctionDelegate {
         guard let saveImage = image else { return }
         
         self.arMedia.save(saveImage, saved: {
-            self.view.showToast(message: "photo_video_saved_message".localized(), position: self.toast_main_position)
+            self.view.showToast(message: "photo_saved_message".localized(), position: self.toast_main_position)
         }) {
             self.goPreview(content: saveImage)
         }
@@ -535,7 +535,7 @@ extension MainViewController: MainBottomFunctionDelegate {
         guard let info = videoInfo else { return }
         
         self.arMedia.saveVideo(info, saved: {
-            self.view.showToast(message: "photo_video_saved_message".localized(), position: self.toast_main_position)
+            self.view.showToast(message: "video_saved_message".localized(), position: self.toast_main_position)
         }) {
             self.goPreview(content: info)
         }

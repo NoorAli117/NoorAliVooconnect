@@ -191,41 +191,46 @@ class ReelsLikeViewModel: ObservableObject {
     
     
     
-    func getFollowingUsers(uuid: String){
-        
-        let parameters = "{\r\n    \"uuid\": \"\(uuid)\"\r\n}"
+    func getFollowingUsers(uuid: String) {
+        let parameters = """
+        {
+            "uuid": "\(uuid)"
+        }
+        """
         let postData = parameters.data(using: .utf8)
-
-        var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.followingList)!,timeoutInterval: Double.infinity)
+        
+        var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.followingList)!, timeoutInterval: Double.infinity)
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
-            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
-            print("Access Token============",tokenData)
+            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            print("Access Token============", tokenData)
         }
-
+        
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = postData
-
+        
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-          guard let data = data else {
-            print(String(describing: error))
-            return
-          }
-            self.followingUsers = []
-//          print(String(data: data, encoding: .utf8)!)
+            guard let data = data else {
+                print(String(describing: error))
+                return
+            }
+            print("followingUsers-----------:", response!)
+            print("Data:", String(data: data, encoding: .utf8)!)
+
             do {
                 let decodedData = try JSONDecoder().decode(Following.self, from: data)
                 DispatchQueue.main.async {
-                    self.followingUsers = decodedData.data
+                    self.followingUsers = decodedData.users // Access 'users' array
                     print("Following data: \(self.followingUsers)")
                 }
-            } catch {
-                print("Error decoding JSON: \(error.localizedDescription)")
+            } catch let error {
+                print("Error decoding JSON: \(error)")
             }
+
         }
-
+        
+        // Don't forget to resume the task to start the request.
         task.resume()
-
     }
     
     func blockUserApi() {  // postID

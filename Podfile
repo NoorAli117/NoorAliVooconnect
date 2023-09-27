@@ -14,4 +14,5 @@ target 'Vooconnect' do
 	pod 'RealmSwift'
 	pod "Regift"
         pod 'Toast-Swift'
+	pod 'URLImage'
 end

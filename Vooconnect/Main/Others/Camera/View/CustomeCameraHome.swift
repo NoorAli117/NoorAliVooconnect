@@ -1106,6 +1106,7 @@ struct CustomeCameraHome: View {
     @Environment(\.presentationMode) var presentaionMode
     
     @StateObject var cameraModel = CameraViewModel()
+//    @EnvironmentObject var cameraModel: CameraViewModel
     @State private var preview: Bool = false
     @State private var photos: Bool = false
     
@@ -1246,6 +1247,7 @@ struct CustomeCameraHome: View {
                             print(image)
                         } else if let videoInfo = content as? [String: Any] {
                             print(videoInfo)
+//                            cameraModel.previewURL = videoInfo
                         }
                     })
                         .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))

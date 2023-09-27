@@ -25,29 +25,9 @@ class ARGScene: NSObject {
         super.init()
         
         guard
-          let scene = SCNScene(named: "Face.scnassets/face.scn")
+          let scene = SCNScene(named: "vooconnect/Face.scnassets/face.scn")
         else {
             fatalError("Failed to load face scene!")
-        }
-
-        let cameraNode = SCNNode()
-        cameraNode.camera = sceneCamera
-        scene.rootNode.addChildNode(cameraNode)
-
-        // setup preview
-        if let viewContainer = viewContainer {
-            sceneView.scene = scene
-            sceneView.frame = viewContainer.bounds
-            sceneView.delegate = self
-            sceneView.showsStatistics = false
-            sceneView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            sceneView.backgroundColor = .clear
-            sceneView.layer.transform = CATransform3DMakeScale(1, 1, 1)
-            sceneView.isUserInteractionEnabled = false
-            if #available(iOS 11.0, *) {
-                sceneView.rendersContinuously = true
-            }
-            viewContainer.addSubview(sceneView)
         }
     }
 }

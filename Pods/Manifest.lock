@@ -19,6 +19,25 @@ PODS:
   - TwitterCore (3.2.0)
   - TwitterKit5 (5.2.0):
     - TwitterCore (>= 3.1.0)
+  - URLImage (2.2.5):
+    - URLImage/Common (= 2.2.5)
+    - URLImage/DownloadManager (= 2.2.5)
+    - URLImage/FileIndex (= 2.2.5)
+    - URLImage/ImageDecoder (= 2.2.5)
+    - URLImage/Log (= 2.2.5)
+    - URLImage/PlainDatabase (= 2.2.5)
+    - URLImage/RemoteContentView (= 2.2.5)
+  - URLImage/Common (2.2.5)
+  - URLImage/DownloadManager (2.2.5):
+    - URLImage/Log
+  - URLImage/FileIndex (2.2.5):
+    - URLImage/Common
+    - URLImage/Log
+    - URLImage/PlainDatabase
+  - URLImage/ImageDecoder (2.2.5)
+  - URLImage/Log (2.2.5)
+  - URLImage/PlainDatabase (2.2.5)
+  - URLImage/RemoteContentView (2.2.5)
 
 DEPENDENCIES:
   - FBSDKCoreKit
@@ -28,6 +47,7 @@ DEPENDENCIES:
   - Regift
   - Toast-Swift
   - TwitterKit5
+  - URLImage
 
 SPEC REPOS:
   trunk:
@@ -42,6 +62,7 @@ SPEC REPOS:
     - Toast-Swift
     - TwitterCore
     - TwitterKit5
+    - URLImage
 
 SPEC CHECKSUMS:
   FBAEMKit: daac7466b918752f020345be5c7d9787f98cfc07
@@ -55,7 +76,8 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
+  URLImage: 36a66c03ba2a9ccbbf06bc83431f2cef171008e8
 
-PODFILE CHECKSUM: 47bdbb634599e5ff61dccf4f667574b60d6d9fb0
+PODFILE CHECKSUM: f903609141cd9a1ec01db127ad399355d5390bd6
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.13.0

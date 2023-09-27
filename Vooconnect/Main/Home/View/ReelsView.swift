@@ -2190,6 +2190,7 @@ import SwiftUI
 import AVKit
 import Photos
 import Regift
+import URLImage
 
 struct ReelsView: View {
     
@@ -2781,8 +2782,6 @@ struct ReelsPlyer: View {
                         }label: {
                             HStack(spacing: 10) {
                                 CreatorProfileImageView(allReels: reelsDetail)
-                                //                                    .resizable();
-//                                Image(reelsDetail.creatorProfileImage ?? "CreaterProfileIcon")
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 55, height: 55)
                                     .cornerRadius(10)

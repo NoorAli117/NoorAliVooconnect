@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import URLImage
 
 struct CommentList: View {
     
@@ -39,7 +40,6 @@ struct CommentList: View {
             VStack(alignment: .leading) {
             
             HStack {
-                
                 Image(comment.userProfileImage ?? "ImageCP")
                     .resizable()
                     .scaledToFill()
