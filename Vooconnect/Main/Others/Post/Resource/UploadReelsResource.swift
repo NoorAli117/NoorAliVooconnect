@@ -10,6 +10,8 @@ import UIKit
 
 class UploadReelsResource {
     
+    var contentDetail: [ContentDetail] = []
+    
     func uploadReels(imageUploadRequest: URL,paramName : String, fileName : String, subtitleLang : String, subtitle_apply : String,  complitionHandler : @escaping(Bool, String?) -> Void) {
         let session = URLSession.shared
         let boundary = UUID().uuidString
@@ -58,30 +60,46 @@ class UploadReelsResource {
                             let data = try? JSONDecoder().decode(UploadRes.self, from: data)
                     if let data {
                         if data.status == true {
-                            print(data.data)
-                            let name = data.data.first?.name ?? ""
-                            UserDefaults.standard.set(name, forKey: "imageName")
-
-                            let size = data.data.first?.size ?? ""
-                            UserDefaults.standard.set(size, forKey: "reelSize")
-
-                            let reelsName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-                            print("THE reelsName is======", reelsName )
-
-                            let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
-                            print("THE reelsSize is=======", reelsSize)
+                            self.contentDetail = data.data.map { datum in
+                                return ContentDetail(name: datum.name, size: datum.size)
+                            }
+                            var largestSize: Double = 0.0 // Assuming size is in numeric format
+                            var smallestSize: Double = Double.greatestFiniteMagnitude
+                            let dataArray = data.data
                             
-                            let thumbnailName = data.data.first?.thumbnails ?? ""
-                            UserDefaults.standard.set(name, forKey: "thumbnails")
-
-                            let sizeThumbsize = data.data.first?.thumbsize ?? ""
-                            UserDefaults.standard.set(size, forKey: "thumbsize")
-
-                            let thumbnails = UserDefaults.standard.string(forKey: "thumbnails") ?? ""
-                            print("THE thumbnails is======", reelsName )
-
-                            let thumbsize = UserDefaults.standard.string(forKey: "thumbsize") ?? ""
-                            print("THE thumbsize is=======", reelsSize)
+                            // Loop through the data array and access "name" and "size"
+                            for datum in dataArray {
+                                let name = datum.name
+                                let size = datum.size
+                                if let reelNameContainsMP4 = datum.name?.contains("mp4") {
+                                    UserDefaults.standard.set(reelNameContainsMP4, forKey: "reelName")
+                                    let reelsName = UserDefaults.standard.string(forKey: "reelName") ?? ""
+                                    print("The reelsName is======", reelsName)
+                                } else if let nameContainsJPGOrPNG = datum.name?.contains("jpg"){
+                                    UserDefaults.standard.set(nameContainsJPGOrPNG, forKey: "thumbnail")
+                                    let thumbnail = UserDefaults.standard.string(forKey: "thumbnail") ?? ""
+                                    print("The thumbnail is======", thumbnail)
+                                }
+                                    
+                                if let sizeValue = Double(datum.size!) {
+                                    if sizeValue > largestSize {
+                                        largestSize = sizeValue
+                                        let reelSize = largestSize
+                                        UserDefaults.standard.set(reelSize, forKey: "reelSize")
+                                        
+                                        let reelsName = UserDefaults.standard.string(forKey: "reelSize") ?? ""
+                                        print("The reelSize is======", reelSize )
+                                    }
+                                    if sizeValue < smallestSize {
+                                        smallestSize = sizeValue
+                                        let thumbSize = smallestSize
+                                        UserDefaults.standard.set(thumbSize, forKey: "thumbSize")
+                                        
+                                        let reelsName = UserDefaults.standard.string(forKey: "thumbSize") ?? ""
+                                        print("The thumbSize is======", thumbSize )
+                                    }
+                                }
+                            }
                             complitionHandler(true, "done")
                         }
                     }else{
@@ -145,7 +163,6 @@ struct UploadRes: Codable {
 
 struct Datum: Codable {
     let name, size: String?
-    let thumbnails, thumbsize: String?
 }
 
 struct PostRes: Codable {

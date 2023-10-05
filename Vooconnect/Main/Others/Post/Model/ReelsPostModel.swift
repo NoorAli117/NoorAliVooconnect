@@ -8,16 +8,15 @@
 import Foundation
 
 // MARK: - Welcome
- struct ReelsPostRequest: Codable {
+struct ReelsPostRequest: Codable {
     let userUUID, title, description, contentType: String?
     let category: Int?
-    let musicTrack, location, visibility,musicUUID, musicURL: String?
+    let musicTrack, location, visibility, musicURL: String?
     let content: [ContentDetail]?
-    let allowComment, allowDuet, allowStitch: Bool?
-    
+    let allowComment, allowDuet, allowStitch, subtitleApply: Bool?
+    let subtitleLang: String?
     let tags: [String]?
     
-
     enum CodingKeys: String, CodingKey {
         case userUUID = "user_uuid"
         case title, description
@@ -25,18 +24,16 @@ import Foundation
         case category
         case musicTrack = "music_track"
         case location, visibility
-        case musicUUID = "music_uuid"
         case musicURL = "music_url"
         case content
         case allowComment = "allow_comment"
         case allowDuet = "allow_duet"
         case allowStitch = "allow_stitch"
-        case tags
-//        case subtitle_apply = "subtitle_apply"
-//        case subtitleLang
+        case subtitleApply = "subtitle_apply"
+        case subtitleLang, tags
     }
-
-//    var content: [ContentDetail]?
+    
+    //    var content: [ContentDetail]?
 //    var title: String?
 //    var category: Int?
 //    var tags: [String]?
@@ -55,6 +52,5 @@ import Foundation
 // MARK: - Content
 struct ContentDetail: Codable {
     let name, size: String?
-    let thumbnails, thumbsize: String?
     
 }

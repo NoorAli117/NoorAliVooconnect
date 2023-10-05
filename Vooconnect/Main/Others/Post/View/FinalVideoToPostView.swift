@@ -981,16 +981,16 @@ struct FinalVideoToPostView: View {
                 print("video url \(self.postModel.contentUrl!)")
                 let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
                 let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
-                let fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-                let thumbsize = UserDefaults.standard.string(forKey: "thumbsize") ?? ""
-                let thumbnails = UserDefaults.standard.string(forKey: "thumbnails") ?? ""
+                let fileName = UserDefaults.standard.string(forKey: "reelName") ?? ""
+                let thumbsize = UserDefaults.standard.string(forKey: "thumbSize") ?? ""
+                let thumbnails = UserDefaults.standard.string(forKey: "thumbnail") ?? ""
                 var tag: [String] = []
                 self.postModel.tagPeople.forEach { peopleId in
                     tag.append(peopleId.uid)
                 }
-                let content = ContentDetail(name: fileName, size: reelsSize, thumbnails: thumbnails, thumbsize: thumbsize)
+//                let content = ContentDetail(name: fileName, size: reelsSize, thumbnails: thumbnails, thumbsize: thumbsize)
                 print("caption and lan:  ", self.captionLang, self.autoCaption)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicUUID: postModel.songModel?.id, musicURL: postModel.songModel?.preview, content: [content], allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, tags: tag )
+                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: uploadReels.contentDetail, allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitleApply: self.autoCaption, subtitleLang: self.captionLang, tags: tag)
                 uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                     DispatchQueue.main.async {
                         if(responsee == true) {
