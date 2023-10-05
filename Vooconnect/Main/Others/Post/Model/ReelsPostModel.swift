@@ -55,5 +55,6 @@ import Foundation
 // MARK: - Content
 struct ContentDetail: Codable {
     let name, size: String?
+    let thumbnails, thumbsize: String?
     
 }

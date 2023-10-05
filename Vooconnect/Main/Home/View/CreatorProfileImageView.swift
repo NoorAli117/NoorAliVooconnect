@@ -13,8 +13,8 @@ struct CreatorProfileImageView: View {
     
     @StateObject var vm: GetCreatorImageVM
     
-    init(allReels: Post) {
-        _vm = StateObject(wrappedValue: GetCreatorImageVM(allReels: allReels))
+    init(creatorProfileImage: String) {
+        _vm = StateObject(wrappedValue: GetCreatorImageVM(creatorProfileImage: creatorProfileImage))
     }
     
     var body: some View {

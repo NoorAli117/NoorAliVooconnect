@@ -14,18 +14,29 @@ struct ViewerProfileDetailSheet: View {
     @Binding var follow: Bool
     @Binding var uuid: String
     @State var followerCount: Int = 0
+    @Binding var reel : Post?
         var body: some View {
             NavigationView{
                 if let uuid = likeVM.profile?.uuid{
                     VStack {
                         HStack {
-                            Image(likeVM.profile?.profileImage ?? "squareTwoS")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 120, height: 120)
-                                .clipped()
-                                .cornerRadius(10)
-                                .padding(.top, 30)
+                            if let imageName = reel?.creatorProfileImage {
+                                CreatorProfileImageView(creatorProfileImage: imageName)
+                                    .scaledToFill()
+                                    .frame(width: 120, height: 120)
+                                    .clipped()
+                                    .cornerRadius(10)
+                                    .padding(.top, 30)
+                            }else{
+                                Image("ImageCP")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 120, height: 120)
+                                    .clipped()
+                                    .cornerRadius(10)
+                                    .padding(.top, 30)
+                                
+                            }
                         }
                         HStack{
                             Text(likeVM.profile?.username ?? "John ")

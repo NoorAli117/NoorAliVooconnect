@@ -205,7 +205,7 @@
                                             <action selector="shutterButtonAction:" destination="pTX-gY-Lx2" eventType="touchUpInside" id="rUb-FD-olK"/>
                                         </connections>
                                     </button>
-                                    <view userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deJ-bT-2Mq" customClass="ShutterView" customModule="Vooconnect" customModuleProvider="target">
+                                    <view hidden="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deJ-bT-2Mq" customClass="ShutterView" customModule="Vooconnect" customModuleProvider="target">
                                         <rect key="frame" x="173.5" y="164" width="67" height="67"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CameraClick" translatesAutoresizingMaskIntoConstraints="NO" id="MMJ-8U-XCp">
@@ -1182,14 +1182,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdK-r7-iuS" customClass="SplashView" customModule="Vooconnect" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="earthvoo.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Z7X-jK-vm2">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="earthvoo.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Z7X-jK-vm2">
                                         <rect key="frame" x="147" y="358" width="120" height="120"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="90U-6Q-5ds"/>
                                             <constraint firstAttribute="height" constant="120" id="HGu-WY-eDS"/>
                                         </constraints>
                                     </imageView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Please Wait" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKb-CQ-py1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Please Wait" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKb-CQ-py1">
                                         <rect key="frame" x="118.5" y="505" width="177.5" height="27"/>
                                         <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="18"/>
                                         <color key="textColor" red="0.16078431369999999" green="0.20392156859999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

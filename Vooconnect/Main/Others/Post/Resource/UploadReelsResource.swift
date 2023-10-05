@@ -53,6 +53,7 @@ class UploadReelsResource {
 //            print(String(data: httpData!, encoding: .utf8)!)
             if let data = httpData {
 
+                print(Data(data))
                 do {
                             let data = try? JSONDecoder().decode(UploadRes.self, from: data)
                     if let data {
@@ -69,6 +70,18 @@ class UploadReelsResource {
 
                             let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
                             print("THE reelsSize is=======", reelsSize)
+                            
+                            let thumbnailName = data.data.first?.thumbnails ?? ""
+                            UserDefaults.standard.set(name, forKey: "thumbnails")
+
+                            let sizeThumbsize = data.data.first?.thumbsize ?? ""
+                            UserDefaults.standard.set(size, forKey: "thumbsize")
+
+                            let thumbnails = UserDefaults.standard.string(forKey: "thumbnails") ?? ""
+                            print("THE thumbnails is======", reelsName )
+
+                            let thumbsize = UserDefaults.standard.string(forKey: "thumbsize") ?? ""
+                            print("THE thumbsize is=======", reelsSize)
                             complitionHandler(true, "done")
                         }
                     }else{
@@ -126,12 +139,13 @@ class UploadReelsResource {
 }
 
 struct UploadRes: Codable {
-    let status: Bool
+    let status: Bool?
     let data: [Datum]
 }
 
 struct Datum: Codable {
-    let name, size: String
+    let name, size: String?
+    let thumbnails, thumbsize: String?
 }
 
 struct PostRes: Codable {

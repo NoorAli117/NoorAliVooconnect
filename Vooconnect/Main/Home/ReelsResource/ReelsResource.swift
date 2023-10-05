@@ -17,15 +17,15 @@ class CreatorImageService {
     @Published var image: UIImage? = nil
     
     private var imageSubscription: AnyCancellable?
-    private let allReels: Post
+    private let creatorProfileImage: String
     
-    init(creatorImage: Post) {
-        self.allReels = creatorImage
+    init(creatorImage: String) {
+        self.creatorProfileImage = creatorImage
         getCreatorImage()
     }
     
     private func getCreatorImage() {
-        guard let url = URL(string: getImageVideoBaseURL + (allReels.creatorProfileImage ?? "")) else { return }
+        guard let url = URL(string: getImageVideoBaseURL + "/" + (creatorProfileImage )) else { return }
         
         imageSubscription = NetworkingManager.download(url: url)
             .tryMap({ (data) -> UIImage? in

@@ -159,11 +159,18 @@ struct MusicView: View {
                                     HStack {
                                         VStack{
                                             HStack{
-                                                Image(reel.creatorProfileImage ?? "squareTwoS")
-                                                    .resizable()
-                                                    .scaledToFill()
-                                                    .frame(width: 60, height: 60)
-                                                    .padding(.trailing,20)
+                                                if let creatorImage = reel.creatorProfileImage{
+                                                    CreatorProfileImageView(creatorProfileImage: creatorImage)
+                                                        .scaledToFill()
+                                                        .frame(width: 60, height: 60)
+                                                        .padding(.trailing,20)
+                                                }else{
+                                                    Image("ImageCP")
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 60, height: 60)
+                                                        .padding(.trailing,20)
+                                                }
                                                 VStack(alignment: .leading){
                                                     Text("\((reel.creatorFirstName ?? "John") + " " + (reel.creatorLastName ?? " Devise")) ")
                                                         .font(.custom("Urbanist-Regular", size: 18))
@@ -175,6 +182,7 @@ struct MusicView: View {
                                                 }
                                                 .onTapGesture{
                                                     viewerProfile = true
+                                                    self.reels = reel
                                                 }
                                             }
                                         }
@@ -313,7 +321,7 @@ struct MusicView: View {
             
         } content: {
             if #available(iOS 16.0, *) {
-                ViewerProfileDetailSheet(reelId: reelId, follow: $follow, uuid: $uuid)
+                ViewerProfileDetailSheet(reelId: reelId, follow: $follow, uuid: $uuid, reel: $reels)
                     .presentationDetents([.large,.medium,.height(500)])
             } else {
                 // Fallback on earlier versions

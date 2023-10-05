@@ -2590,22 +2590,18 @@ struct ReelsPlyer: View {
                     if reelsDetail.isLiked == 1{
                         if likeeeeCount == 0{
                             likeAndUnlike = true
-                            likeeeeCount = likeeeeCount + 1
-                            if let likesCount = reelsDetail.likeCount{
+                            likeeeeCount += 1
+                            if let likesCount = reelsDetail.likeCount {
                                 likeCount = likesCount
                             }
-                            if reelsDetail.reactionType == 1{
-                                likeImage = "HeartRedLV"
-                            }else if (reelsDetail.reactionType == 2){
-                                likeImage = "Love"
-                            }else if (reelsDetail.reactionType == 3){
-                                likeImage = "Haha"
-                            }else if (reelsDetail.reactionType == 4){
-                                likeImage = "Sad"
-                            }else if (reelsDetail.reactionType == 5){
-                                likeImage = "Angry"
-                            }else if (reelsDetail.reactionType == 6){
-                                likeImage = "Angry"
+                            switch reelsDetail.reactionType {
+                            case 1: likeImage = "HeartRedLV"
+                            case 2: likeImage = "Love"
+                            case 3: likeImage = "Haha"
+                            case 4: likeImage = "Sad"
+                            case 5: likeImage = "Angry"
+                            case 6: likeImage = "Angry"
+                            default: break
                             }
                         }
                     }
@@ -2781,15 +2777,28 @@ struct ReelsPlyer: View {
                             creatorProfileView.toggle()
                         }label: {
                             HStack(spacing: 10) {
-                                CreatorProfileImageView(allReels: reelsDetail)
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 55, height: 55)
-                                    .cornerRadius(10)
-                                    .background(
+                                if let creatorImage = reelsDetail.creatorProfileImage{
+                                    CreatorProfileImageView(creatorProfileImage: creatorImage)
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 55, height: 55)
+                                        .cornerRadius(10)
+                                        .background(
 
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color.white,lineWidth: 6)
-                                    )
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color.white,lineWidth: 6)
+                                        )
+                                }else{
+                                    Image("ImageCP")
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 55, height: 55)
+                                        .cornerRadius(10)
+                                        .background(
+                                            
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color.white,lineWidth: 6)
+                                        )
+                                    
+                                }
                                 //                                    .clipShape(Circle())
 
                                 VStack(alignment: .leading, spacing: 5) {
@@ -3046,12 +3055,18 @@ struct ReelsPlyer: View {
                 }label: {
                     HStack {
 
-                        //                        Image("musicProfileIcon")
-                        CreatorProfileImageView(allReels: reelsDetail)
-                        //                                    .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 24, height: 24)
-                            .cornerRadius(10)
+                        if let creatorImage = reelsDetail.creatorProfileImage{
+                            CreatorProfileImageView(creatorProfileImage: creatorImage)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 24, height: 24)
+                                .cornerRadius(10)
+                        }else{
+                            Image("ImageCP")
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 24, height: 24)
+                                .cornerRadius(10)
+                            
+                        }
 
                         Image("MusicIcon")
 
@@ -3215,16 +3230,30 @@ struct ReelsPlyer: View {
                     } label: {
                         VStack {
 
-                            CreatorProfileImageView(allReels: reelsDetail)
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 28, height: 28)
-                                .cornerRadius(14)
-                                .background(
+                            if let creatorImage = reelsDetail.creatorProfileImage{
+                                CreatorProfileImageView(creatorProfileImage: creatorImage)
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 28, height: 28)
+                                    .cornerRadius(14)
+                                    .background(
 
-                                    RoundedRectangle(cornerRadius: 14)
-                                        .stroke(Color.white,lineWidth: 1)
-                                )
-                                .offset(y: 3)
+                                        RoundedRectangle(cornerRadius: 14)
+                                            .stroke(Color.white,lineWidth: 1)
+                                    )
+                                    .offset(y: 3)
+                            }else{
+                                Image("ImageCP")
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 28, height: 28)
+                                    .cornerRadius(14)
+                                    .background(
+                                        
+                                        RoundedRectangle(cornerRadius: 14)
+                                            .stroke(Color.white,lineWidth: 1)
+                                    )
+                                    .offset(y: 3)
+                                
+                            }
 
                             Text("")
                                 .font(.custom("Urbanist-Regular", size: 10))

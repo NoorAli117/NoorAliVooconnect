@@ -40,11 +40,18 @@ struct CommentList: View {
             VStack(alignment: .leading) {
             
             HStack {
-                Image(comment.userProfileImage ?? "ImageCP")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 48, height: 48)
-                    .cornerRadius(10)
+                if let userImage = comment.userProfileImage{
+                    CreatorProfileImageView(creatorProfileImage: userImage)
+                        .scaledToFill()
+                        .frame(width: 48, height: 48)
+                        .cornerRadius(10)
+                }else{
+                    Image("ImageCP")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 48, height: 48)
+                        .cornerRadius(10)
+                }
                 
                 //                        ForEach(users, id: \.self){ user in
                 //                            if user.uuid == comment.userUUID {

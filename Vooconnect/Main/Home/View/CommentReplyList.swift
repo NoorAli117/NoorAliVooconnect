@@ -39,11 +39,18 @@ struct CommentReplyList: View {
             HStack {
                 
                 
-                Image(replyToComment.userProfileImage ?? "ImageCP")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 48, height: 48)
-                    .cornerRadius(10)
+                if let userImage = replyToComment.userProfileImage {
+                    CreatorProfileImageView(creatorProfileImage: userImage)
+                        .scaledToFill()
+                        .frame(width: 48, height: 48)
+                        .cornerRadius(10)
+                }else{
+                    Image("ImageCP")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 48, height: 48)
+                        .cornerRadius(10)
+                }
                 
 //                ForEach(users, id: \.self){ user in
                     

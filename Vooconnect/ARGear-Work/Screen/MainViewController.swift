@@ -47,6 +47,7 @@ public final class MainViewController: UIViewController {
     @IBOutlet weak var mainTopFunctionView: MainTopFunctionView!
     @IBOutlet weak var mainBottomFunctionView: MainBottomFunctionView!
     var cameraInfoData: ((_ content: Any) -> Void)?
+    var senderButton: UIButton = UIButton()
     
     private var argObservers = [NSKeyValueObservation]()
     
@@ -495,9 +496,9 @@ extension MainViewController: MainBottomFunctionDelegate {
     }
     
     func videoButtonAction(_ button: UIButton) {
-        if button.tag == 0 {
+        if senderButton.tag == 0 {
             // start record
-            button.tag = 1
+            senderButton.tag = 1
             self.mainTopFunctionView.disableButtons()
             self.arMedia.recordVideoStart { [weak self] recTime in
                 guard let self = self else { return }
@@ -509,7 +510,7 @@ extension MainViewController: MainBottomFunctionDelegate {
         } else {
             // stop record
             ARGLoading.show()
-            button.tag = 0
+            senderButton.tag = 0
             self.mainTopFunctionView.enableButtons()
             self.arMedia.recordVideoStop({ tempFileInfo in
             }) { resultFileInfo in
@@ -551,6 +552,7 @@ extension MainViewController: MainBottomFunctionDelegate {
 
 struct MainViewRepresenter: UIViewControllerRepresentable {
     @ObservedObject var Vm: ViewModel
+    var senderButton: UIButton = UIButton()
     var cameraInfoData: ((_ content: Any) -> Void)?
     func makeUIViewController(context: Context) ->  UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -567,11 +569,11 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
         if let vc = uiViewController as? MainViewController {
             if Vm.cameraChannge  {
                 vc.toggleButtonAction()
-                Vm.cameraChannge = false
             }
-            if Vm.openBeauty  {
+            if Vm.openBeauty {
                 vc.mainBottomFunctionView.bottumButtonAction(index: 0)
                 Vm.openBeauty = false
+                Vm.bottomHide = false
             }
             if Vm.openFilter {
                 vc.mainBottomFunctionView.bottumButtonAction(index: 1)
@@ -593,6 +595,13 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
                 vc.mainBottomFunctionView.bottumButtonAction(index: 3)
                 Vm.openBluge = false
             }
+            if Vm.isRecording {
+                vc.mainBottomFunctionView.shutterButtonAction(vc.senderButton)
+                Vm.isRecording = false
+            }
+//            if !Vm.openBeauty{
+//                Vm.bottomHide = false
+//            }
         }
     }
 }
@@ -605,5 +614,7 @@ class ViewModel: ObservableObject {
     @Published var openBluge = false
     @Published var isVideo = false
     @Published var isPhoto = false
+    @Published var isRecording = false
+    @Published var bottomHide = false
     
 }

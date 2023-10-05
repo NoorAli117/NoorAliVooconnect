@@ -174,13 +174,13 @@ class GetCreatorImageVM: ObservableObject {
     @Published var image: UIImage? = nil
     @Published var isLoading: Bool = false
     
-    private let allReels: Post
+    private let creatorProfileImage: String
     private let dataService: CreatorImageService
     private var cancellables = Set<AnyCancellable>()
     
-    init(allReels: Post) {
-        self.allReels = allReels
-        self.dataService = CreatorImageService(creatorImage: allReels)
+    init(creatorProfileImage: String) {
+        self.creatorProfileImage = creatorProfileImage
+        self.dataService = CreatorImageService(creatorImage: creatorProfileImage)
         self.addSubscribers()
         self.isLoading = true
     }

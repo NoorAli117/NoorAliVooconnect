@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import ARGear
 
 enum MainBottomButtonType : Int {
@@ -54,6 +55,8 @@ class MainBottomFunctionView: UIView {
     @IBOutlet weak var recordTimeLabel: UILabel!
     
     private var argObservers = [NSKeyValueObservation]()
+    
+    @ObservedObject var Vm = ViewModel()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -200,6 +203,7 @@ class MainBottomFunctionView: UIView {
         }
     }
     func closeAll() {
+        Vm.bottomHide = false
         self.beautyView.close()
         self.filterView.close()
         self.contentView.close()
