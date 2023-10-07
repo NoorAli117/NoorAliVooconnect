@@ -48,9 +48,8 @@ public final class MainViewController: UIViewController {
     @IBOutlet weak var mainBottomFunctionView: MainBottomFunctionView!
     var cameraInfoData: ((_ content: Any) -> Void)?
     var senderButton: UIButton = UIButton()
-    
     private var argObservers = [NSKeyValueObservation]()
-    
+    var Vm : ViewModel?
     // MARK: - Lifecycles
     override public func viewDidLoad() {
       super.viewDidLoad()
@@ -489,11 +488,18 @@ extension MainViewController: MainTopFunctionDelegate {
 
 // MARK: - MainBottomFunction Delegate
 extension MainViewController: MainBottomFunctionDelegate {
+    func hideBottomView(isHidden: Bool) {
+        if isHidden == false{
+            Vm!.bottomHide = false
+        }
+    }
+    
     func photoButtonAction(_ button: UIButton) {
         self.arMedia.takePic { image in
             self.photoButtonActionFinished(image: image)
         }
     }
+    
     
     func videoButtonAction(_ button: UIButton) {
         if senderButton.tag == 0 {
@@ -526,7 +532,7 @@ extension MainViewController: MainBottomFunctionDelegate {
         guard let saveImage = image else { return }
         
         self.arMedia.save(saveImage, saved: {
-            self.view.showToast(message: "photo_saved_message".localized(), position: self.toast_main_position)
+            self.view.showToast(message: "photo_video_saved_message".localized(), position: self.toast_main_position)
         }) {
             self.goPreview(content: saveImage)
         }
@@ -536,7 +542,7 @@ extension MainViewController: MainBottomFunctionDelegate {
         guard let info = videoInfo else { return }
         
         self.arMedia.saveVideo(info, saved: {
-            self.view.showToast(message: "video_saved_message".localized(), position: self.toast_main_position)
+            self.view.showToast(message: "photo_video_saved_message".localized(), position: self.toast_main_position)
         }) {
             self.goPreview(content: info)
         }
@@ -552,12 +558,12 @@ extension MainViewController: MainBottomFunctionDelegate {
 
 struct MainViewRepresenter: UIViewControllerRepresentable {
     @ObservedObject var Vm: ViewModel
-    var senderButton: UIButton = UIButton()
     var cameraInfoData: ((_ content: Any) -> Void)?
     func makeUIViewController(context: Context) ->  UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = storyboard.instantiateViewController(identifier: "MainViewController") as? MainViewController {
             vc.cameraInfoData = cameraInfoData
+            vc.Vm = Vm
             return vc
         }
         
@@ -569,11 +575,11 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
         if let vc = uiViewController as? MainViewController {
             if Vm.cameraChannge  {
                 vc.toggleButtonAction()
+                Vm.cameraChannge = false
             }
-            if Vm.openBeauty {
+            if Vm.openBeauty  {
                 vc.mainBottomFunctionView.bottumButtonAction(index: 0)
                 Vm.openBeauty = false
-                Vm.bottomHide = false
             }
             if Vm.openFilter {
                 vc.mainBottomFunctionView.bottumButtonAction(index: 1)
@@ -599,9 +605,6 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
                 vc.mainBottomFunctionView.shutterButtonAction(vc.senderButton)
                 Vm.isRecording = false
             }
-//            if !Vm.openBeauty{
-//                Vm.bottomHide = false
-//            }
         }
     }
 }
@@ -616,5 +619,4 @@ class ViewModel: ObservableObject {
     @Published var isPhoto = false
     @Published var isRecording = false
     @Published var bottomHide = false
-    
 }

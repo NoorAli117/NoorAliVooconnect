@@ -141,16 +141,16 @@ struct DuoView: View{
                 ZStack {
                     HStack {
                         //                        CustomVideoPlayer(player: player)
-                        MainViewRepresenter(Vm: Vm, cameraInfoData: { content in
-                            if let image = content as? UIImage {
-                                print(image)
-                            } else if let videoInfo = content as? [String: Any] {
-                                print(videoInfo)
-                                if let filePath = videoInfo["filePath"] as? URL{
-                                    print(filePath)
-                                }
-                            }
-                        })
+//                        MainViewRepresenter(Vm: Vm, cameraInfoData: { content in
+//                            if let image = content as? UIImage {
+//                                print(image)
+//                            } else if let videoInfo = content as? [String: Any] {
+//                                print(videoInfo)
+//                                if let filePath = videoInfo["filePath"] as? URL{
+//                                    print(filePath)
+//                                }
+//                            }
+//                        })
                     }
                     
                     

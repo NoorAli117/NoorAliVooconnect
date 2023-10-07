@@ -20,6 +20,7 @@ enum MainBottomButtonType : Int {
 protocol MainBottomFunctionDelegate: class {
     func photoButtonAction(_ button: UIButton)
     func videoButtonAction(_ button: UIButton)
+    func hideBottomView(isHidden: Bool)
 }
 
 class MainBottomFunctionView: UIView {
@@ -57,7 +58,6 @@ class MainBottomFunctionView: UIView {
     private var argObservers = [NSKeyValueObservation]()
     
     @ObservedObject var Vm = ViewModel()
-
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -161,6 +161,9 @@ class MainBottomFunctionView: UIView {
     @IBAction func handleTapFrom(_ tap: UITapGestureRecognizer) {
         if tap.state == .ended {
             self.closeBottomFunctions()
+            delegate?.hideBottomView(isHidden: false)
+        }else{
+            delegate?.hideBottomView(isHidden: true)
         }
     }
     
@@ -203,7 +206,6 @@ class MainBottomFunctionView: UIView {
         }
     }
     func closeAll() {
-        Vm.bottomHide = false
         self.beautyView.close()
         self.filterView.close()
         self.contentView.close()
