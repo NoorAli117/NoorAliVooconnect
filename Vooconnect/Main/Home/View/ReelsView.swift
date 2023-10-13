@@ -2569,39 +2569,41 @@ struct ReelsPlyer: View {
                 .edgesIgnoringSafeArea(.all)
             
                 .onAppear {
-                    let user_uuid = reelsDetail.creatorUUID ?? nil
-                    print("user_uuid========",user_uuid as Any)
-                    UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
-                    if let reelURL = reelsDetail.contentURL{
-                        self.urll = reelURL
-                        self.reelDescription = reelsDetail.description ?? ""
-                        print("\(getImageVideoBaseURL + reelURL)")
-                        player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelURL)!)) //<-- Her
-                    }
-//                    likeVM.UserFollowingUsers()
-//                    follow = false
-                    for following in likeVM.followingUsers {
-                        if following.uuid == reelsDetail.creatorUUID {
-                            follow = true
-                            break // Exit the loop if a match is found
+                    DispatchQueue.main.async{
+                        let user_uuid = reelsDetail.creatorUUID ?? nil
+                        print("user_uuid========",user_uuid as Any)
+                        UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
+                        if let reelURL = reelsDetail.contentURL{
+                            self.urll = reelURL
+                            self.reelDescription = reelsDetail.description ?? ""
+                            print("\(getImageVideoBaseURL + reelURL)")
+                            player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelURL)!)) //<-- Her
                         }
-                    }
-                    postID = reelsDetail.postID ?? 0
-                    if reelsDetail.isLiked == 1{
-                        if likeeeeCount == 0{
-                            likeAndUnlike = true
-                            likeeeeCount += 1
-                            if let likesCount = reelsDetail.likeCount {
-                                likeCount = likesCount
+    //                    likeVM.UserFollowingUsers()
+    //                    follow = false
+                        for following in likeVM.followingUsers {
+                            if following.uuid == reelsDetail.creatorUUID {
+                                follow = true
+                                break // Exit the loop if a match is found
                             }
-                            switch reelsDetail.reactionType {
-                            case 1: likeImage = "HeartRedLV"
-                            case 2: likeImage = "Love"
-                            case 3: likeImage = "Haha"
-                            case 4: likeImage = "Sad"
-                            case 5: likeImage = "Angry"
-                            case 6: likeImage = "Angry"
-                            default: break
+                        }
+                        postID = reelsDetail.postID ?? 0
+                        if reelsDetail.isLiked == 1{
+                            if likeeeeCount == 0{
+                                likeAndUnlike = true
+                                likeeeeCount += 1
+                                if let likesCount = reelsDetail.likeCount {
+                                    likeCount = likesCount
+                                }
+                                switch reelsDetail.reactionType {
+                                case 1: likeImage = "HeartRedLV"
+                                case 2: likeImage = "Love"
+                                case 3: likeImage = "Haha"
+                                case 4: likeImage = "Sad"
+                                case 5: likeImage = "Angry"
+                                case 6: likeImage = "Angry"
+                                default: break
+                                }
                             }
                         }
                     }

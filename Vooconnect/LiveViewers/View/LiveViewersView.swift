@@ -562,7 +562,7 @@ struct LiveViewersView: View {
                 }
             }
             .onAppear {
-                cameraModel.getFilterData()
+//                cameraModel.getFilterData()
             }
         }
     }

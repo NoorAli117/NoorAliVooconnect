@@ -48,6 +48,7 @@ struct DuoView: View{
     @State private var beautySheet: Bool = false
     @State private var effectsSheet: Bool = false
     @State private var isShowPopup: Bool = false
+    @State private var previewURL: String = ""
     var toast_main_position = CGPoint(x: 0, y: 0)
     
     @State var player = AVPlayer()
@@ -55,11 +56,13 @@ struct DuoView: View{
     var Vm = ViewModel()
     var cameraInfoData: ((_ content: Any) -> Void)?
     
+    @State private var isProcessing = false
+    @State private var outputURL: URL?
+    
     
     var body: some View {
         
         NavigationView {
-            
             VStack {
                 if self.isShowPopup {
                     GeometryReader { geometry in
@@ -89,9 +92,7 @@ struct DuoView: View{
                 if let url = cameraModel.previewURL ,cameraModel.showPreview {
                     let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
                     NavigationLink(
-                        destination: FinalPreview(
-                            
-                            controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: cameraModel.speed, showPreview: $cameraModel.showPreview,
+                        destination: FinalPreview(controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: cameraModel.speed, showPreview: $cameraModel.showPreview,
                             url: .constant(url))
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
@@ -137,24 +138,59 @@ struct DuoView: View{
                 }
                 .padding(.trailing)
                 
-                
                 ZStack {
-                    HStack {
-                        //                        CustomVideoPlayer(player: player)
-//                        MainViewRepresenter(Vm: Vm, cameraInfoData: { content in
-//                            if let image = content as? UIImage {
-//                                print(image)
-//                            } else if let videoInfo = content as? [String: Any] {
-//                                print(videoInfo)
-//                                if let filePath = videoInfo["filePath"] as? URL{
-//                                    print(filePath)
-//                                }
-//                            }
-//                        })
+                    HStack{
+                        CustomVideoPlayer(player: player)
+                        MainViewRepresenter(Vm: Vm, cameraInfoData: { content in
+                            if let image = content as? UIImage {
+                                print(image)
+                                let videoPath = "output_video.mp4"
+                                // Perform video creation and merging asynchronously
+                                DispatchQueue.global().async {
+                                    camera.createVideoFromImage(image: image, originalSize: image.size, duration: 30.0) { result in
+                                        switch result {
+                                        case .success(let outputURL):
+                                            print("Video export completed successfully.")
+                                            print("Output URL: \(outputURL)")
+                                            
+                                            if let audioURL = URL(string: (cameraModel.songModel?.preview ?? "")!) {
+                                                camera.mergeVideoAndAudio(videoUrl: outputURL, audioUrl: audioURL) { error, url in
+                                                    guard let url = url else {
+                                                        print("Error merging video and audio.")
+                                                        return
+                                                    }
+                                                    print("Video and audio merge completed, new URL: \(url.absoluteString)")
+                                                    DispatchQueue.main.async {
+                                                        self.previewURL = url.absoluteString
+                                                        cameraModel.previewURL = url
+                                                        self.preview.toggle()
+                                                    }
+                                                }
+                                            } else {
+                                                DispatchQueue.main.async {
+                                                    self.previewURL = outputURL.absoluteString
+                                                    cameraModel.previewURL = outputURL
+                                                    self.preview.toggle()
+                                                }
+                                            }
+                                            
+                                        case .failure(let error):
+                                            print("Video export failed with error: \(error.localizedDescription)")
+                                        }
+                                    }
+                                }
+                            } else if let videoInfo = content as? [String: Any] {
+                                print(videoInfo)
+                                if let filePath = videoInfo["filePath"] as? URL{
+                                    print(filePath)
+                                    previewURL = filePath.absoluteString
+                                    cameraModel.previewURL = filePath
+                                }
+                            }
+                        }, height: 200)
+                        .clipShape(RoundedRectangle(cornerRadius: 0, style: .continuous))
                     }
-                    
-                    
-                    
+                    .frame(height: 300)
                     if timerRunning == true {
                         
                         Text("\(countdownText)")
@@ -162,7 +198,6 @@ struct DuoView: View{
                             .padding()
                             .onReceive(timer) { _ in
                                 if countdownText < countdownTimer && timerRunning {
-                                    countdownTimer += 1
                                     countdownText += 1
                                 } else {
                                     timerRunning = false
@@ -171,303 +206,157 @@ struct DuoView: View{
                             }
                             .font(.system(size: 40, weight: .bold))
                     }
+                    
                     // MARK: Controls
                     ZStack{
+                        
+                        
                         VStack(alignment: .leading) {
-                            
-                            VStack {
-                                
-                                VStack {
-                                    
-                                    VStack(spacing: 12) {
-                                        
-                                        VStack {
-                                            
-                                            
-                                            Button {
-                                                //                                                    cameraFlip.toggle()
-                                                //                                                    print("Flip===========")
-                                                //                                                    if self.cameraFlip == true {
-                                                //                                                        self.cameraModel.isBackCamera = true
-                                                //                                                        cameraModel.switchCamera()
-                                                //                                                    } else {
-                                                //                                                        self.cameraModel.isBackCamera = false
-                                                //                                                        flash = false
-                                                //                                                        self.cameraModel.checkPermission(isBackCamera: self.cameraModel.isBackCamera)
-                                                //                                                    }
-                                                Vm.cameraChannge = true
-                                                
-                                            } label: {
-                                                VStack{
-                                                    Text("Flip")
-                                                        .font(.custom("Urbanist-Regular", size: 10))
-                                                        .foregroundColor(cameraFlip ? ColorsHelper.deepPurple : .white)
-                                                        .padding(.bottom, -5)
-                                                    Image(cameraFlip ? "FlipCameraPurple" :"CameraFlip2") //FlipCameraPurple
-                                                }
-                                                
-                                            }
-                                            
-                                        }
-                                        
-                                        VStack {
-                                            
-                                            Text("Flash")
-                                                .font(.custom("Urbanist-Regular", size: 10))
-                                                .foregroundColor(.white)
-                                                .padding(.bottom, -5)
-                                            Button {
-                                                if self.cameraModel.isBackCamera == false {
-                                                    flash.toggle()
-                                                    self.cameraModel.toggleFlash()
-                                                } else {
-                                                    print("Flash===========")
-                                                }
-                                                
-                                            } label: {
-                                                Image(flash ? "Flash2" : "Flash3") //Flash3
-                                            }
-                                            
-                                        }
-                                        
-                                        VStack {
-                                            
-                                            Text("Timer")
-                                                .font(.custom("Urbanist-Regular", size: 10))
-                                                .foregroundColor(.white)
-                                                .padding(.bottom, -5)
-                                            Button {
-                                                print("Timer===========")
-                                                //                                                    countdownTimer = 7
-                                                
-                                                timerImage = true
-                                                
-                                                if countdownTimer == 0 {
-                                                    countdownTimer = 3
-                                                    countdownTimerText = 3
-                                                } else if countdownTimer == 3 {
-                                                    countdownTimer = 5
-                                                    countdownTimerText = 5
-                                                } else if countdownTimer == 5 {
-                                                    countdownTimer = 10
-                                                    countdownTimerText = 10
-                                                } else if countdownTimer == 10 {
-                                                    countdownTimer = 15
-                                                    countdownTimerText = 15
-                                                } else if countdownTimer == 15 {
-                                                    countdownTimer = 20
-                                                    countdownTimerText = 20
-                                                } else if countdownTimer == 20 {
-                                                    countdownTimer = 25
-                                                    countdownTimerText = 25
-                                                } else if countdownTimer == 25 {
-                                                    countdownTimer = 30
-                                                    countdownTimerText = 30
-                                                } else {
-                                                    countdownTimer = 0
-                                                    countdownTimerText = 0
-                                                }
-                                                countdownTimer2 = countdownTimer
-                                                
-                                            } label: {
-                                                //                                            VStack {
-                                                Image(timerImage ? "TimerPurple" : "Timer2") // TimerPurple
-                                                    .overlay {
-                                                        Circle()
-                                                            .strokeBorder(.white, lineWidth: 1)
-                                                            .frame(width: 23, height: 23)
-                                                            .background(Circle().fill(LinearGradient(colors: [
-                                                                Color("GradientOne"),
-                                                                Color("GradientTwo"),
-                                                            ], startPoint: .top, endPoint: .bottom)
-                                                            ))
-                                                            .overlay {
-                                                                //                                                                    Text("5")
-                                                                Text("\(countdownTimerText)")
-                                                                    .foregroundColor(.white)
-                                                                    .font(.custom("Urbanist-Bold", size: 8))
-                                                            }
-                                                            .offset(x: 10, y: 13)
-                                                    }
-                                                
-                                            }
-                                            
-                                        }
-                                        
-                                        VStack {
-                                            
-                                            Text("Duration")
-                                                .font(.custom("Urbanist-Regular", size: 10))
-                                                .foregroundColor(.white)
-                                                .padding(.bottom, -5)
-                                            Button {
-                                                print("Duration2===========")
-                                                durationImage = true
-                                                //                                                    print(cameraModel.maxDuration)
-                                                if cameraModel.maxDuration == 10 {
-                                                    cameraModel.maxDuration = 20
-                                                } else if cameraModel.maxDuration == 20 {
-                                                    cameraModel.maxDuration = 30
-                                                } else if cameraModel.maxDuration == 30 {
-                                                    cameraModel.maxDuration = 60
-                                                } else if cameraModel.maxDuration == 60 {
-                                                    cameraModel.maxDuration = 90
-                                                } else if cameraModel.maxDuration == 90 {
-                                                    cameraModel.maxDuration = 120
-                                                } else {
-                                                    cameraModel.maxDuration = 10
-                                                }
-                                                
-                                            } label: {
-                                                Image(durationImage ? "DurationPurple" : "Duration2")
-                                                    .overlay {
-                                                        Circle()
-                                                            .strokeBorder(.white, lineWidth: 1)
-                                                            .frame(width: 23, height: 23)
-                                                            .background(Circle().fill(LinearGradient(colors: [
-                                                                Color("GradientOne"),
-                                                                Color("GradientTwo"),
-                                                            ], startPoint: .top, endPoint: .bottom)
-                                                            ))
-                                                            .overlay {
-                                                                Text("\(Int(cameraModel.maxDuration))")
-                                                                    .foregroundColor(.white)
-                                                                    .font(.custom("Urbanist-Bold", size: 8))
-                                                            }
-                                                            .offset(x: 10, y: 13)
-                                                    }
-                                            }
-                                            
-                                        }
-                                        
-                                    }
-                                    .padding(.bottom, 12)
-                                    
-                                    VStack(spacing: 12) {
-                                        
-                                        VStack {
-                                            
-                                            Text("Speed")
-                                                .font(.custom("Urbanist-Regular", size: 10))
-                                                .foregroundColor(.white)
-                                                .padding(.bottom, -5)
-                                            Button {
-                                                switch(cameraModel.speed)
-                                                {
-                                                case 0.25 : cameraModel.speed = 0.5
-                                                case 0.5 : cameraModel.speed = 1.0
-                                                case 1.0 : cameraModel.speed = 2.0
-                                                case 2.0 : cameraModel.speed = 3.0
-                                                default : cameraModel.speed = 0.25
-                                                }
-                                                print("speed: " + cameraModel.speed.description)
-                                                
-                                            } label: {
-                                                Image("Speed2")
-                                                    .overlay {
-                                                        Circle()
-                                                            .strokeBorder(.white, lineWidth: 1)
-                                                            .frame(width: 23, height: 23)
-                                                            .background(Circle().fill(LinearGradient(colors: [
-                                                                Color("GradientOne"),
-                                                                Color("GradientTwo"),
-                                                            ], startPoint: .top, endPoint: .bottom)
-                                                            ))
-                                                            .overlay {
-                                                                Text(
-                                                                    cameraModel.speed < 1 ?
-                                                                    "\(String(format: "%.2f", cameraModel.speed))":
-                                                                        "\(Int(cameraModel.speed))")
-                                                                .foregroundColor(.white)
-                                                                .font(.custom("Urbanist-Bold", size: 8))
-                                                            }
-                                                            .offset(x: 10, y: 13)
-                                                    }
-                                            }
-                                            
-                                        }
-                                        .padding(.bottom, 6)
-                                        
-                                        VStack {
-                                            
-                                            Text("Add Sound")
-                                                .font(.custom("Urbanist-Regular", size: 10))
-                                                .foregroundColor(.white)
-                                                .padding(.bottom, -5)
-                                            Button {
-                                                if(cameraModel.songModel != nil)
-                                                {
-                                                    cameraModel.songModel = nil
-                                                }
-                                                flash = false
-                                                soundView.toggle()
-                                                print("AddSound2===========")
-                                            } label: {
-                                                if(cameraModel.songModel == nil)
-                                                {
-                                                    Image("AddSound2")
-                                                }else
-                                                {
-                                                    Image("AddSound2")
-                                                }
-                                                
-                                            }
-                                            
-                                        }
-                                        
-                                        VStack {
-                                            
-                                            Text("Beauty")
-                                                .font(.custom("Urbanist-Regular", size: 10))
-                                                .foregroundColor(.white)
-                                                .padding(.bottom, -5)
-                                            Button {
-                                                print("Beauty2===========")
-                                                //                                                    beautySheet.toggle()
-                                                Vm.openBeauty = true
-                                                //                                                    isShowPopup.toggle()
-                                            } label: {
-                                                Image("Beauty2")
-                                            }
-                                            
-                                        }
-                                        
-                                        VStack {
-                                            
-                                            Text("Filter")
-                                                .font(.custom("Urbanist-Regular", size: 10))
-                                                .foregroundColor(.white)
-                                                .padding(.bottom, -5)
-                                            Button {
-                                                //                                                    filersSheet.toggle()
-                                                Vm.openFilter = true
-                                                print("Filter2===========")
-                                                
-                                            } label: {
-                                                Image("Filter2")
-                                            }
-                                            
-                                        }
-                                        
-                                    }
+                            if !Vm.bottomHide {
+                                Button {
+                                    Vm.isVideo = true
+                                    clickPhoto = false
+                                } label: {
+                                    Image(clickPhoto ? "VideoUnSlected" : "VideoSlected")
                                 }
-                                .padding(.vertical)
-                                .padding(.horizontal, 10)
-                                .background(
-                                    LinearGradient(colors: [ // GraySix
-                                        Color("GrayFour"),    //  GrayFive // GrayFour // GrayFourR
-                                        Color("GrayFour"),
-                                                           ], startPoint: .leading, endPoint: .trailing)) // GrayOneC
-                                .cornerRadius(50)
                                 
+                                HStack {
+                                    
+                                    Button {
+                                        //                                    clickPhoto = true
+                                        //                                    self.cameraModel.previewURL = nil
+                                        Vm.isPhoto = true
+                                        clickPhoto = true
+                                    } label: {
+                                        Image(clickPhoto ? "PhotoSlected" : "PhotoUnSlected") // PhotoSlected
+                                    }
+                                    
+                                    Spacer()
+                                    Spacer()
+                                    
+                                    if Vm.isPhoto{
+                                        Button {
+                                            print("Photo click")
+                                            timerRunning = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
+                                                timerRunning = false
+                                                Vm.isRecording = true
+                                                countdownText = 0
+                                            }
+                                        } label: {
+                                            Image("CameraClick")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 58, height: 58)
+                                                .offset(x: 10)
+                                                .overlay(
+                                                    CircularProgressCameraView(progress: progress)
+                                                        .frame(height: 54)
+                                                        .offset(x: 10)
+                                                )
+                                        }
+                                        .padding(.leading, 8) // 8
+                                        .offset(x: -10)
+                                    }else{
+                                        Button {
+                                            
+                                            print("Video click")
+                                            previewURL = ""
+                                            if countdownText == 0{
+                                                timerRunning = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
+                                                    timerRunning = false
+                                                    Vm.isRecording = true
+                                                }
+                                            }else{
+                                                Vm.isRecording = true
+                                                countdownText = 0
+                                            }
+                                        } label: {
+                                            Image("CameraRecording")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 58, height: 58)
+                                                .offset(x: 10)
+                                                .overlay(
+                                                    CircularProgressCameraView(progress: progress)
+                                                        .frame(height: 54)
+                                                        .offset(x: 10)
+                                                )
+                                        }
+                                        .padding(.leading, 8) // 8
+                                        .offset(x: -10)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    
+                                    // Preview Button
+                                    if(previewURL != "") {
+                                        Button {
+                                            if let videoURL = URL(string: previewURL){
+                                                
+                                                if ((cameraModel.songModel?.preview) != nil){
+                                                    self.cameraModel.removeAudioFromVideo(videoURL: videoURL){ url, error in
+                                                        if let error = error {
+                                                            print("Failed to remove audio: \(error.localizedDescription)")
+                                                        } else {
+                                                            cameraModel.previewURL = url
+                                                            print("Audio removed video, new url: " + url!.absoluteString)
+                                                            DispatchQueue.main.async {
+                                                                print(("video recorded"))
+                                                                countdownTimer = self.countdownTimer2
+                                                                cameraModel.showPreview.toggle()
+                                                                preview.toggle()
+                                                            }
+                                                        }
+                                                    }
+                                                }else {
+                                                    DispatchQueue.main.async {
+                                                        print(("video recorded"))
+                                                        print("previewURL: \(previewURL)")
+                                                        countdownTimer = self.countdownTimer2
+                                                        cameraModel.showPreview = true
+                                                        preview = true
+                                                    }
+                                                }
+                                            }
+                                        } label: {
+                                            Group{
+                                                Label {
+                                                    Image(systemName: "chevron.right")
+                                                        .font(.callout)
+                                                } icon: {
+                                                    Text("Preview")
+                                                }
+                                                .foregroundColor(.black)
+                                            }
+                                            .padding(.horizontal,20)
+                                            .padding(.vertical,8)
+                                            .background{
+                                                Capsule()
+                                                    .fill(.white)
+                                            }
+                                        }
+                                        //                                    .opacity((cameraModel.previewURL == nil && cameraModel.recordedURLs.isEmpty) || cameraModel.isRecording ? 0 : 1)
+                                    }else{
+                                        HStack{Text("                         ")}
+                                    }
+                                    
+                                    
+                                }
                             }
-                            .frame(maxWidth: .infinity,alignment: .trailing)
-                            .padding(.bottom, 50)
-                            .padding(.trailing, 6)
-                            
                         }
-                        .padding(.leading)
-                        .padding(.bottom)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+//                        .navigationDestination(isPresented: $preview){
+//                            if let url = URL(string: previewURL) {
+//                                let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
+//                                FinalPreview(controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, showPreview: $cameraModel.showPreview,
+//                                             url: .constant(url))
+//                            }
+//                            EmptyView()
+//                        }
                     }
                     .frame(maxHeight: .infinity,alignment: .bottom)
                     .padding(.bottom,10)
@@ -489,6 +378,17 @@ struct DuoView: View{
                     .opacity(!cameraModel.recordedURLs.isEmpty && cameraModel.previewURL != nil && !cameraModel.isRecording ? 1 : 0)
                     
                     
+                    //                    if cameraModel.isRecording {
+                    //                        Text("Recording")
+                    //                            .font(.custom("Urbanist-Regular", size: 14))
+                    //                            .foregroundColor(.white)
+                    //                            .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .top)
+                    //                            .padding(.top, 40)
+                    //                    } else {
+                    //
+                    //                    }
+                    //                        .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .top)
+                    
                 }
                 .padding(.top, -10)
                 
@@ -508,6 +408,7 @@ struct DuoView: View{
                     Button {
                         //                        effectsSheet.toggle()
                         Vm.openCategory = true
+                        Vm.bottomHide = true
                     } label: {
                         Image("CameraEffact")
                     }
@@ -543,6 +444,20 @@ struct DuoView: View{
         
         
     }
+    func runFFmpegCommand(originalVideo: String, newVideo: URL, outputUrl: @escaping (URL) -> Void) {
+            let outputPath = FileManager.default.temporaryDirectory.appendingPathComponent("output.mp4")
+
+            let leftVideoURL = originalVideo // Use the provided video URL directly
+            let rightVideoURL = newVideo
+
+            // Execute the FFmpeg command
+            FFmpegHelper.runFFmpegCommand(leftVideoPath: leftVideoURL, rightVideoPath: rightVideoURL, outputUrl: outputPath) { success in
+                if success {
+                    outputUrl(outputPath)
+                }
+            }
+        }
+
     func simulateVideoProgress() {
         let stepFrequency = 13.899 // Number of steps per second (adjust as desired)
         let totalProgressSteps = cameraModel.maxDuration * stepFrequency

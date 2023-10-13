@@ -32,6 +32,20 @@ struct SoundEditView: View {
     @Binding var speed: Float
     var callWhenBack : () -> ()
     
+    var btnBack : some View { Button(action: {
+        presentationMode.wrappedValue.dismiss()
+        playerVM.player.pause()
+        cameraModel.previewURL = postModel.contentUrl
+        self.callWhenBack()
+            }) {
+                HStack {
+                Image("BackButtonWhite") // set image here
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
+                }
+            }
+        }
+    
     var body: some View{
         
         NavigationLink(destination: SoundsView(
@@ -43,8 +57,6 @@ struct SoundEditView: View {
             .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $soundView) {
                 EmptyView()
             }
-        NavigationView{
-            
             ZStack(alignment: .top){
                 Color.black
                     .edgesIgnoringSafeArea(.all)
@@ -110,16 +122,15 @@ struct SoundEditView: View {
                     Spacer()
                     
                 }
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: backButton)
             }
-        }
         .onAppear {
             playerVM.player.rate = speed
             self.playerVM.isPlaying = true
             self.audioPlayerVM.isPlaying = true
             soundsViewBloc.loadSongInit()
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: btnBack)
         
     }
     
@@ -267,72 +278,6 @@ struct SoundEditView: View {
     
     
     
-    var backButton: some View {
-        HStack{
-            Button(action: {
-                // Handle back button action here
-                print("back")
-                presentationMode.wrappedValue.dismiss()
-                playerVM.player.pause()
-                cameraModel.previewURL = postModel.contentUrl
-                self.callWhenBack()
-            }) {
-                Image("BackButtonWhite")
-                //                Text("Back")
-            }
-            Spacer()
-            Button {
-                if let songURL = cameraModel.songModel?.preview{
-                    do {
-                        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-                        
-                        removeAudioFromVideo(videoURL: postModel.contentUrl!) { outputURL, error in
-                            if let error = error {
-                                print("Failed to remove audio: \(error.localizedDescription)")
-                            } else {
-                                print("Audio removed successfully.")
-                                DispatchQueue.main.async {
-                                    let audioUrlPath = songURL
-                                    print("Audio URL Path: \(audioUrlPath)")
-                                    let videoUrlPath = outputURL?.path
-                                    print("Video URL Path: \(videoUrlPath ?? "")")
-                                    
-                                    mergeAudioToVideo(sourceAudioPath: audioUrlPath, sourceVideoPath: videoUrlPath!) { url, error in
-                                        if let error = error {
-                                            print("Error merging audio and video: \(error.localizedDescription)")
-                                        } else if let mergedURL = url {
-                                            self.outputUrl = mergedURL
-                                            print("Merged audio and video URL: \(mergedURL)")
-                                            postModel.contentUrl = mergedURL
-                                            print("New URL: \(String(describing: postModel.contentUrl))")
-                                            playerVM.reset(videoUrl: mergedURL)
-                                            isButton = true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        print("Recording playback started.")
-                    } catch {
-                        print("Failed to play the recording: \(error.localizedDescription)")
-                    }
-                    
-                }
-            } label: {
-                RoundedRectangle(cornerRadius: 23)
-                    .fill(LinearGradient(colors: [
-                        Color("buttionGradientTwo"),
-                        Color("buttionGradientOne"),
-                    ], startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .frame(width: 98, height: 46)
-                    .overlay (
-                        Text("Done")
-                            .foregroundColor(.white)
-                    )
-            }
-        }
-    }
 }
 class AudioCaptureDelegate: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
     private let sampleBufferHandler: (CMSampleBuffer) -> Void

@@ -58,7 +58,6 @@ struct CustomeCameraHome: View {
     
     var body: some View {
         
-        NavigationStack {
             
             VStack {
                 if self.isShowPopup {
@@ -86,23 +85,6 @@ struct CustomeCameraHome: View {
                     }
                 }
                 
-                if let url = URL(string: previewURL) {
-                    let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
-                    NavigationLink(
-                        destination: FinalPreview(
-                            
-                            controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, showPreview: $cameraModel.showPreview,
-                            url: .constant(url))
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                        
-                        ,
-                        isActive: $preview) {
-                            EmptyView()
-                        }
-                    
-                }
-                
                 NavigationLink(destination: AllMediaView(callback: {val in
                     //                    self.photos = false
                     self.cameraModel.previewURL = val.url
@@ -125,6 +107,13 @@ struct CustomeCameraHome: View {
                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $soundView) {
                         EmptyView()
                     }
+                if let url = URL(string: previewURL){
+                    let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
+                    NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, showPreview: $cameraModel.showPreview, url: .constant(url))
+                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $preview) {
+                            EmptyView()
+                        }
+                }
                 
                 HStack {
                     Spacer()
@@ -143,7 +132,40 @@ struct CustomeCameraHome: View {
                         if let image = content as? UIImage {
                             print(image)
                             let videoPath = "output_video.mp4"
-                            cameraModel.writeImagesAsMovie(allImages: [image], videoPath: videoPath, videoSize: image.size, videoFPS: 30)
+                            // Perform video creation and merging asynchronously
+                            DispatchQueue.global().async {
+                                camera.createVideoFromImage(image: image, originalSize: image.size, duration: 30.0) { result in
+                                    switch result {
+                                    case .success(let outputURL):
+                                        print("Video export completed successfully.")
+                                        print("Output URL: \(outputURL)")
+                                        
+                                        if let audioURL = URL(string: (cameraModel.songModel?.preview ?? "")!) {
+                                            camera.mergeVideoAndAudio(videoUrl: outputURL, audioUrl: audioURL) { error, url in
+                                                guard let url = url else {
+                                                    print("Error merging video and audio.")
+                                                    return
+                                                }
+                                                print("Video and audio merge completed, new URL: \(url.absoluteString)")
+                                                DispatchQueue.main.async {
+                                                    self.previewURL = url.absoluteString
+                                                    cameraModel.previewURL = url
+                                                    self.preview.toggle()
+                                                }
+                                            }
+                                        } else {
+                                            DispatchQueue.main.async {
+                                                self.previewURL = outputURL.absoluteString
+                                                cameraModel.previewURL = outputURL
+                                                self.preview.toggle()
+                                            }
+                                        }
+                                        
+                                    case .failure(let error):
+                                        print("Video export failed with error: \(error.localizedDescription)")
+                                    }
+                                }
+                            }
                         } else if let videoInfo = content as? [String: Any] {
                             print(videoInfo)
                             if let filePath = videoInfo["filePath"] as? URL{
@@ -152,7 +174,7 @@ struct CustomeCameraHome: View {
                                 cameraModel.previewURL = filePath
                             }
                         }
-                    })
+                    }, height: 800)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .padding(.top,10)
                     .padding(.bottom,30)
@@ -226,7 +248,6 @@ struct CustomeCameraHome: View {
                                             }
                                             
                                             VStack {
-                                                
                                                 Text("Timer")
                                                     .font(.custom("Urbanist-Regular", size: 10))
                                                     .foregroundColor(.white)
@@ -778,9 +799,13 @@ struct CustomeCameraHome: View {
                                     
                                     if Vm.isPhoto{
                                         Button {
-                                            
                                             print("Photo click")
-                                            Vm.isRecording = true
+                                            timerRunning = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
+                                                timerRunning = false
+                                                Vm.isRecording = true
+                                                countdownText = 0
+                                            }
                                         } label: {
                                             Image("CameraClick")
                                                 .resizable()
@@ -799,8 +824,17 @@ struct CustomeCameraHome: View {
                                         Button {
                                             
                                             print("Video click")
-                                            Vm.isRecording = true
                                             previewURL = ""
+                                            if countdownText == 0{
+                                                timerRunning = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
+                                                    timerRunning = false
+                                                    Vm.isRecording = true
+                                                }
+                                            }else{
+                                                Vm.isRecording = true
+                                                countdownText = 0
+                                            }
                                         } label: {
                                             Image("CameraRecording")
                                                 .resizable()
@@ -825,22 +859,22 @@ struct CustomeCameraHome: View {
                                         Button {
                                             if let videoURL = URL(string: previewURL){
                                                 
-//                                                if ((cameraModel.songModel?.preview) != nil){
-//                                                    self.cameraModel.removeAudioFromVideo(videoURL: videoURL){url, error in
-//                                                        if let error = error {
-//                                                            print("Failed to remove audio: \(error.localizedDescription)")
-//                                                        } else {
-//                                                            cameraModel.previewURL = url
-//                                                            print("Audio removed video, new url: " + url!.absoluteString)
-//                                                            DispatchQueue.main.async {
-//                                                                print(("video recorded"))
-//                                                                countdownTimer = self.countdownTimer2
-//                                                                cameraModel.showPreview.toggle()
-//                                                                preview.toggle()
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                } else {
+                                                if ((cameraModel.songModel?.preview) != nil){
+                                                    self.cameraModel.removeAudioFromVideo(videoURL: videoURL){ url, error in
+                                                        if let error = error {
+                                                            print("Failed to remove audio: \(error.localizedDescription)")
+                                                        } else {
+                                                            cameraModel.previewURL = url
+                                                            print("Audio removed video, new url: " + url!.absoluteString)
+                                                            DispatchQueue.main.async {
+                                                                print(("video recorded"))
+                                                                countdownTimer = self.countdownTimer2
+                                                                cameraModel.showPreview.toggle()
+                                                                preview.toggle()
+                                                            }
+                                                        }
+                                                    }
+                                                }else {
                                                     DispatchQueue.main.async {
                                                         print(("video recorded"))
                                                         print("previewURL: \(previewURL)")
@@ -848,7 +882,7 @@ struct CustomeCameraHome: View {
                                                         cameraModel.showPreview = true
                                                         preview = true
                                                     }
-//                                                }
+                                                }
                                             }
                                         } label: {
                                             Group{
@@ -878,6 +912,14 @@ struct CustomeCameraHome: View {
                         }
                         .padding(.horizontal)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+//                        .navigationDestination(isPresented: $preview){
+//                            if let url = URL(string: previewURL) {
+//                                let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
+//                                FinalPreview(controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, showPreview: $cameraModel.showPreview,
+//                                             url: .constant(url))
+//                            }
+//                            EmptyView()
+//                        }
                     }
                     .frame(maxHeight: .infinity,alignment: .bottom)
                     .padding(.bottom,10)
@@ -969,8 +1011,7 @@ struct CustomeCameraHome: View {
                 //                }
                 
                 .onAppear{
-                    Vm.isVideo = true
-                    Vm.bottomHide = false
+                    timerRunning = false
                 }
                 
                 // Effects
@@ -989,46 +1030,43 @@ struct CustomeCameraHome: View {
             
             .animation(.easeInOut, value: cameraModel.showPreview)
             .navigationBarHidden(true)
-        }
-        
-        
     }
+
+
+func simulateVideoProgress() {
+    let stepFrequency = 13.899 // Number of steps per second (adjust as desired)
+    let totalProgressSteps = cameraModel.maxDuration * stepFrequency
+    let stepDuration = 1.0 / totalProgressSteps
     
-    
-    func simulateVideoProgress() {
-        let stepFrequency = 13.899 // Number of steps per second (adjust as desired)
-        let totalProgressSteps = cameraModel.maxDuration * stepFrequency
-        let stepDuration = 1.0 / totalProgressSteps
-        
-        DispatchQueue.global(qos: .background).async {
-            var shouldStop = false // Flag to indicate if the progress should be stopped
-            var i = 0.0
-            while i < totalProgressSteps {
-                i += 1.0
-                usleep(useconds_t(stepDuration * 1_000_000)) // Simulating delay in audio progress
-                
-                DispatchQueue.main.async {
-                    if !cameraModel.isRecording {
-                        shouldStop = true // Set the flag to stop the progress
-                    }
-                    
-                    if !shouldStop {
-                        progress = Double(i + 1) / Double(totalProgressSteps)
-                    }
-                    
-                    if shouldStop || i == totalProgressSteps - 1 {
-                        cameraModel.isRecording = false
-                        print("Video Recording completed")
-                        cameraModel.stopRecording()
-                    }
+    DispatchQueue.global(qos: .background).async {
+        var shouldStop = false // Flag to indicate if the progress should be stopped
+        var i = 0.0
+        while i < totalProgressSteps {
+            i += 1.0
+            usleep(useconds_t(stepDuration * 1_000_000)) // Simulating delay in audio progress
+            
+            DispatchQueue.main.async {
+                if !cameraModel.isRecording {
+                    shouldStop = true // Set the flag to stop the progress
                 }
                 
-                if shouldStop {
-                    break // Exit the loop if the progress should be stopped
+                if !shouldStop {
+                    progress = Double(i + 1) / Double(totalProgressSteps)
                 }
+                
+                if shouldStop || i == totalProgressSteps - 1 {
+                    cameraModel.isRecording = false
+                    print("Video Recording completed")
+                    cameraModel.stopRecording()
+                }
+            }
+            
+            if shouldStop {
+                break // Exit the loop if the progress should be stopped
             }
         }
     }
+}
 }
 
 

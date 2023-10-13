@@ -559,10 +559,12 @@ extension MainViewController: MainBottomFunctionDelegate {
 struct MainViewRepresenter: UIViewControllerRepresentable {
     @ObservedObject var Vm: ViewModel
     var cameraInfoData: ((_ content: Any) -> Void)?
+    var height: Double
     func makeUIViewController(context: Context) ->  UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = storyboard.instantiateViewController(identifier: "MainViewController") as? MainViewController {
             vc.cameraInfoData = cameraInfoData
+            vc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: height)
             vc.Vm = Vm
             return vc
         }
@@ -615,7 +617,7 @@ class ViewModel: ObservableObject {
     @Published var openBeauty = false
     @Published var openCategory = false
     @Published var openBluge = false
-    @Published var isVideo = false
+    @Published var isVideo = true
     @Published var isPhoto = false
     @Published var isRecording = false
     @Published var bottomHide = false

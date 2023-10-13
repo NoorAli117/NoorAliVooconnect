@@ -10,9 +10,9 @@ import Foundation
 import ARGear
 
 let API_HOST = "https://apis.argear.io/api/v3/"
-let API_KEY = "1616e326dd38b1a463a36190"
-let API_SECRET_KEY = "a4b1a1edd308a1f1c5e2f8638e2977a6d6bdce77db74690655152b6814d9c62e"
-let API_AUTH_KEY = "U2FsdGVkX1+WLI0fsaKCGuM5PwAtzVWZ4Rs8Nz1yW8L0J8Ss9emVZJpU2qmX9WPK"
+let API_KEY = "b4b1a87674939d6a76a99cfb"
+let API_SECRET_KEY = "ee33adf106b69a5c7f134c044af05ef7ac3dc28d85e50377124545a10b31f0e3"
+let API_AUTH_KEY = "U2FsdGVkX1+vrOWRMSQcgQIbgbdxkVz6fvy6GT+NCIByXFjq8LwJNvjF8V5eZhYYqPj6CoZhVLUOUXdAzzir0w=="
 
 enum APIError: Error {
     case network

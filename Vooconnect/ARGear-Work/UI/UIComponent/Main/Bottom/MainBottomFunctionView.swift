@@ -17,7 +17,7 @@ enum MainBottomButtonType : Int {
     case Bulge = 3
 }
 
-protocol MainBottomFunctionDelegate: class {
+protocol MainBottomFunctionDelegate: AnyObject {
     func photoButtonAction(_ button: UIButton)
     func videoButtonAction(_ button: UIButton)
     func hideBottomView(isHidden: Bool)

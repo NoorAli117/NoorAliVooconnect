@@ -433,36 +433,7 @@ class CameraModelPhoto: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate 
             return
         }
         
-        // Perform video creation and merging asynchronously
-        DispatchQueue.global().async {
-            self.createVideoFromImage(image: image, originalSize: image.size, duration: 30.0) { result in
-                switch result {
-                case .success(let outputURL):
-                    print("Video export completed successfully.")
-                    print("Output URL: \(outputURL)")
-                    
-                    if let audioURL = URL(string: (self.songModel?.preview ?? "")!) {
-                        self.mergeVideoAndAudio(videoUrl: outputURL, audioUrl: audioURL) { error, url in
-                            guard let url = url else {
-                                print("Error merging video and audio.")
-                                return
-                            }
-                            print("Video and audio merge completed, new URL: \(url.absoluteString)")
-                            DispatchQueue.main.async {
-                                self.VideoUrl = url
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.VideoUrl = outputURL
-                        }
-                    }
-                    
-                case .failure(let error):
-                    print("Video export failed with error: \(error.localizedDescription)")
-                }
-            }
-        }
+        
 
     }
     

@@ -17,7 +17,7 @@ import PencilKit
 
 // MARK: Final Video Preview
 struct FinalPreview: View{
-    @Environment(\.presentationMode) var presentaionMode
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject  var navigationModel: NavigationModel
     @State var controller : FinalPreviewController
@@ -65,14 +65,9 @@ struct FinalPreview: View{
     @State var isTapped = false
     @State var generatedImage: UIImage?
     
-    
-    
-//    @State var playermanager = PlayerViewModel()
-
-    
     var body: some View{
+        
         NavigationStack {
-            
             
             GeometryReader{proxy in
                 let size = proxy.size
@@ -80,24 +75,15 @@ struct FinalPreview: View{
                 contentView(size:size)
                     .disabled(true)
                     .onDisappear{
-                        //                        controller.videoPlayer.stopAllProcesses()
-                        print("final preview disappear---------------------")
-                    }
-                    .onAppear {
-                        print("final preview appear----------------")
-                        self.postModel.contentUrl = url
-                        self.postModel.speed = speed
-                        self.postModel.songModel = songModel
-                        controller.loadData(url: url)
-                        controller.audio = URL(string: songModel?.preview ?? "")
-                        print("URL FINAL PREVIEW1: " + url.absoluteString)
+//                        controller.videoPlayer.stopAllProcesses()
+                         print("final preview disappear---------------------")
                     }
                     .onTapGesture {
                         if(controller.isPlaying) {
-                            //                            controller.audioPlayer.pauseAudio()
+//                            controller.audioPlayer.pauseAudio()
                             controller.pause()
                         }else {
-                            //                            controller.audioPlayer.playAudio()
+//                            controller.audioPlayer.playAudio()
                             controller.play()
                         }
                     }
@@ -118,8 +104,8 @@ struct FinalPreview: View{
                                     .font(.body)
                                     .background(Color.black.opacity(0.5))
                                     .foregroundColor(Color.white)
-                                //                                    .offset(y:100)
-                                //                .frame(height:350)
+//                                    .offset(y:100)
+                    //                .frame(height:350)
                                     .truncationMode(.head)
                                     .lineLimit(2)
                                     .padding()
@@ -143,22 +129,22 @@ struct FinalPreview: View{
                                 
                                 Spacer()
                                 
-                                //                                Button {
-                                //                                    let last = drawingDocument.lines.removeLast()
-                                //                                    deletedLines.append(last)
-                                //                                } label: {
-                                //                                    Image(systemName: "arrow.uturn.backward.circle")
-                                //                                        .imageScale(.large)
-                                //                                }.disabled(drawingDocument.lines.count == 0)
-                                //
-                                //                                Button {
-                                //                                    let last = deletedLines.removeLast()
-                                //
-                                //                                    drawingDocument.lines.append(last)
-                                //                                } label: {
-                                //                                    Image(systemName: "arrow.uturn.forward.circle")
-                                //                                        .imageScale(.large)
-                                //                                }.disabled(deletedLines.count == 0)
+//                                Button {
+//                                    let last = drawingDocument.lines.removeLast()
+//                                    deletedLines.append(last)
+//                                } label: {
+//                                    Image(systemName: "arrow.uturn.backward.circle")
+//                                        .imageScale(.large)
+//                                }.disabled(drawingDocument.lines.count == 0)
+//
+//                                Button {
+//                                    let last = deletedLines.removeLast()
+//
+//                                    drawingDocument.lines.append(last)
+//                                } label: {
+//                                    Image(systemName: "arrow.uturn.forward.circle")
+//                                        .imageScale(.large)
+//                                }.disabled(deletedLines.count == 0)
                                 
                                 Button(action: {
                                     markerHeader = false
@@ -188,7 +174,7 @@ struct FinalPreview: View{
                     .overlay(alignment: .topLeading) {
                         Button {
                             showPreview.toggle()
-                            presentaionMode.wrappedValue.dismiss()
+                            presentationMode.wrappedValue.dismiss()
                         } label: {
                             Image("BackButtonWhite")
                                 .frame(width: 40, height: 40)
@@ -223,8 +209,7 @@ struct FinalPreview: View{
                                                 .font(.custom("Urbanist-Medium", size: 12))
                                                 .foregroundColor(ColorsHelper.deepPurple)
                                                 .padding(.top, -5)
-                                        }else
-                                        {
+                                        }else{
                                             Image("addText")
                                             Text("Text")
                                                 .font(.custom("Urbanist-Medium", size: 12))
@@ -258,20 +243,20 @@ struct FinalPreview: View{
                                     }
                                     
                                 }
-                                //                                .alert("Add text", isPresented: $showTextAlert, actions: {
-                                //                                    // Any view other than Button would be ignored
-                                //                                    TextField(
-                                //                                        "Text",
-                                //                                        text: $text,
-                                //                                        onEditingChanged:{val in
-                                //                                            if(!val)
-                                //                                            {
-                                //                                                enableText = true
-                                //                                                showTextAlert = false
-                                //                                            }
-                                //                                        }
-                                //                                    )
-                                //                                })
+//                                .alert("Add text", isPresented: $showTextAlert, actions: {
+//                                    // Any view other than Button would be ignored
+//                                    TextField(
+//                                        "Text",
+//                                        text: $text,
+//                                        onEditingChanged:{val in
+//                                            if(!val)
+//                                            {
+//                                                enableText = true
+//                                                showTextAlert = false
+//                                            }
+//                                        }
+//                                    )
+//                                })
                                 
                                 
                                 Button {
@@ -282,11 +267,11 @@ struct FinalPreview: View{
                                     }else{
                                         showStickerView.toggle()
                                     }
-                                    //                                    controller.addStickerToVide(videoUrl: self.url, callback: {url in
-                                    //                                        self.url = url
-                                    //                                        self.controller.videoPlayer = AVPlayer(url: url)
-                                    //                                        self.controller.play()
-                                    //                                    })
+//                                    controller.addStickerToVide(videoUrl: self.url, callback: {url in
+//                                        self.url = url
+//                                        self.controller.videoPlayer = AVPlayer(url: url)
+//                                        self.controller.play()
+//                                    })
                                 } label: {
                                     if(self.enableSticker)
                                     {
@@ -310,16 +295,16 @@ struct FinalPreview: View{
                                 }
                                 
                                 
-                                //                                Button {
-                                //
-                                //                                } label: {
-                                //                                    Image("PreviewFilter")
-                                //                                }
-                                //                                Text("Filters")
-                                //                                    .font(.custom("Urbanist-Medium", size: 12))
-                                //                                    .foregroundColor(.white)
-                                //                                    .padding(.top, -5)
-                                //
+//                                Button {
+//
+//                                } label: {
+//                                    Image("PreviewFilter")
+//                                }
+//                                Text("Filters")
+//                                    .font(.custom("Urbanist-Medium", size: 12))
+//                                    .foregroundColor(.white)
+//                                    .padding(.top, -5)
+//
                                 Button {
                                     
                                 } label: {
@@ -374,10 +359,20 @@ struct FinalPreview: View{
                                         Text("Adjust")
                                             .font(.custom("Urbanist-Medium", size: 12))
                                             .foregroundColor(.white)
-                                        //                                            .padding(.top, -5)
+//                                            .padding(.top, -5)
                                     }
                                 }
                                 
+                                let audioURL = URL(string: songModel?.preview ?? "")
+//                                let pathUrl = url?.path
+                                let asset = AVURLAsset(url: self.url, options: nil)
+                                let playermanager = PlayerViewModel(videoUrl: self.url, speed: speed)
+                                let audioPlayermanager = AudioPlayerViewModel(videoUrl: audioURL)
+                                
+                                NavigationLink(destination:
+                                                AdjustVideoView(url: self.url, slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, audioPlayerVM: audioPlayermanager, renderUrl: $changeURL, postModel: $postModel, callWhenBack: callWithBack, speed: $speed), isActive: $adjustmentView) {
+                                        EmptyView()
+                                    }
                                 
                                 if(self.postModel.isImageContent() == false)
                                 {
@@ -395,24 +390,24 @@ struct FinalPreview: View{
                                             self.controller.forcePlay()
                                             let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: val.absoluteString)
                                             
-                                            //                                        #if DEBUG
-                                            //                                            self.controller.mergeVideoAndAudio(videoUrl: self.postModel.contentUrl!, audioUrl: self.postModel.audioContentUrl!, completion: {error, url in
-                                            //                                                guard let url = url else {
-                                            //                                                    print("error merging audio")
-                                            //                                                    return
-                                            //                                                }
-                                            //                                                print("merged text to speech with content")
-                                            //                                                loading = false
-                                            //                                                DispatchQueue.main.async {
-                                            //                                                    self.postModel.contentUrl = url
-                                            //                                                    self.controller.setNewUrl(url: url)
-                                            //                                                    self.controller.forcePlay()
-                                            //                                                }
-                                            //                                            })
-                                            //                                        #else
-                                            //                                            self.controller.forcePlay()
-                                            //                                            let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: val.absoluteString)
-                                            //                                        #endif
+    //                                        #if DEBUG
+    //                                            self.controller.mergeVideoAndAudio(videoUrl: self.postModel.contentUrl!, audioUrl: self.postModel.audioContentUrl!, completion: {error, url in
+    //                                                guard let url = url else {
+    //                                                    print("error merging audio")
+    //                                                    return
+    //                                                }
+    //                                                print("merged text to speech with content")
+    //                                                loading = false
+    //                                                DispatchQueue.main.async {
+    //                                                    self.postModel.contentUrl = url
+    //                                                    self.controller.setNewUrl(url: url)
+    //                                                    self.controller.forcePlay()
+    //                                                }
+    //                                            })
+    //                                        #else
+    //                                            self.controller.forcePlay()
+    //                                            let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: val.absoluteString)
+    //                                        #endif
                                         })
                                     } label: {
                                         VStack{
@@ -427,24 +422,28 @@ struct FinalPreview: View{
                                                 .foregroundColor(.white)
                                             
                                             
-                                            //                                            .padding(.top, -5)
+    //                                            .padding(.top, -5)
                                         }
                                     }
                                 }
 //                                let playermanager = PlayerViewModel(videoUrl: url!)
+                                NavigationLink(destination:
+                                                SoundEditView(url: url,playerVM: playermanager, audioPlayerVM: audioPlayermanager, postModel: $postModel, songModel: songModel, speed: $speed, callWhenBack: callWithBack), isActive: $voiceOverView) {
+                                        EmptyView()
+                                    }
                                 
                                 Button {
                                     
                                     voiceOverView.toggle()
                                     
-                                    //                                    if(!isRecording){
-                                    //                                        controller.startRecording()
-                                    //                                    }else
-                                    //                                    {
-                                    //                                        controller.stopRecording()
-                                    //                                        mergeRecordAudioWithVideo()
-                                    //                                    }
-                                    //                                    isRecording.toggle()
+//                                    if(!isRecording){
+//                                        controller.startRecording()
+//                                    }else
+//                                    {
+//                                        controller.stopRecording()
+//                                        mergeRecordAudioWithVideo()
+//                                    }
+//                                    isRecording.toggle()
                                     
                                     
                                 } label: {
@@ -524,7 +523,7 @@ struct FinalPreview: View{
                                                 .foregroundColor(.white)
                                         }
                                         
-                                        //                                            .padding(.top, -5)
+//                                            .padding(.top, -5)
                                     }
                                 }
                                 
@@ -612,7 +611,7 @@ struct FinalPreview: View{
                                                             self.postModel.contentOverlay.append(model!)
                                                         }
                                                     }
-                                                    cameraModel.finalVideoPost = true
+                                                    finalVideoPost.toggle()
                                                 })
                                             loading = true
                                         }
@@ -636,7 +635,7 @@ struct FinalPreview: View{
                                                     self.postModel.contentOverlay.append(model!)
                                                 }
                                             }
-                                            cameraModel.finalVideoPost = true
+                                            finalVideoPost.toggle()
                                         })
                                     loading = true
                                 }
@@ -659,97 +658,81 @@ struct FinalPreview: View{
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 30)
-                        .overlay{
-                            if(showTextAlert){
-                                EditTextView(
-                                    callback: {content,view in
-                                        let model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
-                                        if(model != nil){
-                                            self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
-                                        }
-                                        self.postModel.contentOverlay.append(content)
-                                        textView = view
-                                        self.showTextAlert = false
-                                        self.enableText = true
-                                    },
-                                    cancellCallback:{
-                                        self.showTextAlert = false
-                                        self.enableText = false
-                                    },
-                                    currentContent:self.postModel.getTextOverlayContent
-                                )
-                            }
-                            
-                        }
-                        .overlay{
-                            if(showStickerView){
-                                AddStickerView(callback: {content,stickerName in
-                                    self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.sticker})
-                                    self.stickerTextName = stickerName
-                                    self.postModel.contentOverlay.append(content)
-                                    self.enableSticker = true
-                                    self.showStickerView = false
-                                },
-                                               cancellCallback:{
-                                    self.showStickerView = false
-                                    self.enableSticker = false
-                                }
-                                )
-                                
-                            }
-                        }
-                        .overlay{
-                            if(self.showPrivacySettings)
-                            {
-                                PostVisibilityView(
-                                    currentVisibility: self.postModel.visibility,
-                                    callback:{type in
-                                        self.showPrivacySettings = false
-                                        self.postModel.visibility = type
+                        
+                    }
+                
+                    .overlay{
+                        if(showTextAlert){
+                            EditTextView(
+                                callback: {content,view in
+                                    let model = postModel.contentOverlay.first(where: {val in val.type == TypeOfOverlay.text})
+                                    if(model != nil){
+                                        self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.text})
                                     }
-                                )
-                            }
+                                    self.postModel.contentOverlay.append(content)
+                                    textView = view
+                                    self.showTextAlert = false
+                                    self.enableText = true
+                                },
+                                cancellCallback:{
+                                    self.showTextAlert = false
+                                    self.enableText = false
+                                },
+                                currentContent:self.postModel.getTextOverlayContent
+                            )
                         }
                         
                     }
-                    .navigationDestination(
-                        isPresented: $cameraModel.finalVideoPost) {
-                            FinalVideoToPostView(postModel: self.postModel, renderUrl: postModel.contentUrl)
-                            EmptyView()
+                    .overlay{
+                        if(showStickerView){
+                            AddStickerView(callback: {content,stickerName in
+                                self.postModel.contentOverlay.removeAll(where: {val in val.type == TypeOfOverlay.sticker})
+                                self.stickerTextName = stickerName
+                                self.postModel.contentOverlay.append(content)
+                                self.enableSticker = true
+                                self.showStickerView = false
+                            },
+                                cancellCallback:{
+                                    self.showStickerView = false
+                                    self.enableSticker = false
+                                }
+                            )
+                            
                         }
+                    }
+                    .overlay{
+                        if(self.showPrivacySettings)
+                        {
+                            PostVisibilityView(
+                                currentVisibility: self.postModel.visibility,
+                                callback:{type in
+                                    self.showPrivacySettings = false
+                                    self.postModel.visibility = type
+                                }
+                            )
+                        }
+                    }
                 
-//                        .navigationDestination(
-//                            isPresented: $adjustmentView) {
-//                                let url = self.postModel.contentUrl
-//                                let audioURL = URL(string: songModel?.preview ?? "")
-//                                //                                let pathUrl = url?.path
-//                                let asset = AVURLAsset(url: url!, options: nil)
-//                                let playermanager = PlayerViewModel(videoUrl: url!, speed: speed)
-//                                let audioPlayermanager = AudioPlayerViewModel(videoUrl: audioURL)
-//                                AdjustVideoView(url: url, slider: CustomSlider(start: 1, end: asset.duration.seconds), playerVM: playermanager, audioPlayerVM: audioPlayermanager, renderUrl: $changeURL, postModel: $postModel, callWhenBack: callWithBack, speed: $speed)
-//                                EmptyView()
-//                            }
-                
-//                            .navigationDestination(
-//                                isPresented: $voiceOverView){
-//                                    let url = self.postModel.contentUrl
-//                                    let audioURL = URL(string: songModel?.preview ?? "")
-//                                    //                                let pathUrl = url?.path
-//                                    let asset = AVURLAsset(url: url!, options: nil)
-//                                    let playermanager = PlayerViewModel(videoUrl: url!, speed: speed)
-//                                    let audioPlayermanager = AudioPlayerViewModel(videoUrl: audioURL)
-//                                    SoundEditView(url: url,playerVM: playermanager, audioPlayerVM: audioPlayermanager, postModel: $postModel, songModel: songModel, speed: $speed, callWhenBack: callWithBack)
-//                                    EmptyView()
-//                                }
-                
+                NavigationLink(destination: FinalVideoToPostView(postModel: self.$postModel,renderUrl : self.$renderUrl)
+                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $finalVideoPost) {
+                        EmptyView()
+                    }
                 
             }
             .ignoresSafeArea(.all)
-          
-            
+            .navigationBarBackButtonHidden(true)
         }
-        
+        .onAppear {
+            print("final preview appear----------------")
+            self.postModel.contentUrl = url
+            self.postModel.speed = speed
+            self.postModel.songModel = songModel
+            controller.loadData(url: url)
+            controller.audio = URL(string: songModel?.preview ?? "")
+            print("URL FINAL PREVIEW1: " + url.absoluteString)
+        }
     }
+    
     
     func callWithBack()  {
         if let url = postModel.contentUrl {

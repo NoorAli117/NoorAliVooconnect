@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		027DD3A92AD81ABE000C9CD7 /* FFmpegHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027DD3A82AD81ABE000C9CD7 /* FFmpegHelper.swift */; };
 		040B706F29F90CE400BCCACD /* ProfileViewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B706E29F90CE400BCCACD /* ProfileViewersView.swift */; };
 		040B707129F90D0700BCCACD /* ProfileViewersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B707029F90D0700BCCACD /* ProfileViewersViewModel.swift */; };
 		040B707329F90E4E00BCCACD /* ProfileViewersViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B707229F90E4E00BCCACD /* ProfileViewersViewComponents.swift */; };
@@ -485,6 +486,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		027DD3A82AD81ABE000C9CD7 /* FFmpegHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegHelper.swift; sourceTree = "<group>"; };
 		040B706E29F90CE400BCCACD /* ProfileViewersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersView.swift; sourceTree = "<group>"; };
 		040B707029F90D0700BCCACD /* ProfileViewersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersViewModel.swift; sourceTree = "<group>"; };
 		040B707229F90E4E00BCCACD /* ProfileViewersViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersViewComponents.swift; sourceTree = "<group>"; };
@@ -1053,13 +1055,6 @@
 				0496379329BFB2DD0044DA57 /* CreatorMoreOptionsComponents.swift */,
 			);
 			path = ShareView;
-			sourceTree = "<group>";
-		};
-		049F0C932A3856450072B618 /* Beauty */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Beauty;
 			sourceTree = "<group>";
 		};
 		049F4BC329BBB5E100113EA0 /* Extensions */ = {
@@ -2462,6 +2457,7 @@
 			children = (
 				A98201EE293B0A9A0055CAFD /* ReelsResource.swift */,
 				A9EFE512294D6DC200211382 /* ReelsLikeResource.swift */,
+				027DD3A82AD81ABE000C9CD7 /* FFmpegHelper.swift */,
 			);
 			path = ReelsResource;
 			sourceTree = "<group>";
@@ -2616,7 +2612,6 @@
 		A9B2478C293DC06800B5A233 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				049F0C932A3856450072B618 /* Beauty */,
 				A9B247B1293DD3F900B5A233 /* CustomeCameraHome.swift */,
 				A9B2478D293DC3BB00B5A233 /* CustomeCameraView.swift */,
 				A9C460002949C54400A06896 /* CustomeCameraForPhoto.swift */,
@@ -3484,6 +3479,7 @@
 				A9453E96292B51BA00728A19 /* Reel.swift in Sources */,
 				A94531362914D65F00321407 /* NotificationsView.swift in Sources */,
 				040B707329F90E4E00BCCACD /* ProfileViewersViewComponents.swift in Sources */,
+				027DD3A92AD81ABE000C9CD7 /* FFmpegHelper.swift in Sources */,
 				A9F55828291F9E0300BC6267 /* GenderViewModel.swift in Sources */,
 				042FDD2A29D8CF2E008B81C7 /* DataPersistenceManager.swift in Sources */,
 				04D6393C29F678DF00718FE0 /* GiftRevenueView.swift in Sources */,
@@ -3682,7 +3678,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.fre;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnect.sdkkkk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -3744,7 +3740,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.fre;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vooconnect.sdkkkk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

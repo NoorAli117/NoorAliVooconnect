@@ -16,7 +16,7 @@ struct AdjustVideoView: View {
     @State var url: URL?
     @State private var trimStartPosition: CGFloat = 0
     @State private var trimEndPosition: CGFloat = 1
-    @Environment(\.presentationMode) var presentaionMode
+    @Environment(\.presentationMode) var presentationMode
     @State private var finalVideoUrl = URL(string: "")
     @EnvironmentObject private var navigationModel: NavigationModel
     @State private var navigateToNextView = false
@@ -33,131 +33,141 @@ struct AdjustVideoView: View {
     @Binding var postModel: PostModel
     var callWhenBack : () -> ()
     @Binding var speed: Float
-    var body: some View {
-        NavigationView{
-            ZStack(alignment: .top){
-                Color.black
-                    .edgesIgnoringSafeArea(.all)
-                VStack{
-                    Spacer()
-                    Spacer()
-                    let width = UIScreen.main.bounds.width-150
-                    let height = UIScreen.main.bounds.height-420
-                    //                let isImage = !(url!.absoluteString.lowercased().contains(".mp4") || url!.absoluteString.lowercased().contains(".mov"))
-                    RoundedRectangle(cornerRadius: 20)
-                        .overlay(
-                            MyVideoPlayerView(playerVM: playerVM, audioPlayerVM: audioPlayerVM, speed: $speed)
-                                .mask(RoundedRectangle(cornerRadius: 20))
-                        )
-                        .frame(width: width, height: height)
-                        .onDisappear {
-                            self.playerVM.isPlaying = false
-                            self.audioPlayerVM.isPlaying = false
-                            print("AdjustmentView disappear")
-                        }
-                    Spacer()
-                    Text("Trim your video")
-                        .font(.custom("Urbanist-Bold", size: 14))
-                        .foregroundColor(Color.white)
-                    Text("Automatically sync your clips to the track")
-                        .font(.custom("Urbanist-Regular", size: 14))
-                        .foregroundColor(Color.white)
-                    VStack{
-                        Spacer()
-                        SliderView(playerManager: playerVM, slider: slider, frames: $frames, isEditingSlider: $isEditingTrimSlider, validError: $showAlert)
-                            .padding(.vertical, 50)
-                        if slider.lowHandle.currentValue > 1 || slider.highHandle.currentValue < self.playerVM.player.currentItem!.asset.duration.seconds {
-                            HStack {
-                                Spacer()
-                                Button {
-                                    withAnimation {
-                                        playerVM.isPlaying = false
-                                        audioPlayerVM.isPlaying = false
-                                        playerVM.currentTime = .zero
-                                        audioPlayerVM.currentTime = .zero
-                                        slider.reset(start: 1, end: self.playerVM.player.currentItem!.asset.duration.seconds)
-                                    }
-                                } label: {
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .foregroundColor(.white)
-                                        .frame(width: 98, height: 56)
-                                    //                                        .normalShadow()
-                                        .overlay (
-                                            Text("Cancel")
-                                                .foregroundStyle(
-                                                    LinearGradient(colors: [
-                                                        Color("buttionGradientTwo"),
-                                                        Color("buttionGradientOne"),
-                                                    ], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                        )
-                                }
-                                Spacer(minLength: 20)
-                                Button {
-                                    cropVideo(sourceURL1: renderUrl, statTime: Float(slider.lowHandle.currentValue), endTime: Float(slider.highHandle.currentValue)) { result in
-                                        switch result {
-                                            
-                                        case .success(let outputUrl):
-                                            withAnimation {
-                                                self.finalVideoUrl = outputUrl
-                                                self.playerVM.reset(videoUrl: outputUrl)
-                                                //                                            self.controller.loadData(url: outputUrl)
-                                                self.getVideoFrames()
-                                                self.playerVM.isPlaying = false
-                                                self.audioPlayerVM.isPlaying = false
-                                                self.playerVM.currentTime = .zero
-                                                self.slider.reset(start: 1, end: self.playerVM.player.currentItem!.asset.duration.seconds)
-                                                postModel.contentUrl = finalVideoUrl
-                                            }
-                                        case .failure(let err):
-                                            print(err)
-                                        }
-                                    }
-                                } label: {
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .fill(LinearGradient(colors: [
-                                            Color("buttionGradientTwo"),
-                                            Color("buttionGradientOne"),
-                                        ], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                        .frame(width: 98, height: 56)
-                                        .overlay (
-                                            Text("Trim")
-                                                .foregroundColor(.white)
-                                        )
-                                }
-                                Spacer()
-                            }
-                            
-                        }else{
-                            Text("")
-                                .frame(width: 98, height: 56)
-                        }
-                    }
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarItems(leading: backButton)
+    
+    var btnBack : some View { Button(action: {
+        self.callWhenBack()
+        presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack {
+                Image("BackButtonWhite") // set image here
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
                 }
             }
-            .onAppear {
-                playerVM.player.rate = speed
-                getVideoFrames()
-                self.playerVM.isPlaying = true
-                self.audioPlayerVM.isPlaying = true
-                print("Frames are \(frames)")
-                    }
         }
+    var body: some View {
+        ZStack(alignment: .top){
+            Color.black
+                .edgesIgnoringSafeArea(.all)
+            VStack{
+                Spacer()
+                Spacer()
+                let width = UIScreen.main.bounds.width-150
+                let height = UIScreen.main.bounds.height-420
+                //                let isImage = !(url!.absoluteString.lowercased().contains(".mp4") || url!.absoluteString.lowercased().contains(".mov"))
+                RoundedRectangle(cornerRadius: 20)
+                    .overlay(
+                        MyVideoPlayerView(playerVM: playerVM, audioPlayerVM: audioPlayerVM, speed: $speed)
+                            .mask(RoundedRectangle(cornerRadius: 20))
+                    )
+                    .frame(width: width, height: height)
+                    .onDisappear {
+                        self.playerVM.isPlaying = false
+                        self.audioPlayerVM.isPlaying = false
+                        print("AdjustmentView disappear")
+                    }
+                Spacer()
+                Text("Trim your video")
+                    .font(.custom("Urbanist-Bold", size: 14))
+                    .foregroundColor(Color.white)
+                Text("Automatically sync your clips to the track")
+                    .font(.custom("Urbanist-Regular", size: 14))
+                    .foregroundColor(Color.white)
+                VStack{
+                    Spacer()
+                    SliderView(playerManager: playerVM, slider: slider, frames: $frames, isEditingSlider: $isEditingTrimSlider, validError: $showAlert)
+                        .padding(.vertical, 50)
+                    if slider.lowHandle.currentValue > 1 || slider.highHandle.currentValue < self.playerVM.player.currentItem!.asset.duration.seconds {
+                        HStack {
+                            Spacer()
+                            Button {
+                                withAnimation {
+                                    playerVM.isPlaying = false
+                                    audioPlayerVM.isPlaying = false
+                                    playerVM.currentTime = .zero
+                                    audioPlayerVM.currentTime = .zero
+                                    slider.reset(start: 1, end: self.playerVM.player.currentItem!.asset.duration.seconds)
+                                }
+                            } label: {
+                                RoundedRectangle(cornerRadius: 25)
+                                    .foregroundColor(.white)
+                                    .frame(width: 98, height: 56)
+                                //                                        .normalShadow()
+                                    .overlay (
+                                        Text("Cancel")
+                                            .foregroundStyle(
+                                                LinearGradient(colors: [
+                                                    Color("buttionGradientTwo"),
+                                                    Color("buttionGradientOne"),
+                                                ], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                    )
+                            }
+                            Spacer(minLength: 20)
+                            Button {
+                                cropVideo(sourceURL1: renderUrl, statTime: Float(slider.lowHandle.currentValue), endTime: Float(slider.highHandle.currentValue)) { result in
+                                    switch result {
+                                        
+                                    case .success(let outputUrl):
+                                        withAnimation {
+                                            self.finalVideoUrl = outputUrl
+                                            self.playerVM.reset(videoUrl: outputUrl)
+                                            //                                            self.controller.loadData(url: outputUrl)
+                                            self.getVideoFrames()
+                                            self.playerVM.isPlaying = false
+                                            self.audioPlayerVM.isPlaying = false
+                                            self.playerVM.currentTime = .zero
+                                            self.slider.reset(start: 1, end: self.playerVM.player.currentItem!.asset.duration.seconds)
+                                            postModel.contentUrl = finalVideoUrl
+                                        }
+                                    case .failure(let err):
+                                        print(err)
+                                    }
+                                }
+                            } label: {
+                                RoundedRectangle(cornerRadius: 25)
+                                    .fill(LinearGradient(colors: [
+                                        Color("buttionGradientTwo"),
+                                        Color("buttionGradientOne"),
+                                    ], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                    .frame(width: 98, height: 56)
+                                    .overlay (
+                                        Text("Trim")
+                                            .foregroundColor(.white)
+                                    )
+                            }
+                            Spacer()
+                        }
+                        
+                    }else{
+                        Text("")
+                            .frame(width: 98, height: 56)
+                    }
+                }
+            }
+        }
+        .onAppear {
+            playerVM.player.rate = speed
+            getVideoFrames()
+            self.playerVM.isPlaying = true
+            self.audioPlayerVM.isPlaying = true
+            print("Frames are \(frames)")
+                }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: btnBack)
         
     }
     
-    var backButton: some View {
-            Button(action: {
-                // Handle back button action here
-                print("back")
-                self.callWhenBack()
-                presentaionMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "chevron.left")
-//                Text("Back")
-            }
-        }
+//    var backButton: some View {
+//            Button(action: {
+//                // Handle back button action here
+//                print("back")
+//                self.callWhenBack()
+//                presentaionMode.wrappedValue.dismiss()
+//            }) {
+//                Image(systemName: "chevron.left")
+////                Text("Back")
+//            }
+//        }
     
     func getVideoFrames() {
             self.frames.removeAll()
