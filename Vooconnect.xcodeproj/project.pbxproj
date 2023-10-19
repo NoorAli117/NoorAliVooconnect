@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		027DD3A92AD81ABE000C9CD7 /* FFmpegHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027DD3A82AD81ABE000C9CD7 /* FFmpegHelper.swift */; };
 		040B706F29F90CE400BCCACD /* ProfileViewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B706E29F90CE400BCCACD /* ProfileViewersView.swift */; };
 		040B707129F90D0700BCCACD /* ProfileViewersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B707029F90D0700BCCACD /* ProfileViewersViewModel.swift */; };
 		040B707329F90E4E00BCCACD /* ProfileViewersViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040B707229F90E4E00BCCACD /* ProfileViewersViewComponents.swift */; };
@@ -152,7 +151,9 @@
 		502C133429D57BE300FB0577 /* AgoraUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 502C133329D57BE300FB0577 /* AgoraUIKit */; };
 		503A8F4929E593080035135D /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503A8F4829E593080035135D /* Reusable.swift */; };
 		503A8F4B29E59C880035135D /* AgoraVideoSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 503A8F4A29E59C880035135D /* AgoraVideoSwiftUI */; };
-		8432BB4A2ABED52E00E91F62 /* Face.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 8432BAF32ABED52D00E91F62 /* Face.scnassets */; };
+		7C0CBFD52ADEB40F00F63253 /* Face.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C0CBFD42ADEB40E00F63253 /* Face.scnassets */; };
+		7C0CBFD72ADEB4E600F63253 /* face.scn in Resources */ = {isa = PBXBuildFile; fileRef = 7C0CBFD62ADEB4E600F63253 /* face.scn */; };
+		7C0CBFDB2ADED31100F63253 /* FFmpeg-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 7C0CBFDA2ADED31100F63253 /* FFmpeg-iOS */; };
 		8432BB4B2ABED52E00E91F62 /* RatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAF72ABED52D00E91F62 /* RatioView.swift */; };
 		8432BB4C2ABED52E00E91F62 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAF82ABED52D00E91F62 /* SplashView.swift */; };
 		8432BB4D2ABED52E00E91F62 /* PreviewBottomFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAFA2ABED52D00E91F62 /* PreviewBottomFunctionView.swift */; };
@@ -486,7 +487,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		027DD3A82AD81ABE000C9CD7 /* FFmpegHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegHelper.swift; sourceTree = "<group>"; };
 		040B706E29F90CE400BCCACD /* ProfileViewersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersView.swift; sourceTree = "<group>"; };
 		040B707029F90D0700BCCACD /* ProfileViewersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersViewModel.swift; sourceTree = "<group>"; };
 		040B707229F90E4E00BCCACD /* ProfileViewersViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewersViewComponents.swift; sourceTree = "<group>"; };
@@ -624,7 +624,8 @@
 		5016A78829DBE149009B0332 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		5016A78D29DBE200009B0332 /* ChooseYourTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseYourTopicView.swift; sourceTree = "<group>"; };
 		503A8F4829E593080035135D /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
-		8432BAF32ABED52D00E91F62 /* Face.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Face.scnassets; sourceTree = "<group>"; };
+		7C0CBFD42ADEB40E00F63253 /* Face.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Face.scnassets; sourceTree = "<group>"; };
+		7C0CBFD62ADEB4E600F63253 /* face.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = face.scn; path = Vooconnect/Face.scnassets/face.scn; sourceTree = "<group>"; };
 		8432BAF72ABED52D00E91F62 /* RatioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatioView.swift; sourceTree = "<group>"; };
 		8432BAF82ABED52D00E91F62 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8432BAFA2ABED52D00E91F62 /* PreviewBottomFunctionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewBottomFunctionView.swift; sourceTree = "<group>"; };
@@ -965,6 +966,7 @@
 				049F4BC229BBB57500113EA0 /* KeychainAccess in Frameworks */,
 				049F4BBC29BBB54300113EA0 /* SDWebImageSwiftUI in Frameworks */,
 				A958B65E2923B82100FE16EA /* CountryPicker in Frameworks */,
+				7C0CBFDB2ADED31100F63253 /* FFmpeg-iOS in Frameworks */,
 				503A8F4B29E59C880035135D /* AgoraVideoSwiftUI in Frameworks */,
 				502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */,
 				1064AC6E2A2F6CCD00DFF2BB /* ARGear.framework in Frameworks */,
@@ -2385,6 +2387,7 @@
 		A9785F952911102D00F19ADD = {
 			isa = PBXGroup;
 			children = (
+				7C0CBFD62ADEB4E600F63253 /* face.scn */,
 				ABAEA65E29BA71DC00B5277E /* ARScenes */,
 				ABAEA64C29B8308000B5277E /* 3DModels */,
 				A958B65C2923B7DA00FE16EA /* CountryPicker-master */,
@@ -2409,8 +2412,8 @@
 		A9785FA02911102D00F19ADD /* Vooconnect */ = {
 			isa = PBXGroup;
 			children = (
+				7C0CBFD42ADEB40E00F63253 /* Face.scnassets */,
 				8432BAF42ABED52D00E91F62 /* ARGear-Work */,
-				8432BAF32ABED52D00E91F62 /* Face.scnassets */,
 				85A4676D29F59DDC005A5D4C /* SwiftUIContentView.swift */,
 				ABC9F82E29AAD228006436A1 /* API Managers */,
 				0420C5832A9B928400A54D22 /* Settings.json */,
@@ -2457,7 +2460,6 @@
 			children = (
 				A98201EE293B0A9A0055CAFD /* ReelsResource.swift */,
 				A9EFE512294D6DC200211382 /* ReelsLikeResource.swift */,
-				027DD3A82AD81ABE000C9CD7 /* FFmpegHelper.swift */,
 			);
 			path = ReelsResource;
 			sourceTree = "<group>";
@@ -2927,6 +2929,7 @@
 				0435B93B2A3CDE2E00AEDC57 /* NavigationStack */,
 				04E25F262A3CE1F70074D0E3 /* Kingfisher */,
 				04E25F292A3CE33B0074D0E3 /* WrappingHStack */,
+				7C0CBFDA2ADED31100F63253 /* FFmpeg-iOS */,
 			);
 			productName = Vooconnect;
 			productReference = A9785F9E2911102D00F19ADD /* Vooconnect.app */;
@@ -2970,6 +2973,7 @@
 				0435B93A2A3CDE2E00AEDC57 /* XCRemoteSwiftPackageReference "NavigationStack" */,
 				04E25F252A3CE1F70074D0E3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				04E25F282A3CE33B0074D0E3 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				7C0CBFD92ADED31100F63253 /* XCRemoteSwiftPackageReference "FFmpeg-iOS" */,
 			);
 			productRefGroup = A9785F9F2911102D00F19ADD /* Products */;
 			projectDirPath = "";
@@ -2986,6 +2990,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2959044D2A18BAF600FE3499 /* Urbanist-Thin.ttf in Resources */,
+				7C0CBFD72ADEB4E600F63253 /* face.scn in Resources */,
 				A91280D52919067E008FE970 /* Urbanist-BlackItalic.ttf in Resources */,
 				A93DBA1729127ADD00420B83 /* market.gif in Resources */,
 				A91280DE2919067E008FE970 /* README.txt in Resources */,
@@ -3015,11 +3020,11 @@
 				A91280D72919067E008FE970 /* Urbanist-SemiBoldItalic.ttf in Resources */,
 				8432BB752ABED52E00E91F62 /* NotoSansKR-Medium.otf in Resources */,
 				A91280CC2919067E008FE970 /* Urbanist-Regular.ttf in Resources */,
-				8432BB4A2ABED52E00E91F62 /* Face.scnassets in Resources */,
 				A91280CB2919067E008FE970 /* Urbanist-Bold.ttf in Resources */,
 				A91280DB2919067E008FE970 /* Urbanist-ExtraLight.ttf in Resources */,
 				8432BB772ABED52E00E91F62 /* Main.storyboard in Resources */,
 				A91280D92919067E008FE970 /* Urbanist-ExtraBold.ttf in Resources */,
+				7C0CBFD52ADEB40F00F63253 /* Face.scnassets in Resources */,
 				8432BB742ABED52E00E91F62 /* NotoSansKR-Black.otf in Resources */,
 				8432BB642ABED52E00E91F62 /* FilterCollectionViewCell.xib in Resources */,
 				8432BB762ABED52E00E91F62 /* NotoSansKR-Regular.otf in Resources */,
@@ -3479,7 +3484,6 @@
 				A9453E96292B51BA00728A19 /* Reel.swift in Sources */,
 				A94531362914D65F00321407 /* NotificationsView.swift in Sources */,
 				040B707329F90E4E00BCCACD /* ProfileViewersViewComponents.swift in Sources */,
-				027DD3A92AD81ABE000C9CD7 /* FFmpegHelper.swift in Sources */,
 				A9F55828291F9E0300BC6267 /* GenderViewModel.swift in Sources */,
 				042FDD2A29D8CF2E008B81C7 /* DataPersistenceManager.swift in Sources */,
 				04D6393C29F678DF00718FE0 /* GiftRevenueView.swift in Sources */,
@@ -3552,6 +3556,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3612,6 +3617,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -3841,6 +3847,14 @@
 				kind = branch;
 			};
 		};
+		7C0CBFD92ADED31100F63253 /* XCRemoteSwiftPackageReference "FFmpeg-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kewlbear/FFmpeg-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.5;
+			};
+		};
 		AB6D75D229D5F7F000FA05CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -3925,6 +3939,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 502C132B29D579EA00FB0577 /* XCRemoteSwiftPackageReference "AgoraVideoSwiftUI" */;
 			productName = AgoraVideoSwiftUI;
+		};
+		7C0CBFDA2ADED31100F63253 /* FFmpeg-iOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C0CBFD92ADED31100F63253 /* XCRemoteSwiftPackageReference "FFmpeg-iOS" */;
+			productName = "FFmpeg-iOS";
 		};
 		A958B65D2923B82100FE16EA /* CountryPicker */ = {
 			isa = XCSwiftPackageProductDependency;

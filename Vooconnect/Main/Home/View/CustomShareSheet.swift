@@ -8,6 +8,11 @@
 import Foundation
 import SwiftUI
 import FBSDKShareKit
+import FBSDKCoreKit
+import UIKit
+import MobileCoreServices
+import UniformTypeIdentifiers
+import Social
 
 struct CustomShareSheet: View{
     
@@ -24,10 +29,15 @@ struct CustomShareSheet: View{
     @Binding var message: String
     @Binding var isDuo: Bool
 //    @Binding var isSuccess: Bool
+    
+    
+    var documentInteractionController: UIDocumentInteractionController!
+    
+    
     var body: some View{
         NavigationView{
             ScrollView{
-                VStack(alignment: .center, spacing: 20) {
+                VStack(alignment: .center, spacing: 30) {
                     VStack{
                         Text("Share to")
                             .foregroundColor(Color("Black"))
@@ -55,6 +65,15 @@ struct CustomShareSheet: View{
                             Text("WhatsApp")
                                 .font(.custom("Urbanist-Bold", size: 16))
                         }
+                        .onTapGesture {
+                            if let reelUrl = URL(string: reelURL){
+                                shareSheet = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                    shareVideoToWhatsApp(videoUrl: reelURL)
+                                    print("Whatsapp tapped")
+                                }
+                            }
+                        }
                         VStack {
                             Image("TwitterS")
                             Text("Twitter")
@@ -66,9 +85,15 @@ struct CustomShareSheet: View{
                                 .font(.custom("Urbanist-Bold", size: 16))
                         }
                         .onTapGesture {
-                            print("Facebook tapped")
                             shareSheet = false
-                            shareFacebookLink(url: reelURL, description: reelDescription)
+                            DispatchQueue.main.async{
+                                if let videoUrl =  URL(string: getImageVideoBaseURL + reelURL){
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                                        uploadVideoToFacebook(videoURL: videoUrl)
+                                        print("Facebook tapped")
+                                    }
+                                }
+                            }
                         }
                         VStack {
                             Image("InstaS")
@@ -76,9 +101,11 @@ struct CustomShareSheet: View{
                                 .font(.custom("Urbanist-Bold", size: 16))
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 0)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     
-                    HStack(alignment: .top, spacing: 40) {
+                    HStack(alignment: .top, spacing: 30) {
                         VStack {
                             Image("YahooS")
                             Text("Yahoo")
@@ -100,7 +127,9 @@ struct CustomShareSheet: View{
                                 .font(.custom("Urbanist-Bold", size: 16))
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 0)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     
                     // Add a divider between the first and second column
                     Divider().frame(height: 1).background(Color.gray).opacity(0.3)
@@ -150,9 +179,11 @@ struct CustomShareSheet: View{
                                 .lineLimit(0)
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 0)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     
-                    HStack(alignment: .top, spacing: 40) {
+                    HStack(alignment: .top, spacing: 30) {
                         VStack {
                             Image("DuoS")
                             Text("Duo")
@@ -219,10 +250,25 @@ struct CustomShareSheet: View{
                             }
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 0)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     
                 }
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 24)
+                .padding(.top, 8)
+                .padding(.bottom, 48)
+                .frame(width: 428, alignment: .center)
+                .background(.white)
+
+                .cornerRadius(40)
+
+                .overlay(
+                RoundedRectangle(cornerRadius: 40)
+                .inset(by: 0.5)
+                .stroke(Color(red: 0.96, green: 0.96, blue: 0.96), lineWidth: 1)
+
+                )
             }
         }
         
@@ -232,13 +278,54 @@ struct CustomShareSheet: View{
         self.message = messages
         self.isShowPopup = true
     }
-    func shareFacebookLink(url: String, description: String) {
-        // Create a content object
-        let content = ShareLinkContent()
-        content.contentURL = URL(string: url) // Replace with your URL
-        content.quote = description
-        
-        // Show the share dialog
-        ShareDialog(viewController: nil, content: content, delegate: nil).show()
+    private func shareVideoToWhatsApp(videoUrl: String) {
+        guard let videoURL = URL(string: getImageVideoBaseURL + videoUrl) else { return }
+
+        let delegate = WhatsAppDelegate()
+        let documentInteractionController = UIDocumentInteractionController(url: videoURL)
+        documentInteractionController.uti = UTType.video.identifier
+        documentInteractionController.delegate = delegate
+
+        // Check if the UIWindow.key?.rootViewController?.view property is not nil.
+        if let view = UIApplication.shared.windows.first?.rootViewController?.view {
+            documentInteractionController.presentOpenInMenu(from: CGRect.zero, in: view, animated: true)
+        }
+    }
+    func shareToFacebook(videoURL: URL) {
+        let activityItems: [Any] = [videoURL, self.reelDescription]
+                let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+                UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+    }
+    private func uploadVideoToFacebook(videoURL: URL) {
+
+            let videoData = try? Data(contentsOf: videoURL)
+            guard let videoData = videoData else { return }
+
+            let videoObject: [String: Any] = ["title": "Application Name", "description": "Sharing a video to Facebook...", videoURL.absoluteString: videoData]
+
+            let uploadRequest = GraphRequest(graphPath: "me/videos", parameters: videoObject, httpMethod: .post)
+
+            let connection = GraphRequestConnection()
+            connection.add(uploadRequest, completion: { (connection, result, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("Video shared to Facebook successfully!")
+                }
+            })
+            connection.start()
+        }
+
+}
+
+class WhatsAppDelegate: NSObject, UIDocumentInteractionControllerDelegate {
+
+    func documentInteractionController(_ controller: UIDocumentInteractionController, willBeginSendingToApplication application: String?) {
+        // Check if the application is WhatsApp.
+        if application == "net.whatsapp.WhatsApp" {
+            // The video will be sent to WhatsApp.
+        } else {
+            // The video will not be sent to WhatsApp.
+        }
     }
 }

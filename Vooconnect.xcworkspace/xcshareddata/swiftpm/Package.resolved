@@ -56,6 +56,15 @@
         }
       },
       {
+        "package": "FFmpeg-iOS",
+        "repositoryURL": "https://github.com/kewlbear/FFmpeg-iOS.git",
+        "state": {
+          "branch": null,
+          "revision": "59c01fbba5a85005d4b624f77f6ad32d43a4d922",
+          "version": "0.0.5"
+        }
+      },
+      {
         "package": "Firebase",
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk",
         "state": {
@@ -188,6 +197,15 @@
           "branch": "master",
           "revision": "61fefe9c284fd41ddef77d02749e88f00c305196",
           "version": null
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "6b2aa2748a7881eebb9f84fb10c01293e15b52ca",
+          "version": "0.5.0"
         }
       },
       {

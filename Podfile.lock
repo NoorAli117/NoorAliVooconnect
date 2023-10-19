@@ -1,19 +1,38 @@
 PODS:
-  - FBAEMKit (16.0.1):
-    - FBSDKCoreKit_Basics (= 16.0.1)
-  - FBSDKCoreKit (16.0.1):
-    - FBAEMKit (= 16.0.1)
-    - FBSDKCoreKit_Basics (= 16.0.1)
-  - FBSDKCoreKit_Basics (16.0.1)
-  - FBSDKLoginKit (16.0.1):
-    - FBSDKCoreKit (= 16.0.1)
-  - FBSDKShareKit (16.0.1):
-    - FBSDKCoreKit (= 16.0.1)
-  - Realm (10.39.1):
-    - Realm/Headers (= 10.39.1)
-  - Realm/Headers (10.39.1)
-  - RealmSwift (10.39.1):
-    - Realm (= 10.39.1)
+  - AudioKit (5.1.0):
+    - AudioKit/C (= 5.1.0)
+    - AudioKit/Core (= 5.1.0)
+    - AudioKit/Soundpipe (= 5.1.0)
+    - AudioKit/Sporth (= 5.1.0)
+    - AudioKit/STK (= 5.1.0)
+  - AudioKit/C (5.1.0):
+    - AudioKit/Soundpipe
+    - AudioKit/Sporth
+    - AudioKit/STK
+  - AudioKit/Core (5.1.0):
+    - AudioKit/C
+  - AudioKit/Soundpipe (5.1.0)
+  - AudioKit/Sporth (5.1.0):
+    - AudioKit/Soundpipe
+  - AudioKit/STK (5.1.0)
+  - FBAEMKit (16.2.1):
+    - FBSDKCoreKit_Basics (= 16.2.1)
+  - FBSDKCoreKit (16.2.1):
+    - FBAEMKit (= 16.2.1)
+    - FBSDKCoreKit_Basics (= 16.2.1)
+  - FBSDKCoreKit_Basics (16.2.1)
+  - FBSDKLoginKit (16.2.1):
+    - FBSDKCoreKit (= 16.2.1)
+  - FBSDKShareKit (16.2.1):
+    - FBSDKCoreKit (= 16.2.1)
+  - FFmpeg (2.8.3):
+    - FFmpeg/precompiled (= 2.8.3)
+  - FFmpeg/precompiled (2.8.3)
+  - Realm (10.43.1):
+    - Realm/Headers (= 10.43.1)
+  - Realm/Headers (10.43.1)
+  - RealmSwift (10.43.1):
+    - Realm (= 10.43.1)
   - Regift (1.6.0)
   - Toast-Swift (5.0.1)
   - TwitterCore (3.2.0)
@@ -40,9 +59,11 @@ PODS:
   - URLImage/RemoteContentView (2.2.5)
 
 DEPENDENCIES:
+  - AudioKit
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - FFmpeg
   - RealmSwift
   - Regift
   - Toast-Swift
@@ -51,11 +72,13 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AudioKit
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
     - FBSDKShareKit
+    - FFmpeg
     - Realm
     - RealmSwift
     - Regift
@@ -65,19 +88,21 @@ SPEC REPOS:
     - URLImage
 
 SPEC CHECKSUMS:
-  FBAEMKit: daac7466b918752f020345be5c7d9787f98cfc07
-  FBSDKCoreKit: 2cb033464b2134af0138f87d20b859eb3f9be359
-  FBSDKCoreKit_Basics: d37280da2e65872f0e931d15f45d97ea324fec37
-  FBSDKLoginKit: c47a3b90920702487b10b647c63520dc2676dad9
-  FBSDKShareKit: dbc6adab8c837275fa6e7f5f0992dbde4fea87eb
-  Realm: 1f3157edf145f4d9036765ab550c8cb18f62b700
-  RealmSwift: 8a69a1cb788cd5865966f49667b130567e07bceb
+  AudioKit: 81246a4ccdd7ca3c6e0076f913070e90987b4369
+  FBAEMKit: 4763aa27b8f69eb9d2c274189e91388de1dbd88a
+  FBSDKCoreKit: 40ae989ca1da1bbeba56acd4671dde64ad415506
+  FBSDKCoreKit_Basics: 1257d71d2d692661290bf2af4bea5f9a101387af
+  FBSDKLoginKit: bf4f96d0ce475de2da4b1800ce150bd8a6f120f3
+  FBSDKShareKit: c891a92bd5c943f59b815f4156f310d57e527f54
+  FFmpeg: f1428c3b60b5f9e349fcd5d7878705cd7f9a26f6
+  Realm: d97b438de77459e443bd2c8ad5ca0f95107aee4b
+  RealmSwift: 6be3f27a7fd3f5cc8f99f4b187cc4e7150299e32
   Regift: a7c1a7e377c60bfc34301d6f532e099e5ae109a8
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
   URLImage: 36a66c03ba2a9ccbbf06bc83431f2cef171008e8
 
-PODFILE CHECKSUM: f903609141cd9a1ec01db127ad399355d5390bd6
+PODFILE CHECKSUM: f4486deb58b52261804a98555e4cde2b4d9cf34d
 
 COCOAPODS: 1.13.0

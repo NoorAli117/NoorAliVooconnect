@@ -8,12 +8,12 @@
 import Foundation
 import AVFoundation
 import SwiftUI
+//import FFmpeg
 
 struct DuoView: View{
     
-    @Environment(\.presentationMode) var presentationMode
-    
     @Binding var videoUrl: String
+    @State var newVideoUrl: String = ""
     @State private var circleProgress: CGFloat = 0.2
     @State private var widthAndHeight: CGFloat = 90
     @State private var progressColor: Color = .red
@@ -40,6 +40,7 @@ struct DuoView: View{
     @State private var progress: Double = 0
     
     @State var timerRunning = false
+    @State var tapcount = 0
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State private var cameraFlip: Bool = false
@@ -183,6 +184,11 @@ struct DuoView: View{
                                 print(videoInfo)
                                 if let filePath = videoInfo["filePath"] as? URL{
                                     print(filePath)
+//                                    runFFmpegCommand(originalVideo: videoUrl, newVideo: filePath){ url in
+//                                        previewURL = url.absoluteString
+//                                        cameraModel.previewURL = url
+//                                        print("url---------\(filePath)")
+//                                    }
                                     previewURL = filePath.absoluteString
                                     cameraModel.previewURL = filePath
                                 }
@@ -223,8 +229,6 @@ struct DuoView: View{
                                 HStack {
                                     
                                     Button {
-                                        //                                    clickPhoto = true
-                                        //                                    self.cameraModel.previewURL = nil
                                         Vm.isPhoto = true
                                         clickPhoto = true
                                     } label: {
@@ -262,8 +266,9 @@ struct DuoView: View{
                                             
                                             print("Video click")
                                             previewURL = ""
-                                            if countdownText == 0{
+                                            if tapcount == 0{
                                                 timerRunning = true
+                                                tapcount = 1
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
                                                     timerRunning = false
                                                     Vm.isRecording = true
@@ -271,6 +276,7 @@ struct DuoView: View{
                                             }else{
                                                 Vm.isRecording = true
                                                 countdownText = 0
+                                                tapcount = 0
                                             }
                                         } label: {
                                             Image("CameraRecording")
@@ -294,33 +300,7 @@ struct DuoView: View{
                                     // Preview Button
                                     if(previewURL != "") {
                                         Button {
-                                            if let videoURL = URL(string: previewURL){
-                                                
-                                                if ((cameraModel.songModel?.preview) != nil){
-                                                    self.cameraModel.removeAudioFromVideo(videoURL: videoURL){ url, error in
-                                                        if let error = error {
-                                                            print("Failed to remove audio: \(error.localizedDescription)")
-                                                        } else {
-                                                            cameraModel.previewURL = url
-                                                            print("Audio removed video, new url: " + url!.absoluteString)
-                                                            DispatchQueue.main.async {
-                                                                print(("video recorded"))
-                                                                countdownTimer = self.countdownTimer2
-                                                                cameraModel.showPreview.toggle()
-                                                                preview.toggle()
-                                                            }
-                                                        }
-                                                    }
-                                                }else {
-                                                    DispatchQueue.main.async {
-                                                        print(("video recorded"))
-                                                        print("previewURL: \(previewURL)")
-                                                        countdownTimer = self.countdownTimer2
-                                                        cameraModel.showPreview = true
-                                                        preview = true
-                                                    }
-                                                }
-                                            }
+                                            
                                         } label: {
                                             Group{
                                                 Label {
@@ -444,19 +424,39 @@ struct DuoView: View{
         
         
     }
-    func runFFmpegCommand(originalVideo: String, newVideo: URL, outputUrl: @escaping (URL) -> Void) {
-            let outputPath = FileManager.default.temporaryDirectory.appendingPathComponent("output.mp4")
+    
+//    func runFFmpegCommand(originalVideo: URL, newVideo: URL, completion: @escaping (URL?) -> Void) {
+//        // Create a unique output file path.
+//        let outputPath = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("mp4")
+//
+//        // Create a new FFmpeg instance.
+//        let ffmpeg = FFmpeg()
+//
+//        // Add the input and output files to the FFmpeg queue.
+//        ffmpeg.addInputFile(originalVideo)
+//        ffmpeg.addInputFile(newVideo)
+//        ffmpeg.addOutputFile(outputPath)
+//
+//        // Set the output codec to MP4.
+//        ffmpeg.setOutputCodec("mp4")
+//
+//        // Add the hstack filter to the FFmpeg queue.
+//        ffmpeg.addFilter("hstack=inputs=2")
+//
+//        // Start the transcoding process asynchronously.
+//        DispatchQueue.global(qos: .background).async {
+//            ffmpeg.startTranscoding()
+//
+//            // Wait for the transcoding process to finish.
+//            let success = ffmpeg.waitForTranscodingToFinish()
+//            
+//            // Return the output URL or nil if the operation failed.
+//            DispatchQueue.main.async {
+//                completion(success ? outputPath : nil)
+//            }
+//        }
+//    }
 
-            let leftVideoURL = originalVideo // Use the provided video URL directly
-            let rightVideoURL = newVideo
-
-            // Execute the FFmpeg command
-            FFmpegHelper.runFFmpegCommand(leftVideoPath: leftVideoURL, rightVideoPath: rightVideoURL, outputUrl: outputPath) { success in
-                if success {
-                    outputUrl(outputPath)
-                }
-            }
-        }
 
     func simulateVideoProgress() {
         let stepFrequency = 13.899 // Number of steps per second (adjust as desired)

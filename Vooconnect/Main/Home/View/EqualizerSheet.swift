@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Foundation
+import AVFoundation
 
 struct EqualizerSheet: View {
-    
+    @Environment(\.presentationMode) var presentationMode
     @State private var currentValue1 = 50.0
     
     @State private var custome: Bool = false
@@ -16,7 +18,13 @@ struct EqualizerSheet: View {
     @State private var jazz: Bool = true
     @State private var pop: Bool = false
     @State private var hipHop: Bool = false
+    @State private var pitch: Double = 1.0
     
+    // Variables
+    fileprivate let player = AVAudioPlayerNode()
+    fileprivate let audioEngine = AVAudioEngine()
+    fileprivate var audioFileBuffer: AVAudioPCMBuffer?
+    fileprivate var EQNode: AVAudioUnitEQ?
     
     var body: some View {
         VStack {
@@ -447,7 +455,7 @@ struct EqualizerSheet: View {
             HStack {
                 
                 Button {
-                   
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
 //                    Spacer()
                     Text("Cancel")
@@ -490,6 +498,7 @@ struct EqualizerSheet: View {
             
         }
     }
+    
 }
 
 struct EqualizerSheet_Previews: PreviewProvider {

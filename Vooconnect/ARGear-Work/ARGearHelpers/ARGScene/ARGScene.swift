@@ -25,7 +25,7 @@ class ARGScene: NSObject {
         super.init()
         
         guard
-          let scene = SCNScene(named: "Face.scnassets/face.scn")
+          let scene = SCNScene(named: "face.scn")
         else {
             fatalError("Failed to load face scene!")
         }

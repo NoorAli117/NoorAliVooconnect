@@ -22,11 +22,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Oi/KY2J3S7cuvdo6V11r/OwYo7g=
+		0gVmq10MqEUjkeia+SLHSVmmEWE=
 		</data>
 		<key>Modules/FBSDKShareKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		Ckq6lHR0r+8CzH3tBQzjh6udNI8=
+		dQrN4kyb6Col5e6jBqSJjyxSLJY=
 		</data>
 		<key>Modules/FBSDKShareKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Modules/FBSDKShareKit.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		Ckq6lHR0r+8CzH3tBQzjh6udNI8=
+		dQrN4kyb6Col5e6jBqSJjyxSLJY=
 		</data>
 		<key>Modules/FBSDKShareKit.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -103,7 +103,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SE3J/PndS1RhuIjozmRrU8ApN/ta0psxzq83y7UIUpA=
+			+puH6nDFQdRGj2QQThwKv/wJKRIXqSbu5FsMW8mitVg=
 			</data>
 		</dict>
 		<key>Modules/FBSDKShareKit.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -138,7 +138,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SE3J/PndS1RhuIjozmRrU8ApN/ta0psxzq83y7UIUpA=
+			+puH6nDFQdRGj2QQThwKv/wJKRIXqSbu5FsMW8mitVg=
 			</data>
 		</dict>
 		<key>Modules/FBSDKShareKit.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
