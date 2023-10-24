@@ -58,11 +58,6 @@ struct FinalVideoToPostView: View {
     @State private var videoData: Data?
     @State private var showPrivacySettings = false
     
-    @State private var isFacebook = false
-    @State private var isSocialMedia = false
-    @State private var isWhatsApp = false
-    @State private var isTwetter = false
-    @State private var isInstagram = false
     @State private var isListView = false
     @GestureState private var tapGestureState = false
     @State private var extractedImage: UIImage?
@@ -78,16 +73,6 @@ struct FinalVideoToPostView: View {
     
     var catSelected: (Int) -> () = {val in}
     @State private var selectedType: SocialMediaType?
-    
-//    private func selectMention(_ mention: String) {
-//        let mentionRange = description.range(of: mentionData, options: .caseInsensitive)
-//
-//        if let range = mentionRange {
-//            text.replaceSubrange(range, with: "\(mention)")
-////            isListVisible = false
-////            mentionData = ""
-//        }
-//    }
     
     
     var body: some View {
@@ -327,7 +312,7 @@ struct FinalVideoToPostView: View {
                             })
                         }
                         .sheet(isPresented: $videoCreditsView) {
-                            VideoCreditsView(userNames: $videoCredits, videoCreditsView: $videoCreditsView, videoCreditsVisible: $videoCreditsVisible, videoCreditsText: $videoCreditsText)
+                            VideoCreditsView(videoCreditsView: $videoCreditsView, videoCreditsVisible: $videoCreditsVisible, videoCreditsText: $videoCreditsText)
                         }
                         
                         
@@ -346,7 +331,12 @@ struct FinalVideoToPostView: View {
                                                 isListView = false
                                                 if let lastIndex = description.lastIndex(of: "@") {
                                                     let range = lastIndex..<description.endIndex
-                                                    description = description.replacingOccurrences(of: self.subString, with: user + " ", options: [], range: range)
+                                                    if range.upperBound == description.endIndex {
+                                                            // Append user + " " to the end of the description
+                                                            description += user + " "
+                                                    } else {
+                                                        description = description.replacingOccurrences(of: self.subString, with: user + " ", options: [], range: range)
+                                                    }
                                                 }
                                             }label: {
                                                 Text(user)
@@ -639,28 +629,49 @@ struct FinalVideoToPostView: View {
                                             return
                                         }
                                         uploadReelss { isSuccess in
-                                            if isSuccess {
+                                            if isSuccess == true {
                                                 if (self.saveToDevice){
-                                                    print("Should save to device: " + self.saveToDevice.description)
+                                                    print("saving video to device: " + self.saveToDevice.description)
+                                                    showMessagePopup(messages: "Saving Video")
                                                     Task {
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                                            downloadAndSaveWithCaptionVideo()
+                                                        DispatchQueue.main.async{
+                                                            for videoUrl in uploadReels.contentDetail {
+                                                                if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                    downloadAndSaveWithCaptionVideo(videoUrl: url.absoluteString){ success in
+                                                                        if success == true{
+                                                                            print("video is Saved")
+                                                                            showMessagePopup(messages: "Video Saved")
+                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                loader = false
+                                                                                homeView = true
+                                                                            }
+                                                                        }else{
+                                                                            print("Errror Saving Video.....")
+                                                                            showMessagePopup(messages: "Error Saving Video")
+                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                loader = false
+                                                                                homeView = true
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
-    //                                                    homeView = true
-                                                        loader = false
-                                                        print("Video downloaded into gallery")
                                                     }
                                                 }else{
+                                                    homeView = true
                                                     loader = false
-                                                    print("success=========")
                                                 }
                                                 if (selectedType != nil){
                                                     DispatchQueue.main.async{
-                                                        print("Facebook is true")
-                                                        let fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-                                                        let videoURL =  URL(string: getImageVideoMarkedBaseURL + fileName)
-                                                        print("shareable Url \(videoURL)")
-                                                        shareToFacebook(videoURL: videoURL!)
+                                                        print("Sharing To cocial Media")
+                                                        for videoUrl in uploadReels.contentDetail {
+                                                            if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                let videoURL =  URL(string: getImageVideoMarkedBaseURL + "/marked" + url.absoluteString)
+                                                                print("shareable Url \(String(describing: videoURL))")
+                                                                shareToFacebook(videoURL: videoURL!)
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             } else {
@@ -850,8 +861,7 @@ struct FinalVideoToPostView: View {
     
     func simulateVideoDownload() {
         DispatchQueue.global(qos: .background).async {
-            let totalProgressSteps = 100
-            
+            let totalProgressSteps = 10
             for i in 0..<totalProgressSteps {
                 usleep(100_000) // Simulating delay in video download
                 
@@ -977,10 +987,6 @@ struct FinalVideoToPostView: View {
                 }
                 print("video url \(self.postModel.contentUrl!)")
                 let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-                let reelsSize = UserDefaults.standard.string(forKey: "reelSize") ?? ""
-                let fileName = UserDefaults.standard.string(forKey: "reelName") ?? ""
-                let thumbsize = UserDefaults.standard.string(forKey: "thumbSize") ?? ""
-                let thumbnails = UserDefaults.standard.string(forKey: "thumbnail") ?? ""
                 var tag: [String] = []
                 self.postModel.tagPeople.forEach { peopleId in
                     tag.append(peopleId.uid)
@@ -992,13 +998,10 @@ struct FinalVideoToPostView: View {
                     DispatchQueue.main.async {
                         if(responsee == true) {
                             print("Sucessss......")
-                            print("")
                             complitionHandler(true)
-                            homeView = true
                         } else {
                             print("Errror.....")
                             complitionHandler(false)
-                            loader = false
                         }
                     }
                 })
@@ -1044,7 +1047,7 @@ struct ExtractedImageView: View {
     let image: UIImage
     
     var body: some View {
-        Image(uiImage: image ?? UIImage(imageLiteralResourceName: "SelectCover"))
+        Image(uiImage: image)
             .resizable()
             .aspectRatio(contentMode: .fit)
             .scaledToFill()

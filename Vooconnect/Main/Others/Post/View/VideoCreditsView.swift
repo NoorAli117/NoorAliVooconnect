@@ -12,7 +12,8 @@ struct VideoCreditsView: View{
     
     
     @State var userName: String = ""
-    @Binding var userNames: [String]
+    @State var userNames: [String] = []
+    @State var UserDetail: [User] = []
     @FocusState private var focusTextField: Bool
     @Binding var videoCreditsView: Bool
     @Binding var videoCreditsVisible: Bool
@@ -53,23 +54,31 @@ struct VideoCreditsView: View{
             ScrollView{
                 VStack(spacing: 20){
                     
-                    ForEach (userNames, id: \.self){ user in
+                    ForEach (UserDetail, id: \.self){ user in
                         HStack{
-                           Image("ImageArtist")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
-                                .clipShape(Circle())
-                                .overlay(Circle().stroke(Color.black, lineWidth: 1))
+                            
+                            Group {
+                                if let creatorImage = user.profileImage {
+                                    CreatorProfileImageView(creatorProfileImage: creatorImage)
+                                        .frame(width: 30, height: 30)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
+                                } else {
+                                    Image("ImageArtist")
+                                        .frame(width: 30, height: 30)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
+                                }
+                            }
+
+
+
                             Button{
                                 videoCreditsView = false
                                 videoCreditsVisible = true
-                                videoCreditsText = user
-                                
-                                
-                                
+                                videoCreditsText = user.username ?? "Noor Ali"
                             }label: {
-                                Text(user)
+                                Text(user.username ?? "Noor Ali")
                                     .font(.custom("Urbanist-SemiBold", size: 18))
                                     .foregroundColor(.black)
                             }
@@ -86,13 +95,10 @@ struct VideoCreditsView: View{
     }
     
     func searchUsername(name: String) {
-        let baseURL = baseURL + EndPoints.mention  // Replace with your base URL
+        let baseURL = baseURL + EndPoints.mention
         let queryParameter = "?username=" + name
         var url = URLRequest(url: URL(string: baseURL + queryParameter)!)
-        
-//        let session = URLSession.shared
         let boundary = UUID().uuidString
-//        var data = Data()
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             url.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
@@ -126,15 +132,12 @@ struct VideoCreditsView: View{
             do {
                 let response = try decoder.decode(Response.self, from: data)
                 print("Response: \(response)")
-                userNames = response.data.map { $0.username }
-//                profile = response.data.map {Image($0.profile_image)}
-//                isListView = true
+                UserDetail = response.data
                 
             } catch {
                 print("Error: \(error.localizedDescription)")
             }
         }
-        
         task.resume()
     }
 }

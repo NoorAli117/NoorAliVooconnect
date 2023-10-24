@@ -109,7 +109,7 @@ struct ReelsView: View {
                             videoIndex = index
                         }
                         likeVM.UserFollowingUsers()
-                        if index == (reelsVM.allReels.count - 3) {
+                        if index >= (reelsVM.allReels.count - 3) {
                             reelsVM.loadNext10Reels()
                         }
                     }
@@ -178,7 +178,7 @@ struct ReelsView: View {
                             }
                             videoIndex = index
                         }
-                        if index == (reelsVM.allReels.count - 3) {
+                        if index >= (reelsVM.allReels.count - 3) {
                             print("allReels count\(reelsVM.allReels.count)")
                             reelsVM.loadNext10FollowingReels()
                         }
@@ -329,7 +329,7 @@ struct ReelsPlyer: View {
     
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @State var likeAndUnlike = false
-    @State var likeImage: String = "LikeWhiteR"
+    @State var likeImage: String = "ThumbsUp"
 //    @State var selectedReaction: Int = 0
     //    @StateObject private var reelsVM = ReelsViewModel()
     
@@ -418,12 +418,11 @@ struct ReelsPlyer: View {
                                     likeCount = likesCount
                                 }
                                 switch reelsDetail.reactionType {
-                                case 1: likeImage = "HeartRedLV"
+                                case 1: likeImage = "LikeTwo"
                                 case 2: likeImage = "Love"
                                 case 3: likeImage = "Haha"
                                 case 4: likeImage = "Sad"
                                 case 5: likeImage = "Angry"
-                                case 6: likeImage = "Angry"
                                 default: break
                                 }
                             }
@@ -458,7 +457,7 @@ struct ReelsPlyer: View {
                             if likeeeeCount == 0 {
                                 likeeeeCount = likeeeeCount + 1
                                 likeCount = likeCount + 1
-                                likeImage = "HeartRedLV"
+                                likeImage = "LikeTwo"
                                 likeVM.reelsLikeApi(reactionType: 1, postID: postID)
                             }
                             
@@ -777,16 +776,6 @@ struct ReelsPlyer: View {
                             Image(isMuted ? "VolumeUp" : "VolumeUp")
 
                         }
-
-                        Button {
-
-                            show = false
-                            showTwo = false
-
-                        } label: {
-                            Image("Sound")
-
-                        }
                         Button {
 
                             show = false
@@ -833,7 +822,7 @@ struct ReelsPlyer: View {
 
                         Image("MusicIcon")
 
-                        Text(reelsDetail.musicTrack ?? "Oridinal Sound")
+                        Text(reelsDetail.musicTrack ?? "Original Sound")
                             .font(.caption)
                             .fontWeight(.semibold)
 
@@ -868,13 +857,13 @@ struct ReelsPlyer: View {
                                         if likeeeeCount == 0 {
                                             likeCount = likeCount+1
                                             likeeeeCount = likeeeeCount+1
-                                            likeImage = "HeartRedLV"
+                                            likeImage = "LikeTwo"
                                         }
                                     } else{
                                         if likeeeeCount == 1 {
                                             likeCount = likeCount-1
                                             likeeeeCount = likeeeeCount-1
-                                            likeImage = "LikeWhiteR"
+                                            likeImage = "ThumbsUp"
                                         }
                                     }
 

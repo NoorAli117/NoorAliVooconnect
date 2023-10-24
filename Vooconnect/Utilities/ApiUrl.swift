@@ -70,7 +70,7 @@ struct EndPoints {
     static var followerList = "/follower-list"
     static var replyToComment = "/reply-to-comment"
     static var comments = "/comments-by-post"
-    static var users = "/users"
+    static var users = "/get-all-users"
     static var interest_categ = "/int_categ"
     static var user_interest_categ = "/user_int_categ"
     static var mention = "/search-username"

@@ -345,7 +345,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         }
     }
     
-    ///Merging video with and image and output and url
+    //MARK: Merging video with image and output and url
     func mergeVideoAndImage(
             video videoUrl: URL,
             withForegroundImages images: [(UIImage,CGSize)],

@@ -72,3 +72,25 @@ struct ForgotPasswordSuccessDetail: Codable {
 //    }
 //}
 //struct
+struct UserMention: Codable {
+    let status: Bool
+    let message: String
+    let data: [GetUser]
+}
+
+// MARK: - Datum
+struct GetUser: Codable , Hashable{
+    let id: Int?
+    let uuid: String?
+    let username, lastName: String?
+    let middleName: String?
+    let profileImage, deviceToken: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, uuid, username
+        case lastName = "last_name"
+        case middleName = "middle_name"
+        case profileImage = "profile_image"
+        case deviceToken = "device_token"
+    }
+}

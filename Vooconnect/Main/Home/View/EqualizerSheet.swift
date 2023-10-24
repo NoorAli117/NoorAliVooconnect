@@ -12,7 +12,7 @@ import AVFoundation
 struct EqualizerSheet: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var currentValue1 = 50.0
-    
+    @State private var isPlaying = false
     @State private var custome: Bool = false
     @State private var dance: Bool = false
     @State private var jazz: Bool = true
@@ -21,10 +21,10 @@ struct EqualizerSheet: View {
     @State private var pitch: Double = 1.0
     
     // Variables
-    fileprivate let player = AVAudioPlayerNode()
-    fileprivate let audioEngine = AVAudioEngine()
-    fileprivate var audioFileBuffer: AVAudioPCMBuffer?
-    fileprivate var EQNode: AVAudioUnitEQ?
+    private let player = AVAudioPlayerNode()
+    private let audioEngine = AVAudioEngine()
+    @State private var audioFileBuffer: AVAudioPCMBuffer?
+    @State private var EQNode: AVAudioUnitEQ?
     
     var body: some View {
         VStack {
@@ -499,6 +499,58 @@ struct EqualizerSheet: View {
         }
     }
     
+    fileprivate func setUpEngine(with name: String, frequencies: [Int]) {
+        // Load a music file
+        do {
+          guard let musicUrl = Bundle.main.url(forResource: name, withExtension: "mp3") else { return }
+          let audioFile = try AVAudioFile(forReading: musicUrl)
+          self.audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: UInt32(audioFile.length))
+          try audioFile.read(into: audioFileBuffer!)
+        } catch {
+          assertionFailure("failed to load the music. Error: \(error)")
+          return
+        }
+         
+        // initial Equalizer.
+        EQNode = AVAudioUnitEQ(numberOfBands: frequencies.count)
+        EQNode!.globalGain = 1
+        for i in 0...(EQNode!.bands.count-1) {
+          EQNode!.bands[i].frequency = Float(frequencies[i])
+          EQNode!.bands[i].gain    = 0
+          EQNode!.bands[i].bypass   = false
+          EQNode!.bands[i].filterType = .parametric
+        }
+         
+        // Attach nodes to an engine.
+        audioEngine.attach(EQNode!)
+        audioEngine.attach(player)
+         
+        // Connect player to the EQNode.
+        let mixer = audioEngine.mainMixerNode
+        audioEngine.connect(player, to: EQNode!, format: mixer.outputFormat(forBus: 0))
+         
+        // Connect the EQNode to the mixer.
+        audioEngine.connect(EQNode!, to: mixer, format: mixer.outputFormat(forBus: 0))
+         
+        // Schedule player to play the buffer on a loop.
+        if let audioFileBuffer = audioFileBuffer {
+          player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops, completionHandler: nil)
+        }
+      }
+    
+    private func playAudio() {
+            do {
+                try audioEngine.start()
+                player.play()
+            } catch {
+                print("Error playing audio: \(error)")
+            }
+        }
+        
+        private func stopAudio() {
+            player.stop()
+            audioEngine.stop()
+        }
 }
 
 struct EqualizerSheet_Previews: PreviewProvider {

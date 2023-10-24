@@ -16,6 +16,7 @@ struct CommentSheet: View {
     @State var placeholder: String = "Add comment..."
     @State var isReply: Bool = false
     var userVM: LogInViewModel = LogInViewModel()
+    @State private var subString: String = ""
     
     //    @State var commentText: String
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
@@ -83,7 +84,7 @@ struct CommentSheet: View {
                                         .frame(maxWidth:.infinity,alignment:.leading)
 
 
-                                    Text("\(user.first_name ?? "") \(user.last_name ?? "")")
+                                    Text("\(user.middleName ?? "") \(user.lastName ?? "")")
                                         .foregroundColor(.black)
                                         .font(.custom("Urbanist-Medium", size: 12))
                                         .frame(maxWidth:.infinity,alignment:.leading)
@@ -91,8 +92,18 @@ struct CommentSheet: View {
                                 .padding(.bottom,4)
                                 .padding(.leading,20)
                                 .onTapGesture(perform: {
-                                    likeVM.commentDataModel.commentText = "\(user.username ?? "") "
-                                    likeVM.commentDataModel.showAtTheRate.toggle()
+                                    
+                                    if let lastIndex = likeVM.commentDataModel.commentText.lastIndex(of: "@") {
+                                        let range = lastIndex..<likeVM.commentDataModel.commentText.endIndex
+                                        if range.upperBound == likeVM.commentDataModel.commentText.endIndex {
+                                            // Append user + " " to the end of the description
+                                            likeVM.commentDataModel.commentText += "\(user.username ?? "") "
+                                            likeVM.commentDataModel.showAtTheRate.toggle()
+                                        } else {
+                                            likeVM.commentDataModel.commentText = likeVM.commentDataModel.commentText.replacingOccurrences(of: self.subString, with: "\(user.username ?? "") ", options: [], range: range)
+                                            likeVM.commentDataModel.showAtTheRate.toggle()
+                                        }
+                                    }
                                 })
                             }
                         }
@@ -148,6 +159,15 @@ struct CommentSheet: View {
                 HStack {
 
                     ReelsCommentTextField(text: $likeVM.commentDataModel.commentText, showEmoji: $likeVM.commentDataModel.showEmoji, showAtTheRate: $likeVM.commentDataModel.showAtTheRate, placeholder: $placeholder)
+                        .onChange(of: likeVM.commentDataModel.commentText) { newValue in
+                            print("value is\(newValue)")
+                            if let lastIndex = newValue.lastIndex(of: "@") {
+                                let substring = newValue.suffix(from: newValue.index(after: lastIndex))
+                                
+                                self.subString = String(substring)
+                                print("sub value is\(self.subString)")
+                            }
+                        }
 
                     Button {
                         if isReply == true {

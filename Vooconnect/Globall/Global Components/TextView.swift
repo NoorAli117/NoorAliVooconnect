@@ -231,7 +231,7 @@ struct DescriptionTextEditor: View {
             do {
                 let response = try decoder.decode(Response.self, from: data)
                 print("Response: \(response)")
-                userNames = response.data.map { $0.username }
+                userNames = response.data.map { $0.username! }
                 isListVisible = true
                 
             } catch {
@@ -249,14 +249,18 @@ struct Response: Codable {
     let data: [User]
 }
 
-// Define another struct that conforms to Codable protocol
-struct User: Codable, Hashable {
-//    var uuid: UUID
-    var username: String
-//    var first_name: String
-//    var last_name: String
-//    var profile_image: String
-//    var middle_name: String
+struct User: Codable, Hashable{
+    let uuid, username: String?
+    let firstName, lastName, profileImage: String?
+    let middleName: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case uuid, username
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case profileImage = "profile_image"
+        case middleName = "middle_name"
+    }
 }
 
 

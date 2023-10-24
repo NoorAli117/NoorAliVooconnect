@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 import SwiftUI
 import FBSDKShareKit
 import FBSDKCoreKit
@@ -177,6 +178,24 @@ struct CustomShareSheet: View{
                             Text("Set as Wallpaper")
                                 .font(.custom("Urbanist-Bold", size: 16))
                                 .lineLimit(0)
+                        }
+                        .onTapGesture{
+                            shareSheet = false
+                            isShowPopup = true
+                            showMessagePopup(messages: "Saving Image...")
+                            let urll = getImageVideoBaseURL + "/marked" + reelURL
+                            let videoURL = URL(string: urll)! // Replace with your video URL
+                            DispatchQueue.main.async {
+                                downloader.saveImageToPhotos(url: videoURL) { success in
+                                    if success == true {
+                                        isShowPopup = true
+                                        showMessagePopup(messages: "Image Saved")
+                                    }else{
+                                        isShowPopup = true
+                                        showMessagePopup(messages: "Failed to Save Image")
+                                    }
+                                }
+                            }
                         }
                     }
                     .padding(.horizontal, 20)

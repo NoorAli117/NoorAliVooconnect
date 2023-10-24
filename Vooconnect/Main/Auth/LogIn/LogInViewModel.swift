@@ -48,7 +48,7 @@ class LogInViewModel: ObservableObject {
     private let logInPhoneValidation = SignUpPhoneValidation()
     private let forgotPasswordValidation = ForgotPasswordValidation()
     private let logInResource = LogInResource()
-    @Published var usersList: [Users] = []
+    @Published var usersList: [GetUser] = []
     
     init() {
             fetchUsersApi()
@@ -269,8 +269,15 @@ class LogInViewModel: ObservableObject {
     //fetch users
     func fetchUsersApi() {
         print("Yes........come here")
-        let urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.users)!)
+        var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.users)!)
         print(urlRequest)
+        
+        if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
+            urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
+            urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+            print("Access Token============",tokenData)
+        }
+        
         
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             if let error = error {
@@ -284,9 +291,9 @@ class LogInViewModel: ObservableObject {
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     do {
-                        let decodedUsers = try JSONDecoder().decode([Users].self, from: data)
+                        let decodedUsers = try JSONDecoder().decode(UserMention.self, from: data)
                  
-                        self.usersList = decodedUsers
+                        self.usersList = decodedUsers.data
                     } catch let error {
                         print("Error decoding: ", error)
                     }

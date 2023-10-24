@@ -4,9 +4,8 @@ import Photos
 import AVKit
 import AVFoundation
 
-func downloadAndSaveWithCaptionVideo(){
-    var fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-    let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + fileName)
+func downloadAndSaveWithCaptionVideo(videoUrl: String, completion: @escaping (Bool) -> Void){
+    let markedVideoURL = URL(string: getImageVideoBaseURL + "/marked" + videoUrl)
     print(markedVideoURL!)
     let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     let destinationUrl = docsUrl?.appendingPathComponent(markedVideoURL?.lastPathComponent ?? "")
@@ -15,34 +14,27 @@ func downloadAndSaveWithCaptionVideo(){
         if FileManager().fileExists(atPath: destinationUrl.path) {
             print("File already exists")
             try! FileManager().removeItem(atPath: destinationUrl.path)
-            saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
+            saveVideo(url: markedVideoURL!, destiURL: destinationUrl){ success in
+                if success == true{
+                    completion(true)
+                }else{
+                    completion(false)
+                }
+            }
         } else {
-            saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
+            saveVideo(url: markedVideoURL!, destiURL: destinationUrl){ success in
+                if success == true{
+                    completion(true)
+                }else{
+                    completion(false)
+                }
+            }
 //            try! FileManager().removeItem(atPath: destinationUrl.path)
         }
     }
 }
 
-func downloadAncdSaveVideo(){
-    var fileName = UserDefaults.standard.string(forKey: "imageName") ?? ""
-    let markedVideoURL = URL(string: getImageVideoMarkedBaseURL + "/marked" + fileName)
-    print(markedVideoURL!)
-    let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-    let destinationUrl = docsUrl?.appendingPathComponent(markedVideoURL?.lastPathComponent ?? "")
-    
-    if let destinationUrl = destinationUrl {
-        if FileManager().fileExists(atPath: destinationUrl.path) {
-            print("File already exists")
-            try! FileManager().removeItem(atPath: destinationUrl.path)
-            saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
-        } else {
-            saveVideo(url: markedVideoURL!, destiURL: destinationUrl)
-//            try! FileManager().removeItem(atPath: destinationUrl.path)
-        }
-    }
-}
-
-func saveVideo(url: URL, destiURL: URL) {
+func saveVideo(url: URL, destiURL: URL, completion: @escaping (Bool) -> Void) {
     let urlRequest = URLRequest(url: url)
     
     let dataTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
@@ -66,21 +58,28 @@ func saveVideo(url: URL, destiURL: URL) {
                         PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destiURL)
                     }) { saved, error in
                         if saved {
-                            print("saved")
+                            print("Video saved.....")
+                            completion(true)
                             //
                         }else{
-                            debugPrint(error)
+                            debugPrint(error as Any)
+                            print("erroe:::")
+                            completion(false)
                         }
                     }
                     try data.write(to: destiURL, options: Data.WritingOptions.atomic)
                     DispatchQueue.main.async {
                         //                                                                      self.isDownloading = false
+                        print("doneeeeee")
                     }
                 } catch let error {
                     print("Error decoding: ", error)
                     //                                                                  self.isDownloading = false
                 }
             }
+        }
+        else{
+            print("error code is: \(response.statusCode)")
         }
     }
     dataTask.resume()

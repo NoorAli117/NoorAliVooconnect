@@ -36,7 +36,7 @@ struct ReelsCommentTextField: View {
                     
                     Button{
                         showAtTheRate.toggle()
-                        
+                        text += " @"
                         showEmoji = false
                     }label: {
                         Image(isFocused ? "AttherateLV" : "AttherateGrayRC")
@@ -50,7 +50,6 @@ struct ReelsCommentTextField: View {
                     
                     Button{
                         showEmoji.toggle()
-                        
                         showAtTheRate = false
                     }label: {
                         Image(isFocused ? "EmojiLV" : "EmogiGrayRC")

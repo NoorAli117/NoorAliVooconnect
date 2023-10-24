@@ -61,7 +61,7 @@ class UploadReelsResource {
                     if let data {
                         if data.status == true {
                             self.contentDetail = data.data.map { datum in
-                                return ContentDetail(name: datum.name, size: datum.size)
+                                return ContentDetail(name: datum.name!, size: datum.size!)
                             }
                             var largestSize: Double = 0.0 // Assuming size is in numeric format
                             var smallestSize: Double = Double.greatestFiniteMagnitude

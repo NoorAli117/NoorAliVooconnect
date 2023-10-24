@@ -33,7 +33,7 @@ struct CommentReplySheet: View {
                                             .frame(maxWidth:.infinity,alignment:.leading)
                                             
                                         
-                                        Text("\(user.first_name ?? "") \(user.last_name ?? "")")
+                                        Text("\(user.lastName ?? "") \(user.middleName ?? "")")
                                             .foregroundColor(.black)
                                             .font(.custom("Urbanist-Medium", size: 12))
                                             .frame(maxWidth:.infinity,alignment:.leading)
@@ -41,7 +41,7 @@ struct CommentReplySheet: View {
                                     .padding(.bottom,4)
                                     .padding(.leading,20)
                                     .onTapGesture(perform: {
-                                        likeVM.commentDataModel.replyText = "\(user.username ?? "") "
+                                        likeVM.commentDataModel.replyText += "\(user.username ?? "") "
                                         likeVM.commentDataModel.showAtTheRate.toggle()
                                     })
                                 }
@@ -50,7 +50,6 @@ struct CommentReplySheet: View {
                             .padding(.bottom,3)
                         }
                         .foregroundColor(.black)
-        //                    .background(.black)
                         .frame(height: 150)
                     }
                     

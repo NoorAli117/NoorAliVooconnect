@@ -33,6 +33,7 @@ struct FinalPreview: View{
     @State  var isPlaying: Bool = false;
     @State  var loading: Bool = false
     @State  var stickerOffset = CGSize.zero
+    @State  var markerOffset = CGSize(width: 0, height: 0)
     @State  var textOffset = CGSize.zero
     @State  var accumulatedTextOffset = CGSize.zero
     @State  var accumulatedstickerOffset = CGSize.zero
@@ -65,6 +66,19 @@ struct FinalPreview: View{
     @State var isTapped = false
     @State var generatedImage: UIImage?
     
+    
+    var btnBack : some View { Button(action: {
+        presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack {
+                Image("BackButtonWhite") // set image here
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
+                }
+            }
+        }
+    
+    
     var body: some View{
         
         NavigationStack {
@@ -87,7 +101,7 @@ struct FinalPreview: View{
                             controller.play()
                         }
                     }
-                    .overlay {
+                    .overlay{
                         if(markerStack){
                             markerView(cameraSize: size)
                         }
@@ -117,58 +131,6 @@ struct FinalPreview: View{
                                 .foregroundColor(.white)
                         }
                     }
-                    .overlay(alignment: .top){
-                        if markerHeader {
-                            HStack {
-                                ColorPicker("line color", selection: $selectedColor)
-                                    .labelsHidden()
-                                Slider(value: $selectedLineWidth, in: 1...20) {
-                                    Text("linewidth")
-                                }.frame(maxWidth: 100)
-                                Text(String(format: "%.0f", selectedLineWidth))
-                                
-                                Spacer()
-                                
-//                                Button {
-//                                    let last = drawingDocument.lines.removeLast()
-//                                    deletedLines.append(last)
-//                                } label: {
-//                                    Image(systemName: "arrow.uturn.backward.circle")
-//                                        .imageScale(.large)
-//                                }.disabled(drawingDocument.lines.count == 0)
-//
-//                                Button {
-//                                    let last = deletedLines.removeLast()
-//
-//                                    drawingDocument.lines.append(last)
-//                                } label: {
-//                                    Image(systemName: "arrow.uturn.forward.circle")
-//                                        .imageScale(.large)
-//                                }.disabled(deletedLines.count == 0)
-                                
-                                Button(action: {
-                                    markerHeader = false
-                                    
-                                }) {
-                                    Text("Done")
-                                }.foregroundColor(.white)
-                                Button(action: {
-                                    showConfirmation = true
-                                }) {
-                                    Text("Delete")
-                                }.foregroundColor(.red)
-                                    .confirmationDialog(Text("Are you sure you want to delete everything?"), isPresented: $showConfirmation) {
-                                        
-                                        Button("Delete", role: .destructive) {
-                                            drawingDocument.lines = [Line]()
-                                            deletedLines = [Line]()
-                                        }
-                                    }
-                                
-                            }.padding(.top, 30)
-                                .padding()
-                        }
-                    }
                 
                 // MARK: Back Button
                     .overlay(alignment: .topLeading) {
@@ -180,7 +142,7 @@ struct FinalPreview: View{
                                 .frame(width: 40, height: 40)
                         }
                         .padding(.leading)
-                        .padding(.top, 70)
+                        .padding(.top, 40)
                     }
                 
                 // MARK: Traling Side Button
@@ -311,8 +273,6 @@ struct FinalPreview: View{
                                     if(true)
                                     {
                                         Image("PreviewEffects")
-                                    }else{
-                                        Image("effectsPurple")
                                     }
                                 }
                                 Text("Effects")
@@ -546,14 +506,75 @@ struct FinalPreview: View{
                             }
                         }
                         
-                        .padding(.top, 100)
+                        .padding(.top, 120)
                         .padding(.trailing, 20)
                         
                     }
                 
+                // MARK: Marker Header View
+                
+                    .overlay(alignment: .top){
+                        if markerHeader {
+                            VStack(alignment: .leading) {
+                                HStack{
+                                    ColorPicker("line color", selection: $selectedColor)
+                                        .labelsHidden()
+                                    Slider(value: $selectedLineWidth, in: 1...20) {
+                                        Text("linewidth")
+                                    }
+                                    Text(String(format: "%.0f", selectedLineWidth))
+                                }
+                                
+                                HStack{
+                                    Button {
+                                        markerHeader.toggle()
+                                    } label: {
+                                        Spacer()
+                                        Text("Done")
+                                            .font(.custom("Urbanist-Bold", size: 16))
+                                            .foregroundColor(.white)
+                                            .padding()
+                                        Spacer()
+                                    }
+                                    .background(
+                                        LinearGradient(colors: [
+                                            Color("buttionGradientTwo"),
+                                            Color("buttionGradientOne"),
+                                        ], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                    )
+                                    .cornerRadius(40)
+                                    Spacer()
+                                    Button {
+                                        showConfirmation = true
+                                    } label: {
+                                        Spacer()
+                                        Text("Delete")
+                                            .font(.custom("Urbanist-Bold", size: 16))
+                                            .foregroundColor(Color("buttionGradientTwo"))
+                                            .padding()
+                                        Spacer()
+                                    }
+                                    .background(Color.white)
+                                    .cornerRadius(40)
+                                    .confirmationDialog(Text("Are you sure you want to delete everything?"), isPresented: $showConfirmation) {
+                                        
+                                        Button("Delete", role: .destructive) {
+                                            drawingDocument.lines = [Line]()
+                                            deletedLines = [Line]()
+                                        }
+                                    }
+                                }
+                                .frame(width: size.width/2, height: 50)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                Spacer()
+
+                            }.padding(.top, 70)
+                                .padding()
+                        }
+                    }
+                
                 
                 // MARK: Next and Draft Button
-                
                     .overlay(alignment: .bottom) {
                         
                         HStack {
@@ -579,6 +600,7 @@ struct FinalPreview: View{
                             
                             Button {
                                 loading = true
+                                markerHeader = false
                                 self.renderUrl = self.postModel.contentUrl
                                 if(self.postModel.audioContentUrl != nil)
                                 {
@@ -721,6 +743,8 @@ struct FinalPreview: View{
             }
             .ignoresSafeArea(.all)
             .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
+            .navigationBarItems(leading: btnBack)
         }
         .onAppear {
             print("final preview appear----------------")
@@ -745,33 +769,19 @@ struct FinalPreview: View{
         }
     }
     
-    func renderView(cameraSize : CGSize) -> some View{
-        ZStack{
-            if(enableText){
-                textView(cameraSize: cameraSize)
-            }
-            if(enableSticker){
-                stickerView(cameraSize: cameraSize)
-            }
-            if(markerStack){
-                markerView(cameraSize: cameraSize)
-            }
-        }
-    }
-    
     @MainActor func render(size : CGSize, callback : @escaping (URL) -> ()) {
         //        let render = Image("PreviewStickers").asUIImage()
         var array = [(UIImage,CGSize)]()
+        if(markerStack){
+            let view = markerView(cameraSize: size).offset(x: 0,y: 0)
+            array.append((view.asUIImage(), markerOffset))
+        }
         if(enableSticker){
             let view = stickerView(cameraSize: size).offset(CGSize(width: -stickerOffset.width, height: -stickerOffset.height))
             array.append((view.asUIImage(),stickerOffset))
         }
         if(enableText){
             let view = textView(cameraSize: size).offset(CGSize(width: -textOffset.width, height: -textOffset.height))
-            array.append((view.asUIImage(),textOffset))
-        }
-        if(markerStack){
-            let view = markerView(cameraSize: size).offset(x: 0,y: 0)
             array.append((view.asUIImage(),textOffset))
         }
         if(!enableText && !enableSticker && !markerStack){
@@ -855,31 +865,33 @@ struct FinalPreview: View{
     
     
     func markerView(cameraSize: CGSize) -> some View{
-        ZStack {
-            Image(uiImage: UIImage.from(color: .clear, size: CGSize(width: cameraSize.width, height: cameraSize.height)))
-                .opacity(0.1)
-                .gesture(markerHeader ?
-                         DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                    .onChanged { value in
-                        let newPoint = value.location
-                        if value.translation.width + value.translation.height == 0 {
-                            // TODO: use selected color and linewidth
-                            drawingDocument.lines.append(Line(points: [newPoint], color: selectedColor, lineWidth: selectedLineWidth))
-                        } else {
-                            let index = drawingDocument.lines.count - 1
-                            drawingDocument.lines[index].points.append(newPoint)
+        VStack{
+            ZStack {
+                Image(uiImage: UIImage.from(color: .clear, size: CGSize(width: cameraSize.width, height: cameraSize.height)))
+                    .opacity(0.1)
+                    .gesture(markerHeader ?
+                             DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                        .onChanged { value in
+                            let newPoint = value.location
+                            if value.translation.width + value.translation.height == 0 {
+                                // TODO: use selected color and linewidth
+                                drawingDocument.lines.append(Line(points: [newPoint], color: selectedColor, lineWidth: selectedLineWidth))
+                            } else {
+                                let index = drawingDocument.lines.count - 1
+                                drawingDocument.lines[index].points.append(newPoint)
+                            }
                         }
-                    }
-                    .onEnded { value in
-                        if let last = drawingDocument.lines.last?.points, last.isEmpty {
-                            drawingDocument.lines.removeLast()
+                        .onEnded { value in
+                            if let last = drawingDocument.lines.last?.points, last.isEmpty {
+                                drawingDocument.lines.removeLast()
+                            }
                         }
-                    }
-                         : nil  // Do nothing when markerHeader is false
-                )
-            ForEach(drawingDocument.lines){ line in
-                DrawingShape(points: line.points)
-                    .stroke(line.color, style: StrokeStyle(lineWidth: line.lineWidth, lineCap: .round, lineJoin: .round))
+                             : nil
+                    )
+                ForEach(drawingDocument.lines){ line in
+                    DrawingShape(points: line.points)
+                        .stroke(line.color, style: StrokeStyle(lineWidth: line.lineWidth, lineCap: .round, lineJoin: .round))
+                }
             }
         }
     }
