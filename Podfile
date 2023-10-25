@@ -15,5 +15,4 @@ target 'Vooconnect' do
 	pod "Regift"
         pod 'Toast-Swift'
 	pod 'URLImage'
-	pod 'FFmpeg'
 end

@@ -90,45 +90,8 @@ class VideoDownloader: ObservableObject {
     @Published var downloadProgress: Double = 0.0
     
     private var cancellables = Set<AnyCancellable>()
-    func downloadVideo(url: URL, completion: @escaping (Bool) -> Void) {
-        print("Video Url: \(url)")
-        let task = URLSession.shared.downloadTask(with: url) { (tempURL, _, error) in
-            if let tempURL = tempURL {
-                let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                let destinationURL = documentsDirectory.appendingPathComponent("\(Date().timeIntervalSince1970).mp4")
-                
-                try? FileManager.default.moveItem(at: tempURL, to: destinationURL)
-                
-                // Save the video to the Photos library
-                PHPhotoLibrary.shared().performChanges {
-                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: destinationURL)
-                } completionHandler: { success, error in
-                    if success {
-                        print("Download Success: \(destinationURL)")
-                        completion(true)
-                    } else {
-                        completion(false)
-                    }
-                }
-            } else {
-                completion(false)
-            }
-        }
-        
-        let progressPublisher = task.progress.publisher(for: \.fractionCompleted)
-        progressPublisher
-            .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main) // Debounce the updates
-            .sink { fractionCompleted in
-                DispatchQueue.main.async {
-                    self.downloadProgress = fractionCompleted // Update progress on the main thread
-                }
-            }
-            .store(in: &cancellables)
-        
-        task.resume()
-    }
     
-
+    
     func saveImageToPhotos(url: URL, completion: @escaping (Bool) -> Void) {
         let task = URLSession.shared.downloadTask(with: url) { (tempURL, _, error) in
             if let tempURL = tempURL {
