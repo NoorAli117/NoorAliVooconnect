@@ -162,16 +162,17 @@ struct CustomShareSheet: View{
                             isShowPopup = true
                             showMessagePopup(messages: "Saving Video...")
                             let urll = getImageVideoBaseURL + "/marked" + reelURL
-                            let videoURL = URL(string: urll)! // Replace with your video URL
-//                            DispatchQueue.main.async {
-//                                downloader.downloadVideo(url: videoURL) { downloadedURL in
-//                                    if downloadedURL == true {
-//                                        isSaveVideo = false
-//                                        isShowPopup = true
-//                                        showMessagePopup(messages: "Video Saved")
-//                                    }
-//                                }
-//                            }
+                            if let videoURL = URL(string: urll){
+                                DispatchQueue.main.async {
+                                    downloader.downloadVideo(url: videoURL) { downloadedURL in
+                                        if downloadedURL == true {
+                                            isSaveVideo = false
+                                            isShowPopup = true
+                                            showMessagePopup(messages: "Video Saved")
+                                        }
+                                    }
+                                }
+                            }
                         }
                         VStack {
                             Image("SetasWallpaperS")
