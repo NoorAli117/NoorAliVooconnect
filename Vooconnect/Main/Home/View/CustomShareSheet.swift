@@ -19,6 +19,7 @@ struct CustomShareSheet: View{
     
     @StateObject var downloader = VideoDownloader()
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
+    @State private var isPresentingActivityViewController = false
     @Binding var reelURL: String
     @Binding var reelDescription: String
     @Binding var postID: Int
@@ -29,6 +30,9 @@ struct CustomShareSheet: View{
     @Binding var isShowPopup: Bool
     @Binding var message: String
     @Binding var isDuo: Bool
+    @Binding var repost: Bool
+    @State private var videoUrl: String?
+    @State private var app: UIApplication? = UIApplication.shared
 //    @Binding var isSuccess: Bool
     
     
@@ -55,45 +59,72 @@ struct CustomShareSheet: View{
                             Text("Repost")
                                 .font(.custom("Urbanist-Bold", size: 16))
                         }
+                        .onTapGesture {
+                            shareSheet = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                repost.toggle()
+                                print("repost")
+                            }
+                        }
                         Spacer()
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 0)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     // Add a divider between the first and second column
                     Divider().frame(height: 1).background(Color.gray).opacity(0.3)
                     HStack(alignment: .top, spacing: 30) {
-                        VStack {
-                            Image("WhatsAppS")
-                            Text("WhatsApp")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                        }
-                        .onTapGesture {
-                            if let reelUrl = URL(string: reelURL){
-                                shareSheet = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                    shareVideoToWhatsApp(videoUrl: reelURL)
-                                    print("Whatsapp tapped")
-                                }
+                        Button(action: {
+                            guard let videoURL = URL(string: getImageVideoBaseURL + "/marked" + reelURL) else {
+                                print("Invalid video URL")
+                                return
+                            }
+                            let videoURLWithoutProtocol = videoURL.absoluteString.replacingOccurrences(of: "https://", with: "")
+
+                            if let url = URL(string: "https://wa.me/?text=\(videoURLWithoutProtocol)"),
+                                UIApplication.shared.canOpenURL(url) {
+                                print("Opening WhatsApp with message: \(reelDescription)%20\(videoURLWithoutProtocol)")
+                                print("url is \(url)")
+                                UIApplication.shared.open(url, options: [:])
+                            } else {
+                                print("WhatsApp is not installed on this device")
+                            }
+                            shareSheet = false
+                        }) {
+                            VStack {
+                                Image("WhatsAppS")
+                                Text("WhatsApp")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
                             }
                         }
-                        VStack {
-                            Image("TwitterS")
-                            Text("Twitter")
-                                .font(.custom("Urbanist-Bold", size: 16))
+                        Button(action: {
+                            downloadVideo(reelURL: reelURL)
+                        }) {
+                            VStack {
+                                Image("TwitterS")
+                                Text("Twitter")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("FacebookS")
-                            Text("Facebook")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                        }
-                        .onTapGesture {
+                        Button(action: {
+                            guard let videoURL = URL(string: getImageVideoBaseURL + "/marked" + reelURL) else {
+                                print("Invalid video URL")
+                                return
+                            }
                             shareSheet = false
-                            DispatchQueue.main.async{
-                                if let videoUrl =  URL(string: getImageVideoBaseURL + reelURL){
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3){
-                                        uploadVideoToFacebook(videoURL: videoUrl)
-                                        print("Facebook tapped")
-                                    }
-                                }
+                            let videoURLWithoutProtocol = videoURL.absoluteString.replacingOccurrences(of: "https://", with: "")
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                shareToFacebook(videoURL: videoURL, description: videoURLWithoutProtocol)
+                            }
+
+                        }) {
+                            VStack {
+                                Image("FacebookS")
+                                Text("Facebook")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
                             }
                         }
                         VStack {
@@ -298,24 +329,72 @@ struct CustomShareSheet: View{
         self.message = messages
         self.isShowPopup = true
     }
-    private func shareVideoToWhatsApp(videoUrl: String) {
-        guard let videoURL = URL(string: getImageVideoBaseURL + videoUrl) else { return }
-
-        let delegate = WhatsAppDelegate()
-        let documentInteractionController = UIDocumentInteractionController(url: videoURL)
-        documentInteractionController.uti = UTType.video.identifier
-        documentInteractionController.delegate = delegate
-
-        // Check if the UIWindow.key?.rootViewController?.view property is not nil.
-        if let view = UIApplication.shared.windows.first?.rootViewController?.view {
-            documentInteractionController.presentOpenInMenu(from: CGRect.zero, in: view, animated: true)
-        }
-    }
-    func shareToFacebook(videoURL: URL) {
-        let activityItems: [Any] = [videoURL, self.reelDescription]
+    
+    func shareToFacebook(videoURL: URL, description: String) {
+        let activityItems: [Any] = [description, videoURL]
                 let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
                 UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
     }
+
+
+
+    private func downloadVideo(reelURL: String) {
+        let urlSession = URLSession(configuration: .default)
+        
+        let url = URL(string: getImageVideoBaseURL + "/marked" + reelURL)!
+        let task = urlSession.dataTask(with: url) { data, response, error in
+            if let data = data {
+                self.videoUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(reelURL).absoluteString
+                
+                try? data.write(to: URL(string: self.videoUrl!)!)
+                
+                DispatchQueue.main.async {
+                    // Make sure that the video has finished downloading before trying to share it.
+                    if let videoURL = self.videoUrl {
+                        self.shareVideoToWhatsApp(videoUrl: videoURL)
+                        print("videoURL")
+                    }
+                }
+            } else if let error = error {
+                print(error)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    private func shareVideoToWhatsApp(videoUrl: String) {
+        let activityViewController = UIActivityViewController(activityItems: [URL(string: videoUrl)!], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [
+            UIActivity.ActivityType.addToReadingList,
+            UIActivity.ActivityType.airDrop,
+            UIActivity.ActivityType.assignToContact,
+            UIActivity.ActivityType.copyToPasteboard,
+            UIActivity.ActivityType.mail,
+            UIActivity.ActivityType.message,
+            UIActivity.ActivityType.openInIBooks,
+            UIActivity.ActivityType.postToFacebook,
+            UIActivity.ActivityType.postToFlickr,
+            UIActivity.ActivityType.postToTencentWeibo,
+            UIActivity.ActivityType.postToTwitter,
+            UIActivity.ActivityType.postToVimeo,
+            UIActivity.ActivityType.postToWeibo,
+            UIActivity.ActivityType.print,
+            UIActivity.ActivityType.saveToCameraRoll
+        ]
+        
+        activityViewController.completionWithItemsHandler = { activityType, completed, returnedItems, error in
+            if completed {
+                print("Video shared successfully.")
+            } else {
+                print("Failed to share video.")
+            }
+        }
+        
+        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    
     private func uploadVideoToFacebook(videoURL: URL) {
 
             let videoData = try? Data(contentsOf: videoURL)
@@ -349,3 +428,25 @@ class WhatsAppDelegate: NSObject, UIDocumentInteractionControllerDelegate {
         }
     }
 }
+
+//struct ShareMessageToWhatsAppView: View {
+//
+//    @State private var message = ""
+//
+//    var body: some View {
+//        TextField("Enter message:", text: $message)
+//        Button(action: {
+//            let client = WhatsAPIClient()
+//            client.sendMessage(to: "phone number", text: message) { success in
+//                if success {
+//                    // Message shared successfully
+//                } else {
+//                    // Error sharing message
+//                }
+//            }
+//        }) {
+//            Text("Share Message to WhatsApp")
+//        }
+//    }
+//}
+//

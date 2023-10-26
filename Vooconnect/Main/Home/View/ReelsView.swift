@@ -328,6 +328,7 @@ struct ReelsPlyer: View {
     @State private var bookmarkCount: Int = 0
     
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
+    @StateObject var cameraModel = CameraViewModel()
     @State var likeAndUnlike = false
     @State var likeImage: String = "ThumbsUp"
 //    @State var selectedReaction: Int = 0
@@ -365,6 +366,7 @@ struct ReelsPlyer: View {
     @State var isDownloading = false
     @State var isGifDownloading = false
     @State var isDuo = false
+    @State var repost = false
     @Binding var follow: Bool
     @StateObject var downloader = VideoDownloader()
     @State private var iconSize: CGFloat = 30.0
@@ -587,11 +589,26 @@ struct ReelsPlyer: View {
 
 
             // Creator Detail
-            VStack {
+            VStack{
 
                 HStack(alignment: .bottom) {
 
                     VStack(alignment: .leading, spacing: 10) {
+                        
+                        //MARK: Repost Card
+                        if repost{
+                            HStack{
+                                Image("ImageCP")
+                                    .frame(width: 20)
+                                    .clipShape(Circle())
+                                Text("You Reposted")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
+                            .frame(width: 120, height: 30)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                        }
 
                         Button{
                             show = false
@@ -834,6 +851,7 @@ struct ReelsPlyer: View {
 
                     .padding(.bottom, 10)
                 }
+
 
                 // Floting Menue
                 // LIKE
@@ -1112,7 +1130,7 @@ struct ReelsPlyer: View {
             
         } content: {
             if #available(iOS 16.0, *) {
-                CustomShareSheet(reelURL: $urll, reelDescription: $reelDescription, postID: $postID, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport, isShowPopup: $isShowPopup, message: $message, isDuo: $isDuo)
+                CustomShareSheet(reelURL: $urll, reelDescription: $reelDescription, postID: $postID, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport, isShowPopup: $isShowPopup, message: $message, isDuo: $isDuo, repost: $repost)
                     .presentationDetents([.large,.medium,.height(900)])
             } else {
                 // Fallback on earlier versions

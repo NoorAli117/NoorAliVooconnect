@@ -129,7 +129,6 @@ class VideoDownloader: ObservableObject {
         task.resume()
     }
     
-    
     func saveImageToPhotos(url: URL, completion: @escaping (Bool) -> Void) {
         let task = URLSession.shared.downloadTask(with: url) { (tempURL, _, error) in
             if let tempURL = tempURL {

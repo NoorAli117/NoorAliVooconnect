@@ -132,18 +132,18 @@ struct FinalPreview: View{
                         }
                     }
                 
-                // MARK: Back Button
-                    .overlay(alignment: .topLeading) {
-                        Button {
-                            showPreview.toggle()
-                            presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            Image("BackButtonWhite")
-                                .frame(width: 40, height: 40)
-                        }
-                        .padding(.leading)
-                        .padding(.top, 40)
-                    }
+//                // MARK: Back Button
+//                    .overlay(alignment: .topLeading) {
+//                        Button {
+//                            showPreview.toggle()
+//                            presentationMode.wrappedValue.dismiss()
+//                        } label: {
+//                            Image("BackButtonWhite")
+//                                .frame(width: 40, height: 40)
+//                        }
+//                        .padding(.leading)
+//                        .padding(.top, 40)
+//                    }
                 
                 // MARK: Traling Side Button
                     .overlay(alignment: .topTrailing) {
@@ -502,6 +502,7 @@ struct FinalPreview: View{
                         .onDisappear{
                             DispatchQueue.main.async {
                                 controller.pause()
+                                controller.audioPlayer.player.pause()
                                 print("Player Stoped")
                             }
                         }
@@ -735,7 +736,7 @@ struct FinalPreview: View{
                         }
                     }
                 
-                NavigationLink(destination: FinalVideoToPostView(postModel: self.$postModel,renderUrl : self.$renderUrl)
+                NavigationLink(destination: FinalVideoToPostView(postModel: self.$postModel,renderUrl : self.$renderUrl, speed: speed)
                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $finalVideoPost) {
                         EmptyView()
                     }

@@ -45,6 +45,7 @@ struct FinalVideoToPostView: View {
     //    var url: URL
     @Binding var postModel : PostModel
     @Binding var renderUrl : URL?
+    @State var speed : Float = 1.0
     @State private var saveToDevice = false
     @State private var autoCaption = false
     @State private var loader = false
@@ -628,55 +629,119 @@ struct FinalVideoToPostView: View {
                                             showMessagePopup(messages: "Category Needed")
                                             return
                                         }
-                                        uploadReelss { isSuccess in
-                                            if isSuccess == true {
-                                                if (self.saveToDevice){
-                                                    print("saving video to device: " + self.saveToDevice.description)
-                                                    showMessagePopup(messages: "Saving Video")
-                                                    Task {
-                                                        DispatchQueue.main.async{
-                                                            for videoUrl in uploadReels.contentDetail {
-                                                                if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
-                                                                    downloadAndSaveWithCaptionVideo(videoUrl: url.absoluteString){ success in
-                                                                        if success == true{
-                                                                            print("video is Saved")
-                                                                            showMessagePopup(messages: "Video Saved")
-                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                                                                loader = false
-                                                                                homeView = true
+                                        if let audioURL = postModel.songModel?.preview {
+                                            mergeVideoAndAudio(videoUrl: renderUrl!, audioUrl: URL(string: audioURL)!) { error, url in
+                                                guard let url = url else {
+                                                    print("Error merging video and audio.")
+                                                    return
+                                                }
+                                                print("Video and audio merge completed, new URL: \(url.absoluteString)")
+                                                DispatchQueue.main.async {
+                                                    renderUrl = url
+                                                    uploadReelss { isSuccess in
+                                                        if isSuccess == true {
+                                                            if (self.saveToDevice){
+                                                                print("saving video to device: " + self.saveToDevice.description)
+                                                                showMessagePopup(messages: "Saving Video")
+                                                                Task {
+                                                                    DispatchQueue.main.async{
+                                                                        for videoUrl in uploadReels.contentDetail {
+                                                                            if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                                downloadAndSaveWithCaptionVideo(videoUrl: url.absoluteString){ success in
+                                                                                    if success == true{
+                                                                                        print("video is Saved")
+                                                                                        showMessagePopup(messages: "Video Saved")
+                                                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                            loader = false
+                                                                                            homeView = true
+                                                                                        }
+                                                                                    }else{
+                                                                                        print("Errror Saving Video.....")
+                                                                                        showMessagePopup(messages: "Error Saving Video")
+                                                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                            loader = false
+                                                                                            homeView = true
+                                                                                        }
+                                                                                    }
+                                                                                }
                                                                             }
-                                                                        }else{
-                                                                            print("Errror Saving Video.....")
-                                                                            showMessagePopup(messages: "Error Saving Video")
-                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                                                                loader = false
-                                                                                homeView = true
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }else{
+                                                                homeView = true
+                                                                loader = false
+                                                            }
+                                                            if (selectedType != nil){
+                                                                DispatchQueue.main.async{
+                                                                    print("Sharing To cocial Media")
+                                                                    for videoUrl in uploadReels.contentDetail {
+                                                                        if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                            let videoURL =  URL(string: getImageVideoBaseURL + "/marked" + url.absoluteString)
+                                                                            print("shareable Url \(String(describing: videoURL))")
+                                                                            shareToFacebook(videoURL: videoURL!)
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        } else {
+                                                            print("failed==========")
+                                                            loader = false
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } else{
+                                            uploadReelss { isSuccess in
+                                                if isSuccess == true {
+                                                    if (self.saveToDevice){
+                                                        print("saving video to device: " + self.saveToDevice.description)
+                                                        showMessagePopup(messages: "Saving Video")
+                                                        Task {
+                                                            DispatchQueue.main.async{
+                                                                for videoUrl in uploadReels.contentDetail {
+                                                                    if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                        downloadAndSaveWithCaptionVideo(videoUrl: url.absoluteString){ success in
+                                                                            if success == true{
+                                                                                print("video is Saved")
+                                                                                showMessagePopup(messages: "Video Saved")
+                                                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                    loader = false
+                                                                                    homeView = true
+                                                                                }
+                                                                            }else{
+                                                                                print("Errror Saving Video.....")
+                                                                                showMessagePopup(messages: "Error Saving Video")
+                                                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                    loader = false
+                                                                                    homeView = true
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
                                                                 }
                                                             }
                                                         }
+                                                    }else{
+                                                        homeView = true
+                                                        loader = false
                                                     }
-                                                }else{
-                                                    homeView = true
-                                                    loader = false
-                                                }
-                                                if (selectedType != nil){
-                                                    DispatchQueue.main.async{
-                                                        print("Sharing To cocial Media")
-                                                        for videoUrl in uploadReels.contentDetail {
-                                                            if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
-                                                                let videoURL =  URL(string: getImageVideoMarkedBaseURL + "/marked" + url.absoluteString)
-                                                                print("shareable Url \(String(describing: videoURL))")
-                                                                shareToFacebook(videoURL: videoURL!)
+                                                    if (selectedType != nil){
+                                                        DispatchQueue.main.async{
+                                                            print("Sharing To cocial Media")
+                                                            for videoUrl in uploadReels.contentDetail {
+                                                                if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                    let videoURL =  URL(string: getImageVideoBaseURL + "/marked" + url.absoluteString)
+                                                                    print("shareable Url \(String(describing: videoURL))")
+                                                                    shareToFacebook(videoURL: videoURL!)
+                                                                }
                                                             }
                                                         }
                                                     }
+                                                } else {
+                                                    print("failed==========")
+                                                    loader = false
                                                 }
-                                            } else {
-                                                print("failed==========")
-                                                loader = false
                                             }
                                         }
                                         
@@ -858,7 +923,110 @@ struct FinalVideoToPostView: View {
             }
         }
     
-    
+    func mergeVideoAndAudio(videoUrl: URL,audioUrl: URL,shouldFlipHorizontally: Bool = false,
+                            completion: @escaping (_ error: Error?, _ url: URL?) -> Void) {
+
+        
+        let mixComposition = AVMutableComposition()
+        var mutableCompositionVideoTrack = [AVMutableCompositionTrack]()
+        var mutableCompositionAudioTrack = [AVMutableCompositionTrack]()
+        var mutableCompositionAudioOfVideoTrack = [AVMutableCompositionTrack]()
+
+        //start merge
+
+        let aVideoAsset = AVAsset(url: videoUrl)
+        let aAudioAsset = AVAsset(url: audioUrl)
+        let compositionAddVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.video,
+                                                                       preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        
+        let compositionAddAudio = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio,
+                                                                 preferredTrackID: kCMPersistentTrackID_Invalid)!
+
+        let compositionAddAudioOfVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio,
+                                                                        preferredTrackID: kCMPersistentTrackID_Invalid)!
+        
+        let first = CMTimeRange(start: CMTime.zero, duration: aVideoAsset.duration)
+        let fullRange = CMTimeRange(start: CMTime.zero, duration: CMTime(value: aVideoAsset.duration.value, timescale: CMTimeScale(speed)))
+        compositionAddVideo?.scaleTimeRange(first, toDuration: fullRange.duration)
+        compositionAddAudio.scaleTimeRange(first, toDuration: fullRange.duration)
+        compositionAddAudioOfVideo.scaleTimeRange(first, toDuration: fullRange.duration)
+
+        let aVideoAssetTrack: AVAssetTrack = aVideoAsset.tracks(withMediaType: AVMediaType.video)[0]
+        let aAudioOfVideoAssetTrack: AVAssetTrack? = aVideoAsset.tracks(withMediaType: AVMediaType.audio).first
+        let aAudioAssetTrack: AVAssetTrack = aAudioAsset.tracks(withMediaType: AVMediaType.audio)[0]
+
+        // Default must have tranformation
+        compositionAddVideo?.preferredTransform = aVideoAssetTrack.preferredTransform
+
+        if shouldFlipHorizontally {
+            // Flip video horizontally
+            var frontalTransform: CGAffineTransform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+            frontalTransform = frontalTransform.translatedBy(x: -aVideoAssetTrack.naturalSize.width, y: 0.0)
+            frontalTransform = frontalTransform.translatedBy(x: 0.0, y: -aVideoAssetTrack.naturalSize.width)
+            compositionAddVideo?.preferredTransform = frontalTransform
+        }
+
+        mutableCompositionVideoTrack.append(compositionAddVideo!)
+        mutableCompositionAudioTrack.append(compositionAddAudio)
+        mutableCompositionAudioOfVideoTrack.append(compositionAddAudioOfVideo)
+        
+
+        do {
+            try mutableCompositionVideoTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
+                                                                                duration: aVideoAssetTrack.timeRange.duration),
+                                                                of: aVideoAssetTrack,
+                                                                at: CMTime.zero)
+
+            //In my case my audio file is longer then video file so i took videoAsset duration
+            //instead of audioAsset duration
+            try mutableCompositionAudioTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
+                                                                                duration: aVideoAssetTrack.timeRange.duration),
+                                                                of: aAudioAssetTrack,
+                                                                at: CMTime.zero)
+
+            // adding audio (of the video if exists) asset to the final composition
+            if let aAudioOfVideoAssetTrack = aAudioOfVideoAssetTrack {
+                try mutableCompositionAudioOfVideoTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
+                                                                                           duration: aVideoAssetTrack.timeRange.duration),
+                                                                           of: aAudioOfVideoAssetTrack,
+                                                                           at: CMTime.zero)
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+
+        // Exporting
+        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/newVideo.mp4")
+        do { // delete old video
+            try FileManager.default.removeItem(at: savePathUrl)
+        } catch { print(error.localizedDescription) }
+        
+        let assetExport: AVAssetExportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)!
+        assetExport.outputFileType = AVFileType.mp4
+        assetExport.outputURL = savePathUrl
+        assetExport.shouldOptimizeForNetworkUse = true
+        
+
+        assetExport.exportAsynchronously { () -> Void in
+            switch assetExport.status {
+            case AVAssetExportSession.Status.completed:
+                print("success")
+                completion(nil, savePathUrl)
+            case AVAssetExportSession.Status.failed:
+                print("failed \(assetExport.error?.localizedDescription ?? "error nil")")
+                completion(assetExport.error, nil)
+            case AVAssetExportSession.Status.cancelled:
+                print("cancelled \(assetExport.error?.localizedDescription ?? "error nil")")
+                completion(assetExport.error, nil)
+            default:
+                print("complete")
+                completion(assetExport.error, nil)
+            }
+        }
+
+    }
     func simulateVideoDownload() {
         DispatchQueue.global(qos: .background).async {
             let totalProgressSteps = 10
