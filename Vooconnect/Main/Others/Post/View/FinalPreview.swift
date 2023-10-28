@@ -132,18 +132,18 @@ struct FinalPreview: View{
                         }
                     }
                 
-//                // MARK: Back Button
-//                    .overlay(alignment: .topLeading) {
-//                        Button {
-//                            showPreview.toggle()
-//                            presentationMode.wrappedValue.dismiss()
-//                        } label: {
-//                            Image("BackButtonWhite")
-//                                .frame(width: 40, height: 40)
-//                        }
-//                        .padding(.leading)
-//                        .padding(.top, 40)
-//                    }
+                // MARK: Back Button
+                    .overlay(alignment: .topLeading) {
+                        Button {
+                            showPreview.toggle()
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image("BackButtonWhite")
+                                .frame(width: 40, height: 40)
+                        }
+                        .padding(.leading)
+                        .padding(.top, 40)
+                    }
                 
                 // MARK: Traling Side Button
                     .overlay(alignment: .topTrailing) {
@@ -743,9 +743,7 @@ struct FinalPreview: View{
                 
             }
             .ignoresSafeArea(.all)
-            .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
-            .navigationBarItems(leading: btnBack)
         }
         .onAppear {
             print("final preview appear----------------")

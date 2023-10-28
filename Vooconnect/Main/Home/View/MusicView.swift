@@ -97,20 +97,13 @@ struct MusicView: View {
                                     //buttons
                                     HStack {
                                         Button {
-                                            let audioOutputURL = FileManager.default.temporaryDirectory.appendingPathComponent("output.m4a")
-                                            if let reelURL = reel.contentURL{
-                                                print(reelURL)
-                                                let videoReelURL = URL(string: reelURL)
-                                                print("video URL: \(String(describing: videoReelURL))")
-                                                extractAudio(sourceUrl: videoReelURL!) { result in
-                                                    switch result {
-                                                    case .success(let audioUrl):
-                                                        play(url: audioUrl)
-                                                    case .failure(let error):
-                                                        print("Audio extraction and playback error: \(error)")
-                                                    }
-                                                }
+                                            isPlaying.toggle()
+                                            if isPlaying{
+                                                self.audioPlayer?.play()
+                                            }else{
+                                                self.audioPlayer?.pause()
                                             }
+
                                         } label: {
                                             HStack {
                                                 Image("PlayS")
@@ -327,6 +320,17 @@ struct MusicView: View {
                 // Fallback on earlier versions
             }
         }
+        .onTapGesture{
+            for reel in reelVM.allReels {
+                if reel.postID == reelId {
+                    if let song = reel.musicURL, let songUrl = URL(string: "\(getImageVideoBaseURL + song)") {
+                        // Create an AVAudioPlayer instance.
+                        print("songUrl: \(songUrl)")
+                        downloadMusic(url: songUrl)
+                    }
+                }
+            }
+        }
         
         
     }
@@ -371,14 +375,39 @@ struct MusicView: View {
             }
         }
     }
-
+    
+    func downloadMusic(url: URL){
+        let task = URLSession.shared.downloadTask(with: url) { (location, response, error) in
+            if let error = error {
+                print("Error downloading audio file: \(error)")
+                return
+            }
+            
+            // Get the downloaded audio file URL.
+            guard let location = location else {
+                print("Could not get downloaded audio file URL.")
+                return
+            }
+            
+            // Create an AVAudioPlayer from the downloaded audio file.
+            do {
+                self.audioPlayer = try AVAudioPlayer(contentsOf: location)
+            } catch let error {
+                print("Error creating AVAudioPlayer: \(error)")
+                return
+            }
+        }
+        
+        task.resume()
+    }
+    
     
     func play(url: URL) {
         print("playing \(url)")
-
+        
         do {
             let playerItem = AVPlayerItem(url: url)
-
+            
             self.player = try AVPlayer(playerItem: playerItem)
             player!.volume = 1.0
             player!.play()

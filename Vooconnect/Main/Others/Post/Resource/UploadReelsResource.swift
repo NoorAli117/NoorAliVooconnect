@@ -60,6 +60,9 @@ class UploadReelsResource {
                             let data = try? JSONDecoder().decode(UploadRes.self, from: data)
                     if let data {
                         if data.status == true {
+                            UserDefaults.standard.set(data.music, forKey: "musicUrl")
+                            let musicUrl = UserDefaults.standard.string(forKey: "musicUrl") ?? ""
+                            print("The musicUrl is======", musicUrl)
                             self.contentDetail = data.data.map { datum in
                                 return ContentDetail(name: datum.name!, size: datum.size!)
                             }
@@ -158,6 +161,7 @@ class UploadReelsResource {
 
 struct UploadRes: Codable {
     let status: Bool?
+    let music: String
     let data: [Datum]
 }
 

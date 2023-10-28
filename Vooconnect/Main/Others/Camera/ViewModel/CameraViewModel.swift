@@ -417,16 +417,21 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
             }.first
     }
 
+    func playSong(songURL: String) {
+        if let previewURL = songModel?.preview {
+            SoundsManagerHelper.instance.playAudioFromUrl(url: previewURL)
+        }
+    }
+    
+    func stopSong(){
+        SoundsManagerHelper.instance.pause()
+    }
     
     func startRecording(){
         // MARK: Temporary URL for recording Video
         let tempURL = NSTemporaryDirectory() + "\(Date()).mp4"
         output.startRecording(to: URL(fileURLWithPath: tempURL), recordingDelegate: self)
         print("Start recording")
-        if(songModel != nil)
-        {
-            let _ = SoundsManagerHelper.instance.playAudioFromUrl(url: songModel!.preview!)
-        }
         recordingStopWatch()
         isRecording = true
     }

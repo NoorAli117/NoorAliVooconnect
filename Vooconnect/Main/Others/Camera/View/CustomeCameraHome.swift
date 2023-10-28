@@ -830,10 +830,18 @@ struct CustomeCameraHome: View {
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
                                                     timerRunning = false
                                                     Vm.isRecording = true
+                                                    print("start recording")
+                                                    if let songURL = cameraModel.songModel?.preview {
+                                                        cameraModel.playSong(songURL: songURL)
+                                                    }
                                                 }
                                             }else{
                                                 Vm.isRecording = true
                                                 countdownText = 0
+                                                print("stop recording")
+                                                if cameraModel.songModel?.preview != nil{
+                                                    cameraModel.stopSong()
+                                                }
                                             }
                                         } label: {
                                             Image("CameraRecording")
@@ -864,6 +872,7 @@ struct CustomeCameraHome: View {
                                                         if let error = error {
                                                             print("Failed to remove audio: \(error.localizedDescription)")
                                                         } else {
+                                                            self.previewURL = url!.absoluteString
                                                             cameraModel.previewURL = url
                                                             print("Audio removed video, new url: " + url!.absoluteString)
                                                             DispatchQueue.main.async {

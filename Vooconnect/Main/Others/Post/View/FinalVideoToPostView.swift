@@ -708,6 +708,7 @@ struct FinalVideoToPostView: View {
                                                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                                                                                     loader = false
                                                                                     homeView = true
+                                                                                    shareSocially()
                                                                                 }
                                                                             }else{
                                                                                 print("Errror Saving Video.....")
@@ -715,6 +716,7 @@ struct FinalVideoToPostView: View {
                                                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                                                                                     loader = false
                                                                                     homeView = true
+                                                                                    shareSocially()
                                                                                 }
                                                                             }
                                                                         }
@@ -725,18 +727,7 @@ struct FinalVideoToPostView: View {
                                                     }else{
                                                         homeView = true
                                                         loader = false
-                                                    }
-                                                    if (selectedType != nil){
-                                                        DispatchQueue.main.async{
-                                                            print("Sharing To cocial Media")
-                                                            for videoUrl in uploadReels.contentDetail {
-                                                                if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
-                                                                    let videoURL =  URL(string: getImageVideoBaseURL + "/marked" + url.absoluteString)
-                                                                    print("shareable Url \(String(describing: videoURL))")
-                                                                    shareToFacebook(videoURL: videoURL!)
-                                                                }
-                                                            }
-                                                        }
+                                                        shareSocially()
                                                     }
                                                 } else {
                                                     print("failed==========")
@@ -922,6 +913,22 @@ struct FinalVideoToPostView: View {
                 }
             }
         }
+    
+    
+    func shareSocially(){
+        if (selectedType != nil){
+            DispatchQueue.main.async{
+                print("Sharing To cocial Media")
+                for videoUrl in uploadReels.contentDetail {
+                    if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                        let videoURL =  URL(string: getImageVideoBaseURL + "/marked" + url.absoluteString)
+                        print("shareable Url \(String(describing: videoURL))")
+                        shareToFacebook(videoURL: videoURL!)
+                    }
+                }
+            }
+        }
+    }
     
     func mergeVideoAndAudio(videoUrl: URL,audioUrl: URL,shouldFlipHorizontally: Bool = false,
                             completion: @escaping (_ error: Error?, _ url: URL?) -> Void) {
@@ -1159,9 +1166,11 @@ struct FinalVideoToPostView: View {
                 self.postModel.tagPeople.forEach { peopleId in
                     tag.append(peopleId.uid)
                 }
+                let musicUrl = UserDefaults.standard.string(forKey: "musicUrl") ?? ""
+                print("The musicUrl is======", musicUrl)
 //                let content = ContentDetail(name: fileName, size: reelsSize, thumbnails: thumbnails, thumbsize: thumbsize)
                 print("caption and lan:  ", self.captionLang, self.autoCaption)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: postModel.songModel?.preview, content: uploadReels.contentDetail, allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitleApply: self.autoCaption, subtitleLang: self.captionLang, tags: tag)
+                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: musicUrl, content: uploadReels.contentDetail, allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitleApply: self.autoCaption, subtitleLang: self.captionLang, tags: tag)
                 uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                     DispatchQueue.main.async {
                         if(responsee == true) {

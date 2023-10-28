@@ -54,16 +54,18 @@ struct CustomShareSheet: View{
                     Divider().frame(height: 1).background(Color.gray).opacity(0.3)
                     
                     HStack(spacing: 30) {
-                        VStack {
-                            Image("RepostS")
-                            Text("Repost")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                        }
-                        .onTapGesture {
+                        Button(action: {
                             shareSheet = false
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                                 repost.toggle()
                                 print("repost")
+                            }
+                        }){
+                            VStack {
+                                Image("RepostS")
+                                Text("Repost")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
                             }
                         }
                         Spacer()
@@ -80,7 +82,6 @@ struct CustomShareSheet: View{
                                 return
                             }
                             let videoURLWithoutProtocol = videoURL.absoluteString.replacingOccurrences(of: "https://", with: "")
-
                             if let url = URL(string: "https://wa.me/?text=\(videoURLWithoutProtocol)"),
                                 UIApplication.shared.canOpenURL(url) {
                                 print("Opening WhatsApp with message: \(reelDescription)%20\(videoURLWithoutProtocol)")
@@ -127,10 +128,15 @@ struct CustomShareSheet: View{
                                     .foregroundColor(Color.black)
                             }
                         }
-                        VStack {
-                            Image("InstaS")
-                            Text("Instagram")
-                                .font(.custom("Urbanist-Bold", size: 16))
+                        Button(action: {
+                            
+                        }){
+                            VStack {
+                                Image("InstaS")
+                                Text("Instagram")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
                     }
                     .padding(.horizontal, 20)
@@ -138,25 +144,45 @@ struct CustomShareSheet: View{
                     .frame(maxWidth: .infinity, alignment: .center)
                     
                     HStack(alignment: .top, spacing: 30) {
-                        VStack {
-                            Image("YahooS")
-                            Text("Yahoo")
-                                .font(.custom("Urbanist-Bold", size: 16))
+                        Button(action: {
+                            
+                        }){
+                            VStack {
+                                Image("YahooS")
+                                Text("Yahoo")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("ChatS")
-                            Text("Chat")
-                                .font(.custom("Urbanist-Bold", size: 16))
+                        Button(action: {
+                            
+                        }){
+                            VStack {
+                                Image("ChatS")
+                                Text("Chat")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("WeChatS")
-                            Text("WeChat")
-                                .font(.custom("Urbanist-Bold", size: 16))
+                        Button(action: {
+                            
+                        }){
+                            VStack {
+                                Image("WeChatS")
+                                Text("WeChat")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("SlackS")
-                            Text("Slack")
-                                .font(.custom("Urbanist-Bold", size: 16))
+                        Button(action: {
+                            
+                        }){
+                            VStack {
+                                Image("SlackS")
+                                Text("Slack")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
                     }
                     .padding(.horizontal, 20)
@@ -167,27 +193,29 @@ struct CustomShareSheet: View{
                     Divider().frame(height: 1).background(Color.gray).opacity(0.3)
                     
                     HStack(alignment: .top, spacing: 30) {
-                        VStack {
-                            Image("ReportS")
-                            Text("Report")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                        }
-                        .onTapGesture{
+                        Button(action: {
                             shareSheet = false
                             bottomSheetReport = true
+                        }){
+                            VStack {
+                                Image("ReportS")
+                                Text("Report")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("NotInterestedS")
-                            Text("Not Interested")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                                .lineLimit(0)
+                        Button(action: {
+                            
+                        }){
+                            VStack {
+                                Image("NotInterestedS")
+                                Text("Not Interested")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                                    .lineLimit(0)
+                            }
                         }
-                        VStack {
-                            Image("SaveVideoS")
-                            Text("Save Video")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                        }
-                        .onTapGesture {
+                        Button(action: {
                             isSaveVideo = true
                             shareSheet = false
                             isShowPopup = true
@@ -204,14 +232,15 @@ struct CustomShareSheet: View{
                                     }
                                 }
                             }
+                        }){
+                            VStack {
+                                Image("SaveVideoS")
+                                Text("Save Video")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("SetasWallpaperS")
-                            Text("Set as Wallpaper")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                                .lineLimit(0)
-                        }
-                        .onTapGesture{
+                        Button(action: {
                             shareSheet = false
                             isShowPopup = true
                             showMessagePopup(messages: "Saving Image...")
@@ -228,6 +257,14 @@ struct CustomShareSheet: View{
                                     }
                                 }
                             }
+                        }){
+                            VStack {
+                                Image("SetasWallpaperS")
+                                Text("Set as Wallpaper")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                                    .lineLimit(0)
+                            }
                         }
                     }
                     .padding(.horizontal, 20)
@@ -235,28 +272,30 @@ struct CustomShareSheet: View{
                     .frame(maxWidth: .infinity, alignment: .center)
                     
                     HStack(alignment: .top, spacing: 30) {
-                        VStack {
-                            Image("DuoS")
-                            Text("Duo")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                        }
-                        .onTapGesture{
+                        Button(action: {
                             shareSheet = false
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                                 isDuo = true
                             }
+                        }){
+                            VStack {
+                                Image("DuoS")
+                                Text("Duo")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("KnitS")
-                            Text("Knit")
-                                .font(.custom("Urbanist-Bold", size: 16))
+                        Button(action: {
+                            
+                        }){
+                            VStack {
+                                Image("KnitS")
+                                Text("Knit")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("AddtoFavoritesS")
-                            Text("Add to Favorites")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                        }
-                        .onTapGesture {
+                        Button(action: {
                             shareSheet = false
                             let uuid = UserDefaults.standard.string(forKey: "uuid")
                             likeVM.bookMarkDataModel.userUUID = uuid ?? ""
@@ -277,14 +316,15 @@ struct CustomShareSheet: View{
                                     }
                                 }
                             }
+                        }){
+                            VStack {
+                                Image("AddtoFavoritesS")
+                                Text("Add to Favorites")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                            }
                         }
-                        VStack {
-                            Image("ShareasaGifS")
-                            Text("Share as a Gif")
-                                .font(.custom("Urbanist-Bold", size: 16))
-                                .lineLimit(0)
-                        }
-                        .onTapGesture {
+                        Button(action: {
                             isGifDownloading = true
                             shareSheet = false
                             let urll = getImageVideoBaseURL + "/marked" + reelURL
@@ -298,6 +338,14 @@ struct CustomShareSheet: View{
                                         showMessagePopup(messages: "GIF Saved")
                                     }
                                 }
+                            }
+                        }){
+                            VStack {
+                                Image("ShareasaGifS")
+                                Text("Share as a Gif")
+                                    .font(.custom("Urbanist-Bold", size: 16))
+                                    .foregroundColor(Color.black)
+                                    .lineLimit(0)
                             }
                         }
                     }
