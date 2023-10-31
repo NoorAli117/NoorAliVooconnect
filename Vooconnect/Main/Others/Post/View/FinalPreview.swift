@@ -91,6 +91,7 @@ struct FinalPreview: View{
                     .onDisappear{
 //                        controller.videoPlayer.stopAllProcesses()
                          print("final preview disappear---------------------")
+                        removeObserver()
                     }
                     .onTapGesture {
                         if(controller.isPlaying) {
@@ -753,6 +754,7 @@ struct FinalPreview: View{
             controller.loadData(url: url)
             controller.audio = URL(string: songModel?.preview ?? "")
             print("URL FINAL PREVIEW1: " + url.absoluteString)
+            addObserver()
         }
     }
     
@@ -862,6 +864,23 @@ struct FinalPreview: View{
 //
 //    }
     
+    
+    func addObserver() {
+            
+            NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                                   object: controller.videoPlayer.player.currentItem,
+                                                   queue: nil) { notif in // 3
+                controller.videoPlayer.player.seek(to: .zero) // 4
+                controller.videoPlayer.player.play() // 5
+            }
+        }
+        
+        func removeObserver() {
+        NotificationCenter.default.removeObserver(self,  // 6
+                                                  name: .AVPlayerItemDidPlayToEndTime,
+                                                  object: nil)
+
+                }
     
     func markerView(cameraSize: CGSize) -> some View{
         VStack{

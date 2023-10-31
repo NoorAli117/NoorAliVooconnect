@@ -30,11 +30,12 @@ struct MusicView: View {
     //    var thumbnailImageView: UIImageView
     @State var thumbnailImageView2: UIImage?
     @State var musicImage: Image?
-    @State var musicURL: String = ""
+    @Binding var musicURL: String
     @State var reels: Post?
     var gridLayoutMP: [GridItem] {
         return Array(repeating: GridItem(.fixed(120), spacing: 1), count: 3)
     }
+    @StateObject var cameraModel = CameraViewModel()
     
     
     var body: some View {
@@ -97,13 +98,18 @@ struct MusicView: View {
                                     //buttons
                                     HStack {
                                         Button {
+                                            
+                                            if let audioPlayer = audioPlayer {
+                                                if audioPlayer.currentTime == 0.0 {
+                                                    isPlaying = false
+                                                }
+                                            }
                                             isPlaying.toggle()
-                                            if isPlaying{
+                                            if isPlaying {
                                                 self.audioPlayer?.play()
-                                            }else{
+                                            } else {
                                                 self.audioPlayer?.pause()
                                             }
-
                                         } label: {
                                             HStack {
                                                 Image("PlayS")
@@ -118,7 +124,6 @@ struct MusicView: View {
                                             }
                                         }
                                         .frame(maxWidth: .infinity)
-                                        //                        .padding(.horizontal,10)
                                         .padding(.vertical,8)
                                         .overlay( RoundedRectangle(cornerRadius: 40)
                                             .stroke(Color("buttionGradientOne"), lineWidth: 2)
@@ -245,7 +250,7 @@ struct MusicView: View {
                     
                     //use this sound
                     Button {
-                        cameraView.toggle()
+                            cameraView.toggle()
                     } label: {
                         HStack {
                             Image("MusicIcon")
@@ -320,60 +325,16 @@ struct MusicView: View {
                 // Fallback on earlier versions
             }
         }
-        .onTapGesture{
-            for reel in reelVM.allReels {
-                if reel.postID == reelId {
-                    if let song = reel.musicURL, let songUrl = URL(string: "\(getImageVideoBaseURL + song)") {
-                        // Create an AVAudioPlayer instance.
-                        print("songUrl: \(songUrl)")
-                        downloadMusic(url: songUrl)
-                    }
-                }
+        .onAppear{
+            print("it's running")
+            if let songUrl = URL(string: "\(getImageVideoBaseURL + musicURL)") {
+                // Create an AVAudioPlayer instance.
+                print("songUrl: \(songUrl)")
+                downloadMusic(url: songUrl)
             }
         }
         
         
-    }
-    
-    func extractAudio(sourceUrl: URL, completion: @escaping (Result<URL, Error>) -> ()) {
-        let composition = AVMutableComposition()
-        
-        do {
-            let asset = AVURLAsset(url: sourceUrl)
-            guard let audioAssetTrack = asset.tracks(withMediaType: .audio).first else {
-                completion(.failure(NSError(domain: "AudioTrackError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No audio track found"])))
-                return
-            }
-            
-            guard let audioCompositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else {
-                completion(.failure(NSError(domain: "AudioTrackError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to create audio composition track"])))
-                return
-            }
-            
-            try audioCompositionTrack.insertTimeRange(audioAssetTrack.timeRange, of: audioAssetTrack, at: .zero)
-        } catch {
-            completion(.failure(error))
-            return
-        }
-        
-        let outputUrl = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("out.m4a")
-        if FileManager.default.fileExists(atPath: outputUrl.path) {
-            try? FileManager.default.removeItem(at: outputUrl)
-        }
-        
-        let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough)!
-        exportSession.outputFileType = .m4a
-        exportSession.outputURL = outputUrl
-        
-        exportSession.exportAsynchronously {
-            if let error = exportSession.error {
-                completion(.failure(error))
-            } else if exportSession.status == .completed {
-                completion(.success(outputUrl))
-            } else {
-                completion(.failure(NSError(domain: "ExportError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Export failed"])))
-            }
-        }
     }
     
     func downloadMusic(url: URL){
@@ -392,6 +353,7 @@ struct MusicView: View {
             // Create an AVAudioPlayer from the downloaded audio file.
             do {
                 self.audioPlayer = try AVAudioPlayer(contentsOf: location)
+                _ = UserDefaults.standard.setValue(location.absoluteString, forKey: "useSong")
             } catch let error {
                 print("Error creating AVAudioPlayer: \(error)")
                 return
@@ -399,24 +361,6 @@ struct MusicView: View {
         }
         
         task.resume()
-    }
-    
-    
-    func play(url: URL) {
-        print("playing \(url)")
-        
-        do {
-            let playerItem = AVPlayerItem(url: url)
-            
-            self.player = try AVPlayer(playerItem: playerItem)
-            player!.volume = 1.0
-            player!.play()
-        } catch let error as NSError {
-            self.player = nil
-            print(error.localizedDescription)
-        } catch {
-            print("AVPlayer init failed")
-        }
     }
     
     func getThumbnailFromUrl(_ url: String?, _ completion: @escaping ((_ image: UIImage?)->Void)) {
@@ -439,26 +383,3 @@ struct MusicView: View {
         }
     }
 }
-
-//struct MusicView_Previews: PreviewProvider {
-//    @State var reelId: Int = 0
-//    @State var cameraView: Bool = false
-//    
-//    static var previews: some View {
-//        MusicView(reelId: reelId, cameraView: cameraView)
-//    }
-//}
-
-
-//ForEach(likeVM.userInterestCategory, id: \.id) { categ in
-//    if categ.user_uuid == uuid {
-//        ForEach(likeVM.interestCategory, id: \.id) { uiCateg in
-//            if categ.category_id == uiCateg.id {
-//                Text("\(uiCateg.category_name)")
-//                    .font(.custom("Urbanist-Regular", size: 14))
-//                    .fontWeight(Font.Weight.medium)
-//                    .foregroundColor(.gray)
-//            }
-//        }
-//    }
-//}

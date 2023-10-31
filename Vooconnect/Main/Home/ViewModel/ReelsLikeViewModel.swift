@@ -696,4 +696,35 @@ class ReelsLikeViewModel: ObservableObject {
         }
     
     
+    func notInterested(postId: Int, completion:  @escaping (Bool) -> ()) {
+            
+            let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+        let request = NotInterested(post_id: 159, user_uuid: uuid)
+            
+            print("REQUEST=========",request)
+            
+            reelsLikeResource.hittingNotInterested(notInterested: request) { isSuccess, sussesMessage in
+                if isSuccess {
+                    DispatchQueue.main.async {
+                        print("Success=========")
+                        if sussesMessage == "Susses"{
+                            completion(true)
+                        }else{
+                            completion(false)
+                        }
+                    }
+                    
+                } else {
+                    DispatchQueue.main.async {
+                        print("Faileur===========")
+                        completion(false)
+                    }
+                    
+                }
+            }
+            
+        }
+    
+    
+    
 }

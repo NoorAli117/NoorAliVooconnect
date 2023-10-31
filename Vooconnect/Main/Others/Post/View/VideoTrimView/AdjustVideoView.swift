@@ -37,6 +37,8 @@ struct AdjustVideoView: View {
     var btnBack : some View { Button(action: {
         self.callWhenBack()
         presentationMode.wrappedValue.dismiss()
+        playerVM.player.pause()
+        audioPlayerVM.player.pause()
             }) {
                 HStack {
                 Image("BackButtonWhite") // set image here

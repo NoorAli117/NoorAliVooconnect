@@ -391,9 +391,10 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
 
                     let parentlayer = CALayer()
                     let videoLayer = CALayer()
-
-                    parentlayer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-                    videoLayer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+                    let naturalSize = clipVideoTrack.naturalSize
+                    
+                    parentlayer.frame = CGRect(x: 0, y: 0, width: naturalSize.width, height: naturalSize.height)
+                    videoLayer.frame = CGRect(x: 0, y: 0, width: naturalSize.width, height: naturalSize.height)
                     
                     parentlayer.addSublayer(videoLayer)
                     
@@ -416,28 +417,22 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                     }
                     
                     let videoComposition = AVMutableVideoComposition()
-                    videoComposition.renderSize = CGSize(width: parentlayer.frame.width, height: parentlayer.frame.height) //change it as per your needs.
+                    videoComposition.renderSize = naturalSize
                     videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
                     videoComposition.renderScale = 1.0
 
                     //creating videoComposition
                     videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayers: [videoLayer], in: parentlayer)
 
-                    let instruction = AVMutableVideoCompositionInstruction()
-                    instruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: CMTimeMakeWithSeconds(Float64(60/self.speed), preferredTimescale: Int32(30/self.speed)))
+                    let instruction =
+                     
+                    AVMutableVideoCompositionInstruction()
+                    instruction.timeRange =
+                     
+                    CMTimeRangeMake(start: CMTime.zero, duration: CMTimeMakeWithSeconds(Float64(60/self.speed), preferredTimescale: Int32(30/self.speed)))
+
                     let transformer = AVMutableVideoCompositionLayerInstruction(assetTrack: clipVideoTrack)
-                    var t1 = CGAffineTransform(translationX: UIScreen.main.screenWidth() != clipVideoTrack.naturalSize.width ? clipVideoTrack.naturalSize.width/4 : 0, y: (clipVideoTrack.naturalSize.height * 0))
-                    if(UIScreen.main.screenWidth() != clipVideoTrack.naturalSize.width)
-                    {
-                        t1 = t1.scaledBy(x: 0.475, y: 0.475)
-                    }
-                    print(clipVideoTrack.naturalSize.width)
-                    print(clipVideoTrack.naturalSize.height)
-                    print(UIScreen.main.screenWidth())
-                    print(UIScreen.main.screenHeight())
-                    let t2: CGAffineTransform = UIScreen.main.screenWidth() != clipVideoTrack.naturalSize.width ? t1.rotated(by: .pi/2) : t1
-                    let finalTransform: CGAffineTransform = t2
-                    transformer.setTransform(finalTransform, at: CMTime.zero)
+                    transformer.setTransform(CGAffineTransform(translationX: 0, y: 0), at: CMTime.zero)
                     instruction.layerInstructions = [transformer]
                     videoComposition.instructions = [instruction]
                     let exporter = AVAssetExportSession.init(asset: asset, presetName: AVAssetExportPresetHighestQuality)

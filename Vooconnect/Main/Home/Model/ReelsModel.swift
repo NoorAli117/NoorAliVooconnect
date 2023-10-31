@@ -130,6 +130,11 @@ struct ReplyToComment: Encodable {
     let parent_comment_id: Int
 }
 
+struct NotInterested: Codable {
+    let post_id: Int
+    let user_uuid: String
+}
+
 struct ReplyToCommentRequest: Encodable {
     let user_uuid: String
     let post_id: Int

@@ -16,7 +16,7 @@ class ModeSelectView: UIView {
     let kModeSelectViewEnablePinkColor = UIColor(red: 48.0/255.0, green: 99.0/255.0, blue: 230.0/255.0, alpha: 1.0)
     let kModeSelectViewDisableGrayColor = UIColor(red: 189.0/255.0, green: 189.0/255.0, blue: 189.0/255.0, alpha: 1.0)
     
-    @objc dynamic var mode: ARGMediaMode = .photo
+    @objc dynamic var mode: ARGMediaMode = .video
     
     @IBOutlet weak var viewWidth: NSLayoutConstraint!
     @IBOutlet weak var pictureButtonWidth: NSLayoutConstraint!

@@ -35,6 +35,7 @@ struct SoundEditView: View {
     var btnBack : some View { Button(action: {
         presentationMode.wrappedValue.dismiss()
         playerVM.player.pause()
+        audioPlayerVM.player.pause()
         cameraModel.previewURL = postModel.contentUrl
         self.callWhenBack()
             }) {

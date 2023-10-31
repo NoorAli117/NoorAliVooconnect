@@ -55,6 +55,9 @@ struct CustomeCameraHome: View {
     
     @ObservedObject var Vm = ViewModel()
     var cameraInfoData: ((_ content: Any) -> Void)?
+    var songURL: String? = nil
+    @State var audioPlayer: AVAudioPlayer!
+    @State var isPlaying = false
     
     var body: some View {
         
@@ -131,7 +134,6 @@ struct CustomeCameraHome: View {
                     MainViewRepresenter(Vm: Vm, cameraInfoData: { content in
                         if let image = content as? UIImage {
                             print(image)
-                            let videoPath = "output_video.mp4"
                             // Perform video creation and merging asynchronously
                             DispatchQueue.global().async {
                                 camera.createVideoFromImage(image: image, originalSize: image.size, duration: 30.0) { result in
@@ -825,14 +827,18 @@ struct CustomeCameraHome: View {
                                             
                                             print("Video click")
                                             previewURL = ""
-                                            if countdownText == 0{
+                                            
+                                            if countdownText == 0 {
                                                 timerRunning = true
+                                                
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
                                                     timerRunning = false
                                                     Vm.isRecording = true
-                                                    print("start recording")
-                                                    if let songURL = cameraModel.songModel?.preview {
-                                                        cameraModel.playSong(songURL: songURL)
+                                                    startRecording()
+                                                    
+                                                    if let songPreview = cameraModel.songModel?.preview {
+                                                        print("songUrl: \(songPreview)")
+                                                        cameraModel.playSong(songURL: songPreview)
                                                     }
                                                 }
                                             }else{
@@ -948,19 +954,6 @@ struct CustomeCameraHome: View {
                     .padding()
                     .padding(.top)
                     .opacity(!cameraModel.recordedURLs.isEmpty && cameraModel.previewURL != nil && !cameraModel.isRecording ? 1 : 0)
-                    
-                    
-                    //                    if cameraModel.isRecording {
-                    //                        Text("Recording")
-                    //                            .font(.custom("Urbanist-Regular", size: 14))
-                    //                            .foregroundColor(.white)
-                    //                            .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .top)
-                    //                            .padding(.top, 40)
-                    //                    } else {
-                    //
-                    //                    }
-                    //                        .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .top)
-                    
                 }
                 .padding(.top, -10)
                 
@@ -990,35 +983,6 @@ struct CustomeCameraHome: View {
                 .padding(.horizontal)
                 .padding(.bottom, 5)
                 
-                //                // Filters
-                //                .blurredSheet(.init(.white), show: $filersSheet) {
-                //
-                //                } content: {
-                //                    if #available(iOS 16.0, *) {
-                //                        FiltersSheet(cameraModel: cameraModel, filters: cameraModel.filter)
-                //                            .presentationDetents([.large,.medium,.height(300)])
-                //                            .onAppear {
-                //                                cameraModel.getFilterData()
-                //                            }
-                //                    } else {
-                //                        // Fallback on earlier versions
-                //                    }
-                //                }
-                //                .blurredSheet(.init(.white), show: $beautySheet) {
-                //
-                //                } content: {
-                //                    if #available(iOS 16.0, *) {
-                //                        BeautyView()
-                //
-                //                            .presentationDetents([.large,.medium,.height(140)])
-                //                            .onAppear {
-                //                                cameraModel.getFilterData()
-                //                            }
-                //                    } else {
-                //                        // Fallback on earlier versions
-                //                    }
-                //                }
-                
                 .onAppear{
                     timerRunning = false
                 }
@@ -1041,6 +1005,18 @@ struct CustomeCameraHome: View {
             .navigationBarHidden(true)
     }
 
+    func startRecording() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + cameraModel.maxDuration) {
+            Vm.isRecording = true // Assuming you want to set it to false when recording stops
+            countdownText = 0
+            print("stop recording")
+            
+            if cameraModel.songModel?.preview != nil {
+                cameraModel.stopSong()
+            }
+            
+        }
+    }
 
 func simulateVideoProgress() {
     let stepFrequency = 13.899 // Number of steps per second (adjust as desired)

@@ -74,5 +74,6 @@ struct EndPoints {
     static var interest_categ = "/int_categ"
     static var user_interest_categ = "/user_int_categ"
     static var mention = "/search-username"
+    static var notInterested = "/mark-uninterested"
     
 }

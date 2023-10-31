@@ -205,7 +205,16 @@ struct CustomShareSheet: View{
                             }
                         }
                         Button(action: {
-                            
+                            likeVM.notInterested(postId: postID){ success in
+                                if success == true{
+                                    shareSheet = false
+                                    isShowPopup = true
+                                    showMessagePopup(messages: "Video Not Interested")
+                                }else{
+                                    isShowPopup = true
+                                    showMessagePopup(messages: "Failed")
+                                }
+                            }
                         }){
                             VStack {
                                 Image("NotInterestedS")

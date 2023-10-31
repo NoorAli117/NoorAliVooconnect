@@ -31,7 +31,6 @@ struct ReelsView: View {
     @Binding var myProfileView: Bool
     @Binding var creatorProfileView: Bool
     @Binding var postedByUUID: String
-    @Binding var musicView: Bool
     @Binding var follow: Bool
     @Binding var liveViewer: Bool
     @Binding var commentSheet: Bool
@@ -64,7 +63,7 @@ struct ReelsView: View {
                     TabView(selection: $reelTagIndex) {
                         //                ForEach($reels) { $reel in
                         ForEach(reelsVM.allReels.indices, id: \.self) { index in
-                                ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
+                                ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
                             // setting width...
                                 .frame(width: size.width, height: size.height)
                                 .padding()
@@ -134,7 +133,7 @@ struct ReelsView: View {
                     TabView(selection: $reelTagIndex) {
                         //                ForEach($reels) { $reel in
                         ForEach(reelsVM.followingReels.indices, id: \.self) { index in
-                            ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.followingReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, musicView: $musicView, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
+                            ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.followingReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
                             // setting width...
                                 .frame(width: size.width, height: size.height)
                                 .padding()
@@ -307,7 +306,7 @@ struct ReelsPlyer: View {
     @Binding var myProfileView: Bool
     @Binding var creatorProfileView: Bool
     @Binding var postedByUUID: String
-    @Binding var musicView: Bool
+    @State var musicView: Bool = false
     @Binding var liveViewer: Bool
     @Binding var postedBy: String
     @Binding var selectedReelId: Int
@@ -373,6 +372,7 @@ struct ReelsPlyer: View {
     
     @State private var isShowPopup = false
     @State private var message = ""
+    @State var musicURL: String = ""
     
     
     @State private var isConvertingToGif = false
@@ -389,10 +389,16 @@ struct ReelsPlyer: View {
                     EmptyView()
                 }
             
+            NavigationLink(destination: MusicView(reelId: $selectedReelId, follow: $follow, uuid: postedBy, cameraView: $cameraView, musicURL: $musicURL)
+                .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $musicView) {
+                    EmptyView()
+                }
+            
             CustomVideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
             
                 .onAppear {
+//                    player.play()
                     DispatchQueue.main.async{
                         let user_uuid = reelsDetail.creatorUUID ?? nil
                         print("user_uuid========",user_uuid as Any)
@@ -816,7 +822,10 @@ struct ReelsPlyer: View {
                 Button {
                     selectedReelId = reelsDetail.postID ?? 0
                     postedBy = reelsDetail.creatorUUID ?? ""
-                    print(postedBy)
+                    print("postid \(postedBy)")
+                    if let musicUrl = reelsDetail.musicURL{
+                        musicURL = musicUrl
+                    }
 
                     show = false
                     showTwo = false
