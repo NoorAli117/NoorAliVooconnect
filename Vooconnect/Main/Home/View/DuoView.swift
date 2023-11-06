@@ -145,7 +145,7 @@ struct DuoView: View{
                         MainViewRepresenter(Vm: Vm, cameraInfoData: { content in
                             if let image = content as? UIImage {
                                 print(image)
-                                let videoPath = "output_video.mp4"
+                                _ = "output_video.mp4"
                                 // Perform video creation and merging asynchronously
                                 DispatchQueue.global().async {
                                     camera.createVideoFromImage(image: image, originalSize: image.size, duration: 30.0) { result in
@@ -153,7 +153,6 @@ struct DuoView: View{
                                         case .success(let outputURL):
                                             print("Video export completed successfully.")
                                             print("Output URL: \(outputURL)")
-                                            
                                             if let audioURL = URL(string: (cameraModel.songModel?.preview ?? "")!) {
                                                 camera.mergeVideoAndAudio(videoUrl: outputURL, audioUrl: audioURL) { error, url in
                                                     guard let url = url else {

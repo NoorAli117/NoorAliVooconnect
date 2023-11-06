@@ -564,7 +564,6 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = storyboard.instantiateViewController(identifier: "MainViewController") as? MainViewController {
             vc.cameraInfoData = cameraInfoData
-            vc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: height)
             vc.Vm = Vm
             return vc
         }

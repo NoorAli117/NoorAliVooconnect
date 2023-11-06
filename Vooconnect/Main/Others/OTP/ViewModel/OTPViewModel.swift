@@ -28,11 +28,11 @@ class OTPViewModel: ObservableObject {
     @Published var otpDataModell: OTPDataModel = OTPDataModel()
     
     @Published var otpText: String = ""
-    @Published var otpFields: [String] = Array(repeating: "", count: 4){
+    @Published var otpFields: [String] = Array(repeating: "", count: 6){
         didSet{
             // Checking if OTP is Pressed
-            for index in 0..<4{
-                if otpFields[index].count == 4{
+            for index in 0..<6{
+                if otpFields[index].count == 6{
                     otpText = otpFields[index]
                     otpFields[0] = ""
                     

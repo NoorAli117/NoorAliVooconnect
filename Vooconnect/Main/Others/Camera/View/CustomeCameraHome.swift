@@ -55,9 +55,11 @@ struct CustomeCameraHome: View {
     
     @ObservedObject var Vm = ViewModel()
     var cameraInfoData: ((_ content: Any) -> Void)?
-    var songURL: String? = nil
+    @State var songURL: URL? = nil
     @State var audioPlayer: AVAudioPlayer!
     @State var isPlaying = false
+    @State var isRecording = false
+    
     
     var body: some View {
         
@@ -827,18 +829,26 @@ struct CustomeCameraHome: View {
                                             
                                             print("Video click")
                                             previewURL = ""
-                                            
-                                            if countdownText == 0 {
+                                            isRecording.toggle()
+                                            if isRecording == true {
                                                 timerRunning = true
                                                 
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
                                                     timerRunning = false
                                                     Vm.isRecording = true
-                                                    startRecording()
+                                                    stopRecording()
                                                     
                                                     if let songPreview = cameraModel.songModel?.preview {
                                                         print("songUrl: \(songPreview)")
                                                         cameraModel.playSong(songURL: songPreview)
+                                                    }else if songURL != nil{
+                                                        isPlaying = true
+                                                        if isPlaying {
+                                                            if let audioPlayer = audioPlayer {
+                                                                audioPlayer.currentTime = 0.0
+                                                            }
+                                                            self.audioPlayer?.play()
+                                                        }
                                                     }
                                                 }
                                             }else{
@@ -848,6 +858,8 @@ struct CustomeCameraHome: View {
                                                 if cameraModel.songModel?.preview != nil{
                                                     cameraModel.stopSong()
                                                 }
+                                                isPlaying = false
+                                                self.audioPlayer?.stop()
                                             }
                                         } label: {
                                             Image("CameraRecording")
@@ -873,7 +885,7 @@ struct CustomeCameraHome: View {
                                         Button {
                                             if let videoURL = URL(string: previewURL){
                                                 
-                                                if ((cameraModel.songModel?.preview) != nil){
+                                            if (cameraModel.songModel?.preview != nil) || (songURL != nil){
                                                     self.cameraModel.removeAudioFromVideo(videoURL: videoURL){ url, error in
                                                         if let error = error {
                                                             print("Failed to remove audio: \(error.localizedDescription)")
@@ -985,6 +997,7 @@ struct CustomeCameraHome: View {
                 
                 .onAppear{
                     timerRunning = false
+                    useSong()
                 }
                 
                 // Effects
@@ -1000,20 +1013,28 @@ struct CustomeCameraHome: View {
                 }
                 
             }
-            
             .animation(.easeInOut, value: cameraModel.showPreview)
             .navigationBarHidden(true)
     }
+    
+    func useSong(){
+        if let musicURL = UserDefaults.standard.string(forKey: "useSong"){
+            print("songUrl: \(musicURL)")
+            self.songURL = URL(string: musicURL)
+            self.audioPlayer = try! AVAudioPlayer(contentsOf: songURL!)
+        }
+    }
 
-    func startRecording() {
+    func stopRecording() {
         DispatchQueue.main.asyncAfter(deadline: .now() + cameraModel.maxDuration) {
-            Vm.isRecording = true // Assuming you want to set it to false when recording stops
+            Vm.isRecording = true
             countdownText = 0
             print("stop recording")
-            
-            if cameraModel.songModel?.preview != nil {
+            if cameraModel.songModel?.preview != nil{
                 cameraModel.stopSong()
             }
+            isPlaying = false
+            self.audioPlayer?.stop()
             
         }
     }

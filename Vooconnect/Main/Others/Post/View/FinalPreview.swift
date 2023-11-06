@@ -89,16 +89,13 @@ struct FinalPreview: View{
                 contentView(size:size)
                     .disabled(true)
                     .onDisappear{
-//                        controller.videoPlayer.stopAllProcesses()
                          print("final preview disappear---------------------")
                         removeObserver()
                     }
                     .onTapGesture {
                         if(controller.isPlaying) {
-//                            controller.audioPlayer.pauseAudio()
                             controller.pause()
                         }else {
-//                            controller.audioPlayer.playAudio()
                             controller.play()
                         }
                     }
@@ -187,16 +184,14 @@ struct FinalPreview: View{
                                     markerHeader = true
                                 } label: {
                                     VStack{
-                                        if(self.markerStack)
-                                        {
+                                        if(self.markerStack) {
                                             
                                             Image("editPurple")
                                             Text("Marker")
                                                 .font(.custom("Urbanist-Medium", size: 12))
                                                 .foregroundColor(ColorsHelper.deepPurple)
                                                 .padding(.top, -5)
-                                        }else
-                                        {
+                                        }else {
                                             Image("edit")
                                             Text("Marker")
                                                 .font(.custom("Urbanist-Medium", size: 12))

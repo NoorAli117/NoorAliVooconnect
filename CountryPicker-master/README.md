@@ -18,7 +18,7 @@ Currently CountryPicker is only avaliable via SPM. You can also add manually to 
 If you have already Swift package set up, add CountryPicker as a dependency to your dependencies in your `Package.swift` file.
 ```swift
 dependencies: [
-    .package(url: "https://github.com/mobven/CountryPicker.git")
+    .package(url: "https://github.com/mobven/CountryPicker.git")x
 ]
 ```
 

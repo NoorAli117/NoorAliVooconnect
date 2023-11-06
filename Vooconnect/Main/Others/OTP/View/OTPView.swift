@@ -124,36 +124,37 @@ struct OTPView: View {
         })
         
     }
-            
-        // MARK: Condition For Custom OTP Field $ Limiting Only one Text
-        func OTPCondition(value: [String]) {
-            
-            // Moving Next Field If Current Field Type
-            for index in 0..<3{
-                if value[index].count == 1 && activeStateForIndex(index: index) == activeField{
-                    activeField = activeStateForIndex(index: index + 1)
-                }
-            }
-            
-            // Moving Back if Current is Empty And Previous is not Empty
-            for index in 1...3{
-                if value[index].isEmpty && !value[index - 1].isEmpty{
-                    activeField = activeStateForIndex(index: index - 1)
-                }
-            }
-            
-            for index in 0..<4{
-                if value[index].count > 1{
-                    otpModel.otpFields[index] = String(value[index].last!)
-                }
+    
+    // MARK: Condition For Custom OTP Field $ Limiting Only one Text
+    func OTPCondition(value: [String]) {
+        
+        // Moving Next Field If Current Field Type
+        for index in 0..<6 {
+            if value[index].count == 1 && activeStateForIndex(index: index) == activeField {
+                activeField = activeStateForIndex(index: index + 1)
             }
         }
+        
+        // Moving Back if Current is Empty And Previous is not Empty
+        for index in 1..<6 {
+            if value[index].isEmpty && !value[index - 1].isEmpty {
+                activeField = activeStateForIndex(index: index - 1)
+            }
+        }
+        
+        // Limiting Only one Text
+        for index in 0..<6 {
+            if value[index].count > 1 {
+                otpModel.otpFields[index] = String(value[index].last!)
+            }
+        }
+    }
         
         // MARK: Custom OTP TextField
         @ViewBuilder
         func OTPField()->some View {
             HStack(spacing: 14) {
-                ForEach(0..<4, id: \.self){ index in
+                ForEach(0..<6, id: \.self){ index in
                     VStack(spacing: 8) {
                         TextField("", text: $otpModel.otpFields[index])
                             .foregroundColor(.black)
@@ -193,12 +194,11 @@ struct OTPView: View {
             case 0: return .field1
             case 1: return .field2
             case 2: return .field3
-            default: return .field4
-                
+            case 3: return .field4
+            case 4: return .field5
+            default: return .field6
             }
-        
     }
-    
 }
 
 struct OTPView_Previews: PreviewProvider {
@@ -213,4 +213,6 @@ enum OTPField {
     case field2
     case field3
     case field4
+    case field5
+    case field6
 }

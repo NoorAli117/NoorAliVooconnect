@@ -251,6 +251,8 @@ struct MusicView: View {
                     //use this sound
                     Button {
                             cameraView.toggle()
+                        let _ = UserDefaults.standard.setValue(musicURL, forKey: "musicURL")
+//                        print("musicURL: \(musicUrl)")
                     } label: {
                         HStack {
                             Image("MusicIcon")
