@@ -184,7 +184,7 @@ class ReelsLikeViewModel: ObservableObject {
     }
     func UserFollowingUsers(){
         let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-        print("User UUID=========",uuid)
+        print("UUID=========",uuid)
         self.getFollowingUsers(uuid: uuid)
         print("----------------------\(uuid)")
     }
@@ -233,12 +233,12 @@ class ReelsLikeViewModel: ObservableObject {
         task.resume()
     }
     
-    func blockUserApi() {  // postID
+    func blockUserApi(creatorID: String) {  // postID
         
         let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-        let user_uuid = UserDefaults.standard.string(forKey: "user_uuid") ?? ""
+//        let user_uuid = UserDefaults.standard.string(forKey: "user_uuid") ?? ""
         
-        let request = BlockUserRequest(uuid: uuid, user_uuid: user_uuid)
+        let request = BlockUserRequest(uuid: uuid, user_uuid: creatorID)
         
         print("REQUEST=========",request)
         
@@ -386,21 +386,20 @@ class ReelsLikeViewModel: ObservableObject {
             let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
 //            let postID = UserDefaults.standard.integer(forKey: "postID")
             
-            let request = FollowRequest(user_uuid: user_uuid, uuid: uuid)
+            let request = FollowRequest(uuid: uuid, user_uuid: user_uuid)
             
             print("REQUEST=========",request)
             
             reelsLikeResource.hittingFollowApi(followRequest: request) { isSuccess, sussesMessage in
-                if isSuccess {
+                if isSuccess == true{
                     DispatchQueue.main.async {
                         print("Success=========")
-                        
+                        self.UserFollowingUsers()
                     }
                     
                 } else {
                     DispatchQueue.main.async {
                         print("Faileur===========")
-                        
                     }
                     
                 }
@@ -410,16 +409,16 @@ class ReelsLikeViewModel: ObservableObject {
     func unFollowApi(user_uuid: String) {
             
             let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-//            let postID = UserDefaults.standard.integer(forKey: "postID")
             
-            let request = FollowRequest(user_uuid: user_uuid, uuid: uuid)
+            let request = FollowRequest(uuid: uuid, user_uuid: user_uuid)
             
             print("REQUEST=========",request)
             
             reelsLikeResource.hittingUnFollowApi(followRequest: request) { isSuccess, sussesMessage in
-                if isSuccess {
+                if isSuccess == true {
                     DispatchQueue.main.async {
                         print("Success=========")
+                        self.UserFollowingUsers()
                         
                     }
                     
@@ -639,10 +638,10 @@ class ReelsLikeViewModel: ObservableObject {
         }
     
     
-    func getUserProfile(uuid: String){
+    func getUserProfile(creatorID: String){
 //        let user_uuid = UserDefaults.standard.string(forKey: "user_uuid") ?? ""
         
-        var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.profile + "/" + uuid)!)
+        var urlRequest = URLRequest(url: URL(string: baseURL + EndPoints.profile + "/" + creatorID)!)
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken"){
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]

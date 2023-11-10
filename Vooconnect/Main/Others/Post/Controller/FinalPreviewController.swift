@@ -120,32 +120,26 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     
     private func setupRecognition() {
         let recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        // we want to get continuous recognition and not everything at once at the end of the video
         recognitionRequest.shouldReportPartialResults = true
+        
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
             if let result = result {
                 self?.captioning = result.bestTranscription.formattedString
-            }else{
-                print("captioning is nil and error is \(String(describing: error?.localizedDescription))")
+            } else if let error = error {
+                print("Error in recognition task: \(error.localizedDescription)")
             }
-
-            // if connected to internet, then once in about every minute recognition task finishes
-            // so we need to set up a new one to continue recognition
+            
             if result?.isFinal == true {
+                self?.recognitionTask?.finish() // Finish the recognition task.
                 self?.recognitionRequest = nil
                 self?.recognitionTask = nil
-
-                self?.setupRecognition()
+                self?.setupRecognition() // Set up a new recognition task.
             }
         }
+        
         self.recognitionRequest = recognitionRequest
     }
-    
-    
-    ///Add microphone audio to the video
-    func editAudio(){
-        
-    }
+
     
     
     
@@ -560,20 +554,19 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
 
         
     }
+
     
     func noiseReductionToVideo(videoUrl : String, callback : @escaping (URL) -> ()){
         getAudioFromVideoUrl(url: videoUrl, callback: {val in
             var signal = self.convertAudioToSignal(url: val.absoluteString)
-            vDSP.threshold(signal,to: 1,with: .zeroFill,result: &signal)
-            let inverseDCTSetup = vDSP.DCT(count: 1024,transformType: vDSP.DCTTransformType.III)
+            vDSP.threshold(signal, to: 1, with: .zeroFill, result: &signal)
+            let inverseDCTSetup = vDSP.DCT(count: 1024, transformType: vDSP.DCTTransformType.III)
             var inverseDCT = inverseDCTSetup!.transform(signal)
             let divisor = Float(1024 / 2)
-            vDSP.divide(inverseDCT,
-                        divisor,
-                        result: &inverseDCT)
-            self.convertSignalToAudio(floatArray: signal, callback: {val2 in
+            vDSP.divide(inverseDCT, divisor, result: &inverseDCT)
+            self.convertSignalToAudio(floatArray: signal, callback: { val2 in
                 SoundsManagerHelper.instance.pause()
-                SoundsManagerHelper.instance.playAudioFromUrl(url: val2.absoluteString)
+                callback(val2)
             })
         })
     }

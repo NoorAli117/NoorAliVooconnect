@@ -8,6 +8,7 @@
 import SwiftUI
 import ARGear
 import ARKit
+
 //import DeepAR
 
 struct CustomeCameraHome: View {
@@ -189,7 +190,7 @@ struct CustomeCameraHome: View {
                             .foregroundColor(.white)
                             .padding()
                             .onReceive(timer) { _ in
-                                if countdownText < countdownTimer && timerRunning {
+                                if countdownText <= countdownTimer && timerRunning {
                                     countdownText += 1
                                 } else {
                                     timerRunning = false
@@ -826,7 +827,6 @@ struct CustomeCameraHome: View {
                                         .offset(x: -10)
                                     }else{
                                         Button {
-                                            
                                             print("Video click")
                                             previewURL = ""
                                             isRecording.toggle()
@@ -997,7 +997,7 @@ struct CustomeCameraHome: View {
                 
                 .onAppear{
                     timerRunning = false
-                    useSong()
+//                    useSong()
                 }
                 
                 // Effects
@@ -1027,14 +1027,17 @@ struct CustomeCameraHome: View {
 
     func stopRecording() {
         DispatchQueue.main.asyncAfter(deadline: .now() + cameraModel.maxDuration) {
-            Vm.isRecording = true
-            countdownText = 0
-            print("stop recording")
-            if cameraModel.songModel?.preview != nil{
-                cameraModel.stopSong()
+            if isRecording == true{
+                Vm.isRecording = true
+                countdownText = 0
+                print("stop recording")
+                if cameraModel.songModel?.preview != nil{
+                    cameraModel.stopSong()
+                }
+                isPlaying = false
+                self.audioPlayer?.stop()
             }
-            isPlaying = false
-            self.audioPlayer?.stop()
+            
             
         }
     }

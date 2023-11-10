@@ -63,7 +63,7 @@ struct ReelsView: View {
                     TabView(selection: $reelTagIndex) {
                         //                ForEach($reels) { $reel in
                         ForEach(reelsVM.allReels.indices, id: \.self) { index in
-                                ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
+                            ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.allReels[index], currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar)
                             // setting width...
                                 .frame(width: size.width, height: size.height)
                                 .padding()
@@ -133,7 +133,7 @@ struct ReelsView: View {
                     TabView(selection: $reelTagIndex) {
                         //                ForEach($reels) { $reel in
                         ForEach(reelsVM.followingReels.indices, id: \.self) { index in
-                            ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.followingReels[index], followingArray: likeVM.followingUsers, currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar, follow: $follow)
+                            ReelsPlyer(commentSheet: $commentSheet, commentReplySheet: $commentReplySheet, reelsDetail: reelsVM.followingReels[index], currentTab: $currentTab, showTwo: $bool, cameraView: $cameraView, live: $live, myProfileView: $myProfileView, creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, liveViewer: $liveViewer, postedBy: $postedBy, selectedReelId: $selectedReelId, currentReel: $currentReel, removeReel: $removeReel, userUUid: $userUUid, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, topBar: $topBar)
                             // setting width...
                                 .frame(width: size.width, height: size.height)
                                 .padding()
@@ -285,7 +285,6 @@ struct ReelsPlyer: View {
     @StateObject private var reelsVM = ReelsViewModel()
     
     let reelsDetail: Post
-    let followingArray: [FollowingUsers]
     
     @Binding var currentTab: String
     @Namespace var animation
@@ -366,7 +365,7 @@ struct ReelsPlyer: View {
     @State var isGifDownloading = false
     @State var isDuo = false
     @State var repost = false
-    @Binding var follow: Bool
+    @State var follow = false
     @StateObject var downloader = VideoDownloader()
     @State private var iconSize: CGFloat = 30.0
     
@@ -378,6 +377,7 @@ struct ReelsPlyer: View {
     @State private var isConvertingToGif = false
     @State private var progress: Double = 0.0
     @State private var gifImage: UIImage?
+    @State var specificUserUUID = ""
     
     var body: some View {
         
@@ -389,7 +389,7 @@ struct ReelsPlyer: View {
                     EmptyView()
                 }
             
-            NavigationLink(destination: MusicView(reelId: $selectedReelId, follow: $follow, uuid: postedBy, cameraView: $cameraView, musicURL: $musicURL)
+            NavigationLink(destination: MusicView(reelId: $selectedReelId, userUUid: postedBy, cameraView: $cameraView, musicURL: $musicURL)
                 .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $musicView) {
                     EmptyView()
                 }
@@ -398,24 +398,19 @@ struct ReelsPlyer: View {
                 .edgesIgnoringSafeArea(.all)
             
                 .onAppear {
-//                    player.play()
                     DispatchQueue.main.async{
                         let user_uuid = reelsDetail.creatorUUID ?? nil
                         print("user_uuid========",user_uuid as Any)
-                        UserDefaults.standard.set(user_uuid, forKey: "user_uuid")
+                        postedByUUID = reelsDetail.creatorUUID!
                         if let reelURL = reelsDetail.contentURL{
                             self.urll = reelURL
                             self.reelDescription = reelsDetail.description ?? ""
                             print("\(getImageVideoBaseURL + reelURL)")
                             player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + reelURL)!)) //<-- Her
                         }
-    //                    likeVM.UserFollowingUsers()
-    //                    follow = false
-                        for following in likeVM.followingUsers {
-                            if following.uuid == reelsDetail.creatorUUID {
-                                follow = true
-                                break // Exit the loop if a match is found
-                            }
+                        if let creatorUUID = reelsDetail.creatorUUID,
+                            likeVM.followingUsers.contains(where: { $0.uuid == creatorUUID }) {
+                            specificUserUUID = creatorUUID
                         }
                         postID = reelsDetail.postID ?? 0
                         if reelsDetail.isLiked == 1{
@@ -564,8 +559,7 @@ struct ReelsPlyer: View {
                                 .padding(.bottom, -35)
                                 .padding(.leading,120)
                                 .foregroundColor(.white)
-
-                            PopOverThree(bottomSheetBlock: $bottomSheetBlock)
+                            PopOverThree(bottomSheetBlock: $bottomSheetBlock, creatorID: $postedByUUID)
                                 .background(Color.white)
                                 .cornerRadius(32)
                         }
@@ -692,12 +686,8 @@ struct ReelsPlyer: View {
                                         follow.toggle()
                                         if follow {
                                             likeVM.followApi(user_uuid: reelsDetail.creatorUUID!)
-                                            likeVM.UserFollowingUsers()
                                         } else {
                                             likeVM.unFollowApi(user_uuid: reelsDetail.creatorUUID!)
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                                                likeVM.UserFollowingUsers()
-                                            }
                                         }
                                     } label: {
                                         HStack {
@@ -1246,6 +1236,7 @@ let sampleText = "fdsgkldfgjodgmlhjasjuhmr9 gurih ughwau idhfu9 erh ko iuhgefguy
 struct PopOverThree: View {
     
     @Binding var bottomSheetBlock: Bool
+    @Binding var creatorID: String
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     
     var body: some View {
@@ -1283,7 +1274,7 @@ struct PopOverThree: View {
             .cornerRadius(30)
                 
                 Button {
-                    likeVM.blockUserApi()
+                    likeVM.blockUserApi(creatorID: creatorID)
                     bottomSheetBlock.toggle()
                 }
             label: {

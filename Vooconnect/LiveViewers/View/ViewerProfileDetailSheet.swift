@@ -11,7 +11,7 @@ struct ViewerProfileDetailSheet: View {
 
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
     @State var reelId: Int = 0
-    @Binding var follow: Bool
+    @State var follow = false
     @Binding var uuid: String
     @State var followerCount: Int = 0
     @Binding var reel : Post?
@@ -221,10 +221,7 @@ struct ViewerProfileDetailSheet: View {
                 }
             }
             .onAppear{
-                likeVM.getUserProfile(uuid: uuid)
-                if likeVM.profile?.isFollowed == 1 {
-                    follow = true
-                }
+                likeVM.getUserProfile(creatorID: uuid)
             }
         }
     }

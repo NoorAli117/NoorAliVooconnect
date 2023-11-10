@@ -1170,7 +1170,7 @@ struct FinalVideoToPostView: View {
                 print("The musicUrl is======", musicUrl)
 //                let content = ContentDetail(name: fileName, size: reelsSize, thumbnails: thumbnails, thumbsize: thumbsize)
                 print("caption and lan:  ", self.captionLang, self.autoCaption)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: postModel.location.id, visibility: "public", musicURL: musicUrl, content: uploadReels.contentDetail, allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitleApply: self.autoCaption, subtitleLang: self.captionLang, tags: tag)
+                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: "Karachi Sindh Pakistan", visibility: "public", musicURL: musicUrl, content: uploadReels.contentDetail, allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitleApply: self.autoCaption, subtitleLang: self.captionLang, tags: tag)
                 uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
                     DispatchQueue.main.async {
                         if(responsee == true) {

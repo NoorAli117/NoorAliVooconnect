@@ -32,21 +32,6 @@ struct ReelsPostRequest: Codable {
         case subtitleApply = "subtitle_apply"
         case subtitleLang, tags
     }
-    
-    //    var content: [ContentDetail]?
-//    var title: String?
-//    var category: Int?
-//    var tags: [String]?
-//    var musicTrack: String?
-//    var allowDuet: Bool?
-//    var visibility: String?
-//    var allowStitch: Bool?
-//    var location: String?
-//    var allowComment: Bool?
-//    var userUuid: String?
-//    var contentType: String?
-//    var descriptionValue: String?
-//    var musicUrl: String?
 }
 
 // MARK: - Content

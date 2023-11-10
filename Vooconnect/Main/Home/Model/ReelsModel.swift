@@ -121,8 +121,8 @@ struct CommentRequest: Encodable {
 }
 
 struct FollowRequest: Encodable {
-    let user_uuid: String
     let uuid: String
+    let user_uuid: String
 }
 
 struct ReplyToComment: Encodable {

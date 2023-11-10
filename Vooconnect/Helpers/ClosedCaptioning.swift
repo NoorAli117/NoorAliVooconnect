@@ -15,7 +15,7 @@ class ClosedCaptioning: VideoMediaInputDelegate, ObservableObject {
     @Published var captioning: String = ""
     
     init() {
-        setupRecognition()
+//        setupRecognition()
     }
     
     private func setupRecognition() {
@@ -35,7 +35,7 @@ class ClosedCaptioning: VideoMediaInputDelegate, ObservableObject {
                 self?.recognitionRequest = nil
                 self?.recognitionTask = nil
 
-                self?.setupRecognition()
+//                self?.setupRecognition()
             }
         }
         self.recognitionRequest = recognitionRequest

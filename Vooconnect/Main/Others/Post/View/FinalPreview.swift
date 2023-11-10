@@ -429,7 +429,7 @@ struct FinalPreview: View{
                                                     // Denoising process completed successfully, use the denoised video at "outputURL"
                                                     print("Denoised video saved at: \(outputURL)")
                                                     let isImage = !(renderUrl!.absoluteString.lowercased().contains(".mp4") || renderUrl!.absoluteString.lowercased().contains(".mov"))
-                                                    controller = FinalPreviewController(url: renderUrl!, isImage: isImage, speed: speed)
+                                                    controller.loadData(url: outputURL)
                                                     loading = false
                                                     // Perform further actions, like displaying the denoised video or saving it to the camera roll
                                                 } else {

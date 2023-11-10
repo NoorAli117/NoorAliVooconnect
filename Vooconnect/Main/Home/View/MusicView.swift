@@ -13,8 +13,8 @@ import SwiftUIBloc
 struct MusicView: View {
     @Environment(\.presentationMode) var presentaionMode
     @Binding var reelId: Int
-    @Binding var follow: Bool
-    @State var uuid = ""
+    @State var follow = false
+    @State var userUUid = ""
     @StateObject private var userVM: LogInViewModel = LogInViewModel()
     @StateObject private var reelVM: ReelsViewModel = ReelsViewModel()
     @StateObject private var likeVM: ReelsLikeViewModel = ReelsLikeViewModel()
@@ -55,7 +55,7 @@ struct MusicView: View {
                         Spacer()
                         
                         Button {
-                            print(uuid)
+                            print(userUUid)
                         } label: {
                             Image("ShareN")
                                 .resizable()
@@ -186,17 +186,13 @@ struct MusicView: View {
                                         }
                                         Spacer()
                                         if let uid = UserDefaults.standard.string(forKey: "uuid"){
-                                            if uuid != uid{
+                                            if userUUid != uid{
                                                 Button {
                                                     follow.toggle()
                                                     if (follow == true) {
-                                                        likeVM.followApi(user_uuid: uuid)
-                                                        likeVM.UserFollowingUsers()
+                                                        likeVM.followApi(user_uuid: userUUid)
                                                     }else{
-                                                        likeVM.unFollowApi(user_uuid: uuid)
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                                                            likeVM.UserFollowingUsers()
-                                                        }
+                                                        likeVM.unFollowApi(user_uuid: userUUid)
                                                     }
                                                 } label: {
                                                     Text(follow ? "Following" : "Follow")
@@ -321,7 +317,7 @@ struct MusicView: View {
             
         } content: {
             if #available(iOS 16.0, *) {
-                ViewerProfileDetailSheet(reelId: reelId, follow: $follow, uuid: $uuid, reel: $reels)
+                ViewerProfileDetailSheet(reelId: reelId, uuid: $userUUid, reel: $reels)
                     .presentationDetents([.large,.medium,.height(500)])
             } else {
                 // Fallback on earlier versions

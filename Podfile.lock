@@ -9,6 +9,7 @@ PODS:
     - FBSDKCoreKit (= 16.2.1)
   - FBSDKShareKit (16.2.1):
     - FBSDKCoreKit (= 16.2.1)
+  - GooglePlaces (8.2.1)
   - Realm (10.43.1):
     - Realm/Headers (= 10.43.1)
   - Realm/Headers (10.43.1)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - GooglePlaces
   - RealmSwift
   - Regift
   - Toast-Swift
@@ -56,6 +58,7 @@ SPEC REPOS:
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
     - FBSDKShareKit
+    - GooglePlaces
     - Realm
     - RealmSwift
     - Regift
@@ -70,6 +73,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit_Basics: 1257d71d2d692661290bf2af4bea5f9a101387af
   FBSDKLoginKit: bf4f96d0ce475de2da4b1800ce150bd8a6f120f3
   FBSDKShareKit: c891a92bd5c943f59b815f4156f310d57e527f54
+  GooglePlaces: 867722fe422f5a4cc19c68bc28f9f74a24470e40
   Realm: d97b438de77459e443bd2c8ad5ca0f95107aee4b
   RealmSwift: 6be3f27a7fd3f5cc8f99f4b187cc4e7150299e32
   Regift: a7c1a7e377c60bfc34301d6f532e099e5ae109a8
@@ -78,6 +82,6 @@ SPEC CHECKSUMS:
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
   URLImage: 36a66c03ba2a9ccbbf06bc83431f2cef171008e8
 
-PODFILE CHECKSUM: f903609141cd9a1ec01db127ad399355d5390bd6
+PODFILE CHECKSUM: 0c4414f51d777307ae3728803aa8b0c0c732d252
 
 COCOAPODS: 1.13.0
