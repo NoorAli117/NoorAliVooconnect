@@ -765,40 +765,43 @@ struct FinalPreview: View{
         }
     }
     
-    @MainActor func render(size : CGSize, callback : @escaping (URL) -> ()) {
-        //        let render = Image("PreviewStickers").asUIImage()
-        var array = [(UIImage,CGSize)]()
-        if(markerStack){
-            let view = markerView(cameraSize: size).offset(x: 0,y: 0)
+    @MainActor func render(size: CGSize, callback: @escaping (URL) -> ()) {
+        var array = [(UIImage, CGSize)]()
+        
+        if markerStack {
+            let view = markerView(cameraSize: size).offset(x: 0, y: 0)
             array.append((view.asUIImage(), markerOffset))
         }
-        if(enableSticker){
+        
+        if enableSticker {
             let view = stickerView(cameraSize: size).offset(CGSize(width: -stickerOffset.width, height: -stickerOffset.height))
-            array.append((view.asUIImage(),stickerOffset))
+            array.append((view.asUIImage(), stickerOffset))
         }
-        if(enableText){
+        
+        if enableText {
             let view = textView(cameraSize: size).offset(CGSize(width: -textOffset.width, height: -textOffset.height))
-            array.append((view.asUIImage(),textOffset))
+            array.append((view.asUIImage(), textOffset))
         }
-        if(!enableText && !enableSticker && !markerStack){
+        
+        if !enableText && !enableSticker && !markerStack {
             self.renderUrl = self.postModel.contentUrl
             callback(self.renderUrl!)
             return
         }
-        print("CAMERA SIZE: "+size.debugDescription)
-        controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, completion: {val in
-                guard let url = val else{
-                    print("merge url not correct")
-                    return
-                }
-                DispatchQueue.main.async {
-                    
-                    callback(url)
-                }
-            })
         
+        print("CAMERA SIZE: " + size.debugDescription)
         
+        controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array) { val in
+            guard let url = val else {
+                print("merge url not correct")
+                return
+            }
+            DispatchQueue.main.async {
+                callback(url)
+            }
+        }
     }
+
     
     
     
