@@ -32,12 +32,9 @@ class SoundsViewController : ObservableObject{
         
     }
     
-    func playSong(songModel : DeezerSongModel){
-        if let prev = songModel.preview {
-            preview = prev
-            SoundsManagerHelper.instance.playAudioFromUrl(url: prev)
-        }
-        
+    func playSong(songModelPreview: String?){
+        preview = songModelPreview!
+        SoundsManagerHelper.instance.playAudioFromUrl(url: songModelPreview!)
     }
     
     ///receive deezer api manager response and fill list on SoundsView

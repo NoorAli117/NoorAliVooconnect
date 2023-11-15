@@ -25,8 +25,8 @@ struct MusicView: View {
     @State var isPlaying = false
 //    @State var follow: Bool = false
     @State var viewerProfile = false
-    @State var songModel: DeezerSongModel?
-    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
+//    @State var songModel: DeezerSongModel?
+//    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
     //    var thumbnailImageView: UIImageView
     @State var thumbnailImageView2: UIImage?
     @State var musicImage: Image?

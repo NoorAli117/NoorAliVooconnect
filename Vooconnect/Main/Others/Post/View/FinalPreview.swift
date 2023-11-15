@@ -23,7 +23,7 @@ struct FinalPreview: View{
     @State var controller : FinalPreviewController
     @StateObject var speechRecognizer = SpeechRecognizerHelper()
     @State  var postModel : PostModel = PostModel()
-    @State var songModel : DeezerSongModel? = DeezerSongModel()
+    @State var songModel : DeezerSongModel?
     @State var speed : Float = 1.0
     @State  var renderUrl : URL?
     @State var trimRenderUrl = URL(string: "")
@@ -65,6 +65,7 @@ struct FinalPreview: View{
     @State private var showConfirmation: Bool = false
     @State var isTapped = false
     @State var generatedImage: UIImage?
+    @State private var videoSize: CGSize = .zero
     
     
     var btnBack : some View { Button(action: {
@@ -384,7 +385,7 @@ struct FinalPreview: View{
                                 }
 //                                let playermanager = PlayerViewModel(videoUrl: url!)
                                 NavigationLink(destination:
-                                                SoundEditView(url: url,playerVM: playermanager, audioPlayerVM: audioPlayermanager, postModel: $postModel, songModel: songModel, speed: $speed, callWhenBack: callWithBack), isActive: $voiceOverView) {
+                                                SoundEditView(url: url,playerVM: playermanager, audioPlayerVM: audioPlayermanager, postModel: $postModel, speed: $speed, callWhenBack: callWithBack), isActive: $voiceOverView) {
                                         EmptyView()
                                     }
                                 
@@ -743,6 +744,9 @@ struct FinalPreview: View{
         }
         .onAppear {
             print("final preview appear----------------")
+            if videoSize == .zero, let videoSize = getVideoSize(videoURL: url) {
+                self.videoSize = videoSize
+            }
             self.postModel.contentUrl = url
             self.postModel.speed = speed
             self.postModel.songModel = songModel
@@ -789,7 +793,7 @@ struct FinalPreview: View{
             return
         }
         
-        print("CAMERA SIZE: " + size.debugDescription)
+        print("SCREEN SIZE: " + size.debugDescription)
         
         controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array) { val in
             guard let url = val else {
@@ -839,6 +843,13 @@ struct FinalPreview: View{
                 .ignoresSafeArea(.all)
         }
     }
+    func getVideoSize(videoURL: URL) -> CGSize? {
+            let asset = AVAsset(url: videoURL)
+            guard let track = asset.tracks(withMediaType: .video).first else {
+                return nil
+            }
+            return track.naturalSize
+        }
     
 //    func entireView(size : CGSize) -> some View{
 //        return ZStack{
@@ -880,10 +891,10 @@ struct FinalPreview: View{
 
                 }
     
-    func markerView(cameraSize: CGSize) -> some View{
-        VStack{
+    func markerView(cameraSize: CGSize) -> some View {
+        return VStack {
             ZStack {
-                Image(uiImage: UIImage.from(color: .clear, size: CGSize(width: cameraSize.width, height: cameraSize.height)))
+                Image(uiImage: UIImage.from(color: .clear, size: cameraSize))
                     .opacity(0.1)
                     .gesture(markerHeader ?
                              DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -904,12 +915,15 @@ struct FinalPreview: View{
                         }
                              : nil
                     )
-                ForEach(drawingDocument.lines){ line in
+                ForEach(drawingDocument.lines) { line in
                     DrawingShape(points: line.points)
                         .stroke(line.color, style: StrokeStyle(lineWidth: line.lineWidth, lineCap: .round, lineJoin: .round))
                 }
             }
         }
+        .background(Color.clear) // Ensure the view has a clear background
+        .frame(width: cameraSize.width, height: cameraSize.height)
+        .drawingGroup()
     }
     
     func stickerView(cameraSize : CGSize) -> some View{

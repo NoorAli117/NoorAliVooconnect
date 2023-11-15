@@ -67,6 +67,86 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         }
     }
     
+    func resizeVideo(inputURL: URL, outputURL: URL, newWidth: CGFloat, newHeight: CGFloat, completion: @escaping (Bool) -> Void) {
+        let asset = AVAsset(url: inputURL)
+        
+        guard let videoTrack = asset.tracks(withMediaType: .video).first,
+              let audioTrack = asset.tracks(withMediaType: .audio).first else {
+            print("Video or audio track not found")
+            completion(false)
+            return
+        }
+        
+        let composition = AVMutableComposition()
+        let compositionVideoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        let compositionAudioTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        do {
+            try compositionVideoTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: asset.duration), of: videoTrack, at: CMTime.zero)
+            try compositionAudioTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: asset.duration), of: audioTrack, at: CMTime.zero)
+            
+            // Create a video composition instruction to resize the video
+            let instruction = AVMutableVideoCompositionInstruction()
+            instruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: asset.duration)
+            
+            let transformer = AVMutableVideoCompositionLayerInstruction(assetTrack: compositionVideoTrack!)
+            let transform = videoTrack.preferredTransform
+            
+            // Set the desired size
+            let scaleRatioX = newWidth / videoTrack.naturalSize.width
+            let scaleRatioY = newHeight / videoTrack.naturalSize.height
+            
+            let scaleFactor = min(scaleRatioX, scaleRatioY)
+            
+            let transformScale = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+            let transformTranslate = CGAffineTransform(translationX: (newWidth - videoTrack.naturalSize.width * scaleFactor) / 2, y: (newHeight - videoTrack.naturalSize.height * scaleFactor) / 2)
+            
+            transformer.setTransform(transform.concatenating(transformScale).concatenating(transformTranslate), at: CMTime.zero)
+            
+            instruction.layerInstructions = [transformer]
+            
+            let videoComposition = AVMutableVideoComposition()
+            videoComposition.instructions = [instruction]
+            videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30) // Assuming 30 frames per second
+            videoComposition.renderSize = CGSize(width: newWidth, height: newHeight)
+            
+            // Export the resized video
+            guard let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
+                print("AVAssetExportSession not created")
+                completion(false)
+                return
+            }
+            
+            exporter.outputURL = outputURL
+            print("Output URL: \(outputURL.path ?? "nil")")
+            exporter.outputFileType = AVFileType.mp4
+            exporter.shouldOptimizeForNetworkUse = true
+            exporter.videoComposition = videoComposition
+            
+            exporter.exportAsynchronously {
+                DispatchQueue.main.async {
+                    switch exporter.status {
+                    case .completed:
+                        print("Video resized successfully")
+                    case .failed:
+                        print("Failed to resize video. Error: \(exporter.error?.localizedDescription ?? "Unknown error")")
+                    case .cancelled:
+                        print("Video resize operation cancelled")
+                    default:
+                        print("Unknown export status")
+                    }
+                    
+                    completion(exporter.status == .completed)
+                }
+            }
+        } catch {
+            print("Error: \(error.localizedDescription)")
+            completion(false)
+        }
+    }
+
+    
+    
 
     
     //Video with Song

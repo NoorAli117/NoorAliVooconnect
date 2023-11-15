@@ -13,9 +13,12 @@ struct LogInDataModel {
     // "hnhtechsolutionsemail@gmail.com"
     //"abcd@1234"
     
-    var email: String = "jude@jude.com"//"hnhtechsolutionsemail@gmail.com"// = "jude@jude.com"
-    var password: String = "Password12!"// = "Password12!"
+    var email: String = "jude1@jude.com"
+    var password: String = "Password12!"
     
+//    var email: String = "hnhtechsolutionsemail@gmail.com"
+//    var password: String = "abcd@1234"
+
     var phone: String = String()
     var phoneCode: String = String()
     

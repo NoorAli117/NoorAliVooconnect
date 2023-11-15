@@ -25,7 +25,7 @@ class ReelsViewModel: ObservableObject {
     
     func getAllReels() {
 
-        var urlRequest = URLRequest(url: URL(string:  getBaseURL + EndPoints.reels)!)
+        var urlRequest = URLRequest(url: URL(string:  "\(getBaseURL + EndPoints.reels)?take=\(3)")!)
         urlRequest.httpMethod = "GET"
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
@@ -64,7 +64,7 @@ class ReelsViewModel: ObservableObject {
     }
     func getFollowingReels() {
 
-        var urlRequest = URLRequest(url: URL(string:  getBaseURL + EndPoints.followingReels)!)
+        var urlRequest = URLRequest(url: URL(string:  "\(getBaseURL + EndPoints.followingReels)?take=\(3)")!)
         urlRequest.httpMethod = "GET"
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {

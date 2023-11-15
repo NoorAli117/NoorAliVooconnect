@@ -8,6 +8,7 @@
 import SwiftUI
 import ARGear
 import ARKit
+import Combine
 
 //import DeepAR
 
@@ -42,6 +43,9 @@ struct CustomeCameraHome: View {
     @State var timerRunning = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+    @State private var recordingDuration: Double = 0.0
+    @State private var recordingTimer: Timer?
+    
     @State private var cameraFlip: Bool = false
     
     @State private var filersSheet: Bool = false
@@ -60,6 +64,8 @@ struct CustomeCameraHome: View {
     @State var audioPlayer: AVAudioPlayer!
     @State var isPlaying = false
     @State var isRecording = false
+    @State private var outputURL: URL?
+    @State var size: CGSize = .zero
     
     
     var body: some View {
@@ -175,8 +181,7 @@ struct CustomeCameraHome: View {
                             print(videoInfo)
                             if let filePath = videoInfo["filePath"] as? URL{
                                 print(filePath)
-                                previewURL = filePath.absoluteString
-                                cameraModel.previewURL = filePath
+                                resizeVideo(url: filePath, size: CGSize(width: 375.0, height: 812.0))
                             }
                         }
                     }, height: 800)
@@ -802,7 +807,7 @@ struct CustomeCameraHome: View {
                                     Spacer()
                                     Spacer()
                                     
-                                    if Vm.isPhoto{
+                                    if clickPhoto{
                                         Button {
                                             print("Photo click")
                                             timerRunning = true
@@ -830,18 +835,19 @@ struct CustomeCameraHome: View {
                                             print("Video click")
                                             previewURL = ""
                                             isRecording.toggle()
-                                            if isRecording == true {
+                                            
+                                            if isRecording {
                                                 timerRunning = true
                                                 
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + Double(countdownTimer)) {
+                                                Timer.scheduledTimer(withTimeInterval: Double(countdownTimer), repeats: false) { timer in
                                                     timerRunning = false
                                                     Vm.isRecording = true
-                                                    stopRecording()
+                                                    startProgressRecording()
                                                     
                                                     if let songPreview = cameraModel.songModel?.preview {
                                                         print("songUrl: \(songPreview)")
                                                         cameraModel.playSong(songURL: songPreview)
-                                                    }else if songURL != nil{
+                                                    } else if songURL != nil {
                                                         isPlaying = true
                                                         if isPlaying {
                                                             if let audioPlayer = audioPlayer {
@@ -851,37 +857,51 @@ struct CustomeCameraHome: View {
                                                         }
                                                     }
                                                 }
-                                            }else{
+                                            } else {
                                                 Vm.isRecording = true
                                                 countdownText = 0
+                                                invalidateRecordingTimer()
                                                 print("stop recording")
-                                                if cameraModel.songModel?.preview != nil{
+                                                if cameraModel.songModel?.preview != nil {
                                                     cameraModel.stopSong()
                                                 }
                                                 isPlaying = false
                                                 self.audioPlayer?.stop()
                                             }
                                         } label: {
-                                            Image("CameraRecording")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 58, height: 58)
-                                                .offset(x: 10)
-                                                .overlay(
-                                                    CircularProgressCameraView(progress: progress)
-                                                        .frame(height: 54)
-                                                        .offset(x: 10)
-                                                )
+                                            if isRecording {
+                                                Image("CameraRecording")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 58, height: 58)
+                                                    .offset(x: 10)
+                                                    .overlay(
+                                                        CircularProgressCameraView(progress: progress) // Attach the progress view here
+                                                            .frame(width: 58, height: 58)
+                                                            .offset(x: 10)
+                                                    )
+                                            } else {
+                                                Image("VideoClick")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 58, height: 58)
+                                                    .offset(x: 10)
+                                                    .overlay(
+                                                        CircularProgressCameraView(progress: progress) // Attach the progress view here
+                                                            .frame(width: 58, height: 58)
+                                                            .offset(x: 10)
+                                                    )
+                                            }
                                         }
-                                        .padding(.leading, 8) // 8
+                                        .padding(.leading, 8)
                                         .offset(x: -10)
                                     }
                                     
                                     Spacer()
                                     
                                     
-                                    // Preview Button
-                                    if(previewURL != "") {
+                                    //Preview Button
+                                    if(previewURL != ""){
                                         Button {
                                             if let videoURL = URL(string: previewURL){
                                                 
@@ -930,7 +950,7 @@ struct CustomeCameraHome: View {
                                         }
                                         //                                    .opacity((cameraModel.previewURL == nil && cameraModel.recordedURLs.isEmpty) || cameraModel.isRecording ? 0 : 1)
                                     }else{
-                                        HStack{Text("                         ")}
+                                        HStack{Text("                           ")}
                                     }
                                     
                                     
@@ -1026,56 +1046,72 @@ struct CustomeCameraHome: View {
     }
 
     func stopRecording() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + cameraModel.maxDuration) {
-            if isRecording == true{
-                Vm.isRecording = true
-                countdownText = 0
-                print("stop recording")
-                if cameraModel.songModel?.preview != nil{
-                    cameraModel.stopSong()
-                }
-                isPlaying = false
-                self.audioPlayer?.stop()
+        if isRecording {
+            isRecording = false
+            Vm.isRecording = true
+            countdownText = 0
+            print("stop recording")
+            if cameraModel.songModel?.preview != nil {
+                cameraModel.stopSong()
             }
-            
-            
+            isPlaying = false
+            self.audioPlayer?.stop()
+        }
+        }
+    
+    func invalidateRecordingTimer() {
+        recordingTimer?.invalidate()
+    }
+    
+    func resizeVideo(url: URL, size: CGSize) {
+        // Input URL of the original video
+        
+        print("new size will be: \(size)")
+
+        // Output URL for the resized video in the Documents directory
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        self.outputURL = documentsDirectory.appendingPathComponent("\(Date())resized_video.mp4")
+
+        // Delete existing file if it exists
+        do {
+            try FileManager.default.removeItem(at: self.outputURL!)
+        } catch {
+            print("Error deleting existing file: \(error.localizedDescription)")
+        }
+
+        cameraModel.resizeVideo(inputURL: url, outputURL: outputURL!, newWidth: size.width, newHeight: size.height){ success in
+            if success {
+                print("Video resized successfully")
+                previewURL = outputURL!.absoluteString
+                cameraModel.previewURL = outputURL
+            } else {
+                print("Failed to resize video")
+            }
         }
     }
 
-func simulateVideoProgress() {
-    let stepFrequency = 13.899 // Number of steps per second (adjust as desired)
-    let totalProgressSteps = cameraModel.maxDuration * stepFrequency
-    let stepDuration = 1.0 / totalProgressSteps
-    
-    DispatchQueue.global(qos: .background).async {
-        var shouldStop = false // Flag to indicate if the progress should be stopped
-        var i = 0.0
-        while i < totalProgressSteps {
-            i += 1.0
-            usleep(useconds_t(stepDuration * 1_000_000)) // Simulating delay in audio progress
-            
-            DispatchQueue.main.async {
-                if !cameraModel.isRecording {
-                    shouldStop = true // Set the flag to stop the progress
-                }
-                
-                if !shouldStop {
-                    progress = Double(i + 1) / Double(totalProgressSteps)
-                }
-                
-                if shouldStop || i == totalProgressSteps - 1 {
-                    cameraModel.isRecording = false
-                    print("Video Recording completed")
-                    cameraModel.stopRecording()
-                }
-            }
-            
-            if shouldStop {
-                break // Exit the loop if the progress should be stopped
+    func startProgressRecording() {
+        progress = 0.0
+        recordingDuration = 0.0
+        let intervalDuration = 10.0 // Interval duration in seconds
+
+        recordingTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            recordingDuration += 1.0
+            progress = recordingDuration / cameraModel.maxDuration
+
+            if recordingDuration >= cameraModel.maxDuration {
+                stopRecording()
+                timer.invalidate()
+            } else if recordingDuration.truncatingRemainder(dividingBy: intervalDuration) == 0 {
+                // Implement interval-specific logic here
+                // For example, you can show a message or take actions at intervals
             }
         }
+
+        // Add the timer to the run loop to ensure it runs properly, and remove it when you're done with it.
+        RunLoop.current.add(recordingTimer!, forMode: .common)
     }
-}
+
 }
 
 
@@ -1113,39 +1149,7 @@ struct circleee : View {
 }
 
 
-struct CircleeTwo: View {
-    
-    @Binding var circleProgress: CGFloat
-    
-    var widthAndHeight: CGFloat
-    var labelSize: CGFloat?
-    var staticColor: Color?
-    var progressColor: Color
-    var showLabel: Bool?
-    var lineWidth: CGFloat?
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Circle()
-                    .stroke(self.staticColor ?? Color.gray, lineWidth: self.lineWidth ?? 15)
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                Circle()
-                    .trim(from: 0.0, to: self.circleProgress)
-                    .stroke(self.progressColor, lineWidth: self.lineWidth ?? 15)
-                    .frame(width: geometry.size.width, height: geometry.size.width)
-                    .rotationEffect(Angle(degrees: -90))
-                if self.showLabel ?? true {
-                    Text("\(Int(self.circleProgress*100))%")
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                        .font(.custom("HelveticaNeue", size: self.labelSize ?? 20.0))
-                }
-            }
-        }
-        .frame(width: widthAndHeight, height: widthAndHeight)
-    }
-    
-}
+
 
 
 

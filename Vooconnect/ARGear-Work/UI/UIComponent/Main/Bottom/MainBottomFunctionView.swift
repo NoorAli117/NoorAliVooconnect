@@ -88,7 +88,7 @@ class MainBottomFunctionView: UIView {
     func setRatio(_ ratio: ARGMediaRatio) {
         
         self.setButtonsImage(ratio: ratio)
-        self.setRecordTimeLabelColor(ratio: ratio)
+//        self.setRecordTimeLabelColor(ratio: ratio)
         
         self.modeSelectView.setRatio(ratio)
 //        self.shutterView.setRatio(ratio)
@@ -198,7 +198,7 @@ class MainBottomFunctionView: UIView {
         case .photo:
             delegate.photoButtonAction(sender)
         case .video:
-            self.recordTimeLabel.isHidden = sender.tag.boolValue
+//            self.recordTimeLabel.isHidden = sender.tag.boolValue
             self.setModeSelectViewDisable(sender.tag.boolValue)
             delegate.videoButtonAction(sender)
         default:

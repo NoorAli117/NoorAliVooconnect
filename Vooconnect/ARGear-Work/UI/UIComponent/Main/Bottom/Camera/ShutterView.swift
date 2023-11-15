@@ -10,7 +10,7 @@ import UIKit
 import ARGear
 
 class ShutterView: UIView {
-    var mode: ARGMediaMode = .photo
+    var mode: ARGMediaMode = .video
     @IBOutlet var cameraImg: UIImageView!
     
     

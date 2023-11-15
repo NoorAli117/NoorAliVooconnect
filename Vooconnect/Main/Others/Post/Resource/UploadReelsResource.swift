@@ -22,23 +22,24 @@ class UploadReelsResource {
 
         if let fileData = try? Data(contentsOf: imageUploadRequest) {
             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-
+            
             data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
             data.append("Content-Type: video/mp4\r\n\r\n".data(using: .utf8)!)
             data.append(fileData)
-
+            
             // Add subtitle_apply parameter
-             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-             data.append("Content-Disposition: form-data; name=\"subtitle_apply\"\r\n".data(using: .utf8)!)
-             data.append("\r\n\(subtitle_apply)\r\n".data(using: .utf8)!)
-
-             // Add subtitleLang parameter
-             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-             data.append("Content-Disposition: form-data; name=\"subtitleLang\"\r\n".data(using: .utf8)!)
-             data.append("\r\n\(subtitleLang)\r\n".data(using: .utf8)!)
-
-             data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            data.append("Content-Disposition: form-data; name=\"subtitle_apply\"\r\n\r\n".data(using: .utf8)!)
+            data.append("\(subtitle_apply)".data(using: .utf8)!)
+            
+            // Add subtitleLang parameter
+            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+            data.append("Content-Disposition: form-data; name=\"subtitleLang\"\r\n\r\n".data(using: .utf8)!)
+            data.append("\(subtitleLang)".data(using: .utf8)!)
+            
+            data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         }
+
 
 
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
@@ -52,7 +53,7 @@ class UploadReelsResource {
         }
 
         session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
-//            print(String(data: httpData!, encoding: .utf8)!)
+
             if let data = httpData {
 
                 print(Data(data))
@@ -72,8 +73,8 @@ class UploadReelsResource {
                             
                             // Loop through the data array and access "name" and "size"
                             for datum in dataArray {
-                                let name = datum.name
-                                let size = datum.size
+//                                let name = datum.name
+//                                let size = datum.size
                                 if let reelNameContainsMP4 = datum.name?.contains("mp4") {
                                     UserDefaults.standard.set(reelNameContainsMP4, forKey: "reelName")
                                     let reelsName = UserDefaults.standard.string(forKey: "reelName") ?? ""
@@ -90,7 +91,7 @@ class UploadReelsResource {
                                         let reelSize = largestSize
                                         UserDefaults.standard.set(reelSize, forKey: "reelSize")
                                         
-                                        let reelsName = UserDefaults.standard.string(forKey: "reelSize") ?? ""
+                                        _ = UserDefaults.standard.string(forKey: "reelSize") ?? ""
                                         print("The reelSize is======", reelSize )
                                     }
                                     if sizeValue < smallestSize {
@@ -98,7 +99,7 @@ class UploadReelsResource {
                                         let thumbSize = smallestSize
                                         UserDefaults.standard.set(thumbSize, forKey: "thumbSize")
                                         
-                                        let reelsName = UserDefaults.standard.string(forKey: "thumbSize") ?? ""
+                                        _ = UserDefaults.standard.string(forKey: "thumbSize") ?? ""
                                         print("The thumbSize is======", thumbSize )
                                     }
                                 }
@@ -127,7 +128,7 @@ class UploadReelsResource {
         let postData = try? JSONSerialization.data(
             withJSONObject: parameters,
             options: [])
-
+        
         var request = URLRequest(url: URL(string: getBaseURL + EndPoints.createNewPost)!,timeoutInterval: Double.infinity)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
@@ -135,13 +136,13 @@ class UploadReelsResource {
         }
         request.httpMethod = "POST"
         request.httpBody = postData
-
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-          guard let data = data else {
-            print(String(describing: error))
-            return
-          }
-          print(String(data: data, encoding: .utf8)!)
+            guard let data = data else {
+                print(String(describing: error))
+                return
+            }
+            print(String(data: data, encoding: .utf8)!)
             do {
                 let res = try JSONDecoder().decode(PostRes.self, from: data)
                 if res.status == true {
@@ -153,7 +154,7 @@ class UploadReelsResource {
                 print(error.localizedDescription)
             }
         }
-
+        
         task.resume()
     }
     
@@ -208,7 +209,7 @@ func uploadCaption(imageUploadRequest: URL,paramName : String, fileName : String
         if let data = httpData {
             
             do {
-                        let data = try? JSONDecoder().decode(UploadRes.self, from: data)
+                let data = try? JSONDecoder().decode(UploadRes.self, from: data)
                 if let data {
                     if data.status == true {
                         let name = data.data.first?.name ?? ""
@@ -233,7 +234,7 @@ func uploadCaption(imageUploadRequest: URL,paramName : String, fileName : String
             }
             
         } else if let resposne = httpResponse {
-            
+            print("upload response: \(resposne)")
         } else {
             print("ther error")
         }

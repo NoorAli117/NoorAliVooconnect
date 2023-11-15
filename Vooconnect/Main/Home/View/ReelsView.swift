@@ -108,7 +108,7 @@ struct ReelsView: View {
                             videoIndex = index
                         }
                         likeVM.UserFollowingUsers()
-                        if index >= (reelsVM.allReels.count - 3) {
+                        if index >= (reelsVM.allReels.count - 1) {
                             reelsVM.loadNext10Reels()
                         }
                     }
@@ -177,7 +177,7 @@ struct ReelsView: View {
                             }
                             videoIndex = index
                         }
-                        if index >= (reelsVM.allReels.count - 3) {
+                        if index >= (reelsVM.allReels.count - 1) {
                             print("allReels count\(reelsVM.allReels.count)")
                             reelsVM.loadNext10FollowingReels()
                         }
@@ -396,7 +396,6 @@ struct ReelsPlyer: View {
             
             CustomVideoPlayer(player: player)
                 .edgesIgnoringSafeArea(.all)
-            
                 .onAppear {
                     DispatchQueue.main.async{
                         let user_uuid = reelsDetail.creatorUUID ?? nil
@@ -441,7 +440,7 @@ struct ReelsPlyer: View {
                     // Increment tap count and start a timer
                     tapCount += 1
                     if tapCount == 1 {
-                        singleTapTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+                        singleTapTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
                             print("Tapped")
                             postedBy = reelsDetail.creatorUUID ?? ""
                             playorstop()

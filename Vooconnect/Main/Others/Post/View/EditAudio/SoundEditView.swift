@@ -17,7 +17,7 @@ struct SoundEditView: View {
     @StateObject var audioPlayerVM: AudioPlayerViewModel
     @Environment(\.presentationMode) var presentationMode
     @Binding var postModel: PostModel
-    @State var songModel: DeezerSongModel?
+//    @State var songModel: DeezerSongModel?
     @State private var isRecording: Bool = false
     @State private var isButton: Bool = false
     @State private var soundView: Bool = false
@@ -27,8 +27,8 @@ struct SoundEditView: View {
     @State private var audioRecorder: AVAudioRecorder?
     @State private var outputUrl: URL?
     @State var cameraModel = CameraViewModel()
-    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
-    var pickSong : (DeezerSongModel) -> () = {val in}
+//    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
+//    var pickSong : (DeezerSongModel) -> () = {val in}
     @Binding var speed: Float
     var callWhenBack : () -> ()
     
@@ -49,15 +49,15 @@ struct SoundEditView: View {
     
     var body: some View{
         
-        NavigationLink(destination: SoundsView(
-            pickSong: {song in
-                cameraModel.songModel = song
-                print("new song added to video: "+(cameraModel.songModel?.preview ?? ""))
-            }
-        )
-            .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $soundView) {
-                EmptyView()
-            }
+//        NavigationLink(destination: SoundsView(
+//            pickSong: {song in
+//                cameraModel.songModel = song
+//                print("new song added to video: "+(cameraModel.songModel?.preview ?? ""))
+//            }
+//        )
+//            .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $soundView) {
+//                EmptyView()
+//            }
             ZStack(alignment: .top){
                 Color.black
                     .edgesIgnoringSafeArea(.all)
@@ -88,38 +88,38 @@ struct SoundEditView: View {
                     Text("Automatically sync your clips to any track")
                         .font(.custom("Urbanist-Regular", size: 14))
                         .foregroundColor(Color.white)
-                    ScrollView(.horizontal){
-                        HStack (alignment: .top, spacing: 20){
-                            Spacer()
-                            VStack{
-                                Rectangle()
-                                
-                                    .fill(Color.white)
-                                    .frame(width: 80, height: 80)
-                                    .clipped()
-                                    .cornerRadius(16)
-                                    .overlay(
-                                        Image("searchIcon")
-                                    )
-                                Text("Search")
-                                    .font(.custom("Urbanist-Bold", size: 14))
-                                    .foregroundColor(Color.white)
-                            }
-                            .onTapGesture {
-                                soundView.toggle()
-                            }
-//                            Spacer(minLength: 20)
-                            BlocBuilderView(bloc: soundsViewBloc) { state in
-                                ForEach(state.wrappedValue.filterSongList) { song in
-                                    songListView(songModel: song)
-                                }
-                            }
-//                            ForEach(0..<10, id: \.self) { index in
-//                                MusicItemView()
+//                    ScrollView(.horizontal){
+//                        HStack (alignment: .top, spacing: 20){
+//                            Spacer()
+//                            VStack{
+//                                Rectangle()
+//
+//                                    .fill(Color.white)
+//                                    .frame(width: 80, height: 80)
+//                                    .clipped()
+//                                    .cornerRadius(16)
+//                                    .overlay(
+//                                        Image("searchIcon")
+//                                    )
+//                                Text("Search")
+//                                    .font(.custom("Urbanist-Bold", size: 14))
+//                                    .foregroundColor(Color.white)
 //                            }
-                        }
-                        .padding(.bottom)
-                    }
+//                            .onTapGesture {
+//                                soundView.toggle()
+//                            }
+////                            Spacer(minLength: 20)
+////                            BlocBuilderView(bloc: soundsViewBloc) { state in
+////                                ForEach(state.wrappedValue.filterSongList) { song in
+////                                    songListView(songModel: song)
+////                                }
+////                            }
+////                            ForEach(0..<10, id: \.self) { index in
+////                                MusicItemView()
+////                            }
+//                        }
+//                        .padding(.bottom)
+//                    }
                     Spacer()
                     
                 }
@@ -128,26 +128,26 @@ struct SoundEditView: View {
             playerVM.player.rate = speed
             self.playerVM.isPlaying = true
             self.audioPlayerVM.isPlaying = true
-            soundsViewBloc.loadSongInit()
+//            soundsViewBloc.loadSongInit()
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
         
     }
     
-    func songListView(songModel : DeezerSongModel) -> some View{
-//        print(songModel.id)
-        //        print(soundsViewBloc.state.value.preview?.!id)
-        return MusicItemView(
-            songModel: songModel,
-            preview: soundsViewBloc.state.value.preview,
-            pickSong: {val in
-                pickSong(val)
-                presentationMode.wrappedValue.dismiss()
-            }, playVideo: playerVM, cameraModel: $cameraModel, audioPlayerVM: audioPlayerVM
-        )
-        .environmentObject(soundsViewBloc)
-    }
+//    func songListView(songModel : DeezerSongModel) -> some View{
+////        print(songModel.id)
+//        //        print(soundsViewBloc.state.value.preview?.!id)
+//        return MusicItemView(
+//            songModel: songModel,
+//            preview: soundsViewBloc.state.value.preview,
+//            pickSong: {val in
+//                pickSong(val)
+//                presentationMode.wrappedValue.dismiss()
+//            }, playVideo: playerVM, cameraModel: $cameraModel, audioPlayerVM: audioPlayerVM
+//        )
+//        .environmentObject(soundsViewBloc)
+//    }
     
     func simulateVideoDownload() {
         let stepFrequency = 10 // Number of steps per second (adjust as desired)
@@ -172,7 +172,7 @@ struct SoundEditView: View {
                     if shouldStop || i == totalProgressSteps - 1 {
                         isRecording = false
                         print("Audio Recording completed")
-                        stopRecording()
+//                        stopRecording()
                     }
                 }
 
@@ -211,62 +211,62 @@ struct SoundEditView: View {
         }
     }
     
-    func startRecording() {
-        guard let audioRecorder = audioRecorder else {
-            return
-        }
-        
-        do {
-            try AVAudioSession.sharedInstance().setActive(true)
-            audioRecorder.record()
-            print("Audio recording started")
-        } catch {
-            print("Failed to start audio recording: \(error.localizedDescription)")
-        }
-    }
+//    func startRecording() {
+//        guard let audioRecorder = audioRecorder else {
+//            return
+//        }
+//
+//        do {
+//            try AVAudioSession.sharedInstance().setActive(true)
+//            audioRecorder.record()
+//            print("Audio recording started")
+//        } catch {
+//            print("Failed to start audio recording: \(error.localizedDescription)")
+//        }
+//    }
     
-    func stopRecording() {
-        guard let audioRecorder = audioRecorder else {
-            return
-        }
-        audioRecorder.stop()
-        print("Recording stopped.")
-        
-        do {
-            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-            
-            removeAudioFromVideo(videoURL: postModel.contentUrl!) { outputURL, error in
-                if let error = error {
-                    print("Failed to remove audio: \(error.localizedDescription)")
-                } else {
-                    print("Audio removed successfully.")
-                    DispatchQueue.main.async {
-                        let audioUrlPath = audioRecorder.url.path
-                        print("Audio URL Path: \(audioUrlPath)")
-                        let videoUrlPath = outputURL?.path
-                        print("Video URL Path: \(videoUrlPath ?? "")")
-                        
-                        mergeAudioToVideo(sourceAudioPath: audioUrlPath, sourceVideoPath: videoUrlPath!) { url, error in
-                            if let error = error {
-                                print("Error merging audio and video: \(error.localizedDescription)")
-                            } else if let mergedURL = url {
-                                self.outputUrl = mergedURL
-                                print("Merged audio and video URL: \(mergedURL)")
-                                postModel.contentUrl = mergedURL
-                                print("New URL: \(String(describing: postModel.contentUrl))")
-                                playerVM.reset(videoUrl: mergedURL)
-                                isButton = true
-                            }
-                        }
-                    }
-                }
-            }
-            
-            print("Recording playback started.")
-        } catch {
-            print("Failed to play the recording: \(error.localizedDescription)")
-        }
-    }
+//    func stopRecording() {
+//        guard let audioRecorder = audioRecorder else {
+//            return
+//        }
+//        audioRecorder.stop()
+//        print("Recording stopped.")
+//
+//        do {
+//            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+//
+//            removeAudioFromVideo(videoURL: postModel.contentUrl!) { outputURL, error in
+//                if let error = error {
+//                    print("Failed to remove audio: \(error.localizedDescription)")
+//                } else {
+//                    print("Audio removed successfully.")
+//                    DispatchQueue.main.async {
+//                        let audioUrlPath = audioRecorder.url.path
+//                        print("Audio URL Path: \(audioUrlPath)")
+//                        let videoUrlPath = outputURL?.path
+//                        print("Video URL Path: \(videoUrlPath ?? "")")
+//
+//                        mergeAudioToVideo(sourceAudioPath: audioUrlPath, sourceVideoPath: videoUrlPath!) { url, error in
+//                            if let error = error {
+//                                print("Error merging audio and video: \(error.localizedDescription)")
+//                            } else if let mergedURL = url {
+//                                self.outputUrl = mergedURL
+//                                print("Merged audio and video URL: \(mergedURL)")
+//                                postModel.contentUrl = mergedURL
+//                                print("New URL: \(String(describing: postModel.contentUrl))")
+//                                playerVM.reset(videoUrl: mergedURL)
+//                                isButton = true
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            print("Recording playback started.")
+//        } catch {
+//            print("Failed to play the recording: \(error.localizedDescription)")
+//        }
+//    }
 
 
     private func getDocumentsDirectory() -> URL {
@@ -280,82 +280,82 @@ struct SoundEditView: View {
     
     
 }
-class AudioCaptureDelegate: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
-    private let sampleBufferHandler: (CMSampleBuffer) -> Void
-       
-       init(sampleBufferHandler: @escaping (CMSampleBuffer) -> Void) {
-           self.sampleBufferHandler = sampleBufferHandler
-       }
-       
-       func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-           sampleBufferHandler(sampleBuffer)
-       }
-}
+//class AudioCaptureDelegate: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
+//    private let sampleBufferHandler: (CMSampleBuffer) -> Void
+//
+//       init(sampleBufferHandler: @escaping (CMSampleBuffer) -> Void) {
+//           self.sampleBufferHandler = sampleBufferHandler
+//       }
+//
+//       func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+//           sampleBufferHandler(sampleBuffer)
+//       }
+//}
 
-struct MusicItemView: View {
-    @State var songModel : DeezerSongModel
-    @State var preview : DeezerSongModel? = nil
-    var pickSong : (DeezerSongModel) -> () = {val in}
-    @EnvironmentObject var soundsViewBloc: SoundsViewBloc
-    @StateObject var playVideo: PlayerViewModel
-    @Binding var cameraModel: CameraViewModel
-    @StateObject var audioPlayerVM: AudioPlayerViewModel
-    
-    var body: some View {
-        VStack (alignment: .center){
-            BlocBuilderView(bloc: soundsViewBloc) { state in
-                ZStack{
-                    if (songModel.preview != nil) {
-                        AsyncImage(url: URL(string: songModel.album!.cover))
-                            .frame(width: 70, height: 70)
-                            .clipped()
-                            .cornerRadius(16)
-                    }else{
-                        Image("ImageArtist")
-                            .frame(width: 70, height: 70)
-                            .clipped()
-                            .cornerRadius(16)
-                    }
-//                    if(state.wrappedValue.preview != nil && state.wrappedValue.preview == songModel)
-//                    {
-//                        Image("PlayWhiteN")
-//                            .resizable()
-//                            .frame(width: 20, height: 20)
+//struct MusicItemView: View {
+//    @State var songModel : DeezerSongModel
+//    @State var preview : DeezerSongModel? = nil
+//    var pickSong : (DeezerSongModel) -> () = {val in}
+//    @EnvironmentObject var soundsViewBloc: SoundsViewBloc
+//    @StateObject var playVideo: PlayerViewModel
+//    @Binding var cameraModel: CameraViewModel
+//    @StateObject var audioPlayerVM: AudioPlayerViewModel
+//
+//    var body: some View {
+//        VStack (alignment: .center){
+//            BlocBuilderView(bloc: soundsViewBloc) { state in
+//                ZStack{
+//                    if (songModel.preview != nil) {
+//                        AsyncImage(url: URL(string: songModel.album.cover))
+//                            .frame(width: 70, height: 70)
+//                            .clipped()
+//                            .cornerRadius(16)
+//                    }else{
+//                        Image("ImageArtist")
+//                            .frame(width: 70, height: 70)
+//                            .clipped()
+//                            .cornerRadius(16)
 //                    }
-                }
-                .frame(alignment: .center)
-                .button {
-                    audioPlayerVM.isPlaying = false
-                    cameraModel.songModel = nil
-                    soundsViewBloc.playSong(songModel: songModel)
-                    cameraModel.songModel = songModel
-                    playVideo.player.play()
-                    playVideo.player.isMuted = true
-                    playVideo.player.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
-                    playVideo.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
-                        // Check if the video reached its end
-                        if let duration = playVideo.player.currentItem?.duration, time >= duration {
-                            // Stop the song when the video is done
-                            soundsViewBloc.stopSong()
-                        }
-                    }
-                }
-            }
-            
-            VStack(alignment: .leading, spacing: 6) {
-                
-                Text(songModel.title!)
-                    .font(.custom("Urbanist-Bold", size: 14))
-                    .foregroundColor(Color.white)
-                Text(songModel.artist!.name)  // Medium
-                    .font(.custom("Urbanist-Medium", size: 10))
-                    .foregroundColor(Color.white)
-                
-            }
-            .frame(width: 70)
-        }
-    }
-}
+////                    if(state.wrappedValue.preview != nil && state.wrappedValue.preview == songModel)
+////                    {
+////                        Image("PlayWhiteN")
+////                            .resizable()
+////                            .frame(width: 20, height: 20)
+////                    }
+//                }
+//                .frame(alignment: .center)
+//                .button {
+//                    audioPlayerVM.isPlaying = false
+//                    cameraModel.songModel = nil
+//                    soundsViewBloc.playSong(songModel: songModel)
+//                    cameraModel.songModel = songModel
+//                    playVideo.player.play()
+//                    playVideo.player.isMuted = true
+//                    playVideo.player.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+//                    playVideo.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
+//                        // Check if the video reached its end
+//                        if let duration = playVideo.player.currentItem?.duration, time >= duration {
+//                            // Stop the song when the video is done
+//                            soundsViewBloc.stopSong()
+//                        }
+//                    }
+//                }
+//            }
+//
+//            VStack(alignment: .leading, spacing: 6) {
+//
+//                Text(songModel.title)
+//                    .font(.custom("Urbanist-Bold", size: 14))
+//                    .foregroundColor(Color.white)
+//                Text(songModel.artist.name)  // Medium
+//                    .font(.custom("Urbanist-Medium", size: 10))
+//                    .foregroundColor(Color.white)
+//
+//            }
+//            .frame(width: 70)
+//        }
+//    }
+//}
 
 
 //                            ZStack {

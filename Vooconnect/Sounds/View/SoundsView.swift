@@ -230,7 +230,7 @@ struct SoundsView: View {
                     SoundsFilterView(
                         currentTypeFilter: self.soundsViewBloc.state.value.typeSoundsFilter,
                         callback: {val in
-                            self.soundsViewBloc.setCurrentFilterType(type: val) 
+                            self.soundsViewBloc.setCurrentFilterType(type: val)
                             self.showFilter = false
                         },
                         cancellCallback: {
@@ -268,7 +268,7 @@ struct SoundsView: View {
                         .padding(.horizontal,20)
                         .frame(width:UIScreen.main.screenWidth())
                         .button {
-                            self.userName = song.title!
+                            self.userName = song.title
                             self.focusTextField = false
 //                            self.soundsViewBloc.searchSong(query: song.title)
                         }

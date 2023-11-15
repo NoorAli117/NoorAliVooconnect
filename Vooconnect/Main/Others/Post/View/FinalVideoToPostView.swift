@@ -9,6 +9,7 @@ import SwiftUI
 import Photos
 import SDWebImageSwiftUI
 import FBSDKShareKit
+import CountryPicker
 //import SocialMedia
 //import FacebookLogin
 //import FacebookCore
@@ -71,6 +72,8 @@ struct FinalVideoToPostView: View {
     @State private var videoCreditsVisible: Bool = false
     @State var userNames: [String] = []
     @State var videoCredits: [String] = []
+    @State private var showCountryPicker = false
+    @State private var country: Country?
     
     var catSelected: (Int) -> () = {val in}
     @State private var selectedType: SocialMediaType?
@@ -375,18 +378,21 @@ struct FinalVideoToPostView: View {
                                         Image("LocationLogo")
                                         
                                         Button {
-                                            
+                                            showCountryPicker = true
                                         } label: {
                                             Text("Location")
                                                 .font(.custom("Urbanist-SemiBold", size: 18))
                                                 .foregroundColor(.black)
                                         }
                                         .padding(.leading, 12)
-                                        
                                         Spacer()
-                                        
-                                        Image("ArrowLogo")
-                                        
+                                        Text(country?.isoCode.getFlag() ?? "US".getFlag())
+                                            .font(.custom("Urbanist-SemiBold", size: 18))
+                                            .foregroundColor(.black)
+                                        Image("DownArrow")
+                                    }
+                                    .sheet(isPresented: $showCountryPicker) {
+                                        CountryPicker(country: $country)
                                     }
                                     
                                     HStack {
@@ -615,7 +621,7 @@ struct FinalVideoToPostView: View {
                                     Spacer()
                                     
                                     Button {
-                                        loader = true
+                                        loader.toggle()
                                         if (postModel.description == ""){
                                             print("Description should not be nil")
                                             loader = false
@@ -686,6 +692,8 @@ struct FinalVideoToPostView: View {
                                                             }
                                                         } else {
                                                             print("failed==========")
+                                                            isShowPopup = true
+                                                            showMessagePopup(messages: "Faild To Uplaod Video")
                                                             loader = false
                                                         }
                                                     }
@@ -1156,7 +1164,7 @@ struct FinalVideoToPostView: View {
                 if(!responsee || errorMessage == nil)
                 {
                     
-                    print("error uploading video")
+                    print("error uploading video \(String(describing: errorMessage))")
                     complitionHandler(false)
                     return
                 }

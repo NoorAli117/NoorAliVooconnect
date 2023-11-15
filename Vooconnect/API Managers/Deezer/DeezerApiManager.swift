@@ -18,8 +18,10 @@ class DeezerApiManager{
             do{
                 guard let data = data else { return }
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] ?? [:]
+                print("song JSON data: \(json)")
                 let data2 = try JSONSerialization.data(withJSONObject: json["data"] as Any)
                 let deezerMusicList = try JSONDecoder().decode([DeezerSongModel].self, from: data2)
+                print("song data: \(deezerMusicList)")
                 DispatchQueue.main.async {
                     callback(deezerMusicList)
                 }

@@ -46,7 +46,7 @@ final class SoundsViewBloc: Bloc<SoundsViewBlocEvent, SoundsViewBlocState> {
     }
     
     func playSong(songModel : DeezerSongModel){
-        let response = SoundsManagerHelper.instance.playAudioFromUrl(url: songModel.preview!)
+        let response = SoundsManagerHelper.instance.playAudioFromUrl(url: songModel.preview)
         if(response){
             self.state.value.preview = songModel
             yield(self.state.value)
@@ -80,15 +80,16 @@ final class SoundsViewBloc: Bloc<SoundsViewBlocEvent, SoundsViewBlocState> {
             {
                 case .all: do {
                     _list.append(element)
+                    print("list Items: \(_list)")
                 }
                 case .title: do {
-                    if((element.title?.lowercased().contains(self.state.value.query.lowercased())) != nil)
+                    if((element.title.lowercased().contains(self.state.value.query.lowercased())) != nil)
                     {
                         _list.append(element)
                     }
                 }
                 case .artist: do {
-                    if((element.artist?.name.lowercased().contains(self.state.value.query.lowercased())) != nil)
+                    if((element.artist.name.lowercased().contains(self.state.value.query.lowercased())) != nil)
                     {
                         _list.append(element)
                     }

@@ -49,7 +49,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                         }
                     }
                     videoPlayer.delegate = self
-                    setupRecognition()
+//                    setupRecognition()
                 }else{
                     videoPlayer = VideoMediaInput()
                 }
@@ -58,7 +58,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                 if(!isImage){
                     self.videoPlayer = VideoMediaInput(url: url,speed: speed)
                     videoPlayer.delegate = self
-                    setupRecognition()
+//                    setupRecognition()
                     videoPlayer.onEndVideo = {
                         self.audioPlayer.player.pause()
 //                        self.captioning = ""
@@ -386,6 +386,8 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                     let parentlayer = CALayer()
                     let videoLayer = CALayer()
                     let naturalSize = clipVideoTrack.naturalSize
+                    
+                    print("Video Size: \(naturalSize)")
                     
                     parentlayer.frame = CGRect(x: 0, y: 0, width: naturalSize.width, height: naturalSize.height)
                     videoLayer.frame = CGRect(x: 0, y: 0, width: naturalSize.width, height: naturalSize.height)
