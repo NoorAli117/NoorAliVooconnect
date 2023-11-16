@@ -118,15 +118,6 @@ struct DuoView: View{
                         EmptyView()
                     }
                 
-                NavigationLink(destination: SoundsView(
-                    pickSong: {song in
-                        cameraModel.songModel = song
-                        print("new song added to video: "+(cameraModel.songModel?.preview ?? ""))
-                    }
-                )
-                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $soundView) {
-                        EmptyView()
-                    }
                 
                 HStack {
                     Spacer()

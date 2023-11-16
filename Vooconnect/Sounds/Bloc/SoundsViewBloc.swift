@@ -75,24 +75,19 @@ final class SoundsViewBloc: Bloc<SoundsViewBlocEvent, SoundsViewBlocState> {
     private func onLoadedMusic(list: [DeezerSongModel]){
         var _list = [DeezerSongModel]()
         print("current query: \(self.state.value.query)")
-        for element in list{
-            switch(self.state.value.typeSoundsFilter)
-            {
-                case .all: do {
+        
+        for element in list {
+            switch self.state.value.typeSoundsFilter {
+            case .all:
+                _list.append(element)
+                print("list Items: \(_list)")
+            case .title:
+                if element.title.lowercased().contains(self.state.value.query.lowercased()) {
                     _list.append(element)
-                    print("list Items: \(_list)")
                 }
-                case .title: do {
-                    if((element.title.lowercased().contains(self.state.value.query.lowercased())) != nil)
-                    {
-                        _list.append(element)
-                    }
-                }
-                case .artist: do {
-                    if((element.artist.name.lowercased().contains(self.state.value.query.lowercased())) != nil)
-                    {
-                        _list.append(element)
-                    }
+            case .artist:
+                if element.artist.name.lowercased().contains(self.state.value.query.lowercased()) {
+                    _list.append(element)
                 }
             }
         }
@@ -101,6 +96,7 @@ final class SoundsViewBloc: Bloc<SoundsViewBlocEvent, SoundsViewBlocState> {
         self.state.value.filterSongList = _list
         yield(self.state.value)
     }
+
     
     func clearSongList()
     {

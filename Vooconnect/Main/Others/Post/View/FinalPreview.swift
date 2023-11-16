@@ -752,6 +752,7 @@ struct FinalPreview: View{
             self.postModel.songModel = songModel
             controller.loadData(url: url)
             controller.audio = URL(string: songModel?.preview ?? "")
+            print("songUrl: \(String(describing: songModel?.preview))")
             print("URL FINAL PREVIEW1: " + url.absoluteString)
             addObserver()
         }

@@ -40,7 +40,6 @@ struct VideoCreditsView: View{
                     .onSubmit {
                         if(userName.isEmpty == false)
                         {
-//                                    soundsViewBloc.searchSong(query: userName)
                         }
                     }
                     .frame(height: 20, alignment: .center)

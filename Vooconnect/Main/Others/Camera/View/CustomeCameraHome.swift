@@ -787,6 +787,8 @@ struct CustomeCameraHome: View {
                         VStack(alignment: .leading) {
                             if !Vm.bottomHide {
                                 Button {
+                                    previewURL = ""
+                                    progress = 0
                                     Vm.isVideo = true
                                     clickPhoto = false
                                 } label: {
@@ -796,12 +798,12 @@ struct CustomeCameraHome: View {
                                 HStack {
                                     
                                     Button {
-                                        //                                    clickPhoto = true
-                                        //                                    self.cameraModel.previewURL = nil
+                                        previewURL = ""
+                                        progress = 0
                                         Vm.isPhoto = true
                                         clickPhoto = true
                                     } label: {
-                                        Image(clickPhoto ? "PhotoSlected" : "PhotoUnSlected") // PhotoSlected
+                                        Image(clickPhoto ? "PhotoSlected" : "PhotoUnSlected")
                                     }
                                     
                                     Spacer()
@@ -840,14 +842,17 @@ struct CustomeCameraHome: View {
                                                 timerRunning = true
                                                 
                                                 Timer.scheduledTimer(withTimeInterval: Double(countdownTimer), repeats: false) { timer in
-                                                    timerRunning = false
-                                                    Vm.isRecording = true
-                                                    startProgressRecording()
                                                     
                                                     if let songPreview = cameraModel.songModel?.preview {
+                                                        timerRunning = false
+                                                        Vm.isRecording = true
+                                                        startProgressRecording()
                                                         print("songUrl: \(songPreview)")
                                                         cameraModel.playSong(songURL: songPreview)
                                                     } else if songURL != nil {
+                                                        timerRunning = false
+                                                        Vm.isRecording = true
+                                                        startProgressRecording()
                                                         isPlaying = true
                                                         if isPlaying {
                                                             if let audioPlayer = audioPlayer {
@@ -855,6 +860,10 @@ struct CustomeCameraHome: View {
                                                             }
                                                             self.audioPlayer?.play()
                                                         }
+                                                    }else{
+                                                        timerRunning = false
+                                                        Vm.isRecording = true
+                                                        startProgressRecording()
                                                     }
                                                 }
                                             } else {
@@ -877,7 +886,7 @@ struct CustomeCameraHome: View {
                                                     .offset(x: 10)
                                                     .overlay(
                                                         CircularProgressCameraView(progress: progress) // Attach the progress view here
-                                                            .frame(width: 58, height: 58)
+                                                            .frame(height: 54)
                                                             .offset(x: 10)
                                                     )
                                             } else {
@@ -888,7 +897,7 @@ struct CustomeCameraHome: View {
                                                     .offset(x: 10)
                                                     .overlay(
                                                         CircularProgressCameraView(progress: progress) // Attach the progress view here
-                                                            .frame(width: 58, height: 58)
+                                                            .frame(height: 54)
                                                             .offset(x: 10)
                                                     )
                                             }

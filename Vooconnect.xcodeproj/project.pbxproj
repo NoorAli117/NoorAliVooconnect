@@ -155,6 +155,7 @@
 		7C0CBFD72ADEB4E600F63253 /* face.scn in Resources */ = {isa = PBXBuildFile; fileRef = 7C0CBFD62ADEB4E600F63253 /* face.scn */; };
 		7C0CBFDB2ADED31100F63253 /* FFmpeg-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 7C0CBFDA2ADED31100F63253 /* FFmpeg-iOS */; };
 		7C4F0DCB2AFE4FD0007B4DA4 /* LocationFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F0DCA2AFE4FCF007B4DA4 /* LocationFinder.swift */; };
+		7CDDFB722B061A33000CD98F /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDDFB712B061A33000CD98F /* SoundsView.swift */; };
 		8432BB4B2ABED52E00E91F62 /* RatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAF72ABED52D00E91F62 /* RatioView.swift */; };
 		8432BB4C2ABED52E00E91F62 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAF82ABED52D00E91F62 /* SplashView.swift */; };
 		8432BB4D2ABED52E00E91F62 /* PreviewBottomFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAFA2ABED52D00E91F62 /* PreviewBottomFunctionView.swift */; };
@@ -389,7 +390,6 @@
 		A9BBD3E3292234BE00ABC50D /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BBD3E2292234BE00ABC50D /* PopUpView.swift */; };
 		A9BBD3E52922366D00ABC50D /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BBD3E42922366D00ABC50D /* Popup.swift */; };
 		A9C460012949C54400A06896 /* CustomeCameraForPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C460002949C54400A06896 /* CustomeCameraForPhoto.swift */; };
-		A9C460052949E8DD00A06896 /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C460042949E8DD00A06896 /* SoundsView.swift */; };
 		A9C460072949F6AF00A06896 /* SoundListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C460062949F6AF00A06896 /* SoundListView.swift */; };
 		A9D09CB2292DDB9E00B8B0B9 /* LongPressPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D09CB1292DDB9E00B8B0B9 /* LongPressPopUp.swift */; };
 		A9D09CB4292DE3B400B8B0B9 /* UploadProfileImageResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D09CB3292DE3B400B8B0B9 /* UploadProfileImageResource.swift */; };
@@ -628,6 +628,7 @@
 		7C0CBFD42ADEB40E00F63253 /* Face.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Face.scnassets; sourceTree = "<group>"; };
 		7C0CBFD62ADEB4E600F63253 /* face.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = face.scn; path = Vooconnect/Face.scnassets/face.scn; sourceTree = "<group>"; };
 		7C4F0DCA2AFE4FCF007B4DA4 /* LocationFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFinder.swift; sourceTree = "<group>"; };
+		7CDDFB712B061A33000CD98F /* SoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsView.swift; sourceTree = "<group>"; };
 		8432BAF72ABED52D00E91F62 /* RatioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatioView.swift; sourceTree = "<group>"; };
 		8432BAF82ABED52D00E91F62 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8432BAFA2ABED52D00E91F62 /* PreviewBottomFunctionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewBottomFunctionView.swift; sourceTree = "<group>"; };
@@ -867,7 +868,6 @@
 		A9BBD3E2292234BE00ABC50D /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 		A9BBD3E42922366D00ABC50D /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		A9C460002949C54400A06896 /* CustomeCameraForPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomeCameraForPhoto.swift; sourceTree = "<group>"; };
-		A9C460042949E8DD00A06896 /* SoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsView.swift; sourceTree = "<group>"; };
 		A9C460062949F6AF00A06896 /* SoundListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundListView.swift; sourceTree = "<group>"; };
 		A9D09CB1292DDB9E00B8B0B9 /* LongPressPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressPopUp.swift; sourceTree = "<group>"; };
 		A9D09CB3292DE3B400B8B0B9 /* UploadProfileImageResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProfileImageResource.swift; sourceTree = "<group>"; };
@@ -2685,9 +2685,9 @@
 		A9C460032949E8A100A06896 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A9C460042949E8DD00A06896 /* SoundsView.swift */,
 				A9C460062949F6AF00A06896 /* SoundListView.swift */,
 				AB37595A29D4A297000D0A2D /* SoundsFilterView.swift */,
+				7CDDFB712B061A33000CD98F /* SoundsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3164,7 +3164,6 @@
 				A95462472955AD1B00C4D233 /* ViewersList.swift in Sources */,
 				ABC55C3A29AE8A8100C3E320 /* ViewExtension.swift in Sources */,
 				8432BB682ABED52E00E91F62 /* BulgeView.swift in Sources */,
-				A9C460052949E8DD00A06896 /* SoundsView.swift in Sources */,
 				8432BB612ABED52E00E91F62 /* FilterView.swift in Sources */,
 				A971F3A4291D02990045602C /* TestView.swift in Sources */,
 				297754B92A2A036A0006DB3F /* LanguageModel.swift in Sources */,
@@ -3241,6 +3240,7 @@
 				049F4C1029BBB6BD00113EA0 /* CreatorView.swift in Sources */,
 				A945313C2914D6CC00321407 /* BuzzView.swift in Sources */,
 				04E05D9829CF2320004F5406 /* StatsModel.swift in Sources */,
+				7CDDFB722B061A33000CD98F /* SoundsView.swift in Sources */,
 				A9AD88D829321393009B16F8 /* CustomeTextFieldFive.swift in Sources */,
 				AB37595E29D4A3FE000D0A2D /* TypeOfSoundFilter.swift in Sources */,
 				04C1D5F929BBC42000284F72 /* ForgotPasswordValidation.swift in Sources */,

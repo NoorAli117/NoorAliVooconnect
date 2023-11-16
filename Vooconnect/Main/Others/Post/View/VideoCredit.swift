@@ -24,17 +24,7 @@ struct VideoCreditView: View{
 //                    .focused($focusTextField)
                     .onChange(of: self.userName, perform: {val in
                         print("new textField val: \(val)")
-                        if(val.isEmpty == false)
-                        {
-//                            soundsViewBloc.searchSong(query: val)
-                        }
                     })
-                    .onSubmit {
-                        if(userName.isEmpty == false)
-                        {
-//                                    soundsViewBloc.searchSong(query: userName)
-                        }
-                    }
                     .frame(height: 20, alignment: .center)
                 Image("FilterS")
                     .resizable()

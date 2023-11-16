@@ -17,6 +17,7 @@ class SoundsViewController : ObservableObject{
     ///Loads music on init when view loads
     func loadSongInit()
     {
+        print("init Loading")
         deezerApiManager.loadMusic(query: "a",callback: onLoadedMusic)
     }
     

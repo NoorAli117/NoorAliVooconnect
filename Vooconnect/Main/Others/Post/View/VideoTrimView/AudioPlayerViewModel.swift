@@ -20,7 +20,6 @@ final class AudioPlayerViewModel: ObservableObject {
     @Published var duration: Double?
 //    @State var cameraModel = CameraViewModel()
 //    @State var songModel : DeezerSongModel? = DeezerSongModel()
-//    @EnvironmentObject var soundsViewBlocs: SoundsViewBloc
     
     private var subscriptions: Set<AnyCancellable> = []
     private var timeObserver: Any?

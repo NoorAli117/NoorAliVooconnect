@@ -128,7 +128,6 @@ struct SoundEditView: View {
             playerVM.player.rate = speed
             self.playerVM.isPlaying = true
             self.audioPlayerVM.isPlaying = true
-//            soundsViewBloc.loadSongInit()
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)

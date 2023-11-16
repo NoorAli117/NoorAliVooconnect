@@ -26,7 +26,7 @@ class DeezerApiManager{
                     callback(deezerMusicList)
                 }
             }catch{
-                print(error)
+                print("song error: \(error)")
             }
             
         }

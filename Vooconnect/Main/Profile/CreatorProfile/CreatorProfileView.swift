@@ -1,5 +1,5 @@
 //
-//  SoundsView.swift
+//  CreatorProfileView.swift
 //  Vooconnect
 //
 //  Created by Vooconnect on 19/12/22.

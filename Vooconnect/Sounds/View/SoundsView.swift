@@ -2,7 +2,7 @@
 //  SoundsView.swift
 //  Vooconnect
 //
-//  Created by Vooconnect on 14/12/22.
+//  Created by Noor on 16/11/2023.
 //
 
 import SwiftUI
@@ -16,7 +16,7 @@ struct SoundsView: View {
     @State private var showFilter : Bool = false
     @FocusState private var focusTextField: Bool
     var pickSong : (DeezerSongModel) -> () = {val in}
-    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
+    @State var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
     var body: some View {
         NavigationView {
             
@@ -25,13 +25,6 @@ struct SoundsView: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    
-                    //                    NavigationLink(destination: PreviewFromGallery()   // PreviewFromGallery()   // PreviewView()
-                    //                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $imagePicker.showPreview) {
-                    //                            EmptyView()
-                    //                        }
-                    
-                    
                     // Top Bar
                     HStack {
                         Button {
@@ -259,7 +252,7 @@ struct SoundsView: View {
                                     RoundedRectangle(cornerRadius: 100)
                                         .fill(Color.gray.opacity(0.15))
                                 }
-                            Text(song.title ?? "")
+                            Text(song.title)
                                 .foregroundColor(.black)
                                 
                             Spacer()
@@ -301,44 +294,12 @@ struct SoundsView: View {
                                 songListView(songModel: song)
                             }
                         }
-//                        switch state.wrappedValue{
-//                            case .searchSongList(let list):
-//                                ForEach(list) { song in
-//                                    songListView(songModel: song)
-//                                }
-//                            case .favoriteSongList(let list):
-//                                ForEach(list) { song in
-//                                    songListView(songModel: song)
-//                                }
-//                        }
                     }
                     
                 }
             }
         }
         .padding(.top, 10)
-        
-//            ScrollView {
-//                LazyVGrid(columns: gridLayoutSound, alignment: .center, spacing: columnSpacingSound, pinnedViews: []) {
-//                    Section()
-//                    {
-//
-////                        if(favorites)
-////                        {
-////                            ForEach(state.wrappedValue.favoriteSongList) { song in
-////                                songListView(songModel: song, state: state.wrappedValue)
-////                            }
-////                        }else
-////                        {
-////                            ForEach(state.wrappedValue.searchSongList) { song in
-////                                songListView(songModel: song,state: state.wrappedValue)
-////                            }
-////                        }
-//                    }
-//                }
-//            }
-//            .padding(.top, 10)
-//        }
 
     }
     
