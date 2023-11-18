@@ -26,12 +26,10 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     @Published var captioning: String = ""
-    private var isImage : Bool
     private var speed : Float
     @Published var audio: URL?
-    init(url : URL, isImage : Bool, speed : Float)
+    init(url : URL, speed : Float)
     {
-        self.isImage = isImage
         self.speed = speed
         super.init()
     }
@@ -39,34 +37,25 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     
     func loadData(url: URL){
         DispatchQueue.global(qos: .background).async{ [self] in
-            if (self.audio != nil){
-                if(!isImage){
-                    self.videoPlayer = VideoMediaInput(url: url,speed: speed)
-                    self.audioPlayer = AudioMediaInput(url: audio!)
-                    videoPlayer.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
-                        if let duration = self.videoPlayer.player.currentItem?.duration, time >= duration {
-                            self.audioPlayer.player.pause()
-                        }
+            if let audioURL = audio {
+                self.videoPlayer = VideoMediaInput(url: url,speed: speed)
+                self.audioPlayer = AudioMediaInput(url: audioURL)
+                videoPlayer.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
+                    if let duration = self.videoPlayer.player.currentItem?.duration, time >= duration {
+                        self.audioPlayer.player.pause()
                     }
-                    videoPlayer.delegate = self
-//                    setupRecognition()
-                }else{
-                    videoPlayer = VideoMediaInput()
                 }
+                videoPlayer.delegate = self
+//                    setupRecognition()
                 
             }else{
-                if(!isImage){
-                    self.videoPlayer = VideoMediaInput(url: url,speed: speed)
-                    videoPlayer.delegate = self
+                self.videoPlayer = VideoMediaInput(url: url,speed: speed)
+                videoPlayer.delegate = self
 //                    setupRecognition()
-                    videoPlayer.onEndVideo = {
-                        self.audioPlayer.player.pause()
+                videoPlayer.onEndVideo = {
+                    self.audioPlayer.player.pause()
 //                        self.captioning = ""
-                        self.setupRecognition()
-                    }
-                    
-                }else{
-                    videoPlayer = VideoMediaInput()
+//                        self.setupRecognition()
                 }
             }
         }
@@ -101,14 +90,10 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     ///Set new `URL` to be played with the `videoPlayer` player
     func setNewUrl(url : URL)
     {
-        if(isImage)
-        {
-            return
-        }
         DispatchQueue.global(qos: .background).async{ [self] in
             self.videoPlayer = VideoMediaInput(url: url, speed: self.speed)
             self.videoPlayer.delegate = self
-            self.setupRecognition()
+//            self.setupRecognition()
         }
         
         
@@ -118,27 +103,27 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
         recognitionRequest?.appendAudioSampleBuffer(sampleBuffer)
     }
     
-    private func setupRecognition() {
-        let recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        recognitionRequest.shouldReportPartialResults = true
-        
-        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
-            if let result = result {
-                self?.captioning = result.bestTranscription.formattedString
-            } else if let error = error {
-                print("Error in recognition task: \(error.localizedDescription)")
-            }
-            
-            if result?.isFinal == true {
-                self?.recognitionTask?.finish() // Finish the recognition task.
-                self?.recognitionRequest = nil
-                self?.recognitionTask = nil
-                self?.setupRecognition() // Set up a new recognition task.
-            }
-        }
-        
-        self.recognitionRequest = recognitionRequest
-    }
+//    private func setupRecognition() {
+//        let recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+//        recognitionRequest.shouldReportPartialResults = true
+//
+//        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
+//            if let result = result {
+//                self?.captioning = result.bestTranscription.formattedString
+//            } else if let error = error {
+//                print("Error in recognition task: \(error.localizedDescription)")
+//            }
+//
+//            if result?.isFinal == true {
+//                self?.recognitionTask?.finish() // Finish the recognition task.
+//                self?.recognitionRequest = nil
+//                self?.recognitionTask = nil
+//                self?.setupRecognition() // Set up a new recognition task.
+//            }
+//        }
+//
+//        self.recognitionRequest = recognitionRequest
+//    }
 
     
     
@@ -342,7 +327,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     //MARK: Merging video with image and output and url
     func mergeVideoAndImage(
             video videoUrl: URL,
-            withForegroundImages images: [(UIImage,CGSize)],
+            withForegroundImages images: [(UIImage,CGSize)], marker: Bool,
             completion: @escaping (URL?) -> Void) -> () {
                 let tempUrlString = NSTemporaryDirectory().appending("outTemp.mp4")
                 let outputUrlString = NSTemporaryDirectory().appending("_outFP.mp4")
@@ -395,20 +380,36 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                     parentlayer.addSublayer(videoLayer)
                     
                     //Adding watermarks to the video
-                    images.forEach{ image in
+                    images.enumerated().forEach { index, image in
                         let imglogo = image.0
                         let watermarkLayer = CALayer()
                         let imagePosition = image.1
+                        
                         watermarkLayer.contents = imglogo.cgImage
                         let imageSize = CGSize(width: imglogo.size.width * 0.325, height: imglogo.size.height * 0.325)
-                        let x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
-                        let y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.5)
-                        watermarkLayer.frame = CGRect(x: x , y: y,width: imageSize.width, height: imageSize.height)
+                        
+                        var x: CGFloat
+                        var y: CGFloat
+                        
+                        // Center the first image and maintain the original position for others
+                        if marker == true{
+                            if index == 0 {
+                                x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
+                                y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.42)
+                            } else {
+                                x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
+                                y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.5)
+                            }
+                        }else{
+                            x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
+                            y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.5)
+                        }
+                        
+                        watermarkLayer.frame = CGRect(x: x, y: y, width: imageSize.width, height: imageSize.height)
                         watermarkLayer.contentsRect = CGRect(x: 0, y: 0.1, width: 1, height: 1)
                         watermarkLayer.opacity = 1
-    //                    watermarkLayer.borderWidth = 2.0
-    //                    watermarkLayer.borderColor = CGColor.init(red: 100, green: 0, blue: 0, alpha: 1)
                         watermarkLayer.masksToBounds = true
+                        
                         parentlayer.addSublayer(watermarkLayer)
                     }
                     
@@ -416,45 +417,39 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                     videoComposition.renderSize = naturalSize
                     videoComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
                     videoComposition.renderScale = 1.0
-
+                    
                     //creating videoComposition
                     videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayers: [videoLayer], in: parentlayer)
-
-                    let instruction =
-                     
-                    AVMutableVideoCompositionInstruction()
-                    instruction.timeRange =
-                     
-                    CMTimeRangeMake(start: CMTime.zero, duration: CMTimeMakeWithSeconds(Float64(60/self.speed), preferredTimescale: Int32(30/self.speed)))
-
+                    let instruction = AVMutableVideoCompositionInstruction()
+                    instruction.timeRange = CMTimeRangeMake(start: CMTime.zero, duration: asset.duration)
+                    
                     let transformer = AVMutableVideoCompositionLayerInstruction(assetTrack: clipVideoTrack)
                     transformer.setTransform(CGAffineTransform(translationX: 0, y: 0), at: CMTime.zero)
                     instruction.layerInstructions = [transformer]
                     videoComposition.instructions = [instruction]
-                    let exporter = AVAssetExportSession.init(asset: asset, presetName: AVAssetExportPresetHighestQuality)
-                    exporter?.outputFileType = AVFileType.mov
+                    
+                    let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetMediumQuality)
+                    exporter?.outputFileType = AVFileType.mp4
                     exporter?.outputURL = outputPath
                     exporter?.videoComposition = videoComposition
                     
-                    //Exporting video
-                    exporter?.exportAsynchronously() { //handler -> Void in
+                    // Exporting video
+                    exporter?.exportAsynchronously {
                         if exporter?.status == .completed {
                             print("Export complete")
-                            DispatchQueue.main.async(execute: {
+                            DispatchQueue.main.async {
                                 completion(outputPath)
-                            })
-                            return
+                            }
                         } else if exporter?.status == .failed {
                             print("Export failed - \(String(describing: exporter?.error))")
+                            completion(nil)
                         }
-                        completion(nil)
-                        return
                     }
-                }catch(let error)
-                {
-                    print("merge video error - " + error.localizedDescription)
+                } catch let error {
+                    print("Merge video error - \(error.localizedDescription)")
+                    completion(nil)
                 }
-        }
+            }
     
     
     ///AUDIO SECTION

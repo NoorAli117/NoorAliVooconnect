@@ -30,12 +30,12 @@ class UploadReelsResource {
             // Add subtitle_apply parameter
             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
             data.append("Content-Disposition: form-data; name=\"subtitle_apply\"\r\n\r\n".data(using: .utf8)!)
-            data.append("\r\n\(subtitle_apply)\r\n".data(using: .utf8)!)
+            data.append("\(subtitle_apply)".data(using: .utf8)!)
             
             // Add subtitleLang parameter
             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
             data.append("Content-Disposition: form-data; name=\"subtitleLang\"\r\n\r\n".data(using: .utf8)!)
-            data.append("\r\n\(subtitleLang)\r\n".data(using: .utf8)!)
+            data.append("\(subtitleLang)".data(using: .utf8)!)
             
             data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         }

@@ -17,11 +17,17 @@ struct AllMediaView: View {
     @State private var photos: Bool = false
     @State private var previewView: Bool = false
     @State private var selected: Bool = false
-    
-    @State var message = ""
+    @State private var preview: Bool = false
+    @State var previewURL: String = ""
     @StateObject var imagePicker = ImagePickerViewModel()
     @State var selectedIndex = "1"
-    var callback : (Asset) -> () = {val in}
+    @StateObject var camera = CameraModelPhoto()
+    @StateObject var cameraModel = CameraViewModel()
+    @State private var outputURL: URL?
+    var callback : (URL) -> () = {val in}
+    @State private var upload: Bool = false
+    @State private var isShowPopup = false
+    @State private var message = ""
     
     var body: some View {
         
@@ -33,6 +39,14 @@ struct AllMediaView: View {
                     .ignoresSafeArea()
                 
                 VStack {
+                    
+                    
+                    if let url = URL(string: previewURL){
+                        NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, url: .constant(url))
+                            .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $preview) {
+                                EmptyView()
+                            }
+                    }
                     
 //                    if(imagePicker.selectedAsset != nil )
 //                    {
@@ -416,9 +430,8 @@ struct AllMediaView: View {
                     
                     Button {
 //                        imagePicker.showPreview = true
-                        if(self.imagePicker.selectedAsset != nil)
-                        {
-                            self.callback(self.imagePicker.selectedAsset!)
+                        if let asset = self.imagePicker.selectedAsset{
+                            processAsset(asset)
                         }
                     } label: {
                         Text("Next")
@@ -439,6 +452,31 @@ struct AllMediaView: View {
                 }
                 .padding(.horizontal)
                 
+                if self.isShowPopup {
+                    GeometryReader { geometry in
+                        VStack {
+                            Spacer()
+                            Spacer()
+                            Text(message)
+                                .frame(maxWidth: geometry.size.width * 0.8, maxHeight: 40.0)
+                                .padding(.bottom, 20)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.black.opacity(0.50))
+                                )
+                                .foregroundColor(Color.white)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        withAnimation {
+                                            self.isShowPopup = false
+                                        }
+                                    }
+                                }
+                        }
+                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .bottom)
+                    }
+                }
+                
                 
             }
             
@@ -450,13 +488,126 @@ struct AllMediaView: View {
         }
         .environmentObject(imagePicker)
     }
+
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Use the minimum ratio to fit the image within the target size
+        let ratio = min(widthRatio, heightRatio)
+        
+        // Calculate the new size for the image
+        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+        
+        // Calculate the center position offset
+        let xOffset = (targetSize.width - newSize.width) / 2.0
+        let yOffset = (targetSize.height - newSize.height) / 2.0
+        
+        // Create a new bitmap context with the new size
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 0.0)
+        
+        // Draw the image at the centered position
+        image.draw(in: CGRect(x: xOffset, y: yOffset, width: newSize.width, height: newSize.height))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage ?? UIImage()
+    }
+
+
+
+    func resizeVideo(url: URL, size: CGSize) {
+        // Input URL of the original video
+        print("new size will be: \(size)")
+        
+        // Output URL for the resized video in the Documents directory
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let outputURL = documentsDirectory.appendingPathComponent("\(Date())_resized_video.mp4")
+        
+        cameraModel.resizeVideo(inputURL: url, outputURL: outputURL, newWidth: size.width, newHeight: size.height) { success in
+            if success {
+                print("Video resized successfully")
+                previewURL = outputURL.absoluteString
+                cameraModel.previewURL = outputURL
+//                cameraModel.showPreview = true
+                preview = true
+            } else {
+                print("Failed to resize video")
+                isShowPopup = true
+                showMessagePopup(messages: "Failed to export")
+            }
+        }
+    }
+    
+    func showMessagePopup(messages: String) {
+        self.message = messages
+        self.isShowPopup = true
+    }
+
+    
+    func processAsset(_ asset: Asset) {
+        let url = asset.url
+        if url.pathExtension == "png" || url.pathExtension == "jpg" || url.pathExtension == "JPG" {
+            print(url)
+            if let data = try? Data(contentsOf: url),
+               let image = UIImage(data: data){
+                    // Perform video creation and merging asynchronously
+                let resizedImage = resizeImage(image: image, targetSize: CGSize(width: 375.0, height: 812.0))
+                print("resizedImage size\(resizedImage.size)")
+                if resizedImage != nil {
+                    DispatchQueue.global().async {
+                        camera.createVideoFromImage(image: resizedImage, originalSize: resizedImage.size, duration: 30.0) { result in
+                            switch result {
+                            case .success(let outputURL):
+                                print("Video export completed successfully.")
+                                print("Output URL: \(outputURL)")
+                                
+                                if let audioURL = URL(string: (cameraModel.songModel?.preview ?? "")!) {
+                                    camera.mergeVideoAndAudio(videoUrl: outputURL, audioUrl: audioURL) { error, url in
+                                        guard let url = url else {
+                                            print("Error merging video and audio.")
+                                            return
+                                        }
+                                        print("Video and audio merge completed, new URL: \(url.absoluteString)")
+                                        DispatchQueue.main.async {
+                                            self.previewURL = url.absoluteString
+                                            cameraModel.previewURL = url
+                                            self.preview.toggle()
+                                        }
+                                    }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.previewURL = outputURL.absoluteString
+                                        cameraModel.previewURL = outputURL
+                                        self.preview.toggle()
+                                    }
+                                }
+                                
+                            case .failure(let error):
+                                print("Video export failed with error: \(error.localizedDescription)")
+                                isShowPopup = true
+                                showMessagePopup(messages: "Export Failed")
+                            }
+                        }
+                    }
+                }
+                }
+        } else {
+            print(url)
+            resizeVideo(url: url, size: CGSize(width: 375.0, height: 812.0))
+        }
+    }
+    
 }
 
-struct AllMediaView_Previews: PreviewProvider {
-    static var previews: some View {
-        AllMediaView()
-    }
-}
+//struct AllMediaView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AllMediaView()
+//    }
+//}
 
 let columnSpacingOne: CGFloat = 8
 let rowSpacingOne: CGFloat = 0

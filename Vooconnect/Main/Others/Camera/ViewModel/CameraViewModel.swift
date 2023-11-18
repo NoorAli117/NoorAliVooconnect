@@ -28,7 +28,7 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     @Published var recordedURLs: [URL] = []
     @Published var previewURL: URL? = nil
     @Published var localPreviewURL: URL? = nil
-    @Published var showPreview: Bool = false
+//    @Published var showPreview: Bool = false
     @Published var finalVideoPost: Bool = false
               
     // Top Progress Bar
@@ -118,7 +118,7 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
             }
             
             exporter.outputURL = outputURL
-            print("Output URL: \(outputURL.path ?? "nil")")
+            print("Output URL: \(outputURL.path)")
             exporter.outputFileType = AVFileType.mp4
             exporter.shouldOptimizeForNetworkUse = true
             exporter.videoComposition = videoComposition

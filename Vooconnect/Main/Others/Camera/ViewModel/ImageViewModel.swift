@@ -382,7 +382,8 @@ struct Asset: Identifiable {
     var asset: PHAsset
     var url : URL
     var uiImage : UIImage
-    var isVideo : Bool {
-        return url.absoluteString.contains(".mov") || url.absoluteString.contains("mp4")
+    var isVideo: Bool {
+        let lowercasedURL = url.absoluteString.lowercased()
+        return lowercasedURL.hasSuffix(".mov") || lowercasedURL.hasSuffix(".mp4")
     }
 }

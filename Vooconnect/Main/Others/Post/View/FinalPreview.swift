@@ -21,15 +21,13 @@ struct FinalPreview: View{
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject  var navigationModel: NavigationModel
     @State var controller : FinalPreviewController
-    @StateObject var speechRecognizer = SpeechRecognizerHelper()
     @State  var postModel : PostModel = PostModel()
     @State var songModel : DeezerSongModel?
     @State var speed : Float = 1.0
     @State  var renderUrl : URL?
-    @State var trimRenderUrl = URL(string: "")
-    @Binding var showPreview: Bool
+//    @Binding var showPreview: Bool
     @State  var finalVideoPost: Bool = false
-     let uploadReels: UploadReelsResource = UploadReelsResource()
+    let uploadReels: UploadReelsResource = UploadReelsResource()
     @State  var isPlaying: Bool = false;
     @State  var loading: Bool = false
     @State  var stickerOffset = CGSize.zero
@@ -53,9 +51,9 @@ struct FinalPreview: View{
     @State  var adjustmentView = false
     @State  var voiceOverView = false
     @StateObject var cameraModel = CameraViewModel()
+    @StateObject var drawingDocument = DrawingDocument()
     @Binding var url: URL
     @State var changeURL = URL(string: "")
-    @StateObject var drawingDocument = DrawingDocument()
     @State private var deletedLines = [Line]()
     
     @State private var selectedColor: Color = .black
@@ -66,6 +64,9 @@ struct FinalPreview: View{
     @State var isTapped = false
     @State var generatedImage: UIImage?
     @State private var videoSize: CGSize = .zero
+    @State private var loader = false
+    @State private var isShowPopup = false
+    @State private var message = ""
     
     
     var btnBack : some View { Button(action: {
@@ -104,11 +105,11 @@ struct FinalPreview: View{
                         if(markerStack){
                             markerView(cameraSize: size)
                         }
-                        if(enableText && textView != nil){
-                            textView(cameraSize: size)
-                        }
                         if(enableSticker){
                             stickerView
+                        }
+                        if(enableText && textView != nil){
+                            textView(cameraSize: size)
                         }
                         if(self.postModel.enableCaptions){
                             VStack{
@@ -134,7 +135,7 @@ struct FinalPreview: View{
                 // MARK: Back Button
                     .overlay(alignment: .topLeading) {
                         Button {
-                            showPreview.toggle()
+//                            showPreview.toggle()
                             presentationMode.wrappedValue.dismiss()
                         } label: {
                             Image("BackButtonWhite")
@@ -500,6 +501,7 @@ struct FinalPreview: View{
                             DispatchQueue.main.async {
                                 controller.pause()
                                 controller.audioPlayer.player.pause()
+                                controller.audioPlayer.stopAllProcesses()
                                 print("Player Stoped")
                             }
                         }
@@ -597,6 +599,7 @@ struct FinalPreview: View{
                             Spacer()
                             
                             Button {
+                                loader = true
                                 loading = true
                                 markerHeader = false
                                 self.renderUrl = self.postModel.contentUrl
@@ -606,15 +609,15 @@ struct FinalPreview: View{
                                     self.controller.mergeVideoAndAudio(videoUrl: self.postModel.contentUrl!, audioUrl: self.postModel.audioContentUrl!, completion: {error, url in
                                         guard let url = url else {
                                             print("error merging audio")
+                                            loader = false
+                                            isShowPopup = true
+                                            showMessagePopup(messages: "Error Merging Audio")
                                             return
                                         }
                                         print("merged text to speech with content")
-                                        loading = false
                                         self.renderUrl = url
                                         DispatchQueue.main.async {
-                                                loading = true
                                                 render(size: size,callback: {url in
-                                                    loading = false
                                                     self.renderUrl = url
                                                     self.cameraModel.previewURL = url
                                                     if(enableSticker){
@@ -632,14 +635,13 @@ struct FinalPreview: View{
                                                         }
                                                     }
                                                     finalVideoPost.toggle()
+                                                    loader = false
+                                                    loading = false
                                                 })
-                                            loading = true
                                         }
                                     })
                                 }else{
-                                        loading = true
                                         render(size: size,callback: {url in
-                                            loading = false
                                             self.renderUrl = url
                                             if(enableSticker){
                                                 let model = postModel.contentOverlay.first(where: {val in val.type == .sticker})
@@ -656,8 +658,9 @@ struct FinalPreview: View{
                                                 }
                                             }
                                             finalVideoPost.toggle()
+                                            loader = false
+                                            loading = false
                                         })
-                                    loading = true
                                 }
                             } label: {
                                 Spacer()
@@ -732,6 +735,39 @@ struct FinalPreview: View{
                             )
                         }
                     }
+                if loader{
+                    Color.black.opacity(0.3)
+                        .edgesIgnoringSafeArea(.all)
+                        .overlay(
+                            ProgressView()
+                                .frame(width: 50, height: 50)
+                                .padding()
+                        )
+                }
+                if self.isShowPopup {
+                    GeometryReader { geometry in
+                        VStack {
+                            Spacer()
+                            Spacer()
+                            Text(message)
+                                .frame(maxWidth: geometry.size.width * 0.8, maxHeight: 40.0)
+                                .padding(.bottom, 20)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.black.opacity(0.50))
+                                )
+                                .foregroundColor(Color.white)
+                                .onAppear {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        withAnimation {
+                                            self.isShowPopup = false
+                                        }
+                                    }
+                                }
+                        }
+                        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .bottom)
+                    }
+                }
                 
                 NavigationLink(destination: FinalVideoToPostView(postModel: self.$postModel,renderUrl : self.$renderUrl, speed: speed)
                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $finalVideoPost) {
@@ -746,6 +782,7 @@ struct FinalPreview: View{
             print("final preview appear----------------")
             if videoSize == .zero, let videoSize = getVideoSize(videoURL: url) {
                 self.videoSize = videoSize
+                print("videoSize: \(videoSize)")
             }
             self.postModel.contentUrl = url
             self.postModel.speed = speed
@@ -756,6 +793,11 @@ struct FinalPreview: View{
             print("URL FINAL PREVIEW1: " + url.absoluteString)
             addObserver()
         }
+    }
+    
+    func showMessagePopup(messages: String) {
+        self.message = messages
+        self.isShowPopup = true
     }
     
     
@@ -796,9 +838,12 @@ struct FinalPreview: View{
         
         print("SCREEN SIZE: " + size.debugDescription)
         
-        controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array) { val in
+        controller.mergeVideoAndImage(video: self.renderUrl!, withForegroundImages: array, marker: markerStack) { val in
             guard let url = val else {
                 print("merge url not correct")
+                loader = false
+                isShowPopup = true
+                showMessagePopup(messages: "Error Applying Sticker")
                 return
             }
             DispatchQueue.main.async {
@@ -892,10 +937,10 @@ struct FinalPreview: View{
 
                 }
     
-    func markerView(cameraSize: CGSize) -> some View {
-        return VStack {
+    func markerView(cameraSize: CGSize) -> some View{
+        VStack{
             ZStack {
-                Image(uiImage: UIImage.from(color: .clear, size: cameraSize))
+                Image(uiImage: UIImage.from(color: .clear, size: CGSize(width: cameraSize.width, height: cameraSize.height)))
                     .opacity(0.1)
                     .gesture(markerHeader ?
                              DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -916,15 +961,12 @@ struct FinalPreview: View{
                         }
                              : nil
                     )
-                ForEach(drawingDocument.lines) { line in
+                ForEach(drawingDocument.lines){ line in
                     DrawingShape(points: line.points)
                         .stroke(line.color, style: StrokeStyle(lineWidth: line.lineWidth, lineCap: .round, lineJoin: .round))
                 }
             }
         }
-        .background(Color.clear) // Ensure the view has a clear background
-        .frame(width: cameraSize.width, height: cameraSize.height)
-        .drawingGroup()
     }
     
     func stickerView(cameraSize : CGSize) -> some View{

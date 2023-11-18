@@ -583,7 +583,7 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
                 Vm.openBeauty = false
             }
             if Vm.openFilter {
-                vc.mainBottomFunctionView.bottumButtonAction(index: 1)
+                vc.mainBottomFunctionView.bottumButtonAction(index: 2)
                 Vm.openFilter = false
             }
             if Vm.isVideo {
@@ -595,7 +595,7 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
                 Vm.isPhoto = false
             }
             if Vm.openCategory {
-                vc.mainBottomFunctionView.bottumButtonAction(index: 2)
+                vc.mainBottomFunctionView.bottumButtonAction(index: 1)
                 Vm.openCategory = false
             }
             if Vm.openBluge {

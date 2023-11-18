@@ -90,33 +90,26 @@ struct DuoView: View{
                     }
                 }
                 
-                if let url = cameraModel.previewURL ,cameraModel.showPreview {
-                    let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
-                    NavigationLink(
-                        destination: FinalPreview(controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: cameraModel.speed, showPreview: $cameraModel.showPreview,
-                            url: .constant(url))
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                        
-                        ,
-                        isActive: $preview) {
+                if let url = URL(string: previewURL){
+                    NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, url: .constant(url))
+                        .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $preview) {
                             EmptyView()
                         }
-                    
                 }
+                    
                 
-                NavigationLink(destination: AllMediaView(callback: {val in
-                    //                    self.photos = false
-                    self.cameraModel.previewURL = val.url
-                    self.cameraModel.speed = 1
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                        self.cameraModel.showPreview = true
-                        self.preview = true
-                    }
-                })
-                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $photos) {
-                        EmptyView()
-                    }
+//                NavigationLink(destination: AllMediaView(callback: {val in
+//                    //                    self.photos = false
+//                    self.cameraModel.previewURL = val.url
+//                    self.cameraModel.speed = 1
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+//                        self.cameraModel.showPreview = true
+//                        self.preview = true
+//                    }
+//                })
+//                    .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $photos) {
+//                        EmptyView()
+//                    }
                 
                 
                 HStack {
@@ -403,7 +396,7 @@ struct DuoView: View{
                 
             }
             
-            .animation(.easeInOut, value: cameraModel.showPreview)
+//            .animation(.easeInOut, value: cameraModel.showPreview)
             .navigationBarHidden(true)
             .onAppear{
                 player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: getImageVideoBaseURL + videoUrl)!))

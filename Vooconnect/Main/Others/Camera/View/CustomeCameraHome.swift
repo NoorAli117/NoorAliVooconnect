@@ -97,18 +97,11 @@ struct CustomeCameraHome: View {
                     }
                 }
                 
-                NavigationLink(destination: AllMediaView(callback: {val in
-                    //                    self.photos = false
-                    self.cameraModel.previewURL = val.url
-                    self.cameraModel.speed = 1
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                        self.cameraModel.showPreview = true
-                        self.preview = true
-                    }
-                })
+                NavigationLink(destination: AllMediaView()
                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $photos) {
                         EmptyView()
                     }
+                    .isDetailLink(false)
                 
                 NavigationLink(destination: SoundsView(
                     pickSong: {song in
@@ -119,12 +112,13 @@ struct CustomeCameraHome: View {
                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $soundView) {
                         EmptyView()
                     }
+                    .isDetailLink(false)
                 if let url = URL(string: previewURL){
-                    let isImage = !(url.absoluteString.lowercased().contains(".mp4") || url.absoluteString.lowercased().contains(".mov"))
-                    NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, isImage: isImage, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, showPreview: $cameraModel.showPreview, url: .constant(url))
+                    NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, url: .constant(url))
                         .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $preview) {
                             EmptyView()
                         }
+                        .isDetailLink(false)
                 }
                 
                 HStack {
@@ -144,36 +138,40 @@ struct CustomeCameraHome: View {
                         if let image = content as? UIImage {
                             print(image)
                             // Perform video creation and merging asynchronously
-                            DispatchQueue.global().async {
-                                camera.createVideoFromImage(image: image, originalSize: image.size, duration: 30.0) { result in
-                                    switch result {
-                                    case .success(let outputURL):
-                                        print("Video export completed successfully.")
-                                        print("Output URL: \(outputURL)")
-                                        
-                                        if let audioURL = URL(string: (cameraModel.songModel?.preview ?? "")!) {
-                                            camera.mergeVideoAndAudio(videoUrl: outputURL, audioUrl: audioURL) { error, url in
-                                                guard let url = url else {
-                                                    print("Error merging video and audio.")
-                                                    return
+                            let resizedImage = resizeImage(image: image, targetSize: CGSize(width: 375.0, height: 812.0))
+                            print("resizedImage size\(resizedImage.size)")
+                            if resizedImage != nil {
+                                DispatchQueue.global().async {
+                                    camera.createVideoFromImage(image: resizedImage, originalSize: resizedImage.size, duration: 30.0) { result in
+                                        switch result {
+                                        case .success(let outputURL):
+                                            print("Video export completed successfully.")
+                                            print("Output URL: \(outputURL)")
+                                            
+                                            if let audioURL = URL(string: (cameraModel.songModel?.preview ?? "")!) {
+                                                camera.mergeVideoAndAudio(videoUrl: outputURL, audioUrl: audioURL) { error, url in
+                                                    guard let url = url else {
+                                                        print("Error merging video and audio.")
+                                                        return
+                                                    }
+                                                    print("Video and audio merge completed, new URL: \(url.absoluteString)")
+                                                    DispatchQueue.main.async {
+                                                        self.previewURL = url.absoluteString
+                                                        cameraModel.previewURL = url
+                                                        self.preview.toggle()
+                                                    }
                                                 }
-                                                print("Video and audio merge completed, new URL: \(url.absoluteString)")
+                                            } else {
                                                 DispatchQueue.main.async {
-                                                    self.previewURL = url.absoluteString
-                                                    cameraModel.previewURL = url
+                                                    self.previewURL = outputURL.absoluteString
+                                                    cameraModel.previewURL = outputURL
                                                     self.preview.toggle()
                                                 }
                                             }
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.previewURL = outputURL.absoluteString
-                                                cameraModel.previewURL = outputURL
-                                                self.preview.toggle()
-                                            }
+                                            
+                                        case .failure(let error):
+                                            print("Video export failed with error: \(error.localizedDescription)")
                                         }
-                                        
-                                    case .failure(let error):
-                                        print("Video export failed with error: \(error.localizedDescription)")
                                     }
                                 }
                             }
@@ -925,7 +923,7 @@ struct CustomeCameraHome: View {
                                                             DispatchQueue.main.async {
                                                                 print(("video recorded"))
                                                                 countdownTimer = self.countdownTimer2
-                                                                cameraModel.showPreview.toggle()
+//                                                                cameraModel.showPreview.toggle()
                                                                 preview.toggle()
                                                             }
                                                         }
@@ -935,7 +933,7 @@ struct CustomeCameraHome: View {
                                                         print(("video recorded"))
                                                         print("previewURL: \(previewURL)")
                                                         countdownTimer = self.countdownTimer2
-                                                        cameraModel.showPreview = true
+//                                                        cameraModel.showPreview = true
                                                         preview = true
                                                     }
                                                 }
@@ -1026,23 +1024,24 @@ struct CustomeCameraHome: View {
                 
                 .onAppear{
                     timerRunning = false
+                    cameraModel.stopSong()
 //                    useSong()
                 }
                 
-                // Effects
-                .blurredSheet(.init(.white), show: $effectsSheet) {
-                    
-                } content: {
-                    if #available(iOS 16.0, *) {
-                        EffectsSheets()
-                            .presentationDetents([.large,.medium,.height(500)])
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                }
-                
+//                // Effects
+//                .blurredSheet(.init(.white), show: $effectsSheet) {
+//
+//                } content: {
+//                    if #available(iOS 16.0, *) {
+//                        EffectsSheets()
+//                            .presentationDetents([.large,.medium,.height(500)])
+//                    } else {
+//                        // Fallback on earlier versions
+//                    }
+//                }
+//
             }
-            .animation(.easeInOut, value: cameraModel.showPreview)
+//            .animation(.easeInOut, value: cameraModel.showPreview)
             .navigationBarHidden(true)
     }
     
@@ -1065,8 +1064,14 @@ struct CustomeCameraHome: View {
             }
             isPlaying = false
             self.audioPlayer?.stop()
+            if previewURL != ""{
+                print(("video recorded"))
+                print("previewURL: \(previewURL)")
+                countdownTimer = self.countdownTimer2
+                preview = true
+            }
         }
-        }
+    }
     
     func invalidateRecordingTimer() {
         recordingTimer?.invalidate()
@@ -1074,29 +1079,49 @@ struct CustomeCameraHome: View {
     
     func resizeVideo(url: URL, size: CGSize) {
         // Input URL of the original video
-        
         print("new size will be: \(size)")
-
+        
         // Output URL for the resized video in the Documents directory
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        self.outputURL = documentsDirectory.appendingPathComponent("\(Date())resized_video.mp4")
-
-        // Delete existing file if it exists
-        do {
-            try FileManager.default.removeItem(at: self.outputURL!)
-        } catch {
-            print("Error deleting existing file: \(error.localizedDescription)")
-        }
-
-        cameraModel.resizeVideo(inputURL: url, outputURL: outputURL!, newWidth: size.width, newHeight: size.height){ success in
+        let outputURL = documentsDirectory.appendingPathComponent("\(Date())_resized_video.mp4")
+        
+        cameraModel.resizeVideo(inputURL: url, outputURL: outputURL, newWidth: size.width, newHeight: size.height) { success in
             if success {
                 print("Video resized successfully")
-                previewURL = outputURL!.absoluteString
+                previewURL = outputURL.absoluteString
                 cameraModel.previewURL = outputURL
             } else {
                 print("Failed to resize video")
             }
         }
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Use the minimum ratio to fit the image within the target size
+        let ratio = min(widthRatio, heightRatio)
+        
+        // Calculate the new size for the image
+        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+        
+        // Calculate the center position offset
+        let xOffset = (targetSize.width - newSize.width) / 2.0
+        let yOffset = (targetSize.height - newSize.height) / 2.0
+        
+        // Create a new bitmap context with the new size
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 0.0)
+        
+        // Draw the image at the centered position
+        image.draw(in: CGRect(x: xOffset, y: yOffset, width: newSize.width, height: newSize.height))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage ?? UIImage()
     }
 
     func startProgressRecording() {
