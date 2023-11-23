@@ -11,14 +11,16 @@ import UIKit
 class UploadReelsResource {
     
     var contentDetail: [ContentDetail] = []
-    
-    func uploadReels(imageUploadRequest: URL,paramName : String, fileName : String, subtitleLang : String, subtitle_apply : String,  complitionHandler : @escaping(Bool, String?) -> Void) {
+//    private var fileData: Data?
+    func uploadReels(imageUploadRequest: URL,paramName : String, fileName : String, subtitleLang : String, subtitle_apply : String, progress: @escaping (Double) -> Void,  complitionHandler : @escaping(Bool, String?) -> Void) {
         let session = URLSession.shared
         let boundary = UUID().uuidString
         var data = Data()
 
         var urlRequest = URLRequest(url: URL(string: assatEndPoint + EndPoints.uploadFile)!)
         urlRequest.httpMethod = "post"
+        print("video Url: \(imageUploadRequest)")
+        print("video Urlllll: \(fileName)")
 
         if let fileData = try? Data(contentsOf: imageUploadRequest) {
             data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
@@ -52,11 +54,20 @@ class UploadReelsResource {
 
         }
 
+        var totalBytesUploaded: Int = 0
+        
         session.uploadTask(with: urlRequest, from: data) { httpData, httpResponse, httpError in
 
             if let data = httpData {
-
-                print(Data(data))
+                
+                totalBytesUploaded += data.count
+                let progressValue = Double(totalBytesUploaded) / Double(data.count)
+                
+                // Call the progress closure
+                progress(progressValue)
+                print("progressValue\(progressValue)")
+                
+                print(String(data: data, encoding: .utf8)!)
                 do {
                             let data = try? JSONDecoder().decode(UploadRes.self, from: data)
                     if let data {
@@ -123,40 +134,51 @@ class UploadReelsResource {
         }.resume()
     }
     
-    func uploadPost(post: ReelsPostRequest, complitionHandler : @escaping(Bool, String?) -> Void) {
+    func uploadPost(post: ReelsPostRequest, progress: @escaping (Double) -> Void, completionHandler: @escaping (Bool, String?) -> Void) {
         let parameters = post.dict
-        let postData = try? JSONSerialization.data(
-            withJSONObject: parameters,
-            options: [])
-        
-        var request = URLRequest(url: URL(string: getBaseURL + EndPoints.createNewPost)!,timeoutInterval: Double.infinity)
+        let postData = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+
+        var request = URLRequest(url: URL(string: getBaseURL + EndPoints.createNewPost)!, timeoutInterval: Double.infinity)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             request.addValue("Bearer \(tokenData)", forHTTPHeaderField: "Authorization")
         }
         request.httpMethod = "POST"
         request.httpBody = postData
-        
+
+        let totalFileSize = postData?.count ?? 0
+
+        var uploadedBytes = 0
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 print(String(describing: error))
+                completionHandler(false, error?.localizedDescription)
                 return
             }
+
+            uploadedBytes += data.count
+
+            let progressValue = Double(uploadedBytes) / Double(totalFileSize)
+            progress(progressValue)
+            print("progressValue\(progressValue)")
             print(String(data: data, encoding: .utf8)!)
+
             do {
                 let res = try JSONDecoder().decode(PostRes.self, from: data)
                 if res.status == true {
-                    complitionHandler(true, "")
-                }else{
-                    complitionHandler(false, error?.localizedDescription)
+                    completionHandler(true, "")
+                } else {
+                    completionHandler(false, error?.localizedDescription)
                 }
-            }catch {
+            } catch {
                 print(error.localizedDescription)
             }
         }
-        
+
         task.resume()
     }
+
     
 }
 

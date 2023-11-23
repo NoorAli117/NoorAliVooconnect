@@ -326,7 +326,7 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         }
 
         // Exporting
-        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/newVideo.mp4")
+        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/\(Date()).mp4")
         do { // delete old video
             try FileManager.default.removeItem(at: savePathUrl)
         } catch { print(error.localizedDescription) }

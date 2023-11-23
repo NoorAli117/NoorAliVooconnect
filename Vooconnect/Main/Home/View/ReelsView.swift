@@ -268,12 +268,12 @@ struct ReelsView: View {
     
 }
 
-struct ReelsView_Previews: PreviewProvider {
-    static var previews: some View {
-        //        ReelsView()
-        HomePageView()
-    }
-}
+//struct ReelsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        //        ReelsView()
+//        HomePageView()
+//    }
+//}
 
 //var player = AVPlayer()
 

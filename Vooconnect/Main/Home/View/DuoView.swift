@@ -54,7 +54,8 @@ struct DuoView: View{
     
     @State var player = AVPlayer()
     
-    var Vm = ViewModel()
+    @StateObject var Vm = ViewModel()
+    @State private var selectedCategoryIndex = 0
     var cameraInfoData: ((_ content: Any) -> Void)?
     
     @State private var isProcessing = false
@@ -369,9 +370,8 @@ struct DuoView: View{
                     Spacer()
                     
                     Button {
-                        //                        effectsSheet.toggle()
-                        Vm.openCategory = true
                         Vm.bottomHide = true
+                        effectsSheet.toggle()
                     } label: {
                         Image("CameraEffact")
                     }
@@ -383,12 +383,12 @@ struct DuoView: View{
                 .padding(.bottom, 5)
                 
                 // Effects
-                .blurredSheet(.init(.white), show: $effectsSheet) {
+                .blurredSheet(.init(.clear), show: $effectsSheet) {
                     
                 } content: {
                     if #available(iOS 16.0, *) {
-                        EffectsSheets()
-                            .presentationDetents([.large,.medium,.height(500)])
+                        EffectsSheets(Vm: Vm)
+                            .presentationDetents([.large,.medium,.height(300)])
                     } else {
                         // Fallback on earlier versions
                     }

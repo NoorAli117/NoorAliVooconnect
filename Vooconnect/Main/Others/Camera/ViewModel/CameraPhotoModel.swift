@@ -45,6 +45,7 @@ class CameraModelPhoto: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate 
     private var asset: AVAsset!
     
     
+    
     func toggleFlash() {
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
         guard device.hasTorch else { return }
@@ -284,7 +285,7 @@ class CameraModelPhoto: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate 
         }
 
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        imageArrayToVideoURL = documentsDirectory.appendingPathComponent("video1.MP4")
+        imageArrayToVideoURL = documentsDirectory.appendingPathComponent("\(Date()).mp4")
 
         removeFileAtURLIfExists(url: imageArrayToVideoURL)
 
@@ -513,7 +514,7 @@ class CameraModelPhoto: NSObject,ObservableObject,AVCapturePhotoCaptureDelegate 
         }
 
         // Exporting
-        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/newVideo.mp4")
+        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/\(Date()).mp4")
         do { // delete old video
             try FileManager.default.removeItem(at: savePathUrl)
         } catch { print(error.localizedDescription) }

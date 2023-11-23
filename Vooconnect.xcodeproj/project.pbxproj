@@ -154,6 +154,7 @@
 		7C0CBFD52ADEB40F00F63253 /* Face.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C0CBFD42ADEB40E00F63253 /* Face.scnassets */; };
 		7C0CBFD72ADEB4E600F63253 /* face.scn in Resources */ = {isa = PBXBuildFile; fileRef = 7C0CBFD62ADEB4E600F63253 /* face.scn */; };
 		7C0CBFDB2ADED31100F63253 /* FFmpeg-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 7C0CBFDA2ADED31100F63253 /* FFmpeg-iOS */; };
+		7C33645C2B0F38B2006BE3D0 /* audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C33645B2B0F38B1006BE3D0 /* audio.mp3 */; };
 		7C4F0DCB2AFE4FD0007B4DA4 /* LocationFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F0DCA2AFE4FCF007B4DA4 /* LocationFinder.swift */; };
 		7CDDFB722B061A33000CD98F /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDDFB712B061A33000CD98F /* SoundsView.swift */; };
 		8432BB4B2ABED52E00E91F62 /* RatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAF72ABED52D00E91F62 /* RatioView.swift */; };
@@ -627,6 +628,7 @@
 		503A8F4829E593080035135D /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		7C0CBFD42ADEB40E00F63253 /* Face.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Face.scnassets; sourceTree = "<group>"; };
 		7C0CBFD62ADEB4E600F63253 /* face.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = face.scn; path = Vooconnect/Face.scnassets/face.scn; sourceTree = "<group>"; };
+		7C33645B2B0F38B1006BE3D0 /* audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio.mp3; sourceTree = "<group>"; };
 		7C4F0DCA2AFE4FCF007B4DA4 /* LocationFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFinder.swift; sourceTree = "<group>"; };
 		7CDDFB712B061A33000CD98F /* SoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsView.swift; sourceTree = "<group>"; };
 		8432BAF72ABED52D00E91F62 /* RatioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatioView.swift; sourceTree = "<group>"; };
@@ -2390,6 +2392,7 @@
 		A9785F952911102D00F19ADD = {
 			isa = PBXGroup;
 			children = (
+				7C33645B2B0F38B1006BE3D0 /* audio.mp3 */,
 				7C0CBFD62ADEB4E600F63253 /* face.scn */,
 				ABAEA65E29BA71DC00B5277E /* ARScenes */,
 				ABAEA64C29B8308000B5277E /* 3DModels */,
@@ -3008,6 +3011,7 @@
 				A9785FA92911103000F19ADD /* Preview Assets.xcassets in Resources */,
 				A93DBA1629127ADD00420B83 /* TVScreenW.gif in Resources */,
 				A91280AF2918E250008FE970 /* LaunchScreen.storyboard in Resources */,
+				7C33645C2B0F38B2006BE3D0 /* audio.mp3 in Resources */,
 				ABAEA66C29BA81B500B5277E /* Rozy.usdz in Resources */,
 				A9785FB029111CC400F19ADD /* earthvoo.gif in Resources */,
 				A93DBA1929127ADD00420B83 /* feedsW.gif in Resources */,

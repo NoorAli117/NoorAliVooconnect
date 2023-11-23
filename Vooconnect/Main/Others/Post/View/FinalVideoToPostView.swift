@@ -21,6 +21,7 @@ struct FinalVideoToPostView: View {
     @State private var bottomSheetShown = false
     @State private var bottomSheetMoreOption = false
     @State private var loadingVideo = false
+    @State private var uploadingVideo = false
     @State private var homeView = false
     @State var text2: String = ""
     @State var description: String = ""
@@ -77,6 +78,10 @@ struct FinalVideoToPostView: View {
     
     var catSelected: (Int) -> () = {val in}
     @State private var selectedType: SocialMediaType?
+    @State private var reelProgress: Double = 0.0
+    @State private var uploadProgress: Double = 0.0
+    
+    @State private var audioUrl: URL?
     
     
     var body: some View {
@@ -125,13 +130,13 @@ struct FinalVideoToPostView: View {
                                 ExtractedImageView(image: image)
                                     .cornerRadius(15)
                             } else {
-    //                            testCover()
-    //                                .cornerRadius(15)
+                                Image(uiImage: UIImage(imageLiteralResourceName: "SelectCover"))
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 130)
+                                    .cornerRadius(15)
+                                
                             }
-                            //                            testCover()
-                            //                                .cornerRadius(15)
-                            
-                            
                         }
                         .onAppear {
                             extractImageFromVideo(url: renderUrl!) { image in
@@ -336,8 +341,8 @@ struct FinalVideoToPostView: View {
                                                 if let lastIndex = description.lastIndex(of: "@") {
                                                     let range = lastIndex..<description.endIndex
                                                     if range.upperBound == description.endIndex {
-                                                            // Append user + " " to the end of the description
-                                                            description += user + " "
+                                                        // Append user + " " to the end of the description
+                                                        description += user + " "
                                                     } else {
                                                         description = description.replacingOccurrences(of: self.subString, with: user + " ", options: [], range: range)
                                                     }
@@ -622,9 +627,11 @@ struct FinalVideoToPostView: View {
                                     
                                     Button {
                                         loader.toggle()
+                                        uploadingVideo = true
                                         if (postModel.description == ""){
                                             print("Description should not be nil")
                                             loader = false
+                                            uploadingVideo = false
                                             showMessagePopup(messages: "Description Needed")
                                             return
                                         }
@@ -632,6 +639,7 @@ struct FinalVideoToPostView: View {
                                         guard let selectedCat = selectedCat, selectedCat != 0 else {
                                             print("Category should be selected")
                                             loader = false
+                                            uploadingVideo = false
                                             showMessagePopup(messages: "Category Needed")
                                             return
                                         }
@@ -660,6 +668,8 @@ struct FinalVideoToPostView: View {
                                                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                                                                                             loader = false
                                                                                             homeView = true
+                                                                                            uploadProgress = 0.0
+                                                                                            uploadingVideo = false
                                                                                         }
                                                                                     }else{
                                                                                         print("Errror Saving Video.....")
@@ -667,6 +677,8 @@ struct FinalVideoToPostView: View {
                                                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                                                                                             loader = false
                                                                                             homeView = true
+                                                                                            uploadProgress = 0.0
+                                                                                            uploadingVideo = false
                                                                                         }
                                                                                     }
                                                                                 }
@@ -677,6 +689,8 @@ struct FinalVideoToPostView: View {
                                                             }else{
                                                                 homeView = true
                                                                 loader = false
+                                                                uploadProgress = 0.0
+                                                                uploadingVideo = false
                                                             }
                                                             if (selectedType != nil){
                                                                 DispatchQueue.main.async{
@@ -693,6 +707,8 @@ struct FinalVideoToPostView: View {
                                                         } else {
                                                             print("failed==========")
                                                             isShowPopup = true
+                                                            uploadProgress = 0.0
+                                                            uploadingVideo = false
                                                             showMessagePopup(messages: "Faild To Uplaod Video")
                                                             loader = false
                                                         }
@@ -700,46 +716,77 @@ struct FinalVideoToPostView: View {
                                                 }
                                             }
                                         } else{
-                                            uploadReelss { isSuccess in
-                                                if isSuccess == true {
-                                                    if (self.saveToDevice){
-                                                        print("saving video to device: " + self.saveToDevice.description)
-                                                        showMessagePopup(messages: "Saving Video")
-                                                        Task {
-                                                            DispatchQueue.main.async{
-                                                                for videoUrl in uploadReels.contentDetail {
-                                                                    if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
-                                                                        downloadAndSaveWithCaptionVideo(videoUrl: url.absoluteString){ success in
-                                                                            if success == true{
-                                                                                print("video is Saved")
-                                                                                showMessagePopup(messages: "Video Saved")
-                                                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                                                                    loader = false
-                                                                                    homeView = true
-                                                                                    shareSocially()
-                                                                                }
-                                                                            }else{
-                                                                                print("Errror Saving Video.....")
-                                                                                showMessagePopup(messages: "Error Saving Video")
-                                                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                                                                    loader = false
-                                                                                    homeView = true
-                                                                                    shareSocially()
+                                            if let audioUrl = Bundle.main.url(forResource: "audio", withExtension: "mp3") {
+                                                mergeVideoAndAudio(videoUrl: renderUrl!, audioUrl: audioUrl) { error, url in
+                                                    guard let url = url else {
+                                                        print("Error merging video and audio.")
+                                                        return
+                                                    }
+                                                    print("Video and audio merge completed, new URL: \(url.absoluteString)")
+                                                    DispatchQueue.main.async {
+                                                        renderUrl = url
+                                                        uploadReelss { isSuccess in
+                                                            if isSuccess == true {
+                                                                if (self.saveToDevice){
+                                                                    print("saving video to device: " + self.saveToDevice.description)
+                                                                    showMessagePopup(messages: "Saving Video")
+                                                                    Task {
+                                                                        DispatchQueue.main.async{
+                                                                            for videoUrl in uploadReels.contentDetail {
+                                                                                if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                                    downloadAndSaveWithCaptionVideo(videoUrl: url.absoluteString){ success in
+                                                                                        if success == true{
+                                                                                            print("video is Saved")
+                                                                                            showMessagePopup(messages: "Video Saved")
+                                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                                loader = false
+                                                                                                homeView = true
+                                                                                                uploadProgress = 0.0
+                                                                                                uploadingVideo = false
+                                                                                            }
+                                                                                        }else{
+                                                                                            print("Errror Saving Video.....")
+                                                                                            showMessagePopup(messages: "Error Saving Video")
+                                                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                                                                                                loader = false
+                                                                                                homeView = true
+                                                                                                uploadProgress = 0.0
+                                                                                                uploadingVideo = false
+                                                                                            }
+                                                                                        }
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         }
                                                                     }
+                                                                }else{
+                                                                    homeView = true
+                                                                    loader = false
+                                                                    uploadProgress = 0.0
+                                                                    uploadingVideo = false
                                                                 }
+                                                                if (selectedType != nil){
+                                                                    DispatchQueue.main.async{
+                                                                        print("Sharing To cocial Media")
+                                                                        for videoUrl in uploadReels.contentDetail {
+                                                                            if let url = URL(string: videoUrl.name), url.pathExtension.lowercased() == "mp4" {
+                                                                                let videoURL =  URL(string: getImageVideoBaseURL + "/marked" + url.absoluteString)
+                                                                                print("shareable Url \(String(describing: videoURL))")
+                                                                                shareToFacebook(videoURL: videoURL!)
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                print("failed==========")
+                                                                isShowPopup = true
+                                                                uploadProgress = 0.0
+                                                                uploadingVideo = false
+                                                                showMessagePopup(messages: "Faild To Uplaod Video")
+                                                                loader = false
                                                             }
                                                         }
-                                                    }else{
-                                                        homeView = true
-                                                        loader = false
-                                                        shareSocially()
                                                     }
-                                                } else {
-                                                    print("failed==========")
-                                                    loader = false
                                                 }
                                             }
                                         }
@@ -773,91 +820,72 @@ struct FinalVideoToPostView: View {
                                 .padding(.top, 20)
                                 
                             }}
-                            //                    .toolbar(content: {
-                            //                        ToolbarItem(placement: .keyboard) {
-                            //                            Spacer()
-                            //                        }
-                            //                        ToolbarItem(placement: .keyboard) {
-                            //                            Button("Done") {
-                            //                                focusedField = nil
-                            //                            }
-                            //                        }
-                            //                    })
-                            
-                        }
-                        .padding(.horizontal)
-                        //                .navigationBarHidden(true)
-                        //            } CustomeSheetMoreOtptions
+                        
+                    }
+                    .padding(.horizontal)
+                    //                .navigationBarHidden(true)
+                    //            } CustomeSheetMoreOtptions
                     
-
-                        .overlay{
-                            if loadingVideo {
-                                Color.black.opacity(0.3)
-                                    .edgesIgnoringSafeArea(.all)
-                                    .overlay(
-                                        ZStack {
-                                            CircularProgressView(progress: progress)
-                                            Text("\(Int(progress * 100))%")
-                                                .font(.custom("Urbanist-Regular", size: 22))
-                                                .bold()
-                                        }
-                                        .frame(width: 60, height: 60)
-                                    )
-                            }
-                            if(self.showPrivacySettings)
-                            {
-                                PostVisibilityView(
-                                    currentVisibility: self.postModel.visibility,
-                                    callback:{type in
-                                        self.showPrivacySettings = false
-                                        self.postModel.visibility = type
+                    
+                    .overlay{
+                        if loadingVideo {
+                            Color.black.opacity(0.3)
+                                .edgesIgnoringSafeArea(.all)
+                                .overlay(
+                                    ZStack {
+                                        CircularProgressView(progress: progress)
+                                        Text("\(Int(progress * 100))%")
+                                            .font(.custom("Urbanist-Regular", size: 22))
+                                            .bold()
                                     }
+                                        .frame(width: 60, height: 60)
                                 )
-                            }
+                        }
+                        if(self.showPrivacySettings)
+                        {
+                            PostVisibilityView(
+                                currentVisibility: self.postModel.visibility,
+                                callback:{type in
+                                    self.showPrivacySettings = false
+                                    self.postModel.visibility = type
+                                }
+                            )
                         }
                     }
-                    .onTapGesture{
-                        isFocused = false
-                        self.postModel.description = description
-                    }
-                    if bottomSheetShown {
-                        Rectangle()
-                            .fill(Color.black)
-                            .opacity(0.7)
-                            .edgesIgnoringSafeArea(.all)
-                            .onTapGesture {
-                                bottomSheetShown.toggle()
-                            }
-                    }
-                if loader{
-                    Color.black.opacity(0.3)
+                }
+                .onTapGesture{
+                    isFocused = false
+                    self.postModel.description = description
+                }
+                if bottomSheetShown {
+                    Rectangle()
+                        .fill(Color.black)
+                        .opacity(0.7)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            bottomSheetShown.toggle()
+                        }
+                }
+                if uploadingVideo {
+                    Color.black.opacity(0.5)
                         .edgesIgnoringSafeArea(.all)
                         .overlay(
-                            ProgressView()
-                                .frame(width: 50, height: 50)
-                                .padding()
+                            VStack{
+                                ZStack {
+                                    CircularProgressView(progress: uploadProgress)
+                                        .frame(width: 60, height: 60)
+                                    Text("\(Int(uploadProgress * 100))%")
+                                        .font(.custom("Urbanist-Regular", size: 20))
+                                        .bold()
+                                        .foregroundColor(.gray)
+                                }
+                                Text("Uploading....")
+                                    .font(.custom("Urbanist-Regular", size: 20))
+                                    .foregroundColor(.black)
+                            }
                         )
                 }
-                    
-    //                    GeometryReader { geometry in
-    //                        BottomSheetView(
-    //                            isOpen: self.$bottomSheetShown,
-    //                            maxHeight: geometry.size.height * 0.5
-    //                        ) {
-    //                            PostVisibilityView(
-    //                                currentVisibility: self.postModel.visibility,
-    //                                callback:{type in
-    //                                    self.showPrivacySettings = false
-    //                                    self.postModel.visibility = type
-    //                                }
-    //                            )
-    //                            CustomeSheetView(callback: {type in
-    //                                self.postModel.visibility = type
-    //                                print("type of visibility")
-    //                                print(self.postModel.visibility)
-    //                            })
-    //                        }
-    //                    }.edgesIgnoringSafeArea(.all)
+
                 if self.isShowPopup {
                     GeometryReader { geometry in
                         VStack {
@@ -893,34 +921,31 @@ struct FinalVideoToPostView: View {
                             bottomSheetMoreOption.toggle()
                         }
                 }
-                    
-                    GeometryReader { geometry in
-                        BottomSheetView(
-                            isOpen: self.$bottomSheetMoreOption,
-                            maxHeight: geometry.size.height * 0.3
-                        ) {
-                            CustomeSheetMoreOtptions(
-                                saveToDevice: {val in
+                
+                GeometryReader { geometry in
+                    BottomSheetView(
+                        isOpen: self.$bottomSheetMoreOption,
+                        maxHeight: geometry.size.height * 0.3
+                    ) {
+                        CustomeSheetMoreOtptions(
+                            saveToDevice: {val in
                                 self.saveToDevice = val
                             }, autoCation: {val in
                                 self.autoCaption = val
                             }, captionLang: {val in
                                 self.captionLang = val
                             })
-                            
-                        }
-                    }.edgesIgnoringSafeArea(.all)
-                    
-                }
-                .onTapGesture {
-                    focusedField = nil
-                }
-                .navigationBarBackButtonHidden(true)
-                .onAppear{
-//                    postModel.contentUrl = self.renderUrl
-                }
+                        
+                    }
+                }.edgesIgnoringSafeArea(.all)
+                
             }
+            .onTapGesture {
+                focusedField = nil
+            }
+            .navigationBarBackButtonHidden(true)
         }
+    }
     
     
     func shareSocially(){
@@ -940,40 +965,37 @@ struct FinalVideoToPostView: View {
     
     func mergeVideoAndAudio(videoUrl: URL,audioUrl: URL,shouldFlipHorizontally: Bool = false,
                             completion: @escaping (_ error: Error?, _ url: URL?) -> Void) {
-
+        
         
         let mixComposition = AVMutableComposition()
         var mutableCompositionVideoTrack = [AVMutableCompositionTrack]()
         var mutableCompositionAudioTrack = [AVMutableCompositionTrack]()
         var mutableCompositionAudioOfVideoTrack = [AVMutableCompositionTrack]()
-
+        
         //start merge
-
+        
         let aVideoAsset = AVAsset(url: videoUrl)
         let aAudioAsset = AVAsset(url: audioUrl)
-        let compositionAddVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.video,
-                                                                       preferredTrackID: kCMPersistentTrackID_Invalid)
+        let compositionAddVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
         
         
-        let compositionAddAudio = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio,
-                                                                 preferredTrackID: kCMPersistentTrackID_Invalid)!
-
-        let compositionAddAudioOfVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio,
-                                                                        preferredTrackID: kCMPersistentTrackID_Invalid)!
+        let compositionAddAudio = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
+        
+        let compositionAddAudioOfVideo = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!
         
         let first = CMTimeRange(start: CMTime.zero, duration: aVideoAsset.duration)
         let fullRange = CMTimeRange(start: CMTime.zero, duration: CMTime(value: aVideoAsset.duration.value, timescale: CMTimeScale(speed)))
         compositionAddVideo?.scaleTimeRange(first, toDuration: fullRange.duration)
         compositionAddAudio.scaleTimeRange(first, toDuration: fullRange.duration)
         compositionAddAudioOfVideo.scaleTimeRange(first, toDuration: fullRange.duration)
-
+        
         let aVideoAssetTrack: AVAssetTrack = aVideoAsset.tracks(withMediaType: AVMediaType.video)[0]
         let aAudioOfVideoAssetTrack: AVAssetTrack? = aVideoAsset.tracks(withMediaType: AVMediaType.audio).first
         let aAudioAssetTrack: AVAssetTrack = aAudioAsset.tracks(withMediaType: AVMediaType.audio)[0]
-
+        
         // Default must have tranformation
         compositionAddVideo?.preferredTransform = aVideoAssetTrack.preferredTransform
-
+        
         if shouldFlipHorizontally {
             // Flip video horizontally
             var frontalTransform: CGAffineTransform = CGAffineTransform(scaleX: -1.0, y: 1.0)
@@ -981,25 +1003,25 @@ struct FinalVideoToPostView: View {
             frontalTransform = frontalTransform.translatedBy(x: 0.0, y: -aVideoAssetTrack.naturalSize.width)
             compositionAddVideo?.preferredTransform = frontalTransform
         }
-
+        
         mutableCompositionVideoTrack.append(compositionAddVideo!)
         mutableCompositionAudioTrack.append(compositionAddAudio)
         mutableCompositionAudioOfVideoTrack.append(compositionAddAudioOfVideo)
         
-
+        
         do {
             try mutableCompositionVideoTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
                                                                                 duration: aVideoAssetTrack.timeRange.duration),
                                                                 of: aVideoAssetTrack,
                                                                 at: CMTime.zero)
-
+            
             //In my case my audio file is longer then video file so i took videoAsset duration
             //instead of audioAsset duration
             try mutableCompositionAudioTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
                                                                                 duration: aVideoAssetTrack.timeRange.duration),
                                                                 of: aAudioAssetTrack,
                                                                 at: CMTime.zero)
-
+            
             // adding audio (of the video if exists) asset to the final composition
             if let aAudioOfVideoAssetTrack = aAudioOfVideoAssetTrack {
                 try mutableCompositionAudioOfVideoTrack[0].insertTimeRange(CMTimeRangeMake(start: CMTime.zero,
@@ -1013,7 +1035,7 @@ struct FinalVideoToPostView: View {
         }
 
         // Exporting
-        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/newVideo.mp4")
+        let savePathUrl: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/\(Date()).mp4")
         do { // delete old video
             try FileManager.default.removeItem(at: savePathUrl)
         } catch { print(error.localizedDescription) }
@@ -1023,7 +1045,7 @@ struct FinalVideoToPostView: View {
         assetExport.outputURL = savePathUrl
         assetExport.shouldOptimizeForNetworkUse = true
         
-
+        
         assetExport.exportAsynchronously { () -> Void in
             switch assetExport.status {
             case AVAssetExportSession.Status.completed:
@@ -1040,7 +1062,7 @@ struct FinalVideoToPostView: View {
                 completion(assetExport.error, nil)
             }
         }
-
+        
     }
     func simulateVideoDownload() {
         DispatchQueue.global(qos: .background).async {
@@ -1062,37 +1084,37 @@ struct FinalVideoToPostView: View {
                 }
             }
         }
-        }
+    }
     
     func saveVideoToGallery(){
         print("Should save to device: "+self.saveToDevice.description)
-            guard let renderUrl = self.renderUrl else{
-                print("incorrect url, can't save to gallery")
-                return
-            }
-            print("saving to device, url: " + renderUrl.absoluteString)
-            if(self.postModel.isImageContent())
-            {
-                let data = try? Data(contentsOf: renderUrl)
-                let image = UIImage(data: data!)
-                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-            }
-            else{
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: renderUrl)
-                }) { complete, error in
-                    if complete {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                            print("Saved to gallery")
-                        }
+        guard let renderUrl = self.renderUrl else{
+            print("incorrect url, can't save to gallery")
+            return
+        }
+        print("saving to device, url: " + renderUrl.absoluteString)
+        if(self.postModel.isImageContent())
+        {
+            let data = try? Data(contentsOf: renderUrl)
+            let image = UIImage(data: data!)
+            UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        }
+        else{
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: renderUrl)
+            }) { complete, error in
+                if complete {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                        print("Saved to gallery")
                     }
                 }
             }
+        }
     }
     func shareToFacebook(videoURL: URL) {
         let activityItems: [Any] = [videoURL, self.description]
-                let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-                UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
     }
     func showMessagePopup(messages: String) {
         self.message = messages
@@ -1116,83 +1138,72 @@ struct FinalVideoToPostView: View {
             completion(uiImage)
         }
     }
+    
+    private func uploadReelss(completionHandler: @escaping (Bool) -> Void) {
+        //    self.postModel.contentUrl = self.renderUrl
         
-//        func testCover() -> some View{
-//            let data = try? Data(contentsOf: self.renderUrl!)
-//            let image = UIImage(data: data!)
-//            return Image(uiImage: image ?? UIImage(imageLiteralResourceName: "SelectCover"))
-//                .resizable()
-//                .scaledToFill()
-//                .frame(width: 100, height: 132)
-//        }
-        
-        //    func stickerView(content : ContentOverlayModel) -> some View{
-        //        Image(content.value)
-        //            .resizable()
-        //            .scaledToFit()
-        //            .frame(width: 100 * content.scale, height: 100 * content.scale)
-        ////            .offset(content.size)
-        ////            .offset(CGSize(width: -content.size.width, height: -content.size.height))
-        //    }
-        //
-        //    func textView(content : ContentOverlayModel) -> some View{
-        //        Text(content.value)
-        //            .urbanistBlack(fontSize: content.fontSize)
-        //            .foregroundColor(content.color == .white ? .black : .white)
-        //            .padding(.horizontal,12)
-        //            .padding(.vertical,8)
-        //            .background{
-        //                if(content.enableBackground){
-        //                    content.color
-        //                        .cornerRadius(16)
-        //                }
-        //            }
-        //            .fixedSize()
-        //            .frame(maxWidth: UIScreen.main.screenWidth() - 36)
-        //    }
-        
-        private func uploadReelss(complitionHandler : @escaping(Bool) -> Void) {
-//            self.postModel.contentUrl = self.renderUrl
-            
-            if (autoCaption == true){
-                self.subAllow = "true"
-                self.subLang = captionLang
-            } else{
-                self.subAllow = "false"
-            }
-            uploadReels.uploadReels(imageUploadRequest: renderUrl!, paramName: "asset", fileName: renderUrl?.lastPathComponent ?? "default.\(postModel.isImageContent() ? "png" : "mp4")", subtitleLang: self.subLang, subtitle_apply: subAllow) { responsee, errorMessage in
-                if(!responsee || errorMessage == nil)
-                {
-                    
-                    print("error uploading video \(String(describing: errorMessage))")
-                    complitionHandler(false)
-                    return
-                }
-                print("video url \(self.postModel.contentUrl!)")
-                let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
-                var tag: [String] = []
-                self.postModel.tagPeople.forEach { peopleId in
-                    tag.append(peopleId.uid)
-                }
-                let musicUrl = UserDefaults.standard.string(forKey: "musicUrl") ?? ""
-                print("The musicUrl is======", musicUrl)
-//                let content = ContentDetail(name: fileName, size: reelsSize, thumbnails: thumbnails, thumbsize: thumbsize)
-                print("caption and lan:  ", self.captionLang, self.autoCaption)
-                let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: "Karachi Sindh Pakistan", visibility: "public", musicURL: musicUrl, content: uploadReels.contentDetail, allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitleApply: self.autoCaption, subtitleLang: self.captionLang, tags: tag)
-                uploadReels.uploadPost(post: postRes, complitionHandler: {response, error in
-                    DispatchQueue.main.async {
-                        if(responsee == true) {
-                            print("Sucessss......")
-                            complitionHandler(true)
-                        } else {
-                            print("Errror.....")
-                            complitionHandler(false)
-                        }
-                    }
-                })
-            }
+        if (autoCaption == true) {
+            self.subAllow = "true"
+            self.subLang = captionLang
+        } else {
+            self.subAllow = "false"
         }
+        
+        var overallProgress: Double = 0.0
+        
+        uploadReels.uploadReels(imageUploadRequest: renderUrl!, paramName: "asset", fileName: renderUrl?.lastPathComponent ?? "default.\(postModel.isImageContent() ? "png" : "mp4")", subtitleLang: self.subLang, subtitle_apply: subAllow, progress: { reelProgress in
+            self.reelProgress = reelProgress // Update reelProgress with the latest progress
+            
+            overallProgress = (self.reelProgress + self.uploadProgress)                                                 
+            
+            // Update uploadProgress within the animation block to ensure smooth animation
+            UIView.animate(withDuration: 0.3) {
+                self.uploadProgress = overallProgress
+            }
+        }, complitionHandler: { responsee, errorMessage in
+            if (!responsee || errorMessage == nil) {
+                uploadProgress = 0.0
+                uploadingVideo = false
+                print("error uploading video \(String(describing: errorMessage))")
+                completionHandler(false)
+                return
+            }
+            
+            print("video url \(self.postModel.contentUrl!)")
+            let uuid = UserDefaults.standard.string(forKey: "uuid") ?? ""
+            var tag: [String] = []
+            self.postModel.tagPeople.forEach { peopleId in
+                tag.append(peopleId.uid)
+            }
+            let musicUrl = UserDefaults.standard.string(forKey: "musicUrl") ?? ""
+            print("The musicUrl is======", musicUrl)
+            //                let content = ContentDetail(name: fileName, size: reelsSize, thumbnails: thumbnails, thumbsize: thumbsize)
+            print("caption and lan: ", self.captionLang, self.autoCaption)
+            let postRes = ReelsPostRequest(userUUID: uuid, title: postModel.description, description: self.postModel.description, contentType: postModel.isImageContent() ? "image" : "video", category: self.selectedCat, musicTrack: postModel.songModel?.title, location: "Karachi Sindh Pakistan", visibility: "public", musicURL: musicUrl, content: uploadReels.contentDetail, allowComment: self.postModel.allowComments, allowDuet: self.postModel.allowDuet, allowStitch: self.postModel.allowStitch, subtitleApply: self.autoCaption, subtitleLang: self.captionLang, tags: tag)
+            
+            uploadReels.uploadPost(post: postRes, progress: { reelProgress in
+//                self.reelProgress = reelProgress/2   // Update reelProgress with the latest progress
+                
+//                overallProgress = (self.reelProgress)
+                
+                // Update uploadProgress within the animation block to ensure smooth animation
+                UIView.animate(withDuration: 0.3) {
+//                    self.uploadProgress = overallProgress
+                }
+            }) { response, error in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    if response == true {
+                        print("Success......")
+                        completionHandler(true)
+                    } else {
+                        print("Error.....")
+                        completionHandler(false)
+                    }
+                }
+            }
+        })
     }
+}
 
 enum SocialMediaType: String, CaseIterable {
     case WhatsApp
@@ -1261,32 +1272,6 @@ struct CircularProgressView: View {
                     ),
                     style: StrokeStyle(
                         lineWidth: 5,
-                        lineCap: .round
-                    )
-                )
-                .rotationEffect(.degrees(-90))
-                .animation(.easeOut, value: progress)
-            
-        }
-    }
-}
-
-
-struct CircularProgressCameraView: View {
-    let progress: Double
-    var body: some View {
-        ZStack {
-            Circle()
-                .stroke(
-                    Color.white,
-                    lineWidth: 6
-                )
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(
-                    Color.red,
-                    style: StrokeStyle(
-                        lineWidth: 6,
                         lineCap: .round
                     )
                 )

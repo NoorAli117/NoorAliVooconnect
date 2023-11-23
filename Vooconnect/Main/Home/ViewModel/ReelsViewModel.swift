@@ -27,6 +27,7 @@ class ReelsViewModel: ObservableObject {
 
         var urlRequest = URLRequest(url: URL(string:  "\(getBaseURL + EndPoints.reels)?take=\(3)")!)
         urlRequest.httpMethod = "GET"
+        urlRequest.timeoutInterval = 30
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]
@@ -66,6 +67,7 @@ class ReelsViewModel: ObservableObject {
 
         var urlRequest = URLRequest(url: URL(string:  "\(getBaseURL + EndPoints.followingReels)?take=\(3)")!)
         urlRequest.httpMethod = "GET"
+        urlRequest.timeoutInterval = 30
         
         if let tokenData = UserDefaults.standard.string(forKey: "accessToken") {
             urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(tokenData)"]

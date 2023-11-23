@@ -121,6 +121,13 @@ public final class MainViewController: UIViewController {
             self.mainBottomFunctionView.contentView.contentsCollectionView.contents = categories
             self.mainBottomFunctionView.contentView.contentTitleListScrollView.contents = categories
             self.mainBottomFunctionView.filterView.filterCollectionView.filters = RealmManager.shared.getFilters()
+            
+            RealmManager.shared.getDuoCategories { categories in
+                print("Retrieved categories: \(categories)")
+                self.Vm?.categories = categories
+            }
+
+            
         }
     }
     
@@ -548,6 +555,7 @@ extension MainViewController: MainBottomFunctionDelegate {
         }
     }
     
+    
     func goPreview(content: Any) {
         print(content)
         cameraInfoData?(content)
@@ -564,6 +572,7 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = storyboard.instantiateViewController(identifier: "MainViewController") as? MainViewController {
             vc.cameraInfoData = cameraInfoData
+            
             vc.Vm = Vm
             return vc
         }
@@ -595,16 +604,21 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
                 Vm.isPhoto = false
             }
             if Vm.openCategory {
-                vc.mainBottomFunctionView.bottumButtonAction(index: 1)
+                vc.mainBottomFunctionView.bottumButtonAction(index: 3)
                 Vm.openCategory = false
             }
             if Vm.openBluge {
-                vc.mainBottomFunctionView.bottumButtonAction(index: 3)
+                vc.mainBottomFunctionView.bottumButtonAction(index: 1)
                 Vm.openBluge = false
             }
             if Vm.isRecording {
                 vc.mainBottomFunctionView.shutterButtonAction(vc.senderButton)
                 Vm.isRecording = false
+            }
+            if Vm.selectFilter {
+                let indexPath = IndexPath(row: Vm.selectedFilterIndex, section: Vm.selectedFiltersection)
+//                vc.mainBottomFunctionView.filterView.filterCollectionView.selectFilter(at: indexPath)
+                Vm.selectFilter = false
             }
         }
     }
@@ -620,4 +634,8 @@ class ViewModel: ObservableObject {
     @Published var isPhoto = false
     @Published var isRecording = false
     @Published var bottomHide = false
+    @Published var selectFilter = false
+    @Published var selectedFilterIndex = 0
+    @Published var selectedFiltersection = 0
+    @Published var categories = [Category]()
 }

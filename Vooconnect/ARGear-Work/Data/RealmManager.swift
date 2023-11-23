@@ -163,6 +163,16 @@ class RealmManager {
         
         return categories
     }
+    func getDuoCategories(completion: @escaping (_ categories: [Category]) -> Void) {
+        let realm = try! Realm()
+
+        var categories: [Category] = []
+        for category in realm.objects(Category.self) {
+            categories.append(category)
+        }
+
+        completion(categories)
+    }
     
     func getFilters() -> [Item] {
         let realm = try! Realm()

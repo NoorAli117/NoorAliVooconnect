@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+
 struct EffectsSheets: View {
-    
     @State private var trending: Bool = true
     @State private var new: Bool = false
+    @ObservedObject var Vm: ViewModel
+    @State private var selectedCategoryIndex = 0
     
     var body: some View {
         VStack {
@@ -23,138 +25,77 @@ struct EffectsSheets: View {
                 .frame(height: 1)
                 .foregroundColor(.gray)
                 .opacity(0.2)
-//                .padding(.vertical, 10)
+            // .padding(.vertical, 10)
                 .padding(.bottom, 10)
             
-                // All Button
-                HStack {
-                    
-                    Image("cutF")
-                    Image("SearchF")
-                    Image("SavedF")
-                        .padding(.trailing, 10)
-                        
-                        Button {
-                            trending = true
-                            new = false
-                         
-                        } label: {
-                            VStack {
-                                Text("Trending")
-                                    .font(.custom("Urbanist-SemiBold", size: 18))
-                                    .foregroundStyle( trending ?
-                                                      LinearGradient(colors: [
-                                                        Color("buttionGradientTwo"),
-                                                        Color("buttionGradientOne"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
-                                                        Color("gray"),
-                                                        Color("gray"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    )
-                                
-                                
-                                ZStack {
-                                    if trending {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.horizontal, -5)
-                                            .frame(height: 4)
-                                    } else {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("grayOne"),
-                                                    Color("grayOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.trailing, -18)
-                                            .frame(height: 2)
-                                    }
-                                }
-                                .padding(.top, -5)
-                            }
-                        }
-                    
-                    Spacer()
-                    
-                        Button {
-                            trending = false
-                            new = true
-                        } label: {
-                            VStack {
-                                Text("New")
-                                    .font(.custom("Urbanist-SemiBold", size: 18))
-                                    .foregroundStyle( new ?
-                                                      LinearGradient(colors: [
-                                                        Color("buttionGradientTwo"),
-                                                        Color("buttionGradientOne"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
-                                                        Color("gray"),
-                                                        Color("gray"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    )
-                                
-                                ZStack {
-                                    if new {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.horizontal, -5)
-                                            .frame(height: 4)
-                                    } else {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("grayOne"),
-                                                    Color("grayOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.leading, -12)
-//                                            .padding(.trailing, -40)
-                                            .frame(height: 2)
-                                    }
-                                }
-                                .padding(.top, -5)
-                            }
-                        }
-                        
-                        
-                        
-                    .padding(.leading, 8)
-                    
-                } // HStack
+            // All Button
+            HStack {
+                Image("cutF")
+                    .resizable()
+                    .frame(width: 24, height: 24)
                 
-            .padding(.horizontal)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(0..<Vm.categories.count, id: \.self) { index in
+                            Button(action: {
+                                selectedCategoryIndex = index
+                            }) {
+                                HStack {
+                                    Text(Vm.categories[index].title!)
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                            }
+                            .onChange(of: selectedCategoryIndex) { newValue in
+                                trending = true
+                                new = false
+                            }
+                        }
+
+                    }
+                    .padding(.horizontal)
+                }
+            }
             
-            ScrollView(showsIndicators: false) {
-                
-                LazyVGrid(columns: gridLayoutCF, alignment: .center, spacing: columnSpacingCF, pinnedViews: []) {
-                    Section()
-                    {
-                        ForEach(0..<12) { people in
-                            EffectsList()
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 30) {
+                    ForEach(Array(Vm.categories[selectedCategoryIndex].items.enumerated()), id: \.element.uuid) { index, item in
+                        VStack {
+                            AsyncImage(url: URL(string: item.thumbnail ?? "")) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                            } placeholder: {
+                                Image("EffectsImageE")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                            }
+                        }
+                        .accessibility(addTraits: .isButton)
+                        .onTapGesture {
+                            Vm.selectFilter = true
+                            Vm.selectedFilterIndex = index
+                            Vm.selectedFiltersection = selectedCategoryIndex
                         }
                     }
                 }
-                .padding(.top, 10)
             }
-            
+
+            .padding(.top, 10)
             
         }
+        .padding(.horizontal, 20)
     }
 }
 
-struct EffectsSheets_Previews: PreviewProvider {
-    static var previews: some View {
-        EffectsSheets()
-    }
-}
+
+//struct EffectsSheets_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EffectsSheets()
+//    }
+//}

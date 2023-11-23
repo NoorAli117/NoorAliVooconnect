@@ -530,10 +530,7 @@ struct AllMediaView: View {
         cameraModel.resizeVideo(inputURL: url, outputURL: outputURL, newWidth: size.width, newHeight: size.height) { success in
             if success {
                 print("Video resized successfully")
-                previewURL = outputURL.absoluteString
-                cameraModel.previewURL = outputURL
-//                cameraModel.showPreview = true
-                preview = true
+                previewCompletion(with: outputURL)
             } else {
                 print("Failed to resize video")
                 isShowPopup = true
@@ -550,7 +547,10 @@ struct AllMediaView: View {
     
     func processAsset(_ asset: Asset) {
         let url = asset.url
-        if url.pathExtension == "png" || url.pathExtension == "jpg" || url.pathExtension == "JPG" {
+        if url.pathExtension == "mp4" || url.pathExtension == "mov"{
+            print(url)
+            resizeVideo(url: url, size: CGSize(width: 375.0, height: 812.0))
+        } else {
             print(url)
             if let data = try? Data(contentsOf: url),
                let image = UIImage(data: data){
@@ -573,16 +573,12 @@ struct AllMediaView: View {
                                         }
                                         print("Video and audio merge completed, new URL: \(url.absoluteString)")
                                         DispatchQueue.main.async {
-                                            self.previewURL = url.absoluteString
-                                            cameraModel.previewURL = url
-                                            self.preview.toggle()
+                                            previewCompletion(with: url)
                                         }
                                     }
                                 } else {
                                     DispatchQueue.main.async {
-                                        self.previewURL = outputURL.absoluteString
-                                        cameraModel.previewURL = outputURL
-                                        self.preview.toggle()
+                                        previewCompletion(with: outputURL)
                                     }
                                 }
                                 
@@ -595,10 +591,13 @@ struct AllMediaView: View {
                     }
                 }
                 }
-        } else {
-            print(url)
-            resizeVideo(url: url, size: CGSize(width: 375.0, height: 812.0))
         }
+    }
+    
+    private func previewCompletion(with url: URL) {
+        self.previewURL = url.absoluteString
+        cameraModel.previewURL = url
+        self.preview.toggle()
     }
     
 }
