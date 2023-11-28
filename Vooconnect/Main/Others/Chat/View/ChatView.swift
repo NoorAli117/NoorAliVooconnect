@@ -10,7 +10,6 @@ import SwiftUI
 struct ChatView: View {
     
     @Environment(\.presentationMode) var presentaionMode
-    
     var body: some View {
         VStack {
             HStack {

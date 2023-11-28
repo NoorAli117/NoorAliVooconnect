@@ -27,6 +27,7 @@ final class PlayerViewModel: ObservableObject {
         if let timeObserver = timeObserver {
             player.removeTimeObserver(timeObserver)
         }
+        // Add any additional cleanup code if needed
     }
     
     init(videoUrl: URL, speed: Float) {
@@ -70,6 +71,7 @@ final class PlayerViewModel: ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(self.didPlayToEnd), name: .AVPlayerItemDidPlayToEndTime, object: nil)
 
     }
+    
     
     
     func toggleMute() {

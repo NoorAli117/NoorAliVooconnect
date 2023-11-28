@@ -43,6 +43,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                 videoPlayer.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1), queue: .main) { time in
                     if let duration = self.videoPlayer.player.currentItem?.duration, time >= duration {
                         self.audioPlayer.player.pause()
+                        self.isPlaying = false
                     }
                 }
                 videoPlayer.delegate = self
@@ -327,7 +328,7 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     //MARK: Merging video with image and output and url
     func mergeVideoAndImage(
             video videoUrl: URL,
-            withForegroundImages images: [(UIImage,CGSize)], marker: Bool,
+            withForegroundImages images: [(UIImage,CGSize)],
             completion: @escaping (URL?) -> Void) -> () {
                 let tempUrlString = NSTemporaryDirectory().appending("outTemp.mp4")
                 let outputUrlString = NSTemporaryDirectory().appending("_outFP.mp4")
@@ -392,18 +393,8 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                         var y: CGFloat
                         
                         // Center the first image and maintain the original position for others
-                        if marker == true{
-                            if index == 0 {
-                                x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
-                                y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.42)
-                            } else {
-                                x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
-                                y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.5)
-                            }
-                        }else{
-                            x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
-                            y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.5)
-                        }
+                        x = (UIScreen.main.screenWidth()/2) + (imagePosition.width * 1) - (imageSize.width * 0.5)
+                        y = (UIScreen.main.screenHeight()/2) + (imagePosition.height * -1) - (imageSize.height * 0.42)
                         
                         watermarkLayer.frame = CGRect(x: x, y: y, width: imageSize.width, height: imageSize.height)
                         watermarkLayer.contentsRect = CGRect(x: 0, y: 0.1, width: 1, height: 1)
@@ -493,23 +484,23 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
     }
     
 //    ///refresh videoplayer
-//    
+//
 //    private func refreshVideoPlayer() {
 //            // Remove any existing player and playerLayer
 //            player?.pause()
 //            player = nil
 //            playerLayer?.removeFromSuperlayer()
 //            playerLayer = nil
-//            
+//
 //            // Create a new AVPlayer with the updated URL
 //            if let videoURL = videoURL {
 //                player = AVPlayer(url: videoURL)
 //                playerLayer = AVPlayerLayer(player: player)
-//                
+//
 //                // Configure the playerLayer to fit the view's bounds
 //                playerLayer?.frame = view.bounds
 //                view.layer.addSublayer(playerLayer!)
-//                
+//
 //                // Start playing the video
 //                player?.play()
 //            }

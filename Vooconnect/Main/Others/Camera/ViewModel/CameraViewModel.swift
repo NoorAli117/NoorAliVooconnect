@@ -46,26 +46,26 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     
    
     
-    func checkPermission(isBackCamera : Bool){
-
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            setUp(isFront: isBackCamera)
-            return
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { (status) in
-                
-                if status{
-                    self.setUp(isFront: isBackCamera)
-                }
-            }
-        case .denied:
-            self.alert.toggle()
-            return
-        default:
-            return
-        }
-    }
+//    func checkPermission(isBackCamera : Bool){
+//
+//        switch AVCaptureDevice.authorizationStatus(for: .video) {
+//        case .authorized:
+//            setUp(isFront: isBackCamera)
+//            return
+//        case .notDetermined:
+//            AVCaptureDevice.requestAccess(for: .video) { (status) in
+//
+//                if status{
+//                    self.setUp(isFront: isBackCamera)
+//                }
+//            }
+//        case .denied:
+//            self.alert.toggle()
+//            return
+//        default:
+//            return
+//        }
+//    }
     
     func resizeVideo(inputURL: URL, outputURL: URL, newWidth: CGFloat, newHeight: CGFloat, completion: @escaping (Bool) -> Void) {
         let asset = AVAsset(url: inputURL)
@@ -128,6 +128,10 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
                     switch exporter.status {
                     case .completed:
                         print("Video resized successfully")
+                        // Log the size of the resized video
+                        if let videoSize = self.getVideoSize(videoURL: exporter.outputURL!) {
+                            print("Resized video size: \(videoSize)")
+                        }
                     case .failed:
                         print("Failed to resize video. Error: \(exporter.error?.localizedDescription ?? "Unknown error")")
                     case .cancelled:
@@ -146,7 +150,14 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
     }
 
     
-    
+    // Function to get the size of a video
+    func getVideoSize(videoURL: URL) -> CGSize? {
+        let asset = AVAsset(url: videoURL)
+        guard let videoTrack = asset.tracks(withMediaType: .video).first else {
+            return nil
+        }
+        return videoTrack.naturalSize
+    }
 
     
     //Video with Song
@@ -413,44 +424,6 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
                 }
             }
         }
-    }
-    
-    
-    
-    // Video
-    func setUp(isFront : Bool){
-        
-        do {
-            
-            self.session.beginConfiguration()
-            
-            if let inputs = session.inputs as? [AVCaptureDeviceInput] {
-                for input in inputs {
-                    session.removeInput(input)
-                }
-            }
-            
-            let cameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
-            let videoInput = try AVCaptureDeviceInput(device: cameraDevice!)
-            let audioDevice = AVCaptureDevice.default(for: .audio)
-            let audioInput = try AVCaptureDeviceInput(device: audioDevice!)
-            
-            // MARK: Audio Input
-            
-            if self.session.canAddInput(videoInput) && self.session.canAddInput(audioInput){
-                self.session.addInput(videoInput)
-                self.session.addInput(audioInput)
-            }
-            
-            if self.session.canAddOutput(self.output){
-                self.session.addOutput(self.output)
-            }
-            
-            self.session.commitConfiguration()
-        }
-        catch{
-            print(error.localizedDescription)
-        }
         
     }
     
@@ -476,26 +449,26 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         }
     }
     
-    func switchCamera() {
-        session.sessionPreset = AVCaptureSession.Preset.high
-        session.beginConfiguration()
-        let currentInput = session.inputs.first as? AVCaptureDeviceInput
-        session.removeInput(currentInput!)
-        let newCameraDevice = currentInput?.device.position == .back ? getCamera(with: .front) : getCamera(with: .back)
-        let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice!)
-        session.addInput(newVideoInput!)
-        session.commitConfiguration()
-    }
+//    func switchCamera() {
+//        session.sessionPreset = AVCaptureSession.Preset.high
+//        session.beginConfiguration()
+//        let currentInput = session.inputs.first as? AVCaptureDeviceInput
+//        session.removeInput(currentInput!)
+//        let newCameraDevice = currentInput?.device.position == .back ? getCamera(with: .front) : getCamera(with: .back)
+//        let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice!)
+//        session.addInput(newVideoInput!)
+//        session.commitConfiguration()
+//    }
 
-    func getCamera(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        guard let devices = AVCaptureDevice.devices(for: AVMediaType.video) as? [AVCaptureDevice] else {
-            return nil
-        }
-        
-        return devices.filter {
-            $0.position == position
-            }.first
-    }
+//    func getCamera(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+//        guard let devices = AVCaptureDevice.devices(for: AVMediaType.video) as? [AVCaptureDevice] else {
+//            return nil
+//        }
+//
+//        return devices.filter {
+//            $0.position == position
+//            }.first
+//    }
 
     func playSong(songURL: String) {
         if let previewURL = songModel?.preview {
@@ -507,32 +480,6 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         SoundsManagerHelper.instance.pause()
     }
     
-    func startRecording(){
-        // MARK: Temporary URL for recording Video
-        let tempURL = NSTemporaryDirectory() + "\(Date()).mp4"
-        output.startRecording(to: URL(fileURLWithPath: tempURL), recordingDelegate: self)
-        print("Start recording")
-        recordingStopWatch()
-        isRecording = true
-    }
-    
-    func recordingStopWatch(){
-        print("Init stopwatch : "+self.maxDuration.description)
-        Timer.scheduledTimer(withTimeInterval: self.maxDuration, repeats: false) { (_) in
-            print("Stopwatch stop1")
-            DispatchQueue.main.async {
-                print("Stopwatch stop2")
-                self.stopRecording()
-            }
-        }
-    }
-    
-    func stopRecording(){
-        SoundsManagerHelper.instance.pause()
-        output.stopRecording()
-        isRecording = false
-    }
-    
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -542,8 +489,8 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
         // CREATED SUCCESSFULLY
         self.recordedURLs.append(outputFileURL)
         if self.recordedURLs.count == 1{
-                print("output url: \(outputFileURL)")
-                self.previewURL = outputFileURL
+            print("output url: \(outputFileURL)")
+            self.previewURL = outputFileURL
             return
         }
         
@@ -570,6 +517,56 @@ class CameraViewModel: NSObject,ObservableObject,AVCaptureFileOutputRecordingDel
             }
         }
     }
+    
+//    func recordingStopWatch(){
+//        print("Init stopwatch : "+self.maxDuration.description)
+//        Timer.scheduledTimer(withTimeInterval: self.maxDuration, repeats: false) { (_) in
+//            print("Stopwatch stop1")
+//            DispatchQueue.main.async {
+//                print("Stopwatch stop2")
+//                self.stopRecording()
+//            }
+//        }
+//    }
+    
+    
+//    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+//        if let error = error {
+//            print(error.localizedDescription)
+//            return
+//        }
+//
+//        // CREATED SUCCESSFULLY
+//        self.recordedURLs.append(outputFileURL)
+//        if self.recordedURLs.count == 1{
+//                print("output url: \(outputFileURL)")
+//                self.previewURL = outputFileURL
+//            return
+//        }
+//
+//        // CONVERTING URLs TO ASSETS
+//        let assets = recordedURLs.compactMap { url -> AVURLAsset in
+//            return AVURLAsset(url: url)
+//        }
+//
+//        self.previewURL = nil
+//        // MERGING VIDEOS
+//        mergeVideos(assets: assets) { exporter in
+//            exporter.exportAsynchronously {
+//                if exporter.status == .failed{
+//                    // HANDLE ERROR
+//                    print(exporter.error!)
+//                }
+//                else{
+//                    if let finalURL = exporter.outputURL{
+//                        DispatchQueue.main.async {
+//                            self.previewURL = finalURL
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     func mergeVideos(assets: [AVURLAsset],completion: @escaping (_ exporter: AVAssetExportSession)->()){
         

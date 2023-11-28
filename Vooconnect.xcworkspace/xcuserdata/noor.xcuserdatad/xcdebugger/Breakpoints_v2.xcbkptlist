@@ -202,8 +202,8 @@
             filePath = "Vooconnect/Main/Others/Camera/View/CustomeCameraHome.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1137"
-            endingLineNumber = "1137"
+            startingLineNumber = "1164"
+            endingLineNumber = "1164"
             landmarkName = "startProgressRecording()"
             landmarkType = "7">
             <Locations>
@@ -250,8 +250,8 @@
             filePath = "Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "removeAudioFromVideo(videoURL:completion:)"
             landmarkType = "7">
             <Locations>
@@ -298,8 +298,8 @@
             filePath = "Vooconnect/Main/Others/Camera/ViewModel/CameraViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "removeAudioFromVideo(videoURL:completion:)"
             landmarkType = "7">
             <Locations>
@@ -466,54 +466,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "88BB0AEC-7583-4EAD-A144-4542ABCD4CB3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/Main/Others/Post/Controller/FinalPreviewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "forcePlay()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "88BB0AEC-7583-4EAD-A144-4542ABCD4CB3 - 10e7d046db68222e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FinalPreviewController.forcePlay() -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/Main/Others/Post/Controller/FinalPreviewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  uuid = "88BB0AEC-7583-4EAD-A144-4542ABCD4CB3 - f064da0e869679cf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Vooconnect.FinalPreviewController.setNewUrl(url: Foundation.URL) -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/Main/Others/Post/Controller/FinalPreviewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "160">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FEF91A80-4CD5-4218-881D-56418275846E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -550,6 +502,36 @@
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/ARGearHelpers/FilterManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "FEF91A80-4CD5-4218-881D-56418275846E - 877c4290ee71f734"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Result&lt;Foundation.URL, Vooconnect.DownloadError&gt;) -&gt; () in Vooconnect.FilterManager.setFilter(_: Vooconnect.Item, successBlock: () -&gt; (), failBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/ARGear-Work/ARGearHelpers/FilterManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "1116">
+               </Location>
+               <Location
+                  uuid = "FEF91A80-4CD5-4218-881D-56418275846E - ed3616b4daa9ae41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; () in closure #2 (Swift.Result&lt;Foundation.URL, Vooconnect.DownloadError&gt;) -&gt; () in Vooconnect.FilterManager.setFilter(_: Vooconnect.Item, successBlock: () -&gt; (), failBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/ARGear-Work/ARGearHelpers/FilterManager.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "44"
@@ -620,6 +602,36 @@
                   endingLineNumber = "38"
                   offsetFromSymbolStart = "656">
                </Location>
+               <Location
+                  uuid = "57D37A65-541A-458D-B67E-B565F9C14374 - 4de643dfc339e92a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FilterManager.setFilter(_: Vooconnect.Item, successBlock: () -&gt; (), failBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/ARGear-Work/ARGearHelpers/FilterManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "840">
+               </Location>
+               <Location
+                  uuid = "57D37A65-541A-458D-B67E-B565F9C14374 - 877c4290ee71f791"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Result&lt;Foundation.URL, Vooconnect.DownloadError&gt;) -&gt; () in Vooconnect.FilterManager.setFilter(_: Vooconnect.Item, successBlock: () -&gt; (), failBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/ARGear-Work/ARGearHelpers/FilterManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "656">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -668,53 +680,99 @@
                   endingLineNumber = "28"
                   offsetFromSymbolStart = "96">
                </Location>
+               <Location
+                  uuid = "1DFCC5D6-60C4-483A-B45E-B04C2F7A6C78 - 4de643dfc339ea41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Vooconnect.FilterManager.setFilter(_: Vooconnect.Item, successBlock: () -&gt; (), failBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/ARGear-Work/ARGearHelpers/FilterManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "540">
+               </Location>
+               <Location
+                  uuid = "1DFCC5D6-60C4-483A-B45E-B04C2F7A6C78 - c6c094998d7bc2a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.String&gt;) -&gt; () in Vooconnect.FilterManager.setFilter(_: Vooconnect.Item, successBlock: () -&gt; (), failBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Vooconnect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/ARGear-Work/ARGearHelpers/FilterManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "96">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "13AFD261-E011-49BD-AC8C-33A32AA67E08"
-            shouldBeEnabled = "Yes"
+            uuid = "88BE1D80-9F36-4E14-97D0-1BED1C038F17"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
+            filePath = "Vooconnect/Helpers/AudioMediaInput.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "playAudio()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56BD0669-CE33-4153-941A-A4D471500CC8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vooconnect/Helpers/AudioMediaInput.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "init(url:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "13AFD261-E011-49BD-AC8C-33A32AA67E08 - 9d26308a9ac62325"
+                  uuid = "56BD0669-CE33-4153-941A-A4D471500CC8 - fe01fbcbaf5cae69"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FilterCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  symbolName = "Vooconnect.AudioMediaInput.__allocating_init(url: Foundation.URL) -&gt; Vooconnect.AudioMediaInput"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/Helpers/AudioMediaInput.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "113"
-                  endingLineNumber = "113"
-                  offsetFromSymbolStart = "2240">
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "660">
                </Location>
                <Location
-                  uuid = "13AFD261-E011-49BD-AC8C-33A32AA67E08 - 9d26308a9ac62e6e"
+                  uuid = "56BD0669-CE33-4153-941A-A4D471500CC8 - 169543398d6803e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FilterCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  symbolName = "closure #1 @Sendable (__C.AVPlayerItem, Foundation.NSKeyValueObservedChange&lt;__C.AVPlayerItemStatus&gt;) -&gt; () in Vooconnect.AudioMediaInput.init(url: Foundation.URL) -&gt; Vooconnect.AudioMediaInput"
                   moduleName = "Vooconnect"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
+                  urlString = "file:///Users/noor/Documents/Vooconnect/NoorAliVooconnect/Vooconnect/Helpers/AudioMediaInput.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "2240">
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "40">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -722,288 +780,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4B246234-3034-4010-A4C3-36E47853E66C"
+            uuid = "7A74469E-36A4-43B6-965D-DF86D8A76CAA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
+            filePath = "Vooconnect/Main/Others/Post/View/FinalVideoToPostView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4B246234-3034-4010-A4C3-36E47853E66C - 9d26308a9ac62c7e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FilterCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "1928">
-               </Location>
-               <Location
-                  uuid = "4B246234-3034-4010-A4C3-36E47853E66C - 9d26308a9ac62ec3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FilterCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "1928">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "12A6A67E-1532-4762-9D6A-7A711FA01BB7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "12A6A67E-1532-4762-9D6A-7A711FA01BB7 - 9d26308a9ac62cb0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FilterCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "832">
-               </Location>
-               <Location
-                  uuid = "12A6A67E-1532-4762-9D6A-7A711FA01BB7 - 9d26308a9ac62f05"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FilterCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterCollectionView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "832">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2BC53A98-2294-460D-8E10-2819EDC157CC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "addObservers()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2BC53A98-2294-460D-8E10-2819EDC157CC - 1b9331d01b68ca7c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Vooconnect.FilterView.addObservers() -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "46"
-                  endingLineNumber = "46"
-                  offsetFromSymbolStart = "68">
-               </Location>
-               <Location
-                  uuid = "2BC53A98-2294-460D-8E10-2819EDC157CC - e754f02ac7db441"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable (Vooconnect.FilterCollectionView, Foundation.NSKeyValueObservedChange&lt;Swift.Optional&lt;Foundation.IndexPath&gt;&gt;) -&gt; () in Vooconnect.FilterView.addObservers() -&gt; ()"
-                  moduleName = "Vooconnect"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noor/Documents/Vooconnect/vooconnect-ios-live/Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "46"
-                  endingLineNumber = "46"
-                  offsetFromSymbolStart = "68">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "837B2633-93D5-4405-AD35-10CA90BA7FDD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "sliderValueChanged(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FFFC86B2-3428-42E6-9550-A714CD09BC75"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/ARGBottomFunctionBaseCollectionView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "getIconName(index:withLanguageCode:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C82E9A5A-27FF-4633-8BC7-AB4DC16D02C9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/ARGBottomFunctionBaseCollectionView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "getIconName(index:withLanguageCode:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8DC3B335-70DF-4088-83EE-0F769ADE5A80"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "setRatio(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "059CC12F-322F-4540-90BE-7DD4763DBA9F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "setRatio(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B846E77E-7813-4048-8293-5A2BA356C56B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "addObservers()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2FB213AB-6603-4C20-ACCE-AC6882217D44"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "awakeFromNib()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B8B716ED-1AFB-4F0A-9ADC-AB181049B04A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "awakeFromNib()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3C58D385-4FF2-4D1F-A8D4-9E6895E5FF00"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vooconnect/ARGear-Work/UI/UIComponent/Main/Bottom/Filter/FilterView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "awakeFromNib()"
+            startingLineNumber = "958"
+            endingLineNumber = "958"
+            landmarkName = "goBackToHome()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

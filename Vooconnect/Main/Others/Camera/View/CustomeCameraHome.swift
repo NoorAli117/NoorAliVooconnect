@@ -18,6 +18,7 @@ struct CustomeCameraHome: View {
     @State private var widthAndHeight: CGFloat = 90
     @State private var progressColor: Color = .red
     @Environment(\.presentationMode) var presentaionMode
+    @Binding var rootIsActive : Bool
     
     @StateObject var cameraModel = CameraViewModel()
     //    @EnvironmentObject var cameraModel: CameraViewModel
@@ -69,9 +70,7 @@ struct CustomeCameraHome: View {
     
     
     var body: some View {
-        
-            
-            VStack {
+        VStack {
                 if self.isShowPopup {
                     GeometryReader { geometry in
                         VStack {
@@ -97,7 +96,7 @@ struct CustomeCameraHome: View {
                     }
                 }
                 
-                NavigationLink(destination: AllMediaView()
+            NavigationLink(destination: AllMediaView(popToFinalView: $rootIsActive)
                     .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $photos) {
                         EmptyView()
                     }
@@ -114,7 +113,7 @@ struct CustomeCameraHome: View {
                     }
                     .isDetailLink(false)
                 if let url = URL(string: previewURL){
-                    NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, url: .constant(url))
+                    NavigationLink(destination: FinalPreview(popToFinalView: $rootIsActive, controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, videoURL: url)
                         .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $preview) {
                             EmptyView()
                         }
@@ -138,7 +137,7 @@ struct CustomeCameraHome: View {
                         if let image = content as? UIImage {
                             print(image)
                             // Perform video creation and merging asynchronously
-                            let resizedImage = resizeImage(image: image, targetSize: CGSize(width: 375.0, height: 812.0))
+                            let resizedImage = resizeImage(image: image)
                             print("resizedImage size\(resizedImage.size)")
                             if resizedImage != nil {
                                 DispatchQueue.global().async {
@@ -179,7 +178,7 @@ struct CustomeCameraHome: View {
                             print(videoInfo)
                             if let filePath = videoInfo["filePath"] as? URL{
                                 print(filePath)
-                                resizeVideo(url: filePath, size: CGSize(width: 375.0, height: 812.0))
+                                resizeVideo(url: filePath)
                             }
                         }
                     }, height: 800)
@@ -931,9 +930,8 @@ struct CustomeCameraHome: View {
                                                 }else {
                                                     DispatchQueue.main.async {
                                                         print(("video recorded"))
-                                                        print("previewURL: \(previewURL)")
+                                                        print("previewURL: \(videoURL)")
                                                         countdownTimer = self.countdownTimer2
-//                                                        cameraModel.showPreview = true
                                                         preview = true
                                                     }
                                                 }
@@ -992,7 +990,7 @@ struct CustomeCameraHome: View {
                     .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
                     .padding()
                     .padding(.top)
-                    .opacity(!cameraModel.recordedURLs.isEmpty && cameraModel.previewURL != nil && !cameraModel.isRecording ? 1 : 0)
+//                    .opacity(!cameraModel.recordedURLs.isEmpty && cameraModel.previewURL != nil && !cameraModel.isRecording ? 1 : 0)
                 }
                 .padding(.top, -10)
                 
@@ -1045,6 +1043,31 @@ struct CustomeCameraHome: View {
             .navigationBarHidden(true)
     }
     
+    func mergeVideo(videoURL: URL){
+        self.cameraModel.removeAudioFromVideo(videoURL: videoURL){ url, error in
+            if let error = error {
+                print("Failed to remove audio: \(error.localizedDescription)")
+            } else {
+                self.cameraModel.mergeVideoAndAudio(videoUrl: url!, audioUrl: URL(string: cameraModel.songModel!.preview)!) { error, url in
+                    guard let url = url else {
+                        print("Error merging video and audio.")
+                        return
+                    }
+                    
+                    self.previewURL = url.absoluteString
+                    cameraModel.previewURL = url
+                    print("Audio removed video, new url: " + url.absoluteString)
+                    DispatchQueue.main.async {
+                        print(("video recorded"))
+                        countdownTimer = self.countdownTimer2
+                        //                                                                cameraModel.showPreview.toggle()
+                        preview.toggle()
+                    }
+                }
+            }
+        }
+    }
+    
     func useSong(){
         if let musicURL = UserDefaults.standard.string(forKey: "useSong"){
             print("songUrl: \(musicURL)")
@@ -1077,10 +1100,12 @@ struct CustomeCameraHome: View {
         recordingTimer?.invalidate()
     }
     
-    func resizeVideo(url: URL, size: CGSize) {
+    func resizeVideo(url: URL) {
         // Input URL of the original video
-        print("new size will be: \(size)")
         
+        let size = UIScreen.main.bounds.size
+        
+        print("new size will be: \(size)")
         // Output URL for the resized video in the Documents directory
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let outputURL = documentsDirectory.appendingPathComponent("\(Date())_resized_video.mp4")
@@ -1096,7 +1121,9 @@ struct CustomeCameraHome: View {
         }
     }
     
-    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    func resizeImage(image: UIImage) -> UIImage {
+        
+        let targetSize = UIScreen.main.bounds.size
         let size = image.size
         
         let widthRatio  = targetSize.width  / size.width
@@ -1149,11 +1176,11 @@ struct CustomeCameraHome: View {
 }
 
 
-struct CustomeCameraHome_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomeCameraHome( Vm: ViewModel())
-    }
-}
+//struct CustomeCameraHome_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CustomeCameraHome( Vm: ViewModel())
+//    }
+//}
 
 
 

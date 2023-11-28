@@ -376,10 +376,11 @@ struct HomePageView: View {
     @State var postedBy: String = ""
     @State var reelId: Int = 0
     //    @State var commentText: String = ""
+    @State var isActive : Bool = false
     
     var body: some View {
         
-        NavigationView {
+        NavigationView{
             
             ZStack {
                 
@@ -407,10 +408,10 @@ struct HomePageView: View {
                                 EmptyView()
                             }
                         
-                        NavigationLink(destination: CustomeCameraHome()   // CustomeCameraView()  CustomeCameraHome()
-                            .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $cameraView) {
+                        NavigationLink(destination: CustomeCameraHome(rootIsActive: self.$cameraView), isActive: $cameraView) {
                                 EmptyView()
                             }
+                            .isDetailLink(false)
                         
                         NavigationLink(destination: MyProfileView()
                             .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $myProfileView) {
@@ -617,15 +618,7 @@ struct HomePageView: View {
                         // Fallback on earlier versions
                     }
                 }
-                
-                
-                
-                
             }
-            //            .onDisappear {
-            //                player.pause()
-            //            }
-            
             .navigationBarHidden(true)
         }
         
@@ -724,6 +717,7 @@ struct PopOverTwo: View {
                 
                 Button {
                     camera.toggle()
+                    show = false
                 } label: {
                     HStack(spacing: 15) {
                         Text("Posts")
@@ -733,6 +727,7 @@ struct PopOverTwo: View {
                     }
                 }
                 Button {
+                    show = false
                     live.toggle()
                 } label: {
                     HStack(spacing: 15) {

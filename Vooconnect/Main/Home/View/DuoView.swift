@@ -18,7 +18,7 @@ struct DuoView: View{
     @State private var widthAndHeight: CGFloat = 90
     @State private var progressColor: Color = .red
     @Environment(\.presentationMode) var presentaionMode
-    
+    @State var popToFinalView : Bool = false
     @StateObject var cameraModel = CameraViewModel()
     @State private var preview: Bool = false
     @State private var photos: Bool = false
@@ -92,10 +92,11 @@ struct DuoView: View{
                 }
                 
                 if let url = URL(string: previewURL){
-                    NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, url: .constant(url))
+                    NavigationLink(destination: FinalPreview(popToFinalView: $popToFinalView, controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, videoURL: url)
                         .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $preview) {
                             EmptyView()
                         }
+                        .isDetailLink(false)
                 }
                     
                 
@@ -339,7 +340,7 @@ struct DuoView: View{
                     .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
                     .padding()
                     .padding(.top)
-                    .opacity(!cameraModel.recordedURLs.isEmpty && cameraModel.previewURL != nil && !cameraModel.isRecording ? 1 : 0)
+//                    .opacity(!cameraModel.recordedURLs.isEmpty && cameraModel.previewURL != nil && !cameraModel.isRecording ? 1 : 0)
                     
                     
                     //                    if cameraModel.isRecording {
@@ -441,40 +442,6 @@ struct DuoView: View{
 //    }
 
 
-    func simulateVideoProgress() {
-        let stepFrequency = 13.899 // Number of steps per second (adjust as desired)
-        let totalProgressSteps = cameraModel.maxDuration * stepFrequency
-        let stepDuration = 1.0 / totalProgressSteps
-        
-        DispatchQueue.global(qos: .background).async {
-            var shouldStop = false // Flag to indicate if the progress should be stopped
-            var i = 0.0
-            while i < totalProgressSteps {
-                i += 1.0
-                usleep(useconds_t(stepDuration * 1_000_000)) // Simulating delay in audio progress
-                
-                DispatchQueue.main.async {
-                    if !cameraModel.isRecording {
-                        shouldStop = true // Set the flag to stop the progress
-                    }
-                    
-                    if !shouldStop {
-                        progress = Double(i + 1) / Double(totalProgressSteps)
-                    }
-                    
-                    if shouldStop || i == totalProgressSteps - 1 {
-                        cameraModel.isRecording = false
-                        print("Video Recording completed")
-                        cameraModel.stopRecording()
-                    }
-                }
-                
-                if shouldStop {
-                    break // Exit the loop if the progress should be stopped
-                }
-            }
-        }
-    }
 }
 
 

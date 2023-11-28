@@ -32,7 +32,7 @@ struct AdjustVideoView: View {
     @State private var isAlert: Bool = false
     @Binding var postModel: PostModel
     var callWhenBack : () -> ()
-    @Binding var speed: Float
+    var speed: Float?
     
     var btnBack : some View { Button(action: {
         self.callWhenBack()
@@ -59,7 +59,7 @@ struct AdjustVideoView: View {
                 //                let isImage = !(url!.absoluteString.lowercased().contains(".mp4") || url!.absoluteString.lowercased().contains(".mov"))
                 RoundedRectangle(cornerRadius: 20)
                     .overlay(
-                        MyVideoPlayerView(playerVM: playerVM, audioPlayerVM: audioPlayerVM, speed: $speed)
+                        MyVideoPlayerView(playerVM: playerVM, audioPlayerVM: audioPlayerVM, speed: speed)
                             .mask(RoundedRectangle(cornerRadius: 20))
                     )
                     .frame(width: width, height: height)
@@ -148,7 +148,7 @@ struct AdjustVideoView: View {
             }
         }
         .onAppear {
-            playerVM.player.rate = speed
+            playerVM.player.rate = speed!
             getVideoFrames()
             self.playerVM.isPlaying = true
             self.audioPlayerVM.isPlaying = true

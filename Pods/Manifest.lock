@@ -41,8 +41,8 @@ PODS:
   - URLImage/RemoteContentView (2.2.5)
 
 DEPENDENCIES:
-  - FBSDKCoreKit
-  - FBSDKLoginKit
+  - FBSDKCoreKit (~> 16.2.1)
+  - FBSDKLoginKit (~> 16.2.1)
   - FBSDKShareKit
   - GooglePlaces
   - RealmSwift
@@ -82,6 +82,6 @@ SPEC CHECKSUMS:
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
   URLImage: 36a66c03ba2a9ccbbf06bc83431f2cef171008e8
 
-PODFILE CHECKSUM: 0c4414f51d777307ae3728803aa8b0c0c732d252
+PODFILE CHECKSUM: 18cf7749f9e204b5a4fe71dbd8e29c16b1a58d2b
 
 COCOAPODS: 1.13.0

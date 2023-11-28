@@ -29,7 +29,7 @@ class VideoMediaInput: NSObject, ObservableObject {
     let videoOutput = AVPlayerItemVideoOutput(pixelBufferAttributes: [String(kCVPixelBufferPixelFormatTypeKey): NSNumber(value: kCVPixelFormatType_32BGRA)])
     var audioProcessingFormat:  AudioStreamBasicDescription?//UnsafePointer<AudioStreamBasicDescription>?
     var tap: Unmanaged<MTAudioProcessingTap>?
-    var onEndVideo : () -> () = {}
+    var onEndVideo: () -> () = {}
     var speed : Float = 1
     override init(){
         
@@ -86,7 +86,6 @@ class VideoMediaInput: NSObject, ObservableObject {
         playerItemObserver = playerItem.observe(\.status) { [weak self] item, _ in
             guard item.status == .readyToPlay else { return }
             self?.playerItemObserver = nil
-            self?.player.play()
             self?.player.currentItem?.audioTimePitchAlgorithm = .timeDomain
             self?.player.rate = self!.speed
         }

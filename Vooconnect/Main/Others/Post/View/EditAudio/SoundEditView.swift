@@ -29,7 +29,7 @@ struct SoundEditView: View {
     @State var cameraModel = CameraViewModel()
 //    var soundsViewBloc = SoundsViewBloc(SoundsViewBlocState())
 //    var pickSong : (DeezerSongModel) -> () = {val in}
-    @Binding var speed: Float
+    var speed: Float?
     var callWhenBack : () -> ()
     
     var btnBack : some View { Button(action: {
@@ -70,7 +70,7 @@ struct SoundEditView: View {
 //                    let isImage = !(url!.absoluteString.lowercased().contains(".mp4") || url!.absoluteString.lowercased().contains(".mov"))
                     RoundedRectangle(cornerRadius: 20)
                         .overlay(
-                            MyVideoPlayerView(playerVM: playerVM, audioPlayerVM: audioPlayerVM, speed: $speed)
+                            MyVideoPlayerView(playerVM: playerVM, audioPlayerVM: audioPlayerVM, speed: speed)
                                 .mask(RoundedRectangle(cornerRadius: 20))
                         )
                         .frame(width: width, height: height)
@@ -125,7 +125,7 @@ struct SoundEditView: View {
                 }
             }
         .onAppear {
-            playerVM.player.rate = speed
+            playerVM.player.rate = speed!
             self.playerVM.isPlaying = true
             self.audioPlayerVM.isPlaying = true
         }

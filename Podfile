@@ -8,8 +8,8 @@ target 'Vooconnect' do
   # Pods for Vooconnect
 
 	pod 'TwitterKit5'
-	pod 'FBSDKCoreKit'
- 	pod 'FBSDKLoginKit'
+	pod 'FBSDKCoreKit', '~> 16.2.1'
+ 	pod 'FBSDKLoginKit', '~> 16.2.1'
  	pod 'FBSDKShareKit'
 	pod 'RealmSwift'
 	pod "Regift"

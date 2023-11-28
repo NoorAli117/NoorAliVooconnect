@@ -12,7 +12,7 @@ struct MyVideoPlayerView: View {
     @ObservedObject var playerVM: PlayerViewModel
     @ObservedObject var audioPlayerVM: AudioPlayerViewModel
     @State private var isMuted = false
-    @Binding var speed: Float
+    var speed: Float?
     var filter_hex: String?
     var body: some View {
         ZStack {
@@ -28,7 +28,7 @@ struct MyVideoPlayerView: View {
                 playerVM.player.pause()
                 audioPlayerVM.player.pause()
             }else{
-                playerVM.player.rate = speed
+                playerVM.player.rate = speed!
                 playerVM.player.play()
                 audioPlayerVM.player.play()
             }

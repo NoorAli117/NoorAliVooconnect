@@ -11,7 +11,7 @@ import AVKit
 struct AllMediaView: View {
     
     @Environment(\.presentationMode) var presentaionMode
-    
+    @Binding var popToFinalView : Bool
     @State private var all: Bool = true
     @State private var videos: Bool = false
     @State private var photos: Bool = false
@@ -42,10 +42,11 @@ struct AllMediaView: View {
                     
                     
                     if let url = URL(string: previewURL){
-                        NavigationLink(destination: FinalPreview(controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, url: .constant(url))
+                        NavigationLink(destination: FinalPreview(popToFinalView: $popToFinalView, controller: FinalPreviewController(url: url, speed: cameraModel.speed), songModel: cameraModel.songModel, speed: 1, videoURL: url)
                             .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $preview) {
                                 EmptyView()
                             }
+                            .isDetailLink(false)
                     }
                     
 //                    if(imagePicker.selectedAsset != nil )
@@ -519,8 +520,9 @@ struct AllMediaView: View {
 
 
 
-    func resizeVideo(url: URL, size: CGSize) {
+    func resizeVideo(url: URL) {
         // Input URL of the original video
+        let size = UIScreen.main.bounds.size
         print("new size will be: \(size)")
         
         // Output URL for the resized video in the Documents directory
@@ -547,9 +549,9 @@ struct AllMediaView: View {
     
     func processAsset(_ asset: Asset) {
         let url = asset.url
-        if url.pathExtension == "mp4" || url.pathExtension == "mov"{
+        if url.pathExtension == "mp4" || url.pathExtension == "mov" || url.pathExtension == "MP4" || url.pathExtension == "MOV"{
             print(url)
-            resizeVideo(url: url, size: CGSize(width: 375.0, height: 812.0))
+            resizeVideo(url: url)
         } else {
             print(url)
             if let data = try? Data(contentsOf: url),
