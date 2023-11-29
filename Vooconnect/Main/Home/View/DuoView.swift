@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 import SwiftUI
-//import FFmpeg
+import FFmpeg_iOS
 
 struct DuoView: View{
     
@@ -203,7 +203,7 @@ struct DuoView: View{
                         
                         
                         VStack(alignment: .leading) {
-                            if !Vm.bottomHide {
+                            if !effectsSheet {
                                 Button {
                                     Vm.isVideo = true
                                     clickPhoto = false
@@ -362,19 +362,21 @@ struct DuoView: View{
                 
                 HStack {
                     
-                    Button {
-                        photos.toggle()
-                    } label: {
-                        Image("UploadGalery")
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        Vm.bottomHide = true
-                        effectsSheet.toggle()
-                    } label: {
-                        Image("CameraEffact")
+                    if !effectsSheet{
+                        Button {
+                            photos.toggle()
+                        } label: {
+                            Image("UploadGalery")
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            Vm.bottomHide = true
+                            effectsSheet.toggle()
+                        } label: {
+                            Image("CameraEffact")
+                        }
                     }
                     
                     
@@ -390,6 +392,7 @@ struct DuoView: View{
                     if #available(iOS 16.0, *) {
                         EffectsSheets(Vm: Vm)
                             .presentationDetents([.large,.medium,.height(300)])
+                            .background(Color.clear) // Set the background color to clear
                     } else {
                         // Fallback on earlier versions
                     }

@@ -33,6 +33,21 @@ class FilterCollectionView: ARGBottomFunctionBaseCollectionView {
         
         self.register(UINib(nibName: kFilterCellNibName, bundle: nil), forCellWithReuseIdentifier: kFilterCellIdentifier)
     }
+    func setFilter(filter: Item, indexPath: IndexPath){
+        FilterManager.shared.setFilter(filter, successBlock: { [weak self] in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.selectedIndexPath = indexPath
+                self.reloadData()
+            }
+        }) {
+        }
+    }
+    
+    func clearFilter(){
+        FilterManager.shared.clearFilter()
+    }
 
 }
 

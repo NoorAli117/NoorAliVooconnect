@@ -616,9 +616,12 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
                 Vm.isRecording = false
             }
             if Vm.selectFilter {
-                let indexPath = IndexPath(row: Vm.selectedFilterIndex, section: Vm.selectedFiltersection)
-//                vc.mainBottomFunctionView.filterView.filterCollectionView.selectFilter(at: indexPath)
+                vc.mainBottomFunctionView.filterView.filterCollectionView.setFilter(filter: Vm.filter, indexPath: Vm.selectedFilterIndex)
                 Vm.selectFilter = false
+            }
+            if Vm.clearFilter {
+                vc.mainBottomFunctionView.filterView.filterCollectionView.clearFilter()
+                Vm.clearFilter = false
             }
         }
     }
@@ -634,8 +637,9 @@ class ViewModel: ObservableObject {
     @Published var isPhoto = false
     @Published var isRecording = false
     @Published var bottomHide = false
+    @Published var clearFilter = false
+    @Published var filter: Item = Item()
     @Published var selectFilter = false
-    @Published var selectedFilterIndex = 0
-    @Published var selectedFiltersection = 0
+    @Published var selectedFilterIndex: IndexPath = IndexPath(row: 0, section: 0)
     @Published var categories = [Category]()
 }
