@@ -978,10 +978,11 @@ struct CustomeCameraHome: View {
                     .padding(.bottom,30)
                     
                     Button {
-                        countdownTimer = 3
-                        cameraModel.recordedDuration = 0
-                        cameraModel.previewURL = nil
-                        cameraModel.recordedURLs.removeAll()
+//                        countdownTimer = 3
+//                        cameraModel.recordedDuration = 0
+//                        cameraModel.previewURL = nil
+//                        cameraModel.recordedURLs.removeAll()
+                        previewURL = ""
                     } label: {
                         Image(systemName: "xmark")
                             .font(.title)

@@ -25,7 +25,6 @@ typedef struct ARGMediaSaveBlock {
 
 typedef NS_ENUM(NSInteger, ARGMediaRatio) {
     ARGMediaRatio_16x9,
-    ARGMediaRatio_9x9,
     ARGMediaRatio_4x3,
     ARGMediaRatio_1x1,
 };

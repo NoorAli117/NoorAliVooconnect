@@ -32,352 +32,354 @@ struct CustomShareSheet: View{
     @Binding var isDuo: Bool
     @Binding var repost: Bool
     @State private var videoUrl: String?
+    @State private var savedVideoURL: String?
+    var callback: (String) -> Void
     @State private var app: UIApplication? = UIApplication.shared
-//    @Binding var isSuccess: Bool
+    @StateObject var duoResource = DuoResource()
     
     
     var documentInteractionController: UIDocumentInteractionController!
     
     
     var body: some View{
-        NavigationView{
-            ScrollView{
-                VStack(alignment: .center, spacing: 30) {
-                    VStack{
-                        Text("Share to")
-                            .foregroundColor(Color("Black"))
-                            .font(.custom("Urbanist-Bold", size: 24))
-                            .padding(.top, 10) // Add padding to separate it from the top
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    // Add a divider between the first and second column
-                    Divider().frame(height: 1).background(Color.gray).opacity(0.3)
-                    
-                    HStack(spacing: 30) {
-                        Button(action: {
-                            shareSheet = false
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                repost.toggle()
-                                print("repost")
-                            }
-                        }){
-                            VStack {
-                                Image("RepostS")
-                                Text("Repost")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
+        ScrollView{
+            VStack(alignment: .center, spacing: 30) {
+                VStack{
+                    Text("Share to")
+                        .foregroundColor(Color("Black"))
+                        .font(.custom("Urbanist-Bold", size: 24))
+                        .padding(.top, 10) // Add padding to separate it from the top
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                // Add a divider between the first and second column
+                Divider().frame(height: 1).background(Color.gray).opacity(0.3)
+                
+                HStack(spacing: 30) {
+                    Button(action: {
+                        shareSheet = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                            repost.toggle()
+                            print("repost")
                         }
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 0)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    // Add a divider between the first and second column
-                    Divider().frame(height: 1).background(Color.gray).opacity(0.3)
-                    HStack(alignment: .top, spacing: 30) {
-                        Button(action: {
-                            guard let videoURL = URL(string: getImageVideoBaseURL + "/marked" + reelURL) else {
-                                print("Invalid video URL")
-                                return
-                            }
-                            let videoURLWithoutProtocol = videoURL.absoluteString.replacingOccurrences(of: "https://", with: "")
-                            if let url = URL(string: "https://wa.me/?text=\(videoURLWithoutProtocol)"),
-                                UIApplication.shared.canOpenURL(url) {
-                                print("Opening WhatsApp with message: \(reelDescription)%20\(videoURLWithoutProtocol)")
-                                print("url is \(url)")
-                                UIApplication.shared.open(url, options: [:])
-                            } else {
-                                print("WhatsApp is not installed on this device")
-                            }
-                            shareSheet = false
-                        }) {
-                            VStack {
-                                Image("WhatsAppS")
-                                Text("WhatsApp")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                        Button(action: {
-                            downloadVideo(reelURL: reelURL)
-                        }) {
-                            VStack {
-                                Image("TwitterS")
-                                Text("Twitter")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                        Button(action: {
-                            guard let videoURL = URL(string: getImageVideoBaseURL + "/marked" + reelURL) else {
-                                print("Invalid video URL")
-                                return
-                            }
-                            shareSheet = false
-                            let videoURLWithoutProtocol = videoURL.absoluteString.replacingOccurrences(of: "https://", with: "")
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                shareToFacebook(videoURL: videoURL, description: videoURLWithoutProtocol)
-                            }
-
-                        }) {
-                            VStack {
-                                Image("FacebookS")
-                                Text("Facebook")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                        Button(action: {
-                            
-                        }){
-                            VStack {
-                                Image("InstaS")
-                                Text("Instagram")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
+                    }){
+                        VStack {
+                            Image("RepostS")
+                            Text("Repost")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
                         }
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 0)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    
-                    HStack(alignment: .top, spacing: 30) {
-                        Button(action: {
-                            
-                        }){
-                            VStack {
-                                Image("YahooS")
-                                Text("Yahoo")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 0)
+                .frame(maxWidth: .infinity, alignment: .center)
+                // Add a divider between the first and second column
+                Divider().frame(height: 1).background(Color.gray).opacity(0.3)
+                HStack(alignment: .top, spacing: 30) {
+                    Button(action: {
+                        guard let videoURL = URL(string: getImageVideoBaseURL + "/marked" + reelURL) else {
+                            print("Invalid video URL")
+                            return
                         }
-                        Button(action: {
-                            
-                        }){
-                            VStack {
-                                Image("ChatS")
-                                Text("Chat")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
+                        let videoURLWithoutProtocol = videoURL.absoluteString.replacingOccurrences(of: "https://", with: "")
+                        if let url = URL(string: "https://wa.me/?text=\(videoURLWithoutProtocol)"),
+                           UIApplication.shared.canOpenURL(url) {
+                            print("Opening WhatsApp with message: \(reelDescription)%20\(videoURLWithoutProtocol)")
+                            print("url is \(url)")
+                            UIApplication.shared.open(url, options: [:])
+                        } else {
+                            print("WhatsApp is not installed on this device")
                         }
-                        Button(action: {
-                            
-                        }){
-                            VStack {
-                                Image("WeChatS")
-                                Text("WeChat")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                        Button(action: {
-                            
-                        }){
-                            VStack {
-                                Image("SlackS")
-                                Text("Slack")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
+                        shareSheet = false
+                    }) {
+                        VStack {
+                            Image("WhatsAppS")
+                            Text("WhatsApp")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
                         }
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 0)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    
-                    // Add a divider between the first and second column
-                    Divider().frame(height: 1).background(Color.gray).opacity(0.3)
-                    
-                    HStack(alignment: .top, spacing: 30) {
-                        Button(action: {
-                            shareSheet = false
-                            bottomSheetReport = true
-                        }){
-                            VStack {
-                                Image("ReportS")
-                                Text("Report")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
+                    Button(action: {
+                        downloadVideo(reelURL: reelURL)
+                    }) {
+                        VStack {
+                            Image("TwitterS")
+                            Text("Twitter")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        guard let videoURL = URL(string: getImageVideoBaseURL + "/marked" + reelURL) else {
+                            print("Invalid video URL")
+                            return
+                        }
+                        shareSheet = false
+                        let videoURLWithoutProtocol = videoURL.absoluteString.replacingOccurrences(of: "https://", with: "")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                            shareToFacebook(videoURL: videoURL, description: videoURLWithoutProtocol)
+                        }
+                        
+                    }) {
+                        VStack {
+                            Image("FacebookS")
+                            Text("Facebook")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        
+                    }){
+                        VStack {
+                            Image("InstaS")
+                            Text("Instagram")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 0)
+                .frame(maxWidth: .infinity, alignment: .center)
+                
+                HStack(alignment: .top, spacing: 30) {
+                    Button(action: {
+                        
+                    }){
+                        VStack {
+                            Image("YahooS")
+                            Text("Yahoo")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        
+                    }){
+                        VStack {
+                            Image("ChatS")
+                            Text("Chat")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        
+                    }){
+                        VStack {
+                            Image("WeChatS")
+                            Text("WeChat")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        
+                    }){
+                        VStack {
+                            Image("SlackS")
+                            Text("Slack")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 0)
+                .frame(maxWidth: .infinity, alignment: .center)
+                
+                // Add a divider between the first and second column
+                Divider().frame(height: 1).background(Color.gray).opacity(0.3)
+                
+                HStack(alignment: .top, spacing: 30) {
+                    Button(action: {
+                        shareSheet = false
+                        bottomSheetReport = true
+                    }){
+                        VStack {
+                            Image("ReportS")
+                            Text("Report")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        likeVM.notInterested(postId: postID){ success in
+                            if success == true{
+                                shareSheet = false
+                                isShowPopup = true
+                                showMessagePopup(messages: "Video Not Interested")
+                            }else{
+                                isShowPopup = true
+                                showMessagePopup(messages: "Failed")
                             }
                         }
-                        Button(action: {
-                            likeVM.notInterested(postId: postID){ success in
-                                if success == true{
-                                    shareSheet = false
+                    }){
+                        VStack {
+                            Image("NotInterestedS")
+                            Text("Not Interested")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                                .lineLimit(0)
+                        }
+                    }
+                    Button(action: {
+                        isSaveVideo = true
+                        shareSheet = false
+                        isShowPopup = true
+                        showMessagePopup(messages: "Saving Video...")
+                        let urll = getImageVideoBaseURL + "/marked" + reelURL
+                        if let videoURL = URL(string: urll){
+                            DispatchQueue.main.async {
+                                downloader.downloadVideo(url: videoURL) { downloadedURL in
+                                    if downloadedURL == true {
+                                        isSaveVideo = false
+                                        isShowPopup = true
+                                        showMessagePopup(messages: "Video Saved")
+                                    }
+                                }
+                            }
+                        }
+                    }){
+                        VStack {
+                            Image("SaveVideoS")
+                            Text("Save Video")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        shareSheet = false
+                        isShowPopup = true
+                        showMessagePopup(messages: "Saving Image...")
+                        let urll = getImageVideoBaseURL + "/marked" + reelURL
+                        let videoURL = URL(string: urll)! // Replace with your video URL
+                        DispatchQueue.main.async {
+                            downloader.saveImageToPhotos(url: videoURL) { success in
+                                if success == true {
                                     isShowPopup = true
-                                    showMessagePopup(messages: "Video Not Interested")
+                                    showMessagePopup(messages: "Image Saved")
                                 }else{
                                     isShowPopup = true
-                                    showMessagePopup(messages: "Failed")
+                                    showMessagePopup(messages: "Failed to Save Image")
                                 }
-                            }
-                        }){
-                            VStack {
-                                Image("NotInterestedS")
-                                Text("Not Interested")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                                    .lineLimit(0)
                             }
                         }
-                        Button(action: {
-                            isSaveVideo = true
-                            shareSheet = false
-                            isShowPopup = true
-                            showMessagePopup(messages: "Saving Video...")
-                            let urll = getImageVideoBaseURL + "/marked" + reelURL
-                            if let videoURL = URL(string: urll){
-                                DispatchQueue.main.async {
-                                    downloader.downloadVideo(url: videoURL) { downloadedURL in
-                                        if downloadedURL == true {
-                                            isSaveVideo = false
-                                            isShowPopup = true
-                                            showMessagePopup(messages: "Video Saved")
-                                        }
-                                    }
-                                }
-                            }
-                        }){
-                            VStack {
-                                Image("SaveVideoS")
-                                Text("Save Video")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                        Button(action: {
-                            shareSheet = false
-                            isShowPopup = true
-                            showMessagePopup(messages: "Saving Image...")
-                            let urll = getImageVideoBaseURL + "/marked" + reelURL
-                            let videoURL = URL(string: urll)! // Replace with your video URL
-                            DispatchQueue.main.async {
-                                downloader.saveImageToPhotos(url: videoURL) { success in
-                                    if success == true {
-                                        isShowPopup = true
-                                        showMessagePopup(messages: "Image Saved")
-                                    }else{
-                                        isShowPopup = true
-                                        showMessagePopup(messages: "Failed to Save Image")
-                                    }
-                                }
-                            }
-                        }){
-                            VStack {
-                                Image("SetasWallpaperS")
-                                Text("Set as Wallpaper")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                                    .lineLimit(0)
-                            }
+                    }){
+                        VStack {
+                            Image("SetasWallpaperS")
+                            Text("Set as Wallpaper")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                                .lineLimit(0)
                         }
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 0)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    
-                    HStack(alignment: .top, spacing: 30) {
-                        Button(action: {
-                            shareSheet = false
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 0)
+                .frame(maxWidth: .infinity, alignment: .center)
+                
+                HStack(alignment: .top, spacing: 30) {
+                    Button(action: {
+                        shareSheet = false
+                        saveVideo(){ success in
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                                 isDuo = true
                             }
-                        }){
-                            VStack {
-                                Image("DuoS")
-                                Text("Duo")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
                         }
-                        Button(action: {
-                            
-                        }){
-                            VStack {
-                                Image("KnitS")
-                                Text("Knit")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                        Button(action: {
-                            shareSheet = false
-                            let uuid = UserDefaults.standard.string(forKey: "uuid")
-                            likeVM.bookMarkDataModel.userUUID = uuid ?? ""
-                            likeVM.bookMarkDataModel.postID = postID
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                                likeVM.bookMarkApi(){successMessage, success in
-                                    if success == true {
-                                        if successMessage == "Post bookmarked."{
-                                            isShowPopup = true
-                                            showMessagePopup(messages: "Added to Favorites")
-                                        }else{
-                                            isShowPopup = true
-                                            showMessagePopup(messages: "Removed from Favorites")
-                                        }
-                                    }else{
-                                        isShowPopup = true
-                                        showMessagePopup(messages: "Network Error")
-                                    }
-                                }
-                            }
-                        }){
-                            VStack {
-                                Image("AddtoFavoritesS")
-                                Text("Add to Favorites")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                            }
-                        }
-                        Button(action: {
-                            isGifDownloading = true
-                            shareSheet = false
-                            let urll = getImageVideoBaseURL + "/marked" + reelURL
-                            let videoURL = URL(string: urll)!
-                            showMessagePopup(messages: "Saving GIF...")
-                            DispatchQueue.main.async {
-                                downloader.convertAndSaveVideoToGif(videoURL: videoURL){ success in
-                                    if success {
-                                        print("gif done")
-                                        isGifDownloading = false
-                                        showMessagePopup(messages: "GIF Saved")
-                                    }
-                                }
-                            }
-                        }){
-                            VStack {
-                                Image("ShareasaGifS")
-                                Text("Share as a Gif")
-                                    .font(.custom("Urbanist-Bold", size: 16))
-                                    .foregroundColor(Color.black)
-                                    .lineLimit(0)
-                            }
+                    }){
+                        VStack {
+                            Image("DuoS")
+                            Text("Duo")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
                         }
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 0)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    
+                    Button(action: {
+                        
+                    }){
+                        VStack {
+                            Image("KnitS")
+                            Text("Knit")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        shareSheet = false
+                        let uuid = UserDefaults.standard.string(forKey: "uuid")
+                        likeVM.bookMarkDataModel.userUUID = uuid ?? ""
+                        likeVM.bookMarkDataModel.postID = postID
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                            likeVM.bookMarkApi(){successMessage, success in
+                                if success == true {
+                                    if successMessage == "Post bookmarked."{
+                                        isShowPopup = true
+                                        showMessagePopup(messages: "Added to Favorites")
+                                    }else{
+                                        isShowPopup = true
+                                        showMessagePopup(messages: "Removed from Favorites")
+                                    }
+                                }else{
+                                    isShowPopup = true
+                                    showMessagePopup(messages: "Network Error")
+                                }
+                            }
+                        }
+                    }){
+                        VStack {
+                            Image("AddtoFavoritesS")
+                            Text("Add to Favorites")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                        }
+                    }
+                    Button(action: {
+                        isGifDownloading = true
+                        shareSheet = false
+                        let urll = getImageVideoBaseURL + "/marked" + reelURL
+                        let videoURL = URL(string: urll)!
+                        showMessagePopup(messages: "Saving GIF...")
+                        DispatchQueue.main.async {
+                            downloader.convertAndSaveVideoToGif(videoURL: videoURL){ success in
+                                if success {
+                                    print("gif done")
+                                    isGifDownloading = false
+                                    showMessagePopup(messages: "GIF Saved")
+                                }
+                            }
+                        }
+                    }){
+                        VStack {
+                            Image("ShareasaGifS")
+                            Text("Share as a Gif")
+                                .font(.custom("Urbanist-Bold", size: 16))
+                                .foregroundColor(Color.black)
+                                .lineLimit(0)
+                        }
+                    }
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 8)
-                .padding(.bottom, 48)
-                .frame(width: 428, alignment: .center)
-                .background(.white)
-
-                .cornerRadius(40)
-
-                .overlay(
-                RoundedRectangle(cornerRadius: 40)
-                .inset(by: 0.5)
-                .stroke(Color(red: 0.96, green: 0.96, blue: 0.96), lineWidth: 1)
-
-                )
+                .padding(.horizontal, 20)
+                .padding(.vertical, 0)
+                .frame(maxWidth: .infinity, alignment: .center)
+                
             }
+            .padding(.horizontal, 24)
+            .padding(.top, 8)
+            .padding(.bottom, 48)
+            .frame(width: 428, alignment: .center)
+            .background(.white)
+            
+            .cornerRadius(40)
+            
+            .overlay(
+                RoundedRectangle(cornerRadius: 40)
+                    .inset(by: 0.5)
+                    .stroke(Color(red: 0.96, green: 0.96, blue: 0.96), lineWidth: 1)
+                
+            )
         }
         
         
@@ -418,6 +420,19 @@ struct CustomShareSheet: View{
         }
         
         task.resume()
+    }
+    
+    func saveVideo(completion: @escaping (Bool) -> Void){
+        if let videoURL = URL(string: getImageVideoBaseURL + reelURL){
+            DispatchQueue.main.async {
+                duoResource.downloadVideo(url: videoURL) { downloadedURL in
+                    self.savedVideoURL = downloadedURL!.absoluteString
+                    print("savedVideo: \(savedVideoURL)")
+                    callback(downloadedURL!.absoluteString)
+                    completion(true)
+                }
+            }
+        }
     }
     
     private func shareVideoToWhatsApp(videoUrl: String) {

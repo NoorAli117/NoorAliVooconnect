@@ -154,9 +154,11 @@
 		7C0CBFD72ADEB4E600F63253 /* face.scn in Resources */ = {isa = PBXBuildFile; fileRef = 7C0CBFD62ADEB4E600F63253 /* face.scn */; };
 		7C33645C2B0F38B2006BE3D0 /* audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C33645B2B0F38B1006BE3D0 /* audio.mp3 */; };
 		7C4F0DCB2AFE4FD0007B4DA4 /* LocationFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F0DCA2AFE4FCF007B4DA4 /* LocationFinder.swift */; };
+		7CB079092B18733B006D71B2 /* FFmpeg-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 7CB079082B18733B006D71B2 /* FFmpeg-iOS */; };
+		7CB0790B2B18733B006D71B2 /* ffmpeg-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 7CB0790A2B18733B006D71B2 /* ffmpeg-ios */; };
+		7CB0790D2B187C76006D71B2 /* DuoResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB0790C2B187C76006D71B2 /* DuoResource.swift */; };
 		7CDDFB722B061A33000CD98F /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDDFB712B061A33000CD98F /* SoundsView.swift */; };
 		7CDF53932B15286C000B048D /* AudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF53922B15286C000B048D /* AudioPlayerViewModel.swift */; };
-		7CDF53952B1759FB000B048D /* FFmpeg-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 7CDF53942B1759FB000B048D /* FFmpeg-iOS */; };
 		8432BB4B2ABED52E00E91F62 /* RatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAF72ABED52D00E91F62 /* RatioView.swift */; };
 		8432BB4C2ABED52E00E91F62 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAF82ABED52D00E91F62 /* SplashView.swift */; };
 		8432BB4D2ABED52E00E91F62 /* PreviewBottomFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432BAFA2ABED52D00E91F62 /* PreviewBottomFunctionView.swift */; };
@@ -629,6 +631,7 @@
 		7C0CBFD62ADEB4E600F63253 /* face.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = face.scn; path = Vooconnect/Face.scnassets/face.scn; sourceTree = "<group>"; };
 		7C33645B2B0F38B1006BE3D0 /* audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio.mp3; sourceTree = "<group>"; };
 		7C4F0DCA2AFE4FCF007B4DA4 /* LocationFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFinder.swift; sourceTree = "<group>"; };
+		7CB0790C2B187C76006D71B2 /* DuoResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoResource.swift; sourceTree = "<group>"; };
 		7CDDFB712B061A33000CD98F /* SoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsView.swift; sourceTree = "<group>"; };
 		7CDF53922B15286C000B048D /* AudioPlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewModel.swift; sourceTree = "<group>"; };
 		8432BAF72ABED52D00E91F62 /* RatioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatioView.swift; sourceTree = "<group>"; };
@@ -970,12 +973,13 @@
 				049F4BC229BBB57500113EA0 /* KeychainAccess in Frameworks */,
 				049F4BBC29BBB54300113EA0 /* SDWebImageSwiftUI in Frameworks */,
 				A958B65E2923B82100FE16EA /* CountryPicker in Frameworks */,
-				7CDF53952B1759FB000B048D /* FFmpeg-iOS in Frameworks */,
+				7CB079092B18733B006D71B2 /* FFmpeg-iOS in Frameworks */,
 				503A8F4B29E59C880035135D /* AgoraVideoSwiftUI in Frameworks */,
 				502C133229D57BE300FB0577 /* AgoraBroadcastExtensionHelper in Frameworks */,
 				1064AC6E2A2F6CCD00DFF2BB /* ARGear.framework in Frameworks */,
 				502C133429D57BE300FB0577 /* AgoraUIKit in Frameworks */,
 				049F4BBF29BBB55B00113EA0 /* Swinject in Frameworks */,
+				7CB0790B2B18733B006D71B2 /* ffmpeg-ios in Frameworks */,
 				04E25F272A3CE1F70074D0E3 /* Kingfisher in Frameworks */,
 				9DB61B7F668C5A90B13AF9D4 /* Pods_Vooconnect.framework in Frameworks */,
 			);
@@ -2466,6 +2470,7 @@
 			children = (
 				A98201EE293B0A9A0055CAFD /* ReelsResource.swift */,
 				A9EFE512294D6DC200211382 /* ReelsLikeResource.swift */,
+				7CB0790C2B187C76006D71B2 /* DuoResource.swift */,
 			);
 			path = ReelsResource;
 			sourceTree = "<group>";
@@ -2935,7 +2940,8 @@
 				0435B93B2A3CDE2E00AEDC57 /* NavigationStack */,
 				04E25F262A3CE1F70074D0E3 /* Kingfisher */,
 				04E25F292A3CE33B0074D0E3 /* WrappingHStack */,
-				7CDF53942B1759FB000B048D /* FFmpeg-iOS */,
+				7CB079082B18733B006D71B2 /* FFmpeg-iOS */,
+				7CB0790A2B18733B006D71B2 /* ffmpeg-ios */,
 			);
 			productName = Vooconnect;
 			productReference = A9785F9E2911102D00F19ADD /* Vooconnect.app */;
@@ -3249,6 +3255,7 @@
 				AB37595E29D4A3FE000D0A2D /* TypeOfSoundFilter.swift in Sources */,
 				04C1D5F929BBC42000284F72 /* ForgotPasswordValidation.swift in Sources */,
 				8432BB5F2ABED52E00E91F62 /* BeautyView.swift in Sources */,
+				7CB0790D2B187C76006D71B2 /* DuoResource.swift in Sources */,
 				A954C303294B281D000176FF /* FiltersSheet.swift in Sources */,
 				A9466AD029599C2300E7CB52 /* SendSheet.swift in Sources */,
 				049F4BD729BBB61F00113EA0 /* NetworkAuthenticationModel.swift in Sources */,
@@ -3950,10 +3957,15 @@
 			package = 502C132B29D579EA00FB0577 /* XCRemoteSwiftPackageReference "AgoraVideoSwiftUI" */;
 			productName = AgoraVideoSwiftUI;
 		};
-		7CDF53942B1759FB000B048D /* FFmpeg-iOS */ = {
+		7CB079082B18733B006D71B2 /* FFmpeg-iOS */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7C0CBFD92ADED31100F63253 /* XCRemoteSwiftPackageReference "FFmpeg-iOS" */;
 			productName = "FFmpeg-iOS";
+		};
+		7CB0790A2B18733B006D71B2 /* ffmpeg-ios */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7C0CBFD92ADED31100F63253 /* XCRemoteSwiftPackageReference "FFmpeg-iOS" */;
+			productName = "ffmpeg-ios";
 		};
 		A958B65D2923B82100FE16EA /* CountryPicker */ = {
 			isa = XCSwiftPackageProductDependency;

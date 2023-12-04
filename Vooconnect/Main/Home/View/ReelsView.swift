@@ -357,6 +357,7 @@ struct ReelsPlyer: View {
     @State private var image: UIImage?
     
     @State private var urll: String = ""
+    @State private var duoVideo: String = ""
     @State private var tapCount = 0
     @State private var singleTapTimer: Timer?
     @State private var showHeartAnimation = false
@@ -384,10 +385,10 @@ struct ReelsPlyer: View {
         
         ZStack {
             
-            NavigationLink(destination: DuoView(videoUrl: $urll)  //SearchView
-                .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $isDuo) {
+            NavigationLink(destination: DuoView(videoUrl: duoVideo, audioUrl: reelsDetail.musicURL!, popToFinalView: $isDuo), isActive: $isDuo) {
                     EmptyView()
                 }
+                .isDetailLink(false)
             
             NavigationLink(destination: MusicView(reelId: $selectedReelId, userUUid: postedBy, cameraView: $cameraView, musicURL: $musicURL)
                 .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $musicView) {
@@ -1128,7 +1129,10 @@ struct ReelsPlyer: View {
             
         } content: {
             if #available(iOS 16.0, *) {
-                CustomShareSheet(reelURL: $urll, reelDescription: $reelDescription, postID: $postID, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport, isShowPopup: $isShowPopup, message: $message, isDuo: $isDuo, repost: $repost)
+                CustomShareSheet(reelURL: $urll, reelDescription: $reelDescription, postID: $postID, shareSheet: $shareSheet, isSaveVideo: $isDownloading, isGifDownloading: $isGifDownloading, bottomSheetReport: $bottomSheetReport, isShowPopup: $isShowPopup, message: $message, isDuo: $isDuo, repost: $repost, callback: { sharedURL in
+                    print("Shared URL: \(sharedURL)")
+                    self.duoVideo = sharedURL
+                })
                     .presentationDetents([.large,.medium,.height(900)])
             } else {
                 // Fallback on earlier versions

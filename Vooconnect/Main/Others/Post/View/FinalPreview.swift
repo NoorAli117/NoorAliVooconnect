@@ -878,7 +878,6 @@ struct FinalPreview: View{
     func contentView(size:CGSize) -> some View{
         return ZStack(alignment:.center){
             VideoPlayer(player: controller.videoPlayer.player)
-                .aspectRatio(contentMode: .fill)
                 .frame(width: size.width, height: size.height)
         }
         .background {

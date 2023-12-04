@@ -72,7 +72,6 @@ class FinalPreviewController :  NSObject , ObservableObject , AVAudioPlayerDeleg
                 self.audioPlayer.player.pause()
             }
         }
-        isPlaying = true
     }
     
     ///Pause video from [videoPlayer] player
