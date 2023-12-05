@@ -53,6 +53,7 @@ struct DuoView: View{
     @State private var filersSheet: Bool = false
     @State private var beautySheet: Bool = false
     @State private var effectsSheet: Bool = false
+    @State private var filtersSheet: Bool = false
     @State private var isShowPopup: Bool = false
     @State private var previewURL: String = ""
     @State private var duoVideoURL: String = ""
@@ -442,10 +443,22 @@ struct DuoView: View{
                                             .padding(.bottom, -5)
                                         Button {
                                             print("Beauty2===========")
-                                            Vm.openBeauty = true
+                                            effectsSheet = true
                                             Vm.bottomHide = true
                                         } label: {
                                             Image("Beauty2")
+                                        }
+                                        // filters
+                                        .blurredSheet(.init(.clear), show: $effectsSheet) {
+                                            
+                                        } content: {
+                                            if #available(iOS 16.0, *) {
+                                                BeautySheet()
+                                                    .presentationDetents([.large,.medium,.height(150)])
+                                                    .background(Color.clear)
+                                            } else {
+                                                // Fallback on earlier versions
+                                            }
                                         }
                                         
                                     }
@@ -491,7 +504,7 @@ struct DuoView: View{
                     
                     
                     VStack(alignment: .leading) {
-                        if !effectsSheet {
+                        if !filtersSheet {
                             Button {
                                 Vm.isVideo = true
                                 clickPhoto = false
@@ -618,7 +631,6 @@ struct DuoView: View{
                                 // Preview Button
                                 if(previewURL != "") {
                                     Button {
-                                        
                                         self.mergeVideo()
                                     } label: {
                                         Group{
@@ -696,7 +708,7 @@ struct DuoView: View{
             
             HStack {
                 
-                if !effectsSheet{
+                if !filtersSheet{
                     Button {
                         photos.toggle()
                     } label: {
@@ -707,7 +719,7 @@ struct DuoView: View{
                     
                     Button {
                         Vm.bottomHide = true
-                        effectsSheet.toggle()
+                        filtersSheet.toggle()
                     } label: {
                         Image("CameraEffact")
                     }
@@ -719,14 +731,14 @@ struct DuoView: View{
             .padding(.horizontal)
             .padding(.bottom, 5)
             
-            // Effects
-            .blurredSheet(.init(.clear), show: $effectsSheet) {
+            // filters
+            .blurredSheet(.init(.clear), show: $filtersSheet) {
                 
             } content: {
                 if #available(iOS 16.0, *) {
-                    EffectsSheets(Vm: Vm)
-                        .presentationDetents([.large,.medium,.height(300)])
-                        .background(Color.clear) // Set the background color to clear
+                    FiltersSheet(Vm: Vm)
+                        .presentationDetents([.large,.medium,.height(150)])
+                        .background(Color.clear)
                 } else {
                     // Fallback on earlier versions
                 }
@@ -758,7 +770,7 @@ struct DuoView: View{
     }
     
     func mergeVideo(){
-        let video1URL = URL(string: savedVideo)
+        let video1URL = URL(string: videoUrl)
         let video2URL = URL(string: newVideoUrl)!
         let audioUrl = URL(string: musicURL)
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

@@ -9,264 +9,98 @@ import SwiftUI
 import UIKit
 
 struct FiltersSheet: View {
-    //    typealias UIViewType = MyView
-    
-    @State private var portrait: Bool = true
-    @State private var landscape: Bool = false
-    @State private var food: Bool = false
-    @State private var vibe: Bool = false
-    @State var isPresented = false
-    @ObservedObject var cameraModel: CameraViewModel
-    
-//    @State var filters: [Item]
+    @State private var trending: Bool = true
+    @State private var new: Bool = false
+    @ObservedObject var Vm: ViewModel
+    @State private var selectedCategoryIndex = 0
+    @State private var sheetHeight: CGFloat = 150
     
     var body: some View {
-        VStack {
-            
-            Text("Filters")
-                .font(.custom("Urbanist-Bold", size: 24))
-                .padding(.top, 30)
-            
-            ScrollView(.horizontal) {
-                
-                // All Button
+        GeometryReader { geometry in
+            VStack {
+                Spacer()
                 HStack {
-                    
-                    Image("cutF")
-                    Image("SearchF")
-                    Image("SavedF")
-                    
-                    HStack(spacing: 20) {
-                        
-                        Button {
-                            portrait = true
-                            landscape = false
-                            food = false
-                            vibe = false
-                        } label: {
-                            VStack {
-                                Text("Portrait")
-                                    .font(.custom("Urbanist-SemiBold", size: 18))
-                                    .foregroundStyle( portrait ?
-                                                      LinearGradient(colors: [
-                                                        Color("buttionGradientTwo"),
-                                                        Color("buttionGradientOne"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
-                                                        Color("gray"),
-                                                        Color("gray"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    )
-                                
-                                
-                                ZStack {
-                                    if portrait {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.horizontal, -5)
-                                            .frame(height: 4)
-                                    } else {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("grayOne"),
-                                                    Color("grayOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.trailing, -18)
-                                            .frame(height: 2)
-                                    }
+                    Button(action: {
+                        Vm.clearFilter = true
+                        selectedCategoryIndex = 0
+                    }) {
+                        HStack {
+                            Image("cutF")
+                                .resizable()
+                                .foregroundColor(Color.gray)
+                        }
+                        .frame(width: 24, height: 24)
+                    }
+                    HStack(spacing: 16) {
+                        ForEach(0..<Vm.categories.count, id: \.self) { index in
+                            Button(action: {
+                                selectedCategoryIndex = index
+                            }) {
+                                HStack {
+                                    Text(Vm.categories[index].title!)
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.gray)
                                 }
-                                .padding(.top, -5)
+                                .padding()
                             }
-                        }
-                        
-                        Button {
-                            portrait = false
-                            landscape = true
-                            food = false
-                            vibe = false
-                        } label: {
-                            VStack {
-                                Text("Landscape")
-                                    .font(.custom("Urbanist-SemiBold", size: 18))
-                                    .foregroundStyle( landscape ?
-                                                      LinearGradient(colors: [
-                                                        Color("buttionGradientTwo"),
-                                                        Color("buttionGradientOne"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
-                                                        Color("gray"),
-                                                        Color("gray"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    )
-                                
-                                ZStack {
-                                    if landscape {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.horizontal, -5)
-                                            .frame(height: 4)
-                                    } else {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("grayOne"),
-                                                    Color("grayOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.leading, -15)
-                                            .padding(.trailing, -40)
-                                            .frame(height: 2)
-                                    }
-                                }
-                                .padding(.top, -5)
-                            }
-                        }
-                        
-                        Button {
-                            portrait = false
-                            landscape = false
-                            food = true
-                            vibe = false
-                        } label: {
-                            VStack {
-                                Text("Food")
-                                    .font(.custom("Urbanist-SemiBold", size: 18))
-                                    .foregroundStyle( food ?
-                                                      LinearGradient(colors: [
-                                                        Color("buttionGradientTwo"),
-                                                        Color("buttionGradientOne"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
-                                                        Color("gray"),
-                                                        Color("gray"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    )
-                                
-                                
-                                ZStack {
-                                    if food {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.horizontal, -5)
-                                            .frame(height: 4)
-                                    } else {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("grayOne"),
-                                                    Color("grayOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.leading, -16)
-                                            .padding(.trailing, -20)
-                                            .frame(height: 2)
-                                    }
-                                }
-                                .padding(.top, -5)
-                            }
-                        }
-                        
-                        Button {
-                            portrait = false
-                            landscape = false
-                            food = false
-                            vibe = true
-                        } label: {
-                            VStack {
-                                Text("Vibe")
-                                    .font(.custom("Urbanist-SemiBold", size: 18))
-                                    .foregroundStyle( vibe ?
-                                                      LinearGradient(colors: [
-                                                        Color("buttionGradientTwo"),
-                                                        Color("buttionGradientOne"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [
-                                                        Color("gray"),
-                                                        Color("gray"),
-                                                      ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                    )
-                                
-                                
-                                ZStack {
-                                    if vibe {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("buttionGradientTwo"),
-                                                    Color("buttionGradientOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.horizontal, -5)
-                                            .frame(height: 4)
-                                    } else {
-                                        Capsule()
-                                            .fill((
-                                                LinearGradient(colors: [
-                                                    Color("grayOne"),
-                                                    Color("grayOne"),
-                                                ], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                            ))
-                                            .padding(.leading, -15)
-                                            .padding(.trailing, -5)
-                                            .frame(height: 2)
-                                    }
-                                }
-                                .padding(.top, -5)                            }
-                        }
-                        
-                    } // Button HStack
-                    .padding(.leading, 8)
-                    
-                } // HStack
-                
-            } // ScrollView
-            .padding(.leading)
-            
-            ScrollView(showsIndicators: false) {
-                
-                LazyVGrid(columns: gridLayoutCF, alignment: .center, spacing: columnSpacingCF, pinnedViews: []) {
-                    Section()
-                    {
-                        ForEach(cameraModel.filterData?.categories ?? [] ,id: \.self) { category in
-                            ForEach(category.items ?? [] ,id: \.self) { item in
-                                FiltersList(filter: item)
+                            .onChange(of: selectedCategoryIndex) { newValue in
+                                trending = true
+                                new = false
                             }
                         }
                     }
-                    .sheet(isPresented: $isPresented) {
-                        FiltersList()
-                            .ignoresSafeArea()
-                        
-                    }
-                    
-                    //            ScrollView(showsIndicators: false) {
-                    //
-                    //                LazyVGrid(columns: gridLayoutCF, alignment: .center, spacing: columnSpacingCF, pinnedViews: []) {
-                    //                    Section()
-                    //                    {
-                    //                        ForEach(0..<8) { people in
-                    //                            FiltersList()
-                    //                        }
-                    //                    }
-                    //                }
-                    //                .padding(.top, 10)
-                    //            }
-                    
-                    
                 }
+                .gesture(
+                    DragGesture()
+                        .onChanged { gesture in
+                            if gesture.translation.width < -100 {
+                                if selectedCategoryIndex > 0 {
+                                    selectedCategoryIndex -= 1
+                                }
+                            }
+                        }
+                )
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 60))], spacing: 16) {
+                        ForEach(Array(Vm.categories[selectedCategoryIndex].items.enumerated()), id: \.element.uuid) { index, item in
+                            ZStack {
+                                VStack {
+                                    AsyncImage(url: URL(string: item.thumbnail ?? "")) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 50, height: 50)
+                                            .clipShape(Circle())
+                                    } placeholder: {
+                                        Image("EffectsImageE")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 50, height: 50)
+                                            .clipShape(Circle())
+                                    }
+                                }
+                                .frame(width: 50, height: 50)
+                                .accessibility(addTraits: .isButton)
+                                .onTapGesture {
+                                    Vm.filter = item
+                                    Vm.selectFilter = true
+                                    Vm.selectedFilterIndex = IndexPath(row: index, section: selectedCategoryIndex)
+                                }
+                                if Vm.selectedFilterIndex == IndexPath(row: index, section: selectedCategoryIndex) {
+                                    Image("icCheckFilter")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.top, 10)
+                }
+            }
+            .padding(.horizontal, 20)
+            .frame(height: sheetHeight)
+            .onAppear {
+                sheetHeight = UIScreen.main.bounds.height * 0.8
             }
         }
     }
