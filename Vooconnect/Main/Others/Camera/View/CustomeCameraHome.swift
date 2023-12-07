@@ -1022,6 +1022,8 @@ struct CustomeCameraHome: View {
                 .padding(.bottom, 5)
                 
                 .onAppear{
+                    let size = UIScreen.main.bounds.size
+                    Vm.cameraSize = size
                     timerRunning = false
                     cameraModel.stopSong()
 //                    useSong()

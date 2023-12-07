@@ -443,17 +443,18 @@ struct DuoView: View{
                                             .padding(.bottom, -5)
                                         Button {
                                             print("Beauty2===========")
-                                            effectsSheet = true
+                                            Vm.openBeautyy = true
+                                            beautySheet = true
                                             Vm.bottomHide = true
                                         } label: {
                                             Image("Beauty2")
                                         }
                                         // filters
-                                        .blurredSheet(.init(.clear), show: $effectsSheet) {
+                                        .blurredSheet(.init(.clear), show: $beautySheet) {
                                             
                                         } content: {
                                             if #available(iOS 16.0, *) {
-                                                BeautySheet()
+                                                BeautySheet(Vm: Vm)
                                                     .presentationDetents([.large,.medium,.height(150)])
                                                     .background(Color.clear)
                                             } else {
@@ -749,6 +750,8 @@ struct DuoView: View{
         //            .animation(.easeInOut, value: cameraModel.showPreview)
         .navigationBarHidden(true)
         .onAppear{
+            let size = UIScreen.main.bounds.size
+            Vm.cameraSize = CGSize(width: size.width/2, height: 300)
             player.replaceCurrentItem(with: AVPlayerItem(url: URL(string: videoUrl)!))
             Vm.isVideo = true
             if let songUrl = URL(string: "\(getImageVideoBaseURL + audioUrl)") {

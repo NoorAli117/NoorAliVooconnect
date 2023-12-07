@@ -50,6 +50,7 @@ public final class MainViewController: UIViewController {
     var senderButton: UIButton = UIButton()
     private var argObservers = [NSKeyValueObservation]()
     var Vm : ViewModel?
+    let size = UIScreen.main.bounds.size
     // MARK: - Lifecycles
     override public func viewDidLoad() {
       super.viewDidLoad()
@@ -277,7 +278,7 @@ public final class MainViewController: UIViewController {
             let angleTransform = CGAffineTransform(rotationAngle: .pi/2)
             let transform = angleTransform.concatenating(flipTransform)
             self.cameraPreviewCALayer.setAffineTransform(transform)
-            self.cameraPreviewCALayer.frame = CGRect(x: 0, y: -self.getPreviewY(), width: self.cameraPreviewCALayer.frame.size.width, height: self.cameraPreviewCALayer.frame.size.height)
+            self.cameraPreviewCALayer.frame = CGRect(x: 0, y: -self.getPreviewY(), width: (self.Vm?.cameraSize.width)!, height: (self.Vm?.cameraSize.height)!)
             self.view.backgroundColor = .white
             CATransaction.commit()
         }
@@ -623,11 +624,27 @@ struct MainViewRepresenter: UIViewControllerRepresentable {
                 vc.mainBottomFunctionView.filterView.filterCollectionView.clearFilter()
                 Vm.clearFilter = false
             }
+            if Vm.compareBeauty {
+                let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(vc.mainBottomFunctionView.beautyView.compareButtonLongPressAction(_:)))
+                vc.mainBottomFunctionView.beautyView.compareButton.addGestureRecognizer(longPressGesture)
+//                Vm.compareBeauty = false
+            }
+            if Vm.setBeauty{
+                let slider = UISlider()
+                slider.value = Float(Vm.sliderValue)
+                vc.mainBottomFunctionView.beautyView.sliderValue(slider)
+            }
+            if Vm.selectBeauty{
+                let updatedSliderValue = vc.mainBottomFunctionView.beautyView.beautyCollectionView.selectBeauty(indexPath: Vm.beautyIndexPath)
+                Vm.sliderValue = updatedSliderValue
+                Vm.selectBeauty = false
+            }
         }
     }
 }
 
 class ViewModel: ObservableObject {
+    @Published var cameraSize = CGSize(width: 0, height: 0)
     @Published var cameraChannge = false
     @Published var openFilter = false
     @Published var openBeauty = false
@@ -638,8 +655,15 @@ class ViewModel: ObservableObject {
     @Published var isRecording = false
     @Published var bottomHide = false
     @Published var clearFilter = false
-    @Published var filter: Item = Item()
     @Published var selectFilter = false
+    @Published var compareBeauty = false
+    @Published var selectBeauty = false
+    @Published var setBeauty = true
+    @Published var openBeautyy = false
+    @Published var sliderValue = 0.0
+    @Published var beautyIndex = 0
+    @Published var beautyIndexPath: IndexPath = IndexPath(row: 0, section: 0)
     @Published var selectedFilterIndex: IndexPath = IndexPath(row: 0, section: 0)
     @Published var categories = [Category]()
+    @Published var filter: Item = Item()
 }

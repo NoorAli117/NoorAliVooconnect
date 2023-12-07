@@ -8,11 +8,13 @@
 
 import UIKit
 import ARGear
+import SwiftUI
 
 class BeautyView: ARGBottomFunctionBaseView {
     
     let kBeautyViewCompareIconName = "icCompare"
     let kBeautyViewResetIconName = "icRefresh"
+    var Vm: ViewModel?
     
     @IBOutlet weak var slider: UISlider!
     
@@ -105,6 +107,40 @@ class BeautyView: ARGBottomFunctionBaseView {
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         BeautyManager.shared.setBeauty(type: ARGContentItemBeauty(rawValue: sender.tag)!, value: sender.value)
     }
+    
+    func resetBeauty(_ sender: UIButton){
+        BeautyManager.shared.setDefault()
+        
+        if let selectedIndexPath = beautyCollectionView.selectedIndexPath {
+            let beautyValue = BeautyManager.shared.getBeautyValue(type: ARGContentItemBeauty(rawValue: selectedIndexPath.row) ?? .vline)
+            
+            slider.setValue(beautyValue, animated: false)
+        }
+    }
+    func sliderValue(_ slider: UISlider){
+        BeautyManager.shared.setBeauty(type: ARGContentItemBeauty(rawValue: slider.tag)!, value: slider.value)
+        
+        BulgeManager.shared.off()
+        ContentManager.shared.clearContent()
+    }
+    
+    
+//    func openBeauty(_ slider: UISlider) {
+////        super.open()
+//
+//        var beautyIndex = 0
+//        var selectedBeauty = Vm.beautyIndexPath
+//        if selectedBeauty != nil {
+//            beautyIndex = selectedBeauty.row
+//        }
+//        slider.value = BeautyManager.shared.getBeautyValue(type: ARGContentItemBeauty(rawValue: beautyIndex)!)
+//        
+//        Vm.sliderValue = Double(BeautyManager.shared.getBeautyValue(type: ARGContentItemBeauty(rawValue: beautyIndex)!))
+//        
+//        BulgeManager.shared.off()
+//        ContentManager.shared.clearContent()
+//    }
+    
     
     func addObservers() {
         self.observers.append(
