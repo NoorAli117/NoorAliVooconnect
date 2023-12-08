@@ -83,7 +83,7 @@ struct MusicView: View {
                                                 .fontWeight(Font.Weight.semibold)
                                                 .lineLimit(2)
                                             Spacer(minLength: 10.0)
-                                            Text("28,7M Videos")
+                                            Text("28.7M Videos")
                                                 .font(.custom("Urbanist-Regular", size: 14))
                                                 .fontWeight(Font.Weight.medium)
                                                 .foregroundColor(.gray)

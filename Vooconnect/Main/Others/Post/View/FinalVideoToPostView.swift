@@ -44,6 +44,7 @@ struct FinalVideoToPostView: View {
     private let uploadReels: UploadReelsResource = UploadReelsResource()
     //    @State var selectedImage: UIImage = UIImage(named: "profileicon")!
     @StateObject var reelsPostVM = ReelsPostViewModel()
+    @StateObject private var reelsVM = ReelsViewModel()
     
     //    var url: URL
     @Binding var postModel : PostModel
@@ -955,7 +956,10 @@ struct FinalVideoToPostView: View {
     }
     
     func goBackToHome() {
-        self.shouldPopToRootView = false
+        reelsVM.getAllReels()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.shouldPopToRootView = false
+        }
     }
     
     func shareSocially(){

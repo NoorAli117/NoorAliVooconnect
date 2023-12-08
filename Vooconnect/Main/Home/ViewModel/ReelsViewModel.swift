@@ -39,6 +39,7 @@ class ReelsViewModel: ObservableObject {
             if let data = httpData {
                 
                 do {
+                    self.allReels = []
                     
                     let jsonData = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
                     print("Reels json Data", jsonData)
@@ -103,64 +104,71 @@ class ReelsViewModel: ObservableObject {
         }.resume()
 
     }
-    func loadNext10Reels() {
+    func loadNext3Reels() {
         guard let accessToken = UserDefaults.standard.string(forKey: "accessToken") else {
             print("Access Token not available.")
             return
         }
-        
+
         let offset = allReels.count // Calculate the offset based on the current count
-        
-        let url = URL(string: "\(getBaseURL + EndPoints.reels)?offset=\(offset)")!
+
+        let url = URL(string: "\(getBaseURL + EndPoints.reels)?offset=\(offset)&take=3")!
+
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
         urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
-        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
-        
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let data = data {
-                do {
-                    let decodedData = try JSONDecoder().decode(ReelsModel.self, from: data)
-                    let newReels = decodedData.data?.posts ?? []
-                    
-                    DispatchQueue.main.async {
-                        self.allReels.append(contentsOf: newReels) // Append the new items
-                        print("loadNext10Reels: \(newReels)")
+            if let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) {
+                if let data = data {
+                    do {
+                        let decodedData = try JSONDecoder().decode(ReelsModel.self, from: data)
+                        let newReels = decodedData.data?.posts ?? []
+
+                        DispatchQueue.main.async {
+                            self.allReels.append(contentsOf: newReels) // Append the new items
+                            print("loadNext3Reels: \(newReels)")
+                        }
+                    } catch {
+                        print("Error decoding Reels JSON: \(error.localizedDescription)")
                     }
-                } catch {
-                    print("Error decoding Reels JSON: \(error.localizedDescription)")
                 }
             } else if let error = error {
                 print("Error fetching data: \(error.localizedDescription)")
             }
         }.resume()
     }
-    func loadNext10FollowingReels() {
+
+    func loadNext3FollowingReels() {
         guard let accessToken = UserDefaults.standard.string(forKey: "accessToken") else {
             print("Access Token not available.")
             return
         }
-        
-        let offset = followingReels.count // Calculate the offset based on the current count
-        
-        let url = URL(string: "\(getBaseURL + EndPoints.followingReels)?offset=\(offset)")!
+
+        let offset = allReels.count // Calculate the offset based on the current count
+
+        let url = URL(string: "\(getBaseURL + EndPoints.followingReels)?offset=\(offset)&take=3")!
+
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
         urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
-        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
-        
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let data = data {
-                do {
-                    let decodedData = try JSONDecoder().decode(ReelsModel.self, from: data)
-                    let newReels = decodedData.data?.posts ?? []
-                    
-                    DispatchQueue.main.async {
-                        self.followingReels.append(contentsOf: newReels) // Append the new items
-                        print("loadNext10FollowingReels: \(newReels)")
+            if let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) {
+                if let data = data {
+                    do {
+                        let decodedData = try JSONDecoder().decode(ReelsModel.self, from: data)
+                        let newReels = decodedData.data?.posts ?? []
+
+                        DispatchQueue.main.async {
+                            self.followingReels.append(contentsOf: newReels) // Append the new items
+                            print("loadNext3FollowingReels: \(newReels)")
+                        }
+                    } catch {
+                        print("Error decoding Reels JSON: \(error.localizedDescription)")
                     }
-                } catch {
-                    print("Error decoding Reels JSON: \(error.localizedDescription)")
                 }
             } else if let error = error {
                 print("Error fetching data: \(error.localizedDescription)")

@@ -545,8 +545,7 @@ struct HomePageView: View {
                         TabView(selection: self.$currentTab) {
                             
                             ReelsView(currentReel: reelsVM.allReels.first?.postID ?? 0, topBar: $topBar,
-                                      cameraView: $cameraView, live: $live, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport:
-                                        $bottomSheetReport, myProfileView: $myProfileView,  creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, follow: $follow, liveViewer: $liveViewer, commentSheet: $commentSheet, commentReplySheet:
+                                      cameraView: $cameraView, live: $live, bottomSheetBlock: $bottomSheetBlock, bottomSheetReport: $bottomSheetReport, myProfileView: $myProfileView,  creatorProfileView: $creatorProfileView, postedByUUID: $postedByUUID, follow: $follow, liveViewer: $liveViewer, commentSheet: $commentSheet, commentReplySheet:
                                         $commentReplySheet, postedBy: $postedBy, selectedReelId: $reelId).tag(0)
                             NotificationsView().tag(1)
                         }
@@ -576,19 +575,6 @@ struct HomePageView: View {
                             .padding(.top, 5)
                             .padding(.leading, 5)
                         )
-                    
-                        
-                        //                        .alert(isPresented: $bottomSheetBlock) {
-                        //                            Alert(
-                        //                                title: Text("Are you sure want to block this user?"),
-                        //                                message: Text(""),
-                        //                                primaryButton: .destructive(Text("Yes")) {
-                        //                                    likeVM.blockPostApi()
-                        //                                },
-                        //                                secondaryButton: .cancel()
-                        //                            )
-                        //                        }
-                        
                     }
                     
                     TabBarViewTwo(currentTab: self.$currentTab)

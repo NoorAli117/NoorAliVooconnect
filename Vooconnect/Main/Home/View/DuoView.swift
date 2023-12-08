@@ -775,10 +775,8 @@ struct DuoView: View{
     func mergeVideo(){
         let video1URL = URL(string: videoUrl)
         let video2URL = URL(string: newVideoUrl)!
-        let audioUrl = URL(string: musicURL)
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let outputURL = documentsDirectory.appendingPathComponent("\(Date())_mergevideo.mp4")
-        let size = UIScreen.main.bounds.size
         
         duoResource.combineVideosWithAudio(video1URL: video1URL!, video2URL: video2URL, outputURL: outputURL) { error in
             if let error = error {

@@ -107,10 +107,10 @@ struct ReelsView: View {
                             }
                             videoIndex = index
                         }
-                        likeVM.UserFollowingUsers()
                         if index >= (reelsVM.allReels.count - 1) {
-                            reelsVM.loadNext10Reels()
+                            reelsVM.loadNext3Reels()
                         }
+                        likeVM.UserFollowingUsers()
                     }
 
                 
@@ -178,8 +178,7 @@ struct ReelsView: View {
                             videoIndex = index
                         }
                         if index >= (reelsVM.allReels.count - 1) {
-                            print("allReels count\(reelsVM.allReels.count)")
-                            reelsVM.loadNext10FollowingReels()
+                            reelsVM.loadNext3FollowingReels()
                         }
                         likeVM.UserFollowingUsers()
                     }
@@ -385,10 +384,12 @@ struct ReelsPlyer: View {
         
         ZStack {
             
-            NavigationLink(destination: DuoView(videoUrl: duoVideo, audioUrl: reelsDetail.musicURL!, popToFinalView: $isDuo), isActive: $isDuo) {
-                    EmptyView()
-                }
-                .isDetailLink(false)
+            if let  music = reelsDetail.musicURL{
+                NavigationLink(destination: DuoView(videoUrl: duoVideo, audioUrl: music, popToFinalView: $isDuo), isActive: $isDuo) {
+                        EmptyView()
+                    }
+                    .isDetailLink(false)
+            }
             
             NavigationLink(destination: MusicView(reelId: $selectedReelId, userUUid: postedBy, cameraView: $cameraView, musicURL: $musicURL)
                 .navigationBarBackButtonHidden(true).navigationBarHidden(true), isActive: $musicView) {

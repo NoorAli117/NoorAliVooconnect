@@ -9,8 +9,8 @@ import Foundation
 import Foundation
 struct DeezerAlbumModel: Identifiable, Codable{
     var id = UUID().uuidString
-    let cover : String
-    let coverSmall : String
+    let cover : String?
+    let coverSmall : String?
     enum CodingKeys: String, CodingKey
     {
         case cover

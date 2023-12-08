@@ -25,7 +25,7 @@ struct SoundListView: View {
 //            Image("MaskSound")
             BlocBuilderView(bloc: soundsViewBloc) { state in
                 ZStack{
-                    AsyncImage(url: URL(string: songModel.album.cover))
+                    AsyncImage(url: URL(string: songModel.album.cover!))
         //                .resizable()
         //                .scaledToFill()
                         .frame(width: 80, height: 80)
